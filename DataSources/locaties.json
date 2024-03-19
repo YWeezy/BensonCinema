@@ -1,0 +1,12 @@
+[
+	{
+		"locatieID": 1,
+		"locatieNaam": "BigBenson",
+		"Type": "Large"
+	},
+	{
+		"locatieID": 2,
+		"locatieNaam": "Small-Kylo",
+		"Type": "Medium"
+	}
+]
