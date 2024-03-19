@@ -2,7 +2,11 @@ static class Utils
 {
     public static void PrettyWrite(object obj, string fileName)
     {
-        var jsonString = JsonConvert.SerializeObject(obj, Formatting.Indented, _options);
+        var options = new JsonSerializerOptions(_options)
+        {
+            WriteIndented = true
+        };
+        var jsonString = JsonSerializer.Serialize(obj, options);
         File.WriteAllText(fileName, jsonString);
     }
 }
