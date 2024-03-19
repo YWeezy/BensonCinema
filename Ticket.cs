@@ -1,3 +1,9 @@
+using System.Data;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
+
+
+
 public class Ticket
 {
     public User name { set; get; }
@@ -11,5 +17,13 @@ public class Ticket
         this.price = price;
         this.seat = seat;
         ticketID++;
+    }
+
+    public static void Reserve(Ticket ticket)
+    {
+        string JSONfile = "Reservations.json";
+        string Updatejson = JsonSerializer.Serialize(ticket);
+        File.WriteAllText(JSONfile, Updatejson);
+
     }
 }
