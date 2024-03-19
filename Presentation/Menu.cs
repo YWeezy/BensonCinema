@@ -7,7 +7,7 @@ static class Menu
     static public void Start()
     {
         Console.WriteLine("Enter 1 to login");
-        Console.WriteLine("Enter 2 to do something else in the future");
+        Console.WriteLine("Enter 2 ");
 
         string input = Console.ReadLine();
         if (input == "1")

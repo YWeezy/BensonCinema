@@ -4,12 +4,14 @@ public class Ticket
     public static int ticketID { set; get; }
     public double price { set; get; }
     public int seat { set; get; }
+    public int location { set; get; }
 
-    public Ticket(User user, double price, int seat)
+    public Ticket(User user, double price, int seat, int location)
     {
         this.name = user;
         this.price = price;
         this.seat = seat;
+        this.location = location;
         ticketID++;
     }
 }
