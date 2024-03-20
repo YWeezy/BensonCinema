@@ -41,7 +41,7 @@ static class Menu
                 UserLogin.Start();
                 break;
             case "2":
-                Console.WriteLine("Choice 2");
+                UserRegister.Start();
                 break;
 
             case "3":

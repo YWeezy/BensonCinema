@@ -12,4 +12,11 @@
 		"password": "Eddy",
 		"fullName": "Thomas Edison"
 	}
+[
+  {
+    "id": 7,
+    "emailAddress": "haha@gmail.com",
+    "password": "Achraf",
+    "fullName": "Ach"
+  }
 ]
