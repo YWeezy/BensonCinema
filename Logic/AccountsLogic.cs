@@ -23,11 +23,19 @@ class AccountsLogic
     public void UpdateList(AccountModel acc)
     {
         //Find if there is already an model with the same id
-        int index = _accounts.FindIndex(s => s.Id == acc.Id);
+        //rewrite this checks to use email instead of id
+
+        int index = _accounts.FindIndex(s => s.EmailAddress == acc.EmailAddress);
 
         if (index != -1)
         {
-            //update existing model
+            Console.WriteLine("An account with that email address already exists. Please try again.");
+            // Menu.Start();
+        }
+
+
+        if (index != -1)
+        {
             _accounts[index] = acc;
         }
         else

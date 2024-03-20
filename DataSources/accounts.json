@@ -1,8 +1,30 @@
 [
   {
-    "id": 7,
-    "emailAddress": "haha@gmail.com",
-    "password": "Achraf",
-    "fullName": "Ach"
+    "id": 1,
+    "emailAddress": "a@a.com",
+    "fullName": "asasa",
+    "password": "wswsw",
+    "isAdmin": false
+  },
+  {
+    "id": 3,
+    "emailAddress": "b@b.com",
+    "fullName": "Achie",
+    "password": "dwndidwind",
+    "isAdmin": false
+  },
+  {
+    "id": 1,
+    "emailAddress": "ach.aarab@gmail.com",
+    "fullName": "ashha",
+    "password": "swsws",
+    "isAdmin": true
+  },
+  {
+    "id": 1,
+    "emailAddress": "achraf.aijiwd",
+    "fullName": "ede",
+    "password": "dede",
+    "isAdmin": false
   }
 ]

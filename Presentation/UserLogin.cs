@@ -7,7 +7,7 @@ static class UserLogin
     {
         Console.WriteLine("Welcome to the login page");
         Console.WriteLine("Please enter your email address");
-        string email = Console.ReadLine();
+        string email = Console.ReadLine().Trim().ToLower();
         Console.WriteLine("Please enter your password");
         string password = Console.ReadLine();
         AccountModel acc = accountsLogic.CheckLogin(email, password);
@@ -17,7 +17,8 @@ static class UserLogin
             Console.WriteLine("Your email number is " + acc.EmailAddress);
 
             //Write some code to go back to the menu
-            //Menu.Start();
+            Utils.userIsLoggedIn = true;
+            Menu.Start();
         }
         else
         {
