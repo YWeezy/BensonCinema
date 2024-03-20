@@ -17,7 +17,10 @@ class AccountModel
     public bool IsAdmin { get; set; }
 
 
-    private static int nextId = 1;
+
+
+
+    private static int nextId;
 
     public AccountModel(string emailAddress, string fullName, string password, bool isAdmin = false)
     {
