@@ -2,21 +2,19 @@ static class UserRegister
 {
     static private AccountsLogic accountsLogic = new AccountsLogic();
 
-
     public static void Start()
     {
-        // ask user for his, email, name, password and if he is an employee or not
         Console.WriteLine("Welcome to the register page");
 
         Console.WriteLine("Are you an employee? (yes/no)");
-        string isAdmin = Console.ReadLine().Trim().ToLower();
-        if (isAdmin == "yes")
+        string isAdmin = Console.ReadLine().Trim();
+
+        if (isAdmin.Equals("yes", StringComparison.OrdinalIgnoreCase))
         {
-            // ask the employee for a master password so he can register as an employee
             Console.WriteLine("Please enter the master password");
             string masterPassword = Console.ReadLine();
 
-            if (masterPassword == "admin")
+            if (masterPassword.Equals("admin", StringComparison.OrdinalIgnoreCase))
             {
                 AskUserInfo(true);
             }
@@ -24,26 +22,31 @@ static class UserRegister
             {
                 Console.WriteLine("You are not an employee!");
             }
-
         }
         else
         {
             AskUserInfo(false);
         }
+    }
 
+    private static void AskUserInfo(bool isAdmin)
+    {
+        Console.WriteLine("Please enter your email address");
+        string email = Console.ReadLine().Trim();
+        Console.WriteLine("Please enter your name");
+        string name = Console.ReadLine().Trim();
+        Console.WriteLine("Please enter your password");
+        string password = Console.ReadLine();
 
-        void AskUserInfo(bool isAdmin)
+        try
         {
-            Console.WriteLine("Please enter your email address");
-            string email = Console.ReadLine().Trim().ToLower();
-            Console.WriteLine("Please enter your name");
-            string name = Console.ReadLine().Trim().ToLower();
-            Console.WriteLine("Please enter your password");
-            string password = Console.ReadLine();
-
-            AccountModel user = new(email, name, password, isAdmin);
+            AccountModel user = new AccountModel(email, name, password, isAdmin);
             accountsLogic.UpdateList(user);
+            Console.WriteLine("Account created successfully!");
         }
-        // Menu.Start();
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error occurred: {ex.Message}");
+        }
     }
 }

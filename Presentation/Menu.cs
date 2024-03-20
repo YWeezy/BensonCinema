@@ -1,35 +1,39 @@
 using System;
+
 static class Menu
 {
-    //checks if user is logged in
-    public static bool userIsLoggedIn = false;
 
-    //This shows the menu. You can call back to this method to show the menu again
-    //after another presentation method is completed.
-    //You could edit this to show different menus depending on the user's role
-    static public void Start()
+
+    enum MenuOption
     {
-        // The choices for the user can be admin or bezoeker.
-        string[] choices = new[]{
-                    "1. [Login]",
-                    "2. [Register]",
-                    "3. [Employee]",
-                };
+        Login = 1,
+        Register,
+        Employee,
+        Exit
+    }
 
-        Console.Clear();
-        Console.CursorVisible = false;
+    public static void Start()
+    {
+        if (Utils.userIsLoggedIn)
+        {
+            if (Utils.userIsEmployee)
+                ShowEmployeeMenu();
+            else
+                ShowUserMenu();
+        }
+        else
+        {
+            ShowDefaultMenu();
+        }
+    }
 
+    static void ShowDefaultMenu()
+    {
+        MenuOption option = MenuOption.Login;
 
-
-        var option = 0;
-        var decorator = "✅ \u001b[32m";
-        ConsoleKeyInfo key;
-        bool isSelected = false;
-
-        while (!isSelected)
+        while (true)
         {
             Console.Clear();
-
             Console.WriteLine("╔══════════════════════════╗");
             Console.WriteLine("║           Doll           ║");
             Console.WriteLine("║          House!          ║");
@@ -38,56 +42,72 @@ static class Menu
             Console.WriteLine("║      to continue:        ║");
             Console.WriteLine("║                          ║");
 
-            for (int i = 0; i < choices.Length; i++)
+            foreach (MenuOption menuOption in Enum.GetValues(typeof(MenuOption)))
             {
-                Console.WriteLine($"{(i == option ? decorator : "   ")}{choices[i]}\u001b[0m");
+                Console.WriteLine($"{(menuOption == option ? "✅ \u001b[32m" : "   ")}{(int)menuOption}. [{menuOption}]");
             }
 
             Console.WriteLine("║                          ║");
             Console.WriteLine("╚══════════════════════════╝");
 
-            key = Console.ReadKey(true);
+            var key = Console.ReadKey(true).Key;
 
-            switch (key.Key)
+            switch (key)
             {
                 case ConsoleKey.UpArrow:
-                    option = option == 0 ? choices.Length - 1 : option - 1;
+                    option = option == MenuOption.Login ? MenuOption.Exit : option - 1;
                     break;
 
                 case ConsoleKey.DownArrow:
-                    option = option == choices.Length - 1 ? 0 : option + 1;
+                    option = option == MenuOption.Exit ? MenuOption.Login : option + 1;
                     break;
 
                 case ConsoleKey.Enter:
-                    isSelected = true;
+                    PerformAction(option);
+                    return;
+
+                default:
                     break;
             }
         }
+    }
 
-        Console.WriteLine($"Selected: {choices[option]}");
-        // Perform action based on selected option
+    static void ShowUserMenu()
+    {
+        // Implement user menu view
+        // This could be different from the default menu
+        Console.WriteLine("User menu view");
+    }
+
+    static void ShowEmployeeMenu()
+    {
+        // Implement employee menu view
+        // This could be different from the default menu
+        Console.WriteLine("Employee menu view");
+    }
+
+    static void PerformAction(MenuOption option)
+    {
         switch (option)
         {
-            case 0:
+            case MenuOption.Login:
                 UserLogin.Start();
                 break;
 
-            case 1:
+            case MenuOption.Register:
                 UserRegister.Start();
                 break;
 
-            case 2:
+            case MenuOption.Employee:
                 // Perform action for option 3
+                break;
+
+            case MenuOption.Exit:
+                Environment.Exit(0);
                 break;
 
             default:
                 break;
         }
-
-
-
-
-
-
     }
 }
