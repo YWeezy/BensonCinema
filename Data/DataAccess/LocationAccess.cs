@@ -1,18 +1,16 @@
 using System.Text.Json;
-static class LocationJsonModel
+static class LocationAccess
 {
-    static private readonly string path = "locations.json";
-    public static List<Location> Locationget(){
-        List<Location> locs = new List <Location>();
+    static private readonly string path = "./Data/DataSources/locations.json";
+    public static List<LocationModel> Locationget(){
+        List<LocationModel> locs = new List <LocationModel>();
         try
         {
             // Read the JSON file
             string content = File.ReadAllText(path);
             var options = new JsonSerializerOptions { IncludeFields = true };
-            // Deserialize the JSON array into a list of Person objects
-            locs = JsonSerializer.Deserialize<List<Location>>(content, options);
-            // Print out the information of each person
-            Console.WriteLine(locs);
+            // Deserialize the JSON array into a list of Location objects
+            locs = JsonSerializer.Deserialize<List<LocationModel>>(content, options);
         }
         catch (FileNotFoundException)
         {
@@ -27,5 +25,11 @@ static class LocationJsonModel
             Console.WriteLine($"An error occurred: {e.Message}");
         }
         return locs;
+    }
+    public static void WriteAll(List<LocationModel> locations)
+    {
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        string json = JsonSerializer.Serialize(locations, options);
+        File.WriteAllText(path, json);
     }
 }
