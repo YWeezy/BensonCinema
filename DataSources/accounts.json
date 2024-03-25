@@ -1,18 +1,4 @@
 ﻿[
-	{
-		"id": 1,
-		"emailAddress": "Nicktes@gmail.com",
-		"password": "Nikola",
-		"fullName": "Nikola Tesla"
-	}
-	,
-	{
-		"id": 2,
-		"emailAddress": "toelover420@gmail.com",
-		"password": "Eddy",
-		"fullName": "Thomas Edison"
-	}
-[
   {
     "id": 1,
     "emailAddress": "a@a.com",
