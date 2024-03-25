@@ -1,6 +1,5 @@
 ﻿using System.Text.Json.Serialization;
 
-
 class AccountModel
 {
     [JsonPropertyName("id")]
@@ -9,22 +8,29 @@ class AccountModel
     [JsonPropertyName("emailAddress")]
     public string EmailAddress { get; set; }
 
+    [JsonPropertyName("fullName")]
+    public string FullName { get; set; }
     [JsonPropertyName("password")]
     public string Password { get; set; }
 
-    [JsonPropertyName("fullName")]
-    public string FullName { get; set; }
+    [JsonPropertyName("isAdmin")]
+    public bool IsAdmin { get; set; }
 
-    public AccountModel(int id, string emailAddress, string password, string fullName)
+
+
+
+
+    private static int nextId;
+
+    public AccountModel(string emailAddress, string fullName, string password, bool isAdmin = false)
     {
-        Id = id;
+        Id = nextId++;
         EmailAddress = emailAddress;
         Password = password;
         FullName = fullName;
+        IsAdmin = isAdmin;
     }
-
 }
-
 
 
 
