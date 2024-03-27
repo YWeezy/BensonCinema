@@ -1,0 +1,22 @@
+[
+  {
+    "locationID": 1,
+    "locationName": "BigBenson",
+    "type": "Large"
+  },
+  {
+    "locationID": 2,
+    "locationName": "Small-Kylo",
+    "type": "Medium"
+  },
+  {
+    "locationID": 5,
+    "locationName": "FitBenny",
+    "type": "Medium"
+  },
+  {
+    "locationID": 6,
+    "locationName": "BigWeez",
+    "type": "Small"
+  }
+]
