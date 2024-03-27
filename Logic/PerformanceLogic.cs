@@ -25,4 +25,38 @@ class PerformanceLogic {
 
     }
 
+    public int GetNewId() {
+        int currentId = _performances.Last().id;
+        return currentId + 1;
+    }
+
+    public string GetList() {
+
+        string listOfPerf = "List of performances:\n";
+        listOfPerf += "------------------------\n";
+
+        foreach (PerformanceModel performance in _performances)
+        {
+            listOfPerf += $"ID: {performance.id}\n";
+            listOfPerf += $"Name: {performance.name}\n";
+            listOfPerf += $"Start: {performance.startDate}\n";
+            listOfPerf += $"End: {performance.endDate}\n";
+            listOfPerf += $"Location: {performance.locationId}\n";
+            listOfPerf += "------------------------\n";
+        }
+
+        return listOfPerf;
+    }
+
+    public bool DeletePerformance(int id) {
+        PerformanceModel perfToRemove = _performances.Find(p => p.id == id);
+        if (perfToRemove != null)
+        {
+            _performances.Remove(perfToRemove);
+            PerformanceAccess.WriteAll(_performances);
+            return true;
+        }
+        return false;
+    }
+
 }
