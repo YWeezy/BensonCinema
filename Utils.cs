@@ -12,8 +12,12 @@ static class Utils
         {
             WriteIndented = true
         };
-
-    
-
-    
+    }
+    public static void PrettyRead(object obj, string filename)
+    {
+        JsonSerializerOptions options = new JsonSerializerOptions 
+        {
+            WriteIndented = true
+        };
+    }
 }
