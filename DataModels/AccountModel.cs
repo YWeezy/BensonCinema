@@ -3,7 +3,7 @@
 class AccountModel
 {
     [JsonPropertyName("id")]
-    public int Id { get; set; }
+    public string Id { get; set; }
 
     [JsonPropertyName("emailAddress")]
     public string EmailAddress { get; set; }
@@ -17,14 +17,10 @@ class AccountModel
     public bool IsAdmin { get; set; }
 
 
-
-
-
-    private static int nextId;
-
     public AccountModel(string emailAddress, string fullName, string password, bool isAdmin = false)
     {
-        Id = nextId++;
+        Guid myuuid = Guid.NewGuid();
+        Id = myuuid.ToString();
         EmailAddress = emailAddress;
         Password = password;
         FullName = fullName;

@@ -8,7 +8,7 @@ static class UserLogin
         Console.WriteLine("Please enter your email address");
         string email = Console.ReadLine().Trim();
         Console.WriteLine("Please enter your password");
-        string password = Console.ReadLine();
+        string password = Utils.Encrypt(Console.ReadLine().Trim().ToLower(), Utils.passPhrase);
 
         if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
         {
@@ -16,9 +16,6 @@ static class UserLogin
             if (acc != null)
             {
                 Console.WriteLine("Welcome back " + acc.FullName);
-                Console.WriteLine("Your email number is " + acc.EmailAddress);
-
-                //Write some code to go back to the menu
                 Utils.userIsLoggedIn = true;
                 Menu.Start();
             }

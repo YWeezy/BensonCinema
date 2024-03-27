@@ -7,12 +7,12 @@ static class LocationFront
     static public void InsertForm()
     {
         Console.WriteLine("Press Q to Quit");
-        Console.WriteLine("LocationName: ");
+        Console.WriteLine("Location Name: ");
         bool valid = false;
         string inputname = "";
         while (valid == false)
         {
-            inputname = Console.ReadLine();
+            inputname = Console.ReadLine().ToLower();
             if (inputname == "Q")
             {
                 return;
@@ -33,12 +33,12 @@ static class LocationFront
         string inputtype = "";
         while (valid == false)
         {
-            inputtype = Console.ReadLine();
+            inputtype = Console.ReadLine().ToLower();
             if (inputtype == "Q")
             {
                 return;
             }
-            else if (inputtype == "Small" || inputtype == "Medium" || inputtype == "Large")
+            else if (inputtype == "small" || inputtype == "medium" || inputtype == "large")
             {
                 valid = true;
                 Console.WriteLine("Location Added");

@@ -30,7 +30,8 @@ class AccountsLogic
         if (index != -1)
         {
             Console.WriteLine("An account with that email address already exists. Please try again.");
-            // Menu.Start();
+            UserRegister.Start();
+            return;
         }
 
 
@@ -42,12 +43,16 @@ class AccountsLogic
         {
             //add new model
             _accounts.Add(acc);
+            Console.WriteLine("Account created successfully!");
+            Utils.userIsLoggedIn = true;
+
+
         }
         AccountsAccess.WriteAll(_accounts);
 
     }
 
-    public AccountModel GetById(int id)
+    public AccountModel GetById(string id)
     {
         return _accounts.Find(i => i.Id == id);
     }

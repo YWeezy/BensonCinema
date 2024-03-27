@@ -1,3 +1,5 @@
+using System;
+
 static class UserRegister
 {
     static private AccountsLogic accountsLogic = new AccountsLogic();
@@ -31,22 +33,56 @@ static class UserRegister
 
     private static void AskUserInfo(bool isAdmin)
     {
-        Console.WriteLine("Please enter your email address");
-        string email = Console.ReadLine().Trim();
-        Console.WriteLine("Please enter your name");
-        string name = Console.ReadLine().Trim();
-        Console.WriteLine("Please enter your password");
-        string password = Console.ReadLine();
+        string email;
+        string name;
+        string password;
 
-        try
+        while (true)
         {
-            AccountModel user = new AccountModel(email, name, password, isAdmin);
-            accountsLogic.UpdateList(user);
-            Console.WriteLine("Account created successfully!");
+            Console.WriteLine("Please enter your email address");
+            email = Console.ReadLine().Trim().ToLower();
+            if (!IsValidEmail(email))
+            {
+                Console.WriteLine("Invalid email format. Please try again.");
+                continue;
+            }
+
+            Console.WriteLine("Please enter your name");
+            name = Console.ReadLine().Trim();
+            if (!IsValidName(name))
+            {
+                Console.WriteLine("Invalid name format. Please try again.");
+                continue;
+            }
+
+            Console.WriteLine("Please enter your password");
+            password = Utils.Encrypt(Console.ReadLine().Trim().ToLower(), Utils.passPhrase);
+
+            try
+            {
+                AccountModel user = new AccountModel(email, name, password, isAdmin);
+                accountsLogic.UpdateList(user);
+                break; // Exit the loop if everything is successful
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error occurred: {ex.Message}");
+                break; // Exit the loop if an error occurs
+            }
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error occurred: {ex.Message}");
-        }
+        Menu.Start();
+    }
+
+    private static bool IsValidEmail(string email)
+    {
+
+        return email.Contains("@") && email.Contains(".");
+    }
+
+    private static bool IsValidName(string name)
+    {
+
+        return !string.IsNullOrWhiteSpace(name);
     }
 }
