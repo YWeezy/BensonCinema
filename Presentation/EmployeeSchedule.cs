@@ -5,7 +5,7 @@ static class EmployeeSchedule
   
     public static void Schedule()
     {  
-        string path = "/DataSources/schedule.json";
+        string path = "DataSources/schedule.json";
         Console.WriteLine("Welcome to the employee schedule page");
 
         try 
