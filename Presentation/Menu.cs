@@ -99,7 +99,7 @@ static class Menu
                 break;
 
             case MenuOption.Employee:
-                // Perform action for option 3
+                EmployeeSchedule.Schedule();
                 break;
 
             case MenuOption.Exit:
