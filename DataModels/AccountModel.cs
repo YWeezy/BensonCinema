@@ -1,54 +1,28 @@
-﻿using System.Text.Json.Serialization;
+using System;
+using System.Text.Json.Serialization;
 using System.Text.Json;
 
-class AccountModel 
+class AccountModel
 {
-    [JsonPropertyName("id")]
-    public int Id { get; set; }
-
-    [JsonPropertyName("emailAddress")]
+    public string Id { get; set; }
     public string EmailAddress { get; set; }
-
-    [JsonPropertyName("password")]
-    public string Password { get; set; }
-
-    [JsonPropertyName("fullName")]
     public string FullName { get; set; }
+    public string Password { get; set; }
+    public UserRole Role { get; set; }
 
-    public static int TicketID { set; get; }
-
-    public AccountModel(int id, string emailAddress, string password, string fullName, int ticketID)
+    public AccountModel(string emailAddress, string fullName, string password, UserRole role = UserRole.User)
     {
-        Id = id;
+        Id = Guid.NewGuid().ToString();
         EmailAddress = emailAddress;
         Password = password;
         FullName = fullName;
-        TicketID =  ticketID;
-    }
-    public void PrintTicketDetails(int ticketID)
-    {
-        string JSONfile = "Reservations.json";
-        string jsonData = File.ReadAllText(JSONfile);
-        Ticket ticket = JsonSerializer.Deserialize<Ticket>(jsonData);
-        
-        if (ticket.ticketID == ticketID)
-        {
-            Console.WriteLine($"Ticket ID: {ticket.ticketID}");
-            Console.WriteLine($"User: {ticket.name}");
-            Console.WriteLine($"Price: {ticket.price}");
-            Console.WriteLine($"Seat: {ticket.seat}");
-        }
-        else
-        {
-            Console.WriteLine("Ticket not found.");
-        }
+        Role = role;
     }
 }
 
-    
-
-
-
-
-
-
+enum UserRole
+{
+    User,
+    Employee,
+    ContentManager
+}

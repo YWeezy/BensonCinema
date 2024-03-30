@@ -1,62 +1,122 @@
+using System;
+
 static class Menu
 {
-    //checks if user is logged in
-    public static bool userIsLoggedIn = false;
-
-    //This shows the menu. You can call back to this method to show the menu again
-    //after another presentation method is completed.
-    //You could edit this to show different menus depending on the user's role
-    static public void Start()
+    public static void Start()
     {
-        // The choices for the user can be admin or bezoeker.
-        string[] choices = {
-                    "1. [Login]",
-                    "2. [Register]",
-                    "3. [Employee]",
-                };
-
-        Console.WriteLine("╔══════════════════════════╗");
-        Console.WriteLine("║           Doll           ║");
-        Console.WriteLine("║          House!          ║");
-        Console.WriteLine("╠══════════════════════════╣");
-        Console.WriteLine("║   Please select an option║");
-        Console.WriteLine("║      to continue:        ║");
-        Console.WriteLine("║                          ║");
-
-        foreach (string choice in choices)
+        if (Utils.LoggedInUser != null)
         {
-            Console.WriteLine($"║   {choice,-21}  ║");
+            if (Utils.LoggedInUser.Role == UserRole.Employee)
+                ShowEmployeeMenu();
+            else if (Utils.LoggedInUser.Role == UserRole.ContentManager)
+                ShowContentManagerMenu();
+            else
+                ShowUserMenu();
         }
-
-        Console.WriteLine("║                          ║");
-        Console.WriteLine("╚══════════════════════════╝");
-
-        Console.Write("\nEnter the number corresponding to your choice: ");
-        string input = Console.ReadLine();
-
-
-        switch (input)
+        else
         {
-            case "1":
+            ShowDefaultMenu();
+        }
+    }
+
+    private static void ShowDefaultMenu()
+    {
+        MenuOption selectedOption = MenuOption.Login;
+
+        do
+        {
+            Console.Clear();
+            DisplayMenu(selectedOption);
+
+            var key = Console.ReadKey(true).Key;
+
+            switch (key)
+            {
+                case ConsoleKey.UpArrow:
+                    selectedOption = selectedOption == MenuOption.Login ? MenuOption.Exit : (MenuOption)((int)selectedOption - 1);
+                    break;
+                case ConsoleKey.DownArrow:
+                    selectedOption = selectedOption == MenuOption.Exit ? MenuOption.Login : (MenuOption)((int)selectedOption + 1);
+                    break;
+                case ConsoleKey.Enter:
+                    PerformAction(selectedOption);
+                    break;
+                default:
+                    break;
+            }
+
+            // Break the loop if user selects an action
+            if (key == ConsoleKey.Enter)
+                break;
+
+        } while (true);
+    }
+
+
+    private static void DisplayMenu(MenuOption selectedOption)
+    {
+        Console.WriteLine("Welcome to the application!");
+
+        foreach (MenuOption option in Enum.GetValues(typeof(MenuOption)))
+        {
+            Console.Write(option == selectedOption ? ">> " : "   ");
+            Console.WriteLine($"{(int)option}. {option}");
+        }
+    }
+
+    private static void PerformAction(MenuOption option)
+    {
+        switch (option)
+        {
+            case MenuOption.Login:
                 UserLogin.Start();
                 break;
-            case "2":
-                Console.WriteLine("Choice 2");
+            case MenuOption.Register:
+                UserRegister.Start();
                 break;
-
-            case "3":
-                Console.WriteLine("Choice 2");
+            case MenuOption.Exit:
+                Environment.Exit(0);
                 break;
-
             default:
-                Console.WriteLine($"Error: {input} is not valid. Please try again.");
-                Start();
                 break;
-
-
         }
+    }
 
+    private static void ShowUserMenu()
+    {
+        // Display user menu
+        Console.WriteLine("User Menu:");
+        Console.WriteLine("1. View Profile");
+        Console.WriteLine("2. Edit Profile");
+        Console.WriteLine("3. Logout");
+        Console.Write("Please select an option: ");
+    }
 
+    private static void ShowEmployeeMenu()
+    {
+        // Display employee menu
+        Console.WriteLine("Employee Menu:");
+        Console.WriteLine("1. View Tasks");
+        Console.WriteLine("2. Assign Task");
+        Console.WriteLine("3. View Employees");
+        Console.WriteLine("4. Logout");
+        Console.Write("Please select an option: ");
+    }
 
+    private static void ShowContentManagerMenu()
+    {
+        // Display content manager menu
+        Console.WriteLine("Content Manager Menu:");
+        Console.WriteLine("1. Manage Content");
+        Console.WriteLine("2. View Analytics");
+        Console.WriteLine("3. Logout");
+        Console.Write("Please select an option: ");
+    }
+
+    enum MenuOption
+    {
+        Login = 1,
+        Register,
+        Exit
     }
 }

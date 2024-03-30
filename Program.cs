@@ -1,21 +1,5 @@
-﻿using System;
+// See https://aka.ms/new-console-template for more information
 
-class Program
-{
-    static void Main(string[] args)
-    {
-        // Create a test ticket
-       
-        Ticket testTicket = new Ticket("jhonn",50.0,101);
-        Ticket.Reserve(testTicket); // Reserve the test ticket
+Menu.Start();
 
-        // Create a test account
-        AccountModel testAccount = new AccountModel(1, "test@example.com", "password", "Test User", 1);
-
-        // Print details of the ticket associated with the account's ticket ID
-        Console.WriteLine("Printing ticket details:");
-        testAccount.PrintTicketDetails(AccountModel.TicketID);
-
-        Console.ReadLine(); // Keep the console open
-    }
-}
+// Console.Write(Utils.getPassword());
