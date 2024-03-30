@@ -1,5 +1,3 @@
-using System;
-
 static class UserRegister
 {
     static private AccountsLogic accountsLogic = new AccountsLogic();
@@ -7,31 +5,28 @@ static class UserRegister
     public static void Start()
     {
         Console.WriteLine("Welcome to the register page");
+        Console.WriteLine("Choose your role (user/employee/content manager):");
+        string roleInput = Console.ReadLine().Trim().ToLower();
 
-        Console.WriteLine("Are you an employee? (yes/no)");
-        string isAdmin = Console.ReadLine().Trim();
-
-        if (isAdmin.Equals("yes", StringComparison.OrdinalIgnoreCase))
+        UserRole role;
+        switch (roleInput)
         {
-            Console.WriteLine("Please enter the master password");
-            string masterPassword = Console.ReadLine();
+            case "employee":
+                role = UserRole.Employee;
+                break;
+            case "content manager":
+                role = UserRole.ContentManager;
+                break;
+            case "user":
+            default:
+                role = UserRole.User;
+                break;
+        }
 
-            if (masterPassword.Equals("admin", StringComparison.OrdinalIgnoreCase))
-            {
-                AskUserInfo(true);
-            }
-            else
-            {
-                Console.WriteLine("You are not an employee!");
-            }
-        }
-        else
-        {
-            AskUserInfo(false);
-        }
+        AskUserInfo(role);
     }
 
-    private static void AskUserInfo(bool isAdmin)
+    private static void AskUserInfo(UserRole role)
     {
         string email;
         string name;
@@ -56,19 +51,27 @@ static class UserRegister
             }
 
             Console.WriteLine("Please enter your password");
-            password = Utils.Encrypt(Console.ReadLine().Trim().ToLower(), Utils.passPhrase);
+            password = Utils.Encrypt(Console.ReadLine().Trim().ToLower());
+
+            if (password == null)
+            {
+                Console.WriteLine("Error encrypting password. Please try again.");
+                continue;
+            }
 
             try
             {
-                AccountModel user = new AccountModel(email, name, password, isAdmin);
+                AccountModel user = new AccountModel(email, name, password, role);
                 accountsLogic.UpdateList(user);
-                break; // Exit the loop if everything is successful
 
+                // Set logged-in user
+                Utils.LoggedInUser = user;
+                break;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error occurred: {ex.Message}");
-                break; // Exit the loop if an error occurs
+                break;
             }
         }
         Menu.Start();
@@ -76,13 +79,11 @@ static class UserRegister
 
     private static bool IsValidEmail(string email)
     {
-
         return email.Contains("@") && email.Contains(".");
     }
 
     private static bool IsValidName(string name)
     {
-
         return !string.IsNullOrWhiteSpace(name);
     }
 }

@@ -1,22 +1,21 @@
 using System;
-using System.Text;
+using System.IO;
 using System.Security.Cryptography;
-
+using System.Text;
 
 static class Utils
 {
-    public static bool userIsLoggedIn = false;
-
-    public static bool userIsEmployee = false;
-
+    //read the passPhrase from the .env file
+    private static string passPhrase = Environment.GetEnvironmentVariable("PASS_PHRASE") ?? "password";
 
 
+    public static AccountModel LoggedInUser { get; set; } = null;
 
-    // generate a encryp and decrypt method for the password
-
-    public static string passPhrase = "IwantToLearnC#SoMuch!";
-
-    public static string Encrypt(string plainText, string passPhrase)
+    public static string getPassword()
+    {
+        return passPhrase;
+    }
+    public static string Encrypt(string plainText)
     {
         byte[] salt = Encoding.ASCII.GetBytes(passPhrase);
         Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(passPhrase, salt);
@@ -38,7 +37,8 @@ static class Utils
         return Convert.ToBase64String(cipherTextBytes);
     }
 
-    public static string Decrypt(string encryptedText, string passPhrase)
+
+    public static string Decrypt(string encryptedText)
     {
         byte[] salt = Encoding.ASCII.GetBytes(passPhrase);
         Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(passPhrase, salt);
@@ -58,9 +58,4 @@ static class Utils
         }
         return Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount);
     }
-
-
-
-
 }
-
