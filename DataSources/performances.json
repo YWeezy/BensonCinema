@@ -12,5 +12,12 @@
     "startDate": "0001-01-01T00:00:00",
     "endDate": "0001-01-01T00:00:00",
     "locationId": 0
+  },
+  {
+    "id": 3,
+    "name": "The big bang",
+    "startDate": "2024-12-15T12:00:00",
+    "endDate": "2024-12-28T12:00:00",
+    "locationId": 1
   }
 ]

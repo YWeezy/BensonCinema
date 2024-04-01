@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "Id": "a1988e88-9d90-4b18-8e61-ffc2ba025f8a",
+    "EmailAddress": "aarab@duck.com",
+    "FullName": "Achraf Aarab",
+    "Password": "eO4Xx\u002B3lNN\u002B2BwbWvk7gxg==",
+    "Role": 2,
+    "Tickets": []
+  }
+]

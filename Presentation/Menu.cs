@@ -51,6 +51,43 @@ static class Menu
 
         } while (true);
     }
+    private static void ShowContentManagerMenu()
+    {
+        ContentManagerOption selectedOption = ContentManagerOption.Performances;
+
+        do
+        {
+            Console.Clear();
+            DisplayMenu(selectedOption);
+
+            var key = Console.ReadKey(true).Key;
+
+            switch (key)
+            {
+                case ConsoleKey.UpArrow:
+                    selectedOption = selectedOption == ContentManagerOption.Performances ? ContentManagerOption.Exit : (ContentManagerOption)((int)selectedOption - 1);
+                    break;
+                case ConsoleKey.DownArrow:
+                    selectedOption = selectedOption == ContentManagerOption.Exit ? ContentManagerOption.Performances : (ContentManagerOption)((int)selectedOption + 1);
+                    break;
+                case ConsoleKey.Enter:
+                    PerformContentManagerAction(selectedOption);
+                    break;
+                default:
+                    break;
+            }
+
+            // Break the loop if user selects an action
+            if (key == ConsoleKey.Enter)
+                break;
+
+        } while (true);
+    }
+
+
+
+
+
 
     private static void ShowUserDefaultMenu()
     {
@@ -86,17 +123,24 @@ static class Menu
     }
 
 
-    private static void DisplayMenu(MenuOption selectedOption)
+    private static void PerformContentManagerAction(ContentManagerOption option)
     {
-        Console.WriteLine("Welcome to the application!");
-
-        foreach (MenuOption option in Enum.GetValues(typeof(MenuOption)))
+        switch (option)
         {
-            Console.Write(option == selectedOption ? ">> " : "   ");
-            Console.WriteLine($"{(int)option}. {option}");
+            case ContentManagerOption.Performances:
+                ManagePerformance.Start();
+                break;
+            case ContentManagerOption.Locations:
+                UserRegister.Start();
+                break;
+            case ContentManagerOption.Exit:
+                Environment.Exit(0);
+                break;
+            default:
+                break;
         }
     }
-    
+
     private static void PerformUserAction(UserOption option)
     {
         switch (option)
@@ -113,7 +157,7 @@ static class Menu
             default:
                 break;
         }
-    }    
+    }
 
     private static void PerformAction(MenuOption option)
     {
@@ -145,6 +189,28 @@ static class Menu
         }
     }
 
+    private static void DisplayMenu(MenuOption selectedOption)
+    {
+        Console.WriteLine("Welcome to the application!");
+
+        foreach (MenuOption option in Enum.GetValues(typeof(MenuOption)))
+        {
+            Console.Write(option == selectedOption ? ">> " : "   ");
+            Console.WriteLine($"{(int)option}. {option}");
+        }
+    }
+
+    private static void DisplayMenu(ContentManagerOption selectedOption)
+    {
+        Console.WriteLine("Welcome to the application!");
+
+        foreach (ContentManagerOption option in Enum.GetValues(typeof(ContentManagerOption)))
+        {
+            Console.Write(option == selectedOption ? ">> " : "   ");
+            Console.WriteLine($"{(int)option}. {option}");
+        }
+    }
+
     private static void ShowEmployeeMenu()
     {
         // Display employee menu
@@ -156,15 +222,8 @@ static class Menu
         Console.Write("Please select an option: ");
     }
 
-    private static void ShowContentManagerMenu()
-    {
-        // Display content manager menu
-        Console.WriteLine("Content Manager Menu:");
-        Console.WriteLine("1. Manage Content");
-        Console.WriteLine("2. View Analytics");
-        Console.WriteLine("3. Logout");
-        Console.Write("Please select an option: ");
-    }
+
+
 
     enum MenuOption
     {
@@ -172,11 +231,19 @@ static class Menu
         Register,
         Exit
     }
-        enum UserOption
+    enum UserOption
     {
         Reserve = 1,
         Reservations,
         Exit
     }
+
+    enum ContentManagerOption
+    {
+        Performances = 1,
+        Locations,
+        Exit
+    }
+
 
 }
