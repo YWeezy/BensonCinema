@@ -9,7 +9,7 @@ static class ManagePerformance
     static public void Start() {
 
         PerformanceLogic logic = new PerformanceLogic();
-
+        Console.Clear();
         bool loop = true;
         while (loop) {
             Console.WriteLine("What do you want to do?\n");
@@ -24,14 +24,17 @@ static class ManagePerformance
             switch (input)
             {
                 case "1":
+                    Console.Clear();
                     Console.WriteLine(logic.GetList());
                     break;
 
                 case "2":
+                    Console.Clear();
                     Insert(logic);
                     break;
 
                 case "3":
+                    Console.Clear();
                     Delete(logic);
                     break;
                 

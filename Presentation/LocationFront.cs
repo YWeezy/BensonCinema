@@ -5,6 +5,60 @@ static class LocationFront
     //This shows the menu. You can call back to this method to show the menu again
     //after another presentation method is completed.
     //You could edit this to show different menus depending on the user's role
+
+    static public void Start() {
+
+        LocationLogic logicloc = new LocationLogic();
+        Console.Clear();
+        bool loop = true;
+        while (loop) {
+            
+            Console.WriteLine("What do you want to do?\n");
+            
+            Console.WriteLine("1 - View locations");
+            Console.WriteLine("2 - Add a location");
+            Console.WriteLine("3 - Delete a location");
+            Console.WriteLine("Q - Exit\n");
+
+            string? input = Console.ReadLine();
+            
+            switch (input)
+            {
+                case "1":
+                    Console.Clear();
+                    List<LocationModel> locations = logicloc.GetList();
+                    string listOfLocs = "List of locations:\n";
+                    listOfLocs += "------------------------\n";
+
+                    foreach (LocationModel location in locations)
+                    {
+                        listOfLocs += $"ID: {location.locationID}\n";
+                        listOfLocs += $"Name: {location.locationName}\n";
+                        listOfLocs += $"Type: {location.type}\n";
+                        listOfLocs += "------------------------\n";
+                    }
+                    Console.WriteLine(listOfLocs);
+                    break;
+
+                case "2":
+                    Console.Clear();
+                    LocationFront.InsertForm();
+                    
+                    break;
+
+                case "3":
+                    Console.Clear();
+                    Delete(logicloc);
+                    
+                    break;
+                
+                default:
+                    loop = false;
+                    break;
+            }
+        }
+    }
+
     static public void InsertForm()
     {
         Console.Clear();
@@ -15,7 +69,7 @@ static class LocationFront
         while (valid == false)
         {
             inputname = Console.ReadLine().ToLower();
-            if (inputname == "Q")
+            if (inputname == "q")
             {
                 return;
             }
@@ -36,7 +90,7 @@ static class LocationFront
         while (valid == false)
         {
             inputtype = Console.ReadLine().ToLower();
-            if (inputtype == "Q")
+            if (inputtype == "q")
             {
                 return;
             }
@@ -55,9 +109,25 @@ static class LocationFront
         Menu.Start();
 
     }
-    static public void Delete()
+    static public void Delete(LocationLogic logic)
     {
-        
+        Console.WriteLine("Enter the ID of the location you want to delete: ");
+        int idToDelete;
+        if (int.TryParse(Console.ReadLine(), out idToDelete))
+        {
+            if (logic.Delete(idToDelete))
+            {
+                Console.WriteLine($"Location with ID {idToDelete} deleted successfully.");
+            }
+            else
+            {
+                Console.WriteLine($"Location with ID {idToDelete} not found.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Invalid input. Please enter a valid ID.");
+        }
 
     }
 }
