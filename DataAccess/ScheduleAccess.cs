@@ -19,6 +19,22 @@ static class ScheduleAccess
         File.WriteAllText(path, json);
     }
 
+    public static void AddSchedule()
+    {
+        List<ScheduleModel> schedule = LoadAll();
+
+        Console.WriteLine("enter worker ID:");
+        string workerId = Console.ReadLine();
+
+        Console.WriteLine("Enter start time:");
+        string startTime = Console.ReadLine();
+
+        Console.WriteLine("Enter end time:");
+        string endTime = Console.ReadLine();
+
+
+
+    }
 
 
 }

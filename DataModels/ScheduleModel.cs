@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 public class ScheduleModel
 {
     [JsonPropertyName("workerId")]
-    public int WorkerId { get; set; }
+    public string WorkerId { get; set; }
     
     [JsonPropertyName("fullName")]
     public string FullName { get; set; }
@@ -25,7 +25,7 @@ public class ScheduleModel
 
 
 
-    public ScheduleModel( int workerId, string fullName, string position, string date, string totalHours, string startTime, string endTime)
+    public ScheduleModel( string workerId, string fullName, string position, string date, string totalHours, string startTime, string endTime)
     {
         this.WorkerId = workerId;
         this.FullName = fullName;

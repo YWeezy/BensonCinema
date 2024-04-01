@@ -132,6 +132,9 @@ static class Menu
                 break;
             case ContentManagerOption.Locations:
                 LocationFront.Start();
+                break;  
+            case ContentManagerOption.schedule:
+                EmployeeSchedule.Schedule();    
                 break;
             case ContentManagerOption.Exit:
                 Environment.Exit(0);
@@ -248,6 +251,7 @@ static class Menu
     {
         Performances = 1,
         Locations,
+        schedule,
         Exit
     }
 
