@@ -143,13 +143,19 @@ static class Menu
 
     private static void PerformUserAction(UserOption option)
     {
+        TicketPresentation reserver = new TicketPresentation();
+        TicketLogic ticketer = new TicketLogic();
         switch (option)
         {
             case UserOption.Reserve:
-                UserLogin.Start();
+                reserver.ReserveTicket();
                 break;
             case UserOption.Reservations:
-                UserRegister.Start();
+                ticketer.loadMytickets(Utils.LoggedInUser.Id);
+                Console.WriteLine("Press Enter to show the menu.");
+                // Wait for the user to press enter
+                while (Console.ReadKey().Key != ConsoleKey.Enter) {}
+                ShowUserDefaultMenu();              
                 break;
             case UserOption.Exit:
                 Environment.Exit(0);

@@ -1,16 +1,34 @@
+using System;
+using System.Text.Json.Serialization;
+
 public class TicketModel
 {
-    public int Id { get; set; }
+    [JsonPropertyName("PerformanceId")]
+    public int PerformanceId { get; set; }
+
+    [JsonPropertyName("Title")]
     public string Title { get; set; }
+
+    [JsonPropertyName("Date")]
+    public string Date { get; set; }
+
+    [JsonPropertyName("Seat")]
     public string Seat { get; set; }
+
+    [JsonPropertyName("Price")]
     public decimal Price { get; set; }
+
+    [JsonPropertyName("RelationId")]
     public string RelationId { get; set; }
 
-    public TicketModel(string seat, string title, int id, decimal price)
+    public TicketModel(){}
+
+    public TicketModel(string seat, string title, string date, int id, decimal price)
     {
         Seat = seat;
         Title = title;
-        Id = id;
+        Date = date;
+        PerformanceId = id;
         Price = price;
         RelationId = Utils.LoggedInUser.Id;
     }
