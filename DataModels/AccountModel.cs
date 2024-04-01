@@ -1,36 +1,78 @@
-﻿using System.Text.Json.Serialization;
+using System;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 class AccountModel
 {
-    [JsonPropertyName("id")]
-    public int Id { get; set; }
+    [JsonPropertyName("Id")]
+    public string Id { get; set; }
 
-    [JsonPropertyName("emailAddress")]
+    [JsonPropertyName("EmailAddress")]
     public string EmailAddress { get; set; }
 
-    [JsonPropertyName("fullName")]
+    [JsonPropertyName("FullName")]
     public string FullName { get; set; }
-    [JsonPropertyName("password")]
+
+    [JsonPropertyName("Password")]
     public string Password { get; set; }
 
-    [JsonPropertyName("isAdmin")]
-    public bool IsAdmin { get; set; }
+    [JsonPropertyName("Role")]
+    public UserRole Role { get; set; }
 
+    [JsonPropertyName("Tickets")]
+    public List<TicketModel> Tickets { get; set; } = new List<TicketModel>();
 
-
-
-
-    private static int nextId;
-
-    public AccountModel(string emailAddress, string fullName, string password, bool isAdmin = false)
+    public AccountModel(string emailAddress, string fullName, string password, UserRole role = UserRole.User)
     {
-        Id = nextId++;
+        Id = Guid.NewGuid().ToString();
         EmailAddress = emailAddress;
         Password = password;
         FullName = fullName;
-        IsAdmin = isAdmin;
+        Role = role;
     }
+
+    public void LoadTickets()
+    {
+        var tickets = TicketsAccess.LoadAll();
+        foreach (TicketModel ticket in tickets)
+        {
+            if (ticket.RelationId == Id)
+            {
+                Tickets.Add(ticket);
+            }
+        }
+    }
+
+    public void SaveTickets()
+    {
+        List<TicketModel> tickets = TicketsAccess.LoadAll();
+        foreach (TicketModel ticket in Tickets)
+        {
+            if (ticket.RelationId == Id)
+            {
+                tickets.Add(ticket);
+            }
+        }
+        TicketsAccess.WriteAll(tickets);
+    }
+
+    public void AddTicket(TicketModel ticket)
+    {
+        Tickets.Add(ticket);
+        SaveTickets();
+    }
+
+    public void RemoveTicket(TicketModel ticket)
+    {
+        Tickets.Remove(ticket);
+        SaveTickets();
+    }
+
 }
 
-
-
+enum UserRole
+{
+    User,
+    Employee,
+    ContentManager
+}

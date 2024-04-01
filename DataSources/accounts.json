@@ -1,30 +1,26 @@
 ﻿[
   {
-    "id": 1,
-    "emailAddress": "a@a.com",
-    "fullName": "asasa",
-    "password": "wswsw",
-    "isAdmin": false
+    "Id": "a1988e88-9d90-4b18-8e61-ffc2ba025f8a",
+    "EmailAddress": "aarab@duck.com",
+    "FullName": "Achraf Aarab",
+    "Password": "eO4Xx\u002B3lNN\u002B2BwbWvk7gxg==",
+    "Role": 2,
+    "Tickets": []
   },
   {
-    "id": 3,
-    "emailAddress": "b@b.com",
-    "fullName": "Achie",
-    "password": "dwndidwind",
-    "isAdmin": false
+    "Id": "c6030ed9-7ee3-409e-8eae-f4bc177836c5",
+    "EmailAddress": "lll@gmail.com",
+    "FullName": "lookas",
+    "Password": "/w5mHqZpZE7o/6xa\u002B87ghw==",
+    "Role": 2,
+    "Tickets": []
   },
   {
-    "id": 1,
-    "emailAddress": "ach.aarab@gmail.com",
-    "fullName": "ashha",
-    "password": "swsws",
-    "isAdmin": true
-  },
-  {
-    "id": 1,
-    "emailAddress": "achraf.aijiwd",
-    "fullName": "ede",
-    "password": "dede",
-    "isAdmin": false
+    "Id": "aefc0ce3-def8-4a38-9023-c6ec9c3d9778",
+    "EmailAddress": "yes@.com",
+    "FullName": "Lucas",
+    "Password": "/w5mHqZpZE7o/6xa\u002B87ghw==",
+    "Role": 0,
+    "Tickets": []
   }
 ]

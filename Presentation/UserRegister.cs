@@ -5,48 +5,85 @@ static class UserRegister
     public static void Start()
     {
         Console.WriteLine("Welcome to the register page");
+        Console.WriteLine("Choose your role (user/employee/content manager):");
+        string roleInput = Console.ReadLine().Trim().ToLower();
 
-        Console.WriteLine("Are you an employee? (yes/no)");
-        string isAdmin = Console.ReadLine().Trim();
-
-        if (isAdmin.Equals("yes", StringComparison.OrdinalIgnoreCase))
+        UserRole role;
+        switch (roleInput)
         {
-            Console.WriteLine("Please enter the master password");
-            string masterPassword = Console.ReadLine();
+            case "employee":
+                role = UserRole.Employee;
+                break;
+            case "content manager":
+                role = UserRole.ContentManager;
+                break;
+            case "user":
+            default:
+                role = UserRole.User;
+                break;
+        }
 
-            if (masterPassword.Equals("admin", StringComparison.OrdinalIgnoreCase))
-            {
-                AskUserInfo(true);
-            }
-            else
-            {
-                Console.WriteLine("You are not an employee!");
-            }
-        }
-        else
-        {
-            AskUserInfo(false);
-        }
+        AskUserInfo(role);
     }
 
-    private static void AskUserInfo(bool isAdmin)
+    private static void AskUserInfo(UserRole role)
     {
-        Console.WriteLine("Please enter your email address");
-        string email = Console.ReadLine().Trim();
-        Console.WriteLine("Please enter your name");
-        string name = Console.ReadLine().Trim();
-        Console.WriteLine("Please enter your password");
-        string password = Console.ReadLine();
+        string email;
+        string name;
+        string password;
 
-        try
+        while (true)
         {
-            AccountModel user = new AccountModel(email, name, password, isAdmin);
-            accountsLogic.UpdateList(user);
-            Console.WriteLine("Account created successfully!");
+            Console.WriteLine("Please enter your email address");
+            email = Console.ReadLine().Trim().ToLower();
+            if (!IsValidEmail(email))
+            {
+                Console.WriteLine("Invalid email format. Please try again.");
+                continue;
+            }
+
+            Console.WriteLine("Please enter your name");
+            name = Console.ReadLine().Trim();
+            if (!IsValidName(name))
+            {
+                Console.WriteLine("Invalid name format. Please try again.");
+                continue;
+            }
+
+            Console.WriteLine("Please enter your password");
+            password = Utils.Encrypt(Console.ReadLine().Trim().ToLower());
+
+            if (password == null)
+            {
+                Console.WriteLine("Error encrypting password. Please try again.");
+                continue;
+            }
+
+            try
+            {
+                AccountModel user = new AccountModel(email, name, password, role);
+                accountsLogic.UpdateList(user);
+
+                // Set logged-in user
+                Utils.LoggedInUser = user;
+                break;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error occurred: {ex.Message}");
+                break;
+            }
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error occurred: {ex.Message}");
-        }
+        Menu.Start();
+    }
+
+    private static bool IsValidEmail(string email)
+    {
+        return email.Contains("@") && email.Contains(".");
+    }
+
+    private static bool IsValidName(string name)
+    {
+        return !string.IsNullOrWhiteSpace(name);
     }
 }

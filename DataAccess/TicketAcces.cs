@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
-static class AccountsAccess
+static class TicketsAccess
 {
-    static string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/accounts.json"));
+    static string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/tickets.json"));
 
-    public static List<AccountModel> LoadAll()
+    public static List<TicketModel> LoadAll()
     {
         string json = File.ReadAllText(path);
-        return JsonSerializer.Deserialize<List<AccountModel>>(json);
+        return JsonSerializer.Deserialize<List<TicketModel>>(json);
     }
 
-    public static void WriteAll(List<AccountModel> accounts)
+    public static void WriteAll(List<TicketModel> accounts)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         string json = JsonSerializer.Serialize(accounts, options);

@@ -8,28 +8,34 @@ static class UserLogin
         Console.WriteLine("Please enter your email address");
         string email = Console.ReadLine().Trim();
         Console.WriteLine("Please enter your password");
-        string password = Console.ReadLine();
+        string password = Utils.Encrypt(Console.ReadLine().Trim().ToLower()); // Read password without encrypting
 
         if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
         {
-            AccountModel acc = accountsLogic.CheckLogin(email, password);
-            if (acc != null)
+            if (password != null)
             {
-                Console.WriteLine("Welcome back " + acc.FullName);
-                Console.WriteLine("Your email number is " + acc.EmailAddress);
+                AccountModel acc = accountsLogic.CheckLogin(email, password);
+                if (acc != null)
+                {
 
-                //Write some code to go back to the menu
-                Utils.userIsLoggedIn = true;
-                Menu.Start();
-            }
-            else
-            {
-                Console.WriteLine("No account found with that email and password");
+                    // Set logged-in user
+                    Utils.LoggedInUser = acc;
+                    Console.WriteLine("Login successful! " + Utils.LoggedInUser.FullName);
+                    Menu.Start();
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine("No account found with that email and password");
+
+                }
             }
         }
         else
         {
             Console.WriteLine("Email or password cannot be empty");
         }
+
+        Start(); // If login fails, try again
     }
 }

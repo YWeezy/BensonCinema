@@ -18,5 +18,10 @@
     "locationID": 6,
     "locationName": "BigWeez",
     "type": "Small"
+  },
+  {
+    "locationID": 7,
+    "locationName": "ach",
+    "type": "medium"
   }
 ]

@@ -2,4 +2,4 @@
 
 Menu.Start();
 
-
+// Console.Write(Utils.getPassword());
