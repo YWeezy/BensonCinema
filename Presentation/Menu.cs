@@ -11,7 +11,7 @@ static class Menu
             else if (Utils.LoggedInUser.Role == UserRole.ContentManager)
                 ShowContentManagerMenu();
             else
-                ShowUserMenu();
+                ShowUserDefaultMenu();
         }
         else
         {
@@ -52,6 +52,39 @@ static class Menu
         } while (true);
     }
 
+    private static void ShowUserDefaultMenu()
+    {
+        UserOption selectedOption = UserOption.Reserve;
+
+        do
+        {
+            Console.Clear();
+            DisplayUserMenu(selectedOption);
+
+            var key = Console.ReadKey(true).Key;
+
+            switch (key)
+            {
+                case ConsoleKey.UpArrow:
+                    selectedOption = selectedOption == UserOption.Reserve ? UserOption.Exit : (UserOption)((int)selectedOption - 1);
+                    break;
+                case ConsoleKey.DownArrow:
+                    selectedOption = selectedOption == UserOption.Exit ? UserOption.Reserve : (UserOption)((int)selectedOption + 1);
+                    break;
+                case ConsoleKey.Enter:
+                    PerformUserAction(selectedOption);
+                    break;
+                default:
+                    break;
+            }
+
+            // Break the loop if user selects an action
+            if (key == ConsoleKey.Enter)
+                break;
+
+        } while (true);
+    }
+
 
     private static void DisplayMenu(MenuOption selectedOption)
     {
@@ -63,6 +96,24 @@ static class Menu
             Console.WriteLine($"{(int)option}. {option}");
         }
     }
+    
+    private static void PerformUserAction(UserOption option)
+    {
+        switch (option)
+        {
+            case UserOption.Reserve:
+                UserLogin.Start();
+                break;
+            case UserOption.Reservations:
+                UserRegister.Start();
+                break;
+            case UserOption.Exit:
+                Environment.Exit(0);
+                break;
+            default:
+                break;
+        }
+    }    
 
     private static void PerformAction(MenuOption option)
     {
@@ -82,14 +133,16 @@ static class Menu
         }
     }
 
-    private static void ShowUserMenu()
+
+    private static void DisplayUserMenu(UserOption selectedOption)
     {
-        // Display user menu
-        Console.WriteLine("User Menu:");
-        Console.WriteLine("1. View Profile");
-        Console.WriteLine("2. Edit Profile");
-        Console.WriteLine("3. Logout");
-        Console.Write("Please select an option: ");
+        Console.WriteLine("Welcome", Utils.LoggedInUser.FullName);
+
+        foreach (UserOption option in Enum.GetValues(typeof(UserOption)))
+        {
+            Console.Write(option == selectedOption ? ">> " : "   ");
+            Console.WriteLine($"{(int)option}. {option}");
+        }
     }
 
     private static void ShowEmployeeMenu()
@@ -119,4 +172,11 @@ static class Menu
         Register,
         Exit
     }
+        enum UserOption
+    {
+        Reserve = 1,
+        Reservations,
+        Exit
+    }
+
 }
