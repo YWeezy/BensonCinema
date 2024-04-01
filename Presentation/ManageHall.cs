@@ -1,5 +1,5 @@
 
-static class LocationFront
+static class ManageHall
 {
 
     //This shows the menu. You can call back to this method to show the menu again
@@ -8,7 +8,7 @@ static class LocationFront
 
     static public void Start() {
 
-        LocationLogic logicloc = new LocationLogic();
+        HallLogic logicloc = new HallLogic();
         Console.Clear();
         bool loop = true;
         while (loop) {
@@ -42,7 +42,7 @@ static class LocationFront
 
                 case "2":
                     Console.Clear();
-                    LocationFront.InsertForm();
+                    ManageHall.InsertForm();
                     
                     break;
 
@@ -104,12 +104,12 @@ static class LocationFront
                 
             }
         }
-        var loc = new LocationLogic();
+        var loc = new HallLogic();
         loc.insertLocation(inputname, inputtype);
         Menu.Start();
 
     }
-    static public void Delete(LocationLogic logic)
+    static public void Delete(HallLogic logic)
     {
         Console.WriteLine("Enter the ID of the location you want to delete: ");
         int idToDelete;
