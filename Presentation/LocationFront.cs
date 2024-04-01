@@ -1,3 +1,4 @@
+
 static class LocationFront
 {
 
@@ -6,6 +7,7 @@ static class LocationFront
     //You could edit this to show different menus depending on the user's role
     static public void InsertForm()
     {
+        Console.Clear();
         Console.WriteLine("Press Q to Quit");
         Console.WriteLine("LocationName: ");
         bool valid = false;
