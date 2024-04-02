@@ -1,4 +1,4 @@
-﻿[
+[
   {
     "Id": "a1988e88-9d90-4b18-8e61-ffc2ba025f8a",
     "EmailAddress": "aarab@duck.com",
@@ -21,6 +21,22 @@
     "FullName": "Lucas",
     "Password": "/w5mHqZpZE7o/6xa\u002B87ghw==",
     "Role": 0,
+    "Tickets": []
+  },
+  {
+    "Id": "65fadf14-a157-4429-b5f3-b0372c519272",
+    "EmailAddress": "la@.com",
+    "FullName": "la",
+    "Password": "35P62/cgGPd3wsy5OKhL/A==",
+    "Role": 0,
+    "Tickets": []
+  },
+  {
+    "Id": "eb2f7fa1-ee65-4e2d-8973-5b74c3c1fcc6",
+    "EmailAddress": "po@.com",
+    "FullName": "po",
+    "Password": "mzUEG\u002BGLWUsucc\u002BZgvYs6w==",
+    "Role": 2,
     "Tickets": []
   }
 ]

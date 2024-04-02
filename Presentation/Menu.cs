@@ -65,10 +65,36 @@ static class Menu
             switch (key)
             {
                 case ConsoleKey.UpArrow:
-                    selectedOption = selectedOption == ContentManagerOption.Performances ? ContentManagerOption.Exit : (ContentManagerOption)((int)selectedOption - 1);
+                    switch (selectedOption)
+                    {
+                        case ContentManagerOption.Performances:
+                            selectedOption = ContentManagerOption.Exit; 
+                            break;
+                        case ContentManagerOption.schedule:
+                            selectedOption = ContentManagerOption.Performances;
+                            break;
+                        case ContentManagerOption.Exit:
+                            selectedOption = ContentManagerOption.schedule;
+                            break;
+                        default:
+                            break;            
+                    }
                     break;
                 case ConsoleKey.DownArrow:
-                    selectedOption = selectedOption == ContentManagerOption.Exit ? ContentManagerOption.Performances : (ContentManagerOption)((int)selectedOption + 1);
+                    switch (selectedOption)
+                    {
+                        case ContentManagerOption.Performances:
+                            selectedOption = ContentManagerOption.schedule;
+                            break;
+                        case ContentManagerOption.schedule:
+                            selectedOption = ContentManagerOption.Exit;
+                            break;
+                        case ContentManagerOption.Exit:
+                            selectedOption = ContentManagerOption.Performances;
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 case ConsoleKey.Enter:
                     PerformContentManagerAction(selectedOption);
