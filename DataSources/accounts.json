@@ -1,1 +1,50 @@
-[]
+[
+  {
+    "Id": "a1988e88-9d90-4b18-8e61-ffc2ba025f8a",
+    "EmailAddress": "aarab@duck.com",
+    "FullName": "Achraf Aarab",
+    "Password": "eO4Xx\u002B3lNN\u002B2BwbWvk7gxg==",
+    "Role": 2,
+    "Tickets": []
+  },
+  {
+    "Id": "c6030ed9-7ee3-409e-8eae-f4bc177836c5",
+    "EmailAddress": "lll@gmail.com",
+    "FullName": "lookas",
+    "Password": "/w5mHqZpZE7o/6xa\u002B87ghw==",
+    "Role": 2,
+    "Tickets": []
+  },
+  {
+    "Id": "aefc0ce3-def8-4a38-9023-c6ec9c3d9778",
+    "EmailAddress": "yes@.com",
+    "FullName": "Lucas",
+    "Password": "/w5mHqZpZE7o/6xa\u002B87ghw==",
+    "Role": 0,
+    "Tickets": []
+  },
+  {
+    "Id": "9c5b208b-892d-4287-a1b1-7bfcce482a58",
+    "EmailAddress": "achraf.aarab@outlook.com",
+    "FullName": "Achraf Aarab",
+    "Password": "eO4Xx\u002B3lNN\u002B2BwbWvk7gxg==",
+    "Role": 2,
+    "Tickets": []
+  },
+  {
+    "Id": "ead26fb7-ed56-4e6e-9dbd-9ec4d6d0d69d",
+    "EmailAddress": "aa@aa.com",
+    "FullName": "Achraf Aarab",
+    "Password": "hnGCl9b6\u002BBGosyh1le\u002BExg==",
+    "Role": 2,
+    "Tickets": []
+  },
+  {
+    "Id": "41864c26-836b-4ceb-9fa2-c7a53c7806a8",
+    "EmailAddress": "wesdd@gmail.com",
+    "FullName": "wesddd",
+    "Password": "owU79EsKsFXEk5JKrBEn\u002BQ==",
+    "Role": 2,
+    "Tickets": []
+  }
+]
