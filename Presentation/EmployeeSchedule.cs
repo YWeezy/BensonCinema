@@ -1,35 +1,40 @@
+using System.Runtime.InteropServices;
+
 static class EmployeeSchedule
 {
   
     public static void Schedule()
-    {  
+    {   
         string path = "DataSources/schedule.json";
-        Console.WriteLine("Welcome to the employee schedule page");
+        ScheduleLogic shell = new ScheduleLogic();
+        Console.Clear();
+        bool loop = true;
+        while (loop) {
+            Console.WriteLine("What do you want to do?\n");
+            
+            Console.WriteLine("1 - View schedules");
+            Console.WriteLine("2 - Add schedules");
+            Console.WriteLine("3 - Exit\n");
 
-        Console.WriteLine("Do you want to see the schedule? (yes or no)");
-        string response = Console.ReadLine().ToLower();
+            string? input = Console.ReadLine();
 
-        if (response == "yes")
-        {       
-                ShowSchedule(path);
-        }
-
-        else     
-        {
-            Console.WriteLine("Do you want to add a new schedule? (yes or no)");
-            string addResponse = Console.ReadLine().ToLower();
-
-            if (addResponse == "yes")
-            {       
-                AddSchedule(path);
-            }
-            else 
+            switch (input)
             {
-                Console.WriteLine("Okay, see you later");
-            }
-        
-        }
+                case "1":
+                    Console.Clear();
+                    ShowSchedule(path);
+                    break;
 
+                case "2":
+                    Console.Clear();
+                    AddSchedule(path);
+                    break;
+
+                default:
+                    loop = false;
+                    break;
+            }
+        }
 
     static void ShowSchedule(string path)
     {
@@ -59,16 +64,16 @@ static class EmployeeSchedule
         Console.WriteLine("Enter position:");
         string position = Console.ReadLine();
 
-        Console.WriteLine("Enter date: (00-00-0000)");
+        Console.WriteLine("Enter date: (DD-MM-YYYY)");
         string date = Console.ReadLine();
 
         Console.WriteLine("Enter total working hours for this date:");
         string TotalHours = Console.ReadLine();
 
-        Console.WriteLine("Enter start time: (00:00)");
+        Console.WriteLine("Enter start time: (HH:MM)");
         string startTime = Console.ReadLine();
 
-        Console.WriteLine("Enter end time: (00:00)");
+        Console.WriteLine("Enter end time: (HH:MM)");
         string endTime = Console.ReadLine();
 
         ScheduleModel newSchedule = new ScheduleModel(workerId, fullName, position, date, TotalHours, startTime, endTime);
