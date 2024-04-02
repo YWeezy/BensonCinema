@@ -59,16 +59,16 @@ static class EmployeeSchedule
         Console.WriteLine("Enter position:");
         string position = Console.ReadLine();
 
-        Console.WriteLine("Enter date:");
+        Console.WriteLine("Enter date: (00-00-0000)");
         string date = Console.ReadLine();
 
-        Console.WriteLine("Enter total working hours:");
+        Console.WriteLine("Enter total working hours for this date:");
         string TotalHours = Console.ReadLine();
 
-        Console.WriteLine("Enter start time:");
+        Console.WriteLine("Enter start time: (00:00)");
         string startTime = Console.ReadLine();
 
-        Console.WriteLine("Enter end time:");
+        Console.WriteLine("Enter end time: (00:00)");
         string endTime = Console.ReadLine();
 
         ScheduleModel newSchedule = new ScheduleModel(workerId, fullName, position, date, TotalHours, startTime, endTime);
