@@ -5,11 +5,11 @@ using System.Text.Json;
 using Microsoft.VisualBasic;
 
 
-class LocationLogic
+class HallLogic
 {
     private List<LocationModel> _locations {get;}
     
-    public LocationLogic(){
+    public HallLogic(){
         _locations = LocationAccess.Locationget();
     }
 

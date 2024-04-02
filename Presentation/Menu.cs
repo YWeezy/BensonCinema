@@ -131,7 +131,7 @@ static class Menu
                 ManagePerformance.Start();
                 break;
             case ContentManagerOption.Locations:
-                LocationFront.Start();
+                ManageHall.Start();
                 break;
             case ContentManagerOption.Exit:
                 Environment.Exit(0);
