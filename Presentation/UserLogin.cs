@@ -6,9 +6,9 @@ static class UserLogin
     {
         Console.WriteLine("Welcome to the login page");
         Console.WriteLine("Please enter your email address");
-        string email = Console.ReadLine().Trim();
+        string email = Console.ReadLine().Trim().ToLower();
         Console.WriteLine("Please enter your password");
-        string password = Utils.Encrypt(Console.ReadLine().Trim().ToLower()); // Read password without encrypting
+        string password = Utils.Encrypt(Console.ReadLine().Trim().ToLower());
 
         if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
         {

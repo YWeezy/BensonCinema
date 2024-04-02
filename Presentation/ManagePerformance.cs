@@ -6,46 +6,43 @@ static class ManagePerformance
     //This shows the menu. You can call back to this method to show the menu again
     //after another presentation method is completed.
     //You could edit this to show different menus depending on the user's role
-    static public void Start() {
-
+    static public void Start()
+    {
         PerformanceLogic logic = new PerformanceLogic();
         Console.Clear();
         bool loop = true;
-        while (loop) {
-            Console.WriteLine("What do you want to do?\n");
-            
-            Console.WriteLine("1 - View performances");
-            Console.WriteLine("2 - Add a performance");
-            Console.WriteLine("3 - Delete a performance");
-            Console.WriteLine("Q - Exit\n");
+        int selectedOption = 1; // Default selected option
+        int totalOptions = 4; // Total number of options
+        while (loop)
+        {
+            Console.Clear();
+            DisplayMenu(selectedOption);
 
-            string? input = Console.ReadLine();
+            var key = Console.ReadKey(true).Key;
 
-            switch (input)
+            switch (key)
             {
-                case "1":
-                    Console.Clear();
-                    Console.WriteLine(logic.GetList());
+                case ConsoleKey.UpArrow:
+                    selectedOption = selectedOption == 1 ? totalOptions : selectedOption - 1;
                     break;
-
-                case "2":
-                    Console.Clear();
-                    Insert(logic);
+                case ConsoleKey.DownArrow:
+                    selectedOption = selectedOption == totalOptions ? 1 : selectedOption + 1;
                     break;
-
-                case "3":
-                    Console.Clear();
-                    Delete(logic);
+                case ConsoleKey.Enter:
+                    PerformAction(selectedOption, logic);
                     break;
-                
                 default:
-                    loop = false;
                     break;
             }
+
+            // Break the loop if user selects an action
+            if (key == ConsoleKey.Enter)
+                break;
         }
     }
 
-    static public void Insert(PerformanceLogic logic) {
+    static public void Insert(PerformanceLogic logic)
+    {
 
         string performanceName = null;
         bool performanceStartValid = false;
@@ -55,10 +52,11 @@ static class ManagePerformance
         DateTime performanceEndDT = DateTime.MinValue;
 
         // name
-        while (string.IsNullOrEmpty(performanceName)) {
+        while (string.IsNullOrEmpty(performanceName))
+        {
             Console.WriteLine("\nPerformance name: ");
             performanceName = Console.ReadLine();
-            
+
             if (string.IsNullOrEmpty(performanceName))
             {
                 Console.WriteLine("Invalid input. Please provide a performance name.");
@@ -66,7 +64,8 @@ static class ManagePerformance
         }
 
         // startDate
-        while (performanceStartValid == false) {
+        while (performanceStartValid == false)
+        {
             Console.WriteLine("\nWhen does it start? (YYYY-MM-DD HH:MM:SS): ");
             string performanceStart = Console.ReadLine();
 
@@ -82,7 +81,8 @@ static class ManagePerformance
         }
 
         // endDate
-        while (performanceEndValid == false) {
+        while (performanceEndValid == false)
+        {
             Console.WriteLine("\nWhen does it end? (YYYY-MM-DD HH:MM:SS): ");
             string performanceEnd = Console.ReadLine();
 
@@ -98,7 +98,8 @@ static class ManagePerformance
         }
 
         // locationid
-        while (locationId == 0) {
+        while (locationId == 0)
+        {
             Console.WriteLine("\nLocation ID: ");
             try
             {
@@ -109,7 +110,7 @@ static class ManagePerformance
                 Console.WriteLine("Invalid input. Please provide a valid location ID.");
             }
         }
-        
+
         Console.WriteLine("------------------------");
         Console.WriteLine($"Name: {performanceName}");
         Console.WriteLine($"Start: {performanceStartDT}");
@@ -154,5 +155,47 @@ static class ManagePerformance
             Console.WriteLine("Invalid input. Please enter a valid ID.");
         }
 
+    }
+    static private void PerformAction(int option, PerformanceLogic logic)
+    {
+        switch (option)
+        {
+            case 1:
+                Console.Clear();
+                Console.WriteLine(logic.GetList());
+                Console.WriteLine("Press Enter to return to the menu.");
+                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                Start();
+                break;
+            case 2:
+                Console.Clear();
+                Insert(logic);
+                Console.WriteLine("Press Enter to return to the menu.");
+                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                Start();
+                break;
+            case 3:
+                Console.Clear();
+                Delete(logic);
+                Console.WriteLine("Press Enter to return to the menu.");
+                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                Start();
+                break;
+            case 4:
+                Menu.Start();
+                break;
+            default:
+                break;
+        }
+    }
+
+    static private void DisplayMenu(int selectedOption)
+    {
+        Console.WriteLine("What do you want to do?\n");
+
+        Console.WriteLine(selectedOption == 1 ? ">> 1 - View performances" : "1 - View performances");
+        Console.WriteLine(selectedOption == 2 ? ">> 2 - Add a performance" : "2 - Add a performance");
+        Console.WriteLine(selectedOption == 3 ? ">> 3 - Delete a performance" : "3 - Delete a performance");
+        Console.WriteLine(selectedOption == 4 ? ">> 4 - Quit" : "3 - Quit");
     }
 }
