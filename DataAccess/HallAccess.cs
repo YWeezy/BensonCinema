@@ -1,7 +1,7 @@
 using System.Text.Json;
 static class LocationAccess
 {
-    static private readonly string path = "./DataSources/locations.json";
+    static private readonly string path = "./DataSources/halls.json";
     public static List<LocationModel> Locationget(){
         List<LocationModel> locs = new List <LocationModel>();
         try
