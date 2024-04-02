@@ -65,36 +65,10 @@ static class Menu
             switch (key)
             {
                 case ConsoleKey.UpArrow:
-                    switch (selectedOption)
-                    {
-                        case ContentManagerOption.Performances:
-                            selectedOption = ContentManagerOption.Exit; 
-                            break;
-                        case ContentManagerOption.schedule:
-                            selectedOption = ContentManagerOption.Performances;
-                            break;
-                        case ContentManagerOption.Exit:
-                            selectedOption = ContentManagerOption.schedule;
-                            break;
-                        default:
-                            break;            
-                    }
+                    selectedOption = selectedOption == ContentManagerOption.Performances ? ContentManagerOption.Exit : (ContentManagerOption)((int)selectedOption - 1);
                     break;
                 case ConsoleKey.DownArrow:
-                    switch (selectedOption)
-                    {
-                        case ContentManagerOption.Performances:
-                            selectedOption = ContentManagerOption.schedule;
-                            break;
-                        case ContentManagerOption.schedule:
-                            selectedOption = ContentManagerOption.Exit;
-                            break;
-                        case ContentManagerOption.Exit:
-                            selectedOption = ContentManagerOption.Performances;
-                            break;
-                        default:
-                            break;
-                    }
+                    selectedOption = selectedOption == ContentManagerOption.Exit ? ContentManagerOption.Performances : (ContentManagerOption)((int)selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
                     PerformContentManagerAction(selectedOption);
@@ -159,6 +133,9 @@ static class Menu
             case ContentManagerOption.Locations:
                 ManageHall.Start();
                 break;
+            case ContentManagerOption.schedule:
+                EmployeeSchedule.Schedule();
+                break;
             case ContentManagerOption.Exit:
                 Environment.Exit(0);
                 break;
@@ -180,8 +157,8 @@ static class Menu
                 ticketer.loadMytickets(Utils.LoggedInUser.Id);
                 Console.WriteLine("Press Enter to show the menu.");
                 // Wait for the user to press enter
-                while (Console.ReadKey().Key != ConsoleKey.Enter) {}
-                ShowUserDefaultMenu();              
+                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                ShowUserDefaultMenu();
                 break;
             case UserOption.Exit:
                 Environment.Exit(0);
