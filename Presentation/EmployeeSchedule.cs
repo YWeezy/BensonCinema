@@ -1,4 +1,6 @@
 using System.Drawing;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 static class EmployeeSchedule
 {
@@ -72,10 +74,10 @@ static class EmployeeSchedule
     {   string color = "\u001b[32m";
         Console.WriteLine("What do you want to do?\n");
 
-        Console.WriteLine(selectedOption == 1 ? color + ">> 1 - View schedules\u001b[0m" : ">> 1 - View schedules ");
-        Console.WriteLine(selectedOption == 2 ? color + ">> 2 - Add a new schedule \u001b[0m" : ">> 2 - Add a new schedule");
-        Console.WriteLine(selectedOption == 3 ? color + ">> 3 - Go back to the previous menu \u001b[0m" : ">> 3 - Go back to the previous menu");
-        Console.WriteLine(selectedOption == 4 ? color + ">> 4 - Close application \u001b[0m" : ">> 4 - Close application");
+        Console.WriteLine(selectedOption == 1 ? color + ">> 1 - View schedules\u001b[0m" : " 1 - View schedules ");
+        Console.WriteLine(selectedOption == 2 ? color + ">> 2 - Add a new schedule \u001b[0m" : " 2 - Add a new schedule");
+        Console.WriteLine(selectedOption == 3 ? color + ">> 3 - Go back to the previous menu \u001b[0m" : " 3 - Go back to the previous menu");
+        Console.WriteLine(selectedOption == 4 ? color + ">> 4 - Close application \u001b[0m" : " 4 - Close application");
         
 
     }
@@ -87,8 +89,21 @@ static class EmployeeSchedule
         try 
             {
                 string json = File.ReadAllText(path);
-                Console.WriteLine(json);
+                List<ScheduleModel> schedules = JsonSerializer.Deserialize<List<ScheduleModel>>(json);
+                
+                Console.WriteLine("Schedule for this week:");
+                Console.WriteLine("--------------------------------------------------------------------------------");
+                Console.WriteLine("| Workernumber | Position  | Date       | Total Hours  | Start Time | End Time |");
+                Console.WriteLine("--------------------------------------------------------------------------------");
+            
+                foreach (var schedule in schedules)
+                {
+                    Console.WriteLine($"| {schedule.WorkerId,-12} | {schedule.Position,-9} | {schedule.Date,-9} | {schedule.TotalHours,-12} | {schedule.StartTime,-10} | {schedule.EndTime,-8} |");
+                }
+                Console.WriteLine("--------------------------------------------------------------------------------");
             }
+            
+            
             catch (FileNotFoundException)
             {
                 Console.WriteLine("json not found.");
@@ -98,6 +113,7 @@ static class EmployeeSchedule
                 Console.WriteLine($"An error occured: {e.Message}");
             }
     }
+    
 
     static void AddSchedule(string path)
     {
@@ -127,8 +143,3 @@ static class EmployeeSchedule
         scheduleLogicUp.UpdateList(newSchedule);
     }
 }
-    
-
-
-
-
