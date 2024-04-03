@@ -18,12 +18,16 @@ class PerformanceModel {
     [JsonPropertyName("locationId")]
     public int locationId { get; set; }
 
-    public PerformanceModel(int id, string name, DateTime startDate, DateTime endDate, int locationId) {
+    [JsonPropertyName("active")]
+    public bool active { get; set; }
+
+    public PerformanceModel(int id, string name, DateTime startDate, DateTime endDate, int locationId, bool active) {
         this.id = id;
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.locationId = locationId;
+        this.active = active;
     }
 
 }
