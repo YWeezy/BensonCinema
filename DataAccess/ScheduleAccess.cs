@@ -23,7 +23,7 @@ static class ScheduleAccess
     {
         List<ScheduleModel> schedule = LoadAll();
 
-        Console.WriteLine("enter worker ID:");
+        Console.WriteLine("Enter workernumber:");
         string workerId = Console.ReadLine();
 
         Console.WriteLine("Enter start time:");
