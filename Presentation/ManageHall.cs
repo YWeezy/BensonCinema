@@ -1,77 +1,65 @@
-
+using System;
+using System.Data;
 static class ManageHall
 {
 
     //This shows the menu. You can call back to this method to show the menu again
     //after another presentation method is completed.
     //You could edit this to show different menus depending on the user's role
-
     static public void Start() {
-
-        HallLogic logicloc = new HallLogic();
+        
+        HallLogic logichall = new HallLogic();
         Console.Clear();
         bool loop = true;
-        while (loop) {
+        int selectedOption = 1; // Default selected option
+        int totalOptions = 4; // Total number of options
+        while (loop)
+        {
             
-            Console.WriteLine("What do you want to do?\n");
-            
-            Console.WriteLine("1 - View locations");
-            Console.WriteLine("2 - Add a location");
-            Console.WriteLine("3 - Delete a location");
-            Console.WriteLine("Q - Exit\n");
+            DisplayMenu(selectedOption);
 
-            string? input = Console.ReadLine();
-            
-            switch (input)
+            var key = Console.ReadKey(true).Key;
+
+            switch (key)
             {
-                case "1":
-                    Console.Clear();
-                    List<LocationModel> locations = logicloc.GetList();
-                    string listOfLocs = "List of locations:\n";
-                    listOfLocs += "------------------------\n";
-
-                    foreach (LocationModel location in locations)
-                    {
-                        listOfLocs += $"ID: {location.locationID}\n";
-                        listOfLocs += $"Name: {location.locationName}\n";
-                        listOfLocs += $"Type: {location.type}\n";
-                        listOfLocs += "------------------------\n";
-                    }
-                    Console.WriteLine(listOfLocs);
+                case ConsoleKey.UpArrow:
+                    selectedOption = selectedOption == 1 ? totalOptions : selectedOption - 1;
                     break;
-
-                case "2":
-                    Console.Clear();
-                    ManageHall.InsertForm();
-                    
+                case ConsoleKey.DownArrow:
+                    selectedOption = selectedOption == totalOptions ? 1 : selectedOption + 1;
                     break;
-
-                case "3":
-                    Console.Clear();
-                    Delete(logicloc);
-                    
+                case ConsoleKey.Enter:
+                    PerformAction(selectedOption, logichall);
                     break;
-                
                 default:
-                    loop = false;
                     break;
             }
+            Console.Clear();
+
+            // Break the loop if user selects an action
+            if (key == ConsoleKey.Enter)
+                
+                break;
         }
+        
     }
 
-    static public void InsertForm()
+    static public void InsertForm(List<HallModel> halls)
     {
         Console.Clear();
         Console.WriteLine("Press Q to Quit");
-        Console.WriteLine("Location Name: ");
+        Console.WriteLine("hall Name: ");
         bool valid = false;
         string inputname = "";
         while (valid == false)
         {
-            inputname = Console.ReadLine().ToLower();
-            if (inputname == "q")
+            inputname = Console.ReadLine();
+            if (inputname == "Q")
             {
                 return;
+            }
+            else if(halls.Any(hall => hall.hallName == inputname)){
+                Console.WriteLine($"Hallname with {inputname} already exist.");
             }
             
             else if (inputname != "")
@@ -90,14 +78,14 @@ static class ManageHall
         while (valid == false)
         {
             inputtype = Console.ReadLine().ToLower();
-            if (inputtype == "q")
+            if (inputtype == "Q")
             {
                 return;
             }
             else if (inputtype == "small" || inputtype == "medium" || inputtype == "large")
             {
                 valid = true;
-                Console.WriteLine("Location Added");
+                Console.WriteLine("hall Added");
             }
             else{
                 Console.WriteLine("Type is Empty or not valid. Choose from Small/Medium/Large");
@@ -105,23 +93,25 @@ static class ManageHall
             }
         }
         var loc = new HallLogic();
-        loc.insertLocation(inputname, inputtype);
-        Menu.Start();
+        loc.insertHall(inputname, inputtype);
 
     }
+
+    
+
     static public void Delete(HallLogic logic)
     {
-        Console.WriteLine("Enter the ID of the location you want to delete: ");
+        Console.WriteLine("Enter the ID of the hall you want to delete: ");
         int idToDelete;
         if (int.TryParse(Console.ReadLine(), out idToDelete))
         {
             if (logic.Delete(idToDelete))
             {
-                Console.WriteLine($"Location with ID {idToDelete} deleted successfully.");
+                Console.WriteLine($"hall with ID {idToDelete} deleted successfully.");
             }
             else
             {
-                Console.WriteLine($"Location with ID {idToDelete} not found.");
+                Console.WriteLine($"hall with ID {idToDelete} not found.");
             }
         }
         else
@@ -130,4 +120,59 @@ static class ManageHall
         }
 
     }
+
+    static private void PerformAction(int option, HallLogic logic)
+    {
+        List<HallModel> halls = logic.GetList();
+        switch (option)
+            {
+                case 1:
+                    Console.Clear();
+                    Console.WriteLine("Table of all halls\n");
+                    Console.WriteLine("{0,-6}{1,-15}{2,-10}", "ID", "Name", "Type");
+                    Console.WriteLine("-------------------------------");
+                    foreach (HallModel hall in halls)
+                    {
+                        Console.WriteLine("{0,-6}{1,-15}{2,-10}", hall.hallID, hall.hallName, hall.type);
+                    }
+                    Console.WriteLine("\nPress Enter to return to menu.");
+                    var key = Console.ReadKey(true).Key;
+                    if (key == ConsoleKey.Enter){
+                        Start();
+                    }
+                
+                    
+                    break;
+
+                case 2:
+                    Console.Clear();
+                    ManageHall.InsertForm(halls);
+                    Start();
+                    break;
+
+                case 3:
+                    Console.Clear();
+                    Delete(logic);
+                    Start();
+                    break;
+                
+                case 4:
+                    Menu.Start();
+                    break;
+                default:
+                    break;
+            }
+    }
+
+    static private void DisplayMenu(int selectedOption)
+    {
+        Console.WriteLine("What do you want to do?\n");
+
+        Console.WriteLine(selectedOption == 1 ? ">> 1 - View halls" : "1 - View halls");
+        Console.WriteLine(selectedOption == 2 ? ">> 2 - Add a hall" : "2 - Add a hall");
+        Console.WriteLine(selectedOption == 3 ? ">> 3 - Delete a hall" : "3 - Delete a hall");
+        Console.WriteLine(selectedOption == 4 ? ">> 4 - Quit" : "4 - Quit");
+    }
 }
+
+    

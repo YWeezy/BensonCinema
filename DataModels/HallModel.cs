@@ -1,17 +1,17 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-class LocationModel
+class HallModel
 {
-    public int locationID { get; set; }
-	public string locationName { get; set; }
+    public int hallID { get; set; }
+	public string hallName { get; set; }
     public string type { get; set; }
     [JsonConstructor]
-    public LocationModel(int LocationID, string LocationName, string Type){
-        locationID = LocationID;
-        locationName = LocationName;
+    public HallModel(int HallID, string HallName, string Type){
+        hallID = HallID;
+        hallName = HallName;
         type = Type;
-    }
+    } 
 
     
 }

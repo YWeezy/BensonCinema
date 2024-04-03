@@ -1,27 +1,52 @@
 [
   {
-    "locationID": 1,
-    "locationName": "BigBenson",
+    "hallID": 1,
+    "hallName": "BigBenson",
     "type": "Large"
   },
   {
-    "locationID": 2,
-    "locationName": "Small-Kylo",
+    "hallID": 2,
+    "hallName": "Small-Kylo",
     "type": "Medium"
   },
   {
-    "locationID": 5,
-    "locationName": "FitBenny",
+    "hallID": 5,
+    "hallName": "FitBenny",
     "type": "Medium"
   },
   {
-    "locationID": 6,
-    "locationName": "BigWeez",
+    "hallID": 6,
+    "hallName": "BigWeez",
     "type": "Small"
   },
   {
-    "locationID": 7,
-    "locationName": "ach",
+    "hallID": 7,
+    "hallName": "ach",
     "type": "medium"
+  },
+  {
+    "hallID": 8,
+    "hallName": "haldks",
+    "type": "small"
+  },
+  {
+    "hallID": 9,
+    "hallName": "weez",
+    "type": "small"
+  },
+  {
+    "hallID": 10,
+    "hallName": "hall",
+    "type": "medium"
+  },
+  {
+    "hallID": 11,
+    "hallName": "bigbenson",
+    "type": "small"
+  },
+  {
+    "hallID": 12,
+    "hallName": "Bwhweez",
+    "type": "small"
   }
 ]

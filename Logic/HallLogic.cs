@@ -7,35 +7,35 @@ using Microsoft.VisualBasic;
 
 class HallLogic
 {
-    private List<LocationModel> _locations {get;}
+    private List<HallModel> _halls {get;}
     
     public HallLogic(){
-        _locations = LocationAccess.Locationget();
+        _halls = HallAccess.Hallget();
     }
 
-    public List<LocationModel> GetList() {
+    public List<HallModel> GetList() {
 
         
 
-        return _locations;
+        return _halls;
     }
 
-    public void insertLocation(string name, string type){
+    public void insertHall(string name, string type){
 
-        int lastId = _locations.Last().locationID;
+        int lastId = _halls.Last().hallID;
         int id = lastId + 1;
-        LocationModel newLocation = new LocationModel(id, name, type);
-        _locations.Add(newLocation);
+        HallModel newHall = new HallModel(id, name, type);
+        _halls.Add(newHall);
 
-        LocationAccess.WriteAll(_locations);
+        HallAccess.WriteAll(_halls);
     }
 
     public bool Delete(int id) {
-        LocationModel locToRemove = _locations.Find(p => p.locationID == id);
+        HallModel locToRemove = _halls.Find(p => p.hallID == id);
         if (locToRemove != null)
         {
-            _locations.Remove(locToRemove);
-            LocationAccess.WriteAll(_locations);
+            _halls.Remove(locToRemove);
+            HallAccess.WriteAll(_halls);
             return true;
         }
         return false;
