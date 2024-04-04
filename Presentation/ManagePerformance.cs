@@ -51,6 +51,7 @@ static class ManagePerformance
         DateTime performanceStartDT = DateTime.MinValue;
         DateTime performanceEndDT = DateTime.MinValue;
 
+        Console.Clear();
         // name
         while (string.IsNullOrEmpty(performanceName))
         {
@@ -63,6 +64,7 @@ static class ManagePerformance
             }
         }
 
+        Console.Clear();
         // startDate
         while (performanceStartValid == false)
         {
@@ -71,8 +73,12 @@ static class ManagePerformance
 
             if (DateTime.TryParse(performanceStart, out performanceStartDT))
             {
-                Console.WriteLine("You entered: " + performanceStartDT);
-                performanceStartValid = true;
+                if (performanceStartDT < DateTime.Now) {
+                    Console.WriteLine("You can't enter a date and time that is in the past.");
+                } else {
+                    Console.WriteLine("You entered: " + performanceStartDT);
+                    performanceStartValid = true;
+                }
             }
             else
             {
@@ -80,6 +86,7 @@ static class ManagePerformance
             }
         }
 
+        Console.Clear();
         // endDate
         while (performanceEndValid == false)
         {
@@ -88,8 +95,14 @@ static class ManagePerformance
 
             if (DateTime.TryParse(performanceEnd, out performanceEndDT))
             {
-                Console.WriteLine("You entered: " + performanceEndDT);
-                performanceEndValid = true;
+                if (performanceEndDT < performanceStartDT) {
+                    Console.WriteLine("You can't enter a date and time that is before the starttime of the performance.");
+                } else if (performanceEndDT > DateTime.Now.AddMonths(6)) {
+                    Console.WriteLine("You can't enter a date and time that is more than 6 months ahead of the starttime.");
+                } else {
+                    Console.WriteLine("You entered: " + performanceEndDT);
+                    performanceEndValid = true;
+                }
             }
             else
             {
@@ -97,13 +110,32 @@ static class ManagePerformance
             }
         }
 
+        Console.Clear();
         // locationid
         while (locationId == 0)
         {
-            Console.WriteLine("\nLocation ID: ");
             try
             {
-                locationId = Convert.ToInt32(Console.ReadLine());
+                bool performanceHallValid = false;
+
+                while (performanceHallValid == false) {
+                    Console.WriteLine("\nLocation ID: ");
+                    locationId = Convert.ToInt32(Console.ReadLine());
+
+                    List<LocationModel> locs = LocationAccess.Locationget();
+
+                    bool idExists = locs.Any(loc => loc.locationID == locationId);
+
+                    if (idExists)
+                    {
+                        performanceHallValid = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"A hall with ID {locationId} does not exist.");
+                    }
+                }
+
             }
             catch (System.Exception)
             {
@@ -111,7 +143,7 @@ static class ManagePerformance
             }
         }
 
-        Console.WriteLine("------------------------");
+        Console.Clear();
         Console.WriteLine($"Name: {performanceName}");
         Console.WriteLine($"Start: {performanceStartDT}");
         Console.WriteLine($"End: {performanceEndDT}");
@@ -124,13 +156,14 @@ static class ManagePerformance
         {
             case "y":
                 int newId = logic.GetNewId();
-                Console.WriteLine(newId);
-                PerformanceModel performance = new PerformanceModel(newId, performanceName, performanceStartDT, performanceEndDT, locationId);
+                PerformanceModel performance = new PerformanceModel(newId, performanceName, performanceStartDT, performanceEndDT, locationId, true);
                 logic.UpdateList(performance);
-                Console.WriteLine("The performance was succesfully added.");
+                Console.Clear();
+                Console.WriteLine("The performance was succesfully added.\n");
                 break;
             default:
-                Console.WriteLine("The performance was not added.");
+                Console.Clear();
+                Console.WriteLine("The performance was not added.\n");
                 break;
         }
     }
@@ -156,13 +189,248 @@ static class ManagePerformance
         }
 
     }
+
+    static public void Edit(PerformanceLogic logic) {
+        Console.Clear();
+        
+        int selectedPerformanceIndex = 0;
+        int totalPerformances = logic.GetTotalPerformances();
+        
+        while (true)
+        {
+            DisplayPerformances(logic, selectedPerformanceIndex);
+            
+            var key = Console.ReadKey(true).Key;
+
+            switch (key)
+            {
+                case ConsoleKey.UpArrow:
+                    selectedPerformanceIndex = selectedPerformanceIndex == 0 ? totalPerformances - 1 : selectedPerformanceIndex - 1;
+                    break;
+                case ConsoleKey.DownArrow:
+                    selectedPerformanceIndex = selectedPerformanceIndex == totalPerformances - 1 ? 0 : selectedPerformanceIndex + 1;
+                    break;
+                case ConsoleKey.Enter:
+                    EditPerformance(logic, selectedPerformanceIndex);
+                    return;
+                case ConsoleKey.Escape:
+                    Start();
+                    return;
+                default:
+                    break;
+            }
+        }
+    }
+
+    static private void DisplayPerformances(PerformanceLogic logic, int selectedPerformanceIndex)
+    {
+        Console.Clear();
+        Console.WriteLine("Please select a performance to edit:\n");
+
+        Console.WriteLine("      {0,-6}{1,-22}{2,-21}{3, -21}{4, -10}{5, -5}", "ID", "Name", "Start", "End", "Location", "Active");
+        Console.WriteLine("      --------------------------------------------------------------------------------------");
+        
+        int index = 0;
+        foreach (PerformanceModel performance in logic.GetPerformances())
+        {
+            if (index == selectedPerformanceIndex)
+            {
+                Console.Write(">> ");
+            }
+            else
+            {
+                Console.Write("   ");
+            }
+            
+            Console.WriteLine("   {0,-6}{1,-22}{2,-21}{3, -21}{4, -10}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, performance.locationId, performance.active);
+
+            index++;
+        }
+    }
+
+    static private void EditPerformance(PerformanceLogic logic, int selectedPerformanceIndex)
+    {
+        PerformanceModel selectedPerformance = logic.GetPerformances()[selectedPerformanceIndex];
+
+        string performanceName = null;
+        bool performanceStartValid = false;
+        bool performanceEndValid = false;
+        int locationId = 0;
+        DateTime performanceStartDT = DateTime.MinValue;
+        DateTime performanceEndDT = DateTime.MinValue;
+        bool active = selectedPerformance.active;
+
+        Console.Clear();
+        // name
+        while (string.IsNullOrEmpty(performanceName))
+        {
+            Console.WriteLine($"\nCurrent performance name: {selectedPerformance.name}\n\nEnter a new name, or leave it blank to keep it.");
+            performanceName = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(performanceName))
+            {
+                performanceName = selectedPerformance.name;
+            }
+        }
+
+        Console.Clear();
+        // startDate
+        while (performanceStartValid == false)
+        {
+            Console.WriteLine($"\nCurrent start time: {selectedPerformance.startDate}: \n\nEnter a new date & time, or leave it blank to keep it.");
+            string performanceStart = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(performanceStart))
+            {
+                performanceStartDT = selectedPerformance.startDate;
+                performanceStartValid = true;
+            }
+            else if (DateTime.TryParse(performanceStart, out performanceStartDT))
+            {
+                if (performanceStartDT < DateTime.Now)
+                {
+                    Console.WriteLine("You can't enter a date and time that is in the past.");
+                }
+                else
+                {
+                    Console.WriteLine("You entered: " + performanceStartDT);
+                    performanceStartValid = true;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a valid date and time format (YYYY-MM-DD HH:MM:SS).");
+            }
+        }
+
+        Console.Clear();
+        // endDate
+        while (performanceEndValid == false)
+        {
+            Console.WriteLine($"\nCurrent end time: {selectedPerformance.endDate}: \n\nEnter a new date & time, or leave it blank to keep it.");
+            string performanceEnd = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(performanceEnd))
+            {
+                performanceEndDT = selectedPerformance.endDate;
+                performanceEndValid = true;
+            }
+            else if (DateTime.TryParse(performanceEnd, out performanceEndDT))
+            {
+                if (performanceEndDT < performanceStartDT)
+                {
+                    Console.WriteLine("You can't enter a date and time that is before the start time of the performance.");
+                }
+                else if (performanceEndDT > DateTime.Now.AddMonths(6))
+                {
+                    Console.WriteLine("You can't enter a date and time that is more than 6 months ahead of the start time.");
+                }
+                else
+                {
+                    Console.WriteLine("You entered: " + performanceEndDT);
+                    performanceEndValid = true;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a valid date and time format (YYYY-MM-DD HH:MM:SS).");
+            }
+        }
+
+        Console.Clear();
+        // locationid
+        while (locationId == 0)
+        {
+            try
+            {
+                bool performanceHallValid = false;
+
+                while (performanceHallValid == false)
+                {
+                    Console.WriteLine($"\nCurrent hall ID: {selectedPerformance.locationId}\n\nEnter a new ID, or leave it blank to keep it.");
+                    string locationInput = Console.ReadLine();
+
+                    if (string.IsNullOrEmpty(locationInput))
+                    {
+                        locationId = selectedPerformance.locationId;
+                        break;
+                    }
+
+                    locationId = Convert.ToInt32(locationInput);
+
+                    List<LocationModel> locs = LocationAccess.Locationget();
+
+                    bool idExists = locs.Any(loc => loc.locationID == locationId);
+
+                    if (idExists)
+                    {
+                        performanceHallValid = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"A hall with ID {locationId} does not exist.");
+                    }
+                }
+            }
+            catch (System.Exception)
+            {
+                locationId = selectedPerformance.locationId;
+            }
+        }
+
+        Console.Clear();
+        // active
+        if (selectedPerformance.active == false)
+        {
+            Console.WriteLine($"\nCurrent active state: {selectedPerformance.active}\n\nDo you want to switch to active? (Y/N)");
+        }
+        else
+        {
+            Console.WriteLine($"\nCurrent active state: {selectedPerformance.active}\n\nDo you want to switch to inactive? (Y/N)");
+        }
+
+        if (Console.ReadLine().ToLower() == "y")
+        {
+            active = !active;
+        }
+
+        Console.Clear();
+        Console.WriteLine($"Name: {performanceName}");
+        Console.WriteLine($"Start: {performanceStartDT}");
+        Console.WriteLine($"End: {performanceEndDT}");
+        Console.WriteLine($"Location: {locationId}");
+        Console.WriteLine($"Active: {active}");
+
+        Console.WriteLine("\nAre you sure you want to make these changes? (Y/N)");
+        string confirmation = Console.ReadLine();
+
+        switch (confirmation.ToLower())
+        {
+            case "y":
+                selectedPerformance.name = performanceName;
+                selectedPerformance.startDate = performanceStartDT;
+                selectedPerformance.endDate = performanceEndDT;
+                selectedPerformance.locationId = locationId;
+                selectedPerformance.active = active;
+                logic.UpdateList(selectedPerformance);
+                Console.Clear();
+                Console.WriteLine("The performance was successfully edited.\n");
+                break;
+            default:
+                Console.Clear();
+                Console.WriteLine("The performance was not edited.\n");
+                break;
+        }
+    }
+
+
     static private void PerformAction(int option, PerformanceLogic logic)
     {
         switch (option)
         {
             case 1:
                 Console.Clear();
-                Console.WriteLine(logic.GetList());
+                logic.GetList();
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
                 Start();
@@ -176,7 +444,7 @@ static class ManagePerformance
                 break;
             case 3:
                 Console.Clear();
-                Delete(logic);
+                Edit(logic);
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
                 Start();
@@ -193,9 +461,9 @@ static class ManagePerformance
     {
         Console.WriteLine("What do you want to do?\n");
 
-        Console.WriteLine(selectedOption == 1 ? ">> 1 - View performances" : "1 - View performances");
-        Console.WriteLine(selectedOption == 2 ? ">> 2 - Add a performance" : "2 - Add a performance");
-        Console.WriteLine(selectedOption == 3 ? ">> 3 - Delete a performance" : "3 - Delete a performance");
-        Console.WriteLine(selectedOption == 4 ? ">> 4 - Quit" : "3 - Quit");
+        Console.WriteLine(selectedOption == 1 ? ">> View performances" : "   View performances");
+        Console.WriteLine(selectedOption == 2 ? ">> Add a performance" : "   Add a performance");
+        Console.WriteLine(selectedOption == 3 ? ">> Edit a performance" : "   Edit a performance");
+        Console.WriteLine(selectedOption == 4 ? ">> Back to main menu" : "   Back to main menu");
     }
 }

@@ -17,7 +17,7 @@ public class TicketLogic
 
     public void ShowAvailablePerformances()
     {
-        Console.WriteLine(performanceLogic.GetList());
+        performanceLogic.GetList();
     }
 
     public void PrintPerformanceById(int id)
