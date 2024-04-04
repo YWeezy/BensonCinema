@@ -19,10 +19,41 @@ class HallLogic
     }
 
     public List<HallModel> GetList() {
-
-        
-
         return _halls;
+    }
+
+    public void DisplayTable(bool showId = false) {
+        Console.WriteLine("Table of all halls\n");
+
+        if (showId == false) {
+            Console.WriteLine("{0,-15}{1,-10}{2,-15}", "Name", "Type", "Active");
+            Console.WriteLine("-----------------------------------");
+            foreach (HallModel hall in _halls)
+            {
+                string actstr;
+                if (hall.active)
+                {
+                    actstr = "active";
+                }else{
+                    actstr = "inactive";
+                }
+                Console.WriteLine("{0,-15}{1,-10}{2,-15}", hall.hallName, hall.type, actstr);
+            }
+        } else {
+            Console.WriteLine("{0, -5}{1,-15}{2,-10}{3,-15}", "ID", "Name", "Type", "Active");
+            Console.WriteLine("----------------------------------------");
+            foreach (HallModel hall in _halls)
+            {
+                string actstr;
+                if (hall.active)
+                {
+                    actstr = "active";
+                }else{
+                    actstr = "inactive";
+                }
+                Console.WriteLine("{0, -5}{1,-15}{2,-10}{3,-15}", hall.hallID, hall.hallName, hall.type, actstr);
+            }
+        }
     }
 
     public void insertHall(string name, string type){

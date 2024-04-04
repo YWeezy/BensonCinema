@@ -137,7 +137,7 @@ static class ManageHall
         Console.WriteLine("Please select a hall to edit:\n");
 
         Console.WriteLine("      {0,-18}{1,-10}", "Name", "Type");
-        Console.WriteLine("      --------------------------------------------------------------------------------------");
+        Console.WriteLine("      -----------------------------------");
         
         int index = 0;
         foreach (HallModel hall in logic.GetList())
@@ -273,42 +273,21 @@ static class ManageHall
             {
                 case 1:
                     Console.Clear();
-                    Console.WriteLine("Table of all halls\n");
-                    
-                    Console.WriteLine("{0,-15}{1,-10}{2,-15}", "Name", "Type", "Active");
-                    Console.WriteLine("-----------------------------------");
-                    foreach (HallModel hall in halls)
-                    {
-                        string actstr;
-                        if (hall.active)
-                        {
-                            actstr = "active";
-                        }else{
-                            actstr = "inactive";
-                        }
-                        Console.WriteLine("{0,-15}{1,-10}{2,-15}", hall.hallName, hall.type, actstr);
-                    }
+                    logic.DisplayTable();
                     Console.WriteLine("\nPress Enter to return to menu.");
-                    var key = Console.ReadKey(true).Key;
-                    if (key == ConsoleKey.Enter){
-                        Start();
-                    }
-                
-                    
+                    while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                    Start();
                     break;
-
                 case 2:
                     Console.Clear();
                     ManageHall.InsertForm(halls);
                     Start();
                     break;
-
                 case 3:
                     Console.Clear();
                     Edit(logic);
                     Start();
                     break;
-                
                 case 4:
                     Menu.Start();
                     break;
@@ -321,10 +300,10 @@ static class ManageHall
     {
         Console.WriteLine("What do you want to do?\n");
 
-        Console.WriteLine(selectedOption == 1 ? ">> 1 - View halls" : "1 - View halls");
-        Console.WriteLine(selectedOption == 2 ? ">> 2 - Add a hall" : "2 - Add a hall");
-        Console.WriteLine(selectedOption == 3 ? ">> 3 - Edit a hall" : "3 - Edit a hall");
-        Console.WriteLine(selectedOption == 4 ? ">> 4 - Back to main menu" : "4 - Back to main menu");
+        Console.WriteLine(selectedOption == 1 ? ">> View halls" : "   View halls");
+        Console.WriteLine(selectedOption == 2 ? ">> Add a hall" : "   Add a hall");
+        Console.WriteLine(selectedOption == 3 ? ">> Edit a hall" : "   Edit a hall");
+        Console.WriteLine(selectedOption == 4 ? ">> Back to main menu" : "   Back to main menu");
     }
 }
 

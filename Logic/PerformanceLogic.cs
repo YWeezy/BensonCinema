@@ -40,7 +40,7 @@ class PerformanceLogic {
         return currentId + 1;
     }
 
-    public void GetList() {
+    public void DisplayTable() {
 
         Console.WriteLine("Table of all performances:\n");
         

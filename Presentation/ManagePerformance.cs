@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Runtime.CompilerServices;
 
 static class ManagePerformance
@@ -68,10 +69,10 @@ static class ManagePerformance
         // startDate
         while (performanceStartValid == false)
         {
-            Console.WriteLine("\nWhen does it start? (YYYY-MM-DD HH:MM:SS): ");
+            Console.WriteLine("\nWhen does it start? (DD-MM-YYYY HH:MM): ");
             string performanceStart = Console.ReadLine();
 
-            if (DateTime.TryParse(performanceStart, out performanceStartDT))
+            if (DateTime.TryParseExact(performanceStart, "d-M-yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out performanceStartDT))
             {
                 if (performanceStartDT < DateTime.Now) {
                     Console.WriteLine("You can't enter a date and time that is in the past.");
@@ -82,7 +83,7 @@ static class ManagePerformance
             }
             else
             {
-                Console.WriteLine("Invalid input. Please enter a valid date and time format (YYYY-MM-DD HH:MM:SS).");
+                Console.WriteLine("Invalid input. Please enter a valid date and time format (DD-MM-YYYY HH:MM).");
             }
         }
 
@@ -90,10 +91,10 @@ static class ManagePerformance
         // endDate
         while (performanceEndValid == false)
         {
-            Console.WriteLine("\nWhen does it end? (YYYY-MM-DD HH:MM:SS): ");
+            Console.WriteLine("\nWhen does it end? (DD-MM-YYYY HH:MM): ");
             string performanceEnd = Console.ReadLine();
 
-            if (DateTime.TryParse(performanceEnd, out performanceEndDT))
+            if (DateTime.TryParseExact(performanceEnd, "d-M-yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out performanceEndDT))
             {
                 if (performanceEndDT < performanceStartDT) {
                     Console.WriteLine("You can't enter a date and time that is before the starttime of the performance.");
@@ -106,7 +107,7 @@ static class ManagePerformance
             }
             else
             {
-                Console.WriteLine("Invalid input. Please enter a valid date and time format (YYYY-MM-DD HH:MM:SS).");
+                Console.WriteLine("Invalid input. Please enter a valid date and time format (DD-MM-YYYY HH:MM).");
             }
         }
 
@@ -119,6 +120,9 @@ static class ManagePerformance
                 bool performanceHallValid = false;
 
                 while (performanceHallValid == false) {
+                    HallLogic hallLogic = new HallLogic();
+                    hallLogic.DisplayTable(true);
+
                     Console.WriteLine("\nHall ID: ");
                     hallId = Convert.ToInt32(Console.ReadLine());
 
@@ -285,7 +289,7 @@ static class ManagePerformance
                 performanceStartDT = selectedPerformance.startDate;
                 performanceStartValid = true;
             }
-            else if (DateTime.TryParse(performanceStart, out performanceStartDT))
+            else if (DateTime.TryParseExact(performanceStart, "d-M-yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out performanceStartDT))
             {
                 if (performanceStartDT < DateTime.Now)
                 {
@@ -299,7 +303,7 @@ static class ManagePerformance
             }
             else
             {
-                Console.WriteLine("Invalid input. Please enter a valid date and time format (YYYY-MM-DD HH:MM:SS).");
+                Console.WriteLine("Invalid input. Please enter a valid date and time format (DD-MM-YYYY HH:MM).");
             }
         }
 
@@ -315,7 +319,7 @@ static class ManagePerformance
                 performanceEndDT = selectedPerformance.endDate;
                 performanceEndValid = true;
             }
-            else if (DateTime.TryParse(performanceEnd, out performanceEndDT))
+            else if (DateTime.TryParseExact(performanceEnd, "d-M-yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out performanceEndDT))
             {
                 if (performanceEndDT < performanceStartDT)
                 {
@@ -333,7 +337,7 @@ static class ManagePerformance
             }
             else
             {
-                Console.WriteLine("Invalid input. Please enter a valid date and time format (YYYY-MM-DD HH:MM:SS).");
+                Console.WriteLine("Invalid input. Please enter a valid date and time format (DD-MM-YYYY HH:MM).");
             }
         }
 
@@ -347,7 +351,10 @@ static class ManagePerformance
 
                 while (performanceHallValid == false)
                 {
-                    Console.WriteLine($"\nCurrent hall ID: {selectedPerformance.hallId}\n\nEnter a new ID, or leave it blank to keep it.");
+                    HallLogic hallLogic = new HallLogic();
+                    hallLogic.DisplayTable(true);
+
+                    Console.WriteLine($"\nCurrent hall ID: {selectedPerformance.hallId}\n\nEnter a new hall ID, or leave it blank to keep it.");
                     string hallInput = Console.ReadLine().Trim();
 
                     if (string.IsNullOrEmpty(hallInput))
@@ -430,7 +437,7 @@ static class ManagePerformance
         {
             case 1:
                 Console.Clear();
-                logic.GetList();
+                logic.DisplayTable();
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
                 Start();
