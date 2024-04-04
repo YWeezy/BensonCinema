@@ -47,7 +47,7 @@ static class ManagePerformance
         string performanceName = null;
         bool performanceStartValid = false;
         bool performanceEndValid = false;
-        int locationId = 0;
+        int hallId = 0;
         DateTime performanceStartDT = DateTime.MinValue;
         DateTime performanceEndDT = DateTime.MinValue;
 
@@ -111,20 +111,20 @@ static class ManagePerformance
         }
 
         Console.Clear();
-        // locationid
-        while (locationId == 0)
+        // hallid
+        while (hallId == 0)
         {
             try
             {
                 bool performanceHallValid = false;
 
                 while (performanceHallValid == false) {
-                    Console.WriteLine("\nLocation ID: ");
-                    locationId = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("\nHall ID: ");
+                    hallId = Convert.ToInt32(Console.ReadLine());
 
-                    List<LocationModel> locs = LocationAccess.Locationget();
+                    List<HallModel> locs = HallAccess.Hallget();
 
-                    bool idExists = locs.Any(loc => loc.locationID == locationId);
+                    bool idExists = locs.Any(loc => loc.hallID == hallId);
 
                     if (idExists)
                     {
@@ -132,14 +132,14 @@ static class ManagePerformance
                     }
                     else
                     {
-                        Console.WriteLine($"A hall with ID {locationId} does not exist.");
+                        Console.WriteLine($"A hall with ID {hallId} does not exist.");
                     }
                 }
 
             }
             catch (System.Exception)
             {
-                Console.WriteLine("Invalid input. Please provide a valid location ID.");
+                Console.WriteLine("Invalid input. Please provide a valid hall ID.");
             }
         }
 
@@ -147,7 +147,7 @@ static class ManagePerformance
         Console.WriteLine($"Name: {performanceName}");
         Console.WriteLine($"Start: {performanceStartDT}");
         Console.WriteLine($"End: {performanceEndDT}");
-        Console.WriteLine($"Location: {locationId}");
+        Console.WriteLine($"Hall: {hallId}");
 
         Console.WriteLine("\nAre you sure you want to add this performance? (Y/N)");
         string confirmation = Console.ReadLine();
@@ -156,7 +156,7 @@ static class ManagePerformance
         {
             case "y":
                 int newId = logic.GetNewId();
-                PerformanceModel performance = new PerformanceModel(newId, performanceName, performanceStartDT, performanceEndDT, locationId, true);
+                PerformanceModel performance = new PerformanceModel(newId, performanceName, performanceStartDT, performanceEndDT, hallId, true);
                 logic.UpdateList(performance);
                 Console.Clear();
                 Console.WriteLine("The performance was succesfully added.\n");
@@ -227,7 +227,7 @@ static class ManagePerformance
         Console.Clear();
         Console.WriteLine("Please select a performance to edit:\n");
 
-        Console.WriteLine("      {0,-6}{1,-22}{2,-21}{3, -21}{4, -10}{5, -5}", "ID", "Name", "Start", "End", "Location", "Active");
+        Console.WriteLine("      {0,-6}{1,-22}{2,-21}{3, -21}{4, -10}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
         Console.WriteLine("      --------------------------------------------------------------------------------------");
         
         int index = 0;
@@ -242,7 +242,7 @@ static class ManagePerformance
                 Console.Write("   ");
             }
             
-            Console.WriteLine("   {0,-6}{1,-22}{2,-21}{3, -21}{4, -10}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, performance.locationId, performance.active);
+            Console.WriteLine("   {0,-6}{1,-22}{2,-21}{3, -21}{4, -10}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, performance.hallId, performance.active);
 
             index++;
         }
@@ -255,7 +255,7 @@ static class ManagePerformance
         string performanceName = null;
         bool performanceStartValid = false;
         bool performanceEndValid = false;
-        int locationId = 0;
+        int hallId = 0;
         DateTime performanceStartDT = DateTime.MinValue;
         DateTime performanceEndDT = DateTime.MinValue;
         bool active = selectedPerformance.active;
@@ -338,8 +338,8 @@ static class ManagePerformance
         }
 
         Console.Clear();
-        // locationid
-        while (locationId == 0)
+        // hallid
+        while (hallId == 0)
         {
             try
             {
@@ -347,20 +347,20 @@ static class ManagePerformance
 
                 while (performanceHallValid == false)
                 {
-                    Console.WriteLine($"\nCurrent hall ID: {selectedPerformance.locationId}\n\nEnter a new ID, or leave it blank to keep it.");
-                    string locationInput = Console.ReadLine();
+                    Console.WriteLine($"\nCurrent hall ID: {selectedPerformance.hallId}\n\nEnter a new ID, or leave it blank to keep it.");
+                    string hallInput = Console.ReadLine().Trim();
 
-                    if (string.IsNullOrEmpty(locationInput))
+                    if (string.IsNullOrEmpty(hallInput))
                     {
-                        locationId = selectedPerformance.locationId;
+                        hallId = selectedPerformance.hallId;
                         break;
                     }
 
-                    locationId = Convert.ToInt32(locationInput);
+                    hallId = Convert.ToInt32(hallInput);
 
-                    List<LocationModel> locs = LocationAccess.Locationget();
+                    List<HallModel> locs = HallAccess.Hallget();
 
-                    bool idExists = locs.Any(loc => loc.locationID == locationId);
+                    bool idExists = locs.Any(loc => loc.hallID == hallId);
 
                     if (idExists)
                     {
@@ -368,13 +368,13 @@ static class ManagePerformance
                     }
                     else
                     {
-                        Console.WriteLine($"A hall with ID {locationId} does not exist.");
+                        Console.WriteLine($"A hall with ID {hallId} does not exist.");
                     }
                 }
             }
             catch (System.Exception)
             {
-                locationId = selectedPerformance.locationId;
+                hallId = selectedPerformance.hallId;
             }
         }
 
@@ -398,7 +398,7 @@ static class ManagePerformance
         Console.WriteLine($"Name: {performanceName}");
         Console.WriteLine($"Start: {performanceStartDT}");
         Console.WriteLine($"End: {performanceEndDT}");
-        Console.WriteLine($"Location: {locationId}");
+        Console.WriteLine($"Hall: {hallId}");
         Console.WriteLine($"Active: {active}");
 
         Console.WriteLine("\nAre you sure you want to make these changes? (Y/N)");
@@ -410,7 +410,7 @@ static class ManagePerformance
                 selectedPerformance.name = performanceName;
                 selectedPerformance.startDate = performanceStartDT;
                 selectedPerformance.endDate = performanceEndDT;
-                selectedPerformance.locationId = locationId;
+                selectedPerformance.hallId = hallId;
                 selectedPerformance.active = active;
                 logic.UpdateList(selectedPerformance);
                 Console.Clear();

@@ -13,6 +13,11 @@ class HallLogic
         _halls = HallAccess.Hallget();
     }
 
+    public int GetTotalHalls() 
+    {
+        return _halls.Count;
+    }
+
     public List<HallModel> GetList() {
 
         
@@ -24,10 +29,22 @@ class HallLogic
 
         int lastId = _halls.Last().hallID;
         int id = lastId + 1;
-        HallModel newHall = new HallModel(id, name, type);
+        HallModel newHall = new HallModel(id, name, type, true);
         _halls.Add(newHall);
 
         HallAccess.WriteAll(_halls);
+    }
+
+    public void UpdateList(HallModel hall)
+    {
+        //Find if there is already an model with the same id
+        int index = _halls.FindIndex(s => s.hallID == hall.hallID);
+
+            //update existing model
+        _halls[index] = hall;
+        
+        HallAccess.WriteAll(_halls);
+
     }
 
     public bool Delete(int id) {

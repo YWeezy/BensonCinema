@@ -130,7 +130,7 @@ static class Menu
             case ContentManagerOption.Performances:
                 ManagePerformance.Start();
                 break;
-            case ContentManagerOption.Locations:
+            case ContentManagerOption.Halls:
                 ManageHall.Start();
                 break;
             case ContentManagerOption.schedule:
@@ -250,7 +250,7 @@ static class Menu
     enum ContentManagerOption
     {
         Performances = 1,
-        Locations,
+        Halls,
         schedule,
         Exit
     }

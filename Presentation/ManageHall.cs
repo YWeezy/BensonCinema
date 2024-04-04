@@ -70,6 +70,8 @@ static class ManageHall
                 Console.WriteLine("Name is empty. Try again!");
             }
         }
+
+        
         
         
         Console.WriteLine("Type : Small/Medium/Large");
@@ -97,7 +99,150 @@ static class ManageHall
 
     }
 
-    
+    static public void Edit(HallLogic logic) {
+        Console.Clear();
+        
+        int selectedHallIndex = 0;
+        int totalHalls = logic.GetTotalHalls();
+        
+        while (true)
+        {
+            DisplayHalls(logic, selectedHallIndex);
+            
+            var key = Console.ReadKey(true).Key;
+
+            switch (key)
+            {
+                case ConsoleKey.UpArrow:
+                    selectedHallIndex = selectedHallIndex == 0 ? totalHalls - 1 : selectedHallIndex - 1;
+                    break;
+                case ConsoleKey.DownArrow:
+                    selectedHallIndex = selectedHallIndex == totalHalls - 1 ? 0 : selectedHallIndex + 1;
+                    break;
+                case ConsoleKey.Enter:
+                    EditHall(logic, selectedHallIndex);
+                    return;
+                case ConsoleKey.Escape:
+                    Start();
+                    return;
+                default:
+                    break;
+            }
+        }
+    }
+
+    static private void DisplayHalls(HallLogic logic, int selectedHallIndex)
+    {
+        Console.Clear();
+        Console.WriteLine("Please select a hall to edit:\n");
+
+        Console.WriteLine("      {0,-18}{1,-10}", "Name", "Type");
+        Console.WriteLine("      --------------------------------------------------------------------------------------");
+        
+        int index = 0;
+        foreach (HallModel hall in logic.GetList())
+        {
+            if (index == selectedHallIndex)
+            {
+                Console.Write(">> ");
+            }
+            else
+            {
+                Console.Write("   ");
+            }
+            
+            Console.WriteLine("   {0,-18}{1,-10}", hall.hallName, hall.type);
+
+            index++;
+        }
+    }
+
+    static private void EditHall(HallLogic logic, int selectedHallIndex)
+    {
+        HallModel selectedHall = logic.GetList()[selectedHallIndex];
+
+        string hallName = null;
+        string type = null;
+        bool active = selectedHall.active;
+
+        Console.Clear();
+        // name
+        while (string.IsNullOrEmpty(hallName))
+        {
+            Console.WriteLine($"\nCurrent hall name: {selectedHall.hallName}\n\nEnter a new name, or leave it blank to keep it.");
+            hallName = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(hallName))
+            {
+                hallName = selectedHall.hallName;
+            }
+        }
+
+        Console.Clear();
+        //type
+        while (string.IsNullOrEmpty(type))
+        {   
+            Console.WriteLine($"\nCurrent type: {selectedHall.type}\n\nEnter a Small/Medium/Large, or leave it blank to keep it.");
+            bool isValid = false;
+            while (isValid == false)
+            {
+                
+                type = Console.ReadLine().ToLower();
+
+                if (string.IsNullOrEmpty(type))
+                {
+                    type = selectedHall.type;
+                    isValid = true;
+                } else if (type == "small" || type == "medium" || type == "large"){
+                    isValid = true;
+                } else{
+                    Console.WriteLine("Type is not valid. Choose from Small/Medium/Large");
+                }
+            }
+            
+        }
+        
+        Console.Clear();
+        // active
+        if (selectedHall.active == false)
+        {
+            Console.WriteLine($"\nCurrent active state: {selectedHall.active}\n\nDo you want to switch to active? (Y/N)");
+        }
+        else
+        {
+            Console.WriteLine($"\nCurrent active state: {selectedHall.active}\n\nDo you want to switch to inactive? (Y/N)");
+        }
+
+        if (Console.ReadLine().ToLower() == "y")
+        {
+            active = !active;
+        }
+
+        Console.Clear();
+        Console.WriteLine($"Name: {hallName}");
+        Console.WriteLine($"Type: {type}");
+        Console.WriteLine($"Active: {active}");
+
+        Console.WriteLine("\nAre you sure you want to make these changes? (Y/N)");
+        string confirmation = Console.ReadLine();
+
+        switch (confirmation.ToLower())
+        {
+            case "y":
+                selectedHall.hallName = hallName;
+                selectedHall.type = type;
+                selectedHall.active = active;
+                logic.UpdateList(selectedHall);
+                Console.Clear();
+                Console.WriteLine("The hall was successfully edited.\n");
+                break;
+            default:
+                Console.Clear();
+                Console.WriteLine("The hall was not edited.\n");
+                break;
+        }
+    }
+
 
     static public void Delete(HallLogic logic)
     {
@@ -129,11 +274,19 @@ static class ManageHall
                 case 1:
                     Console.Clear();
                     Console.WriteLine("Table of all halls\n");
-                    Console.WriteLine("{1,-15}{2,-10}", "Name", "Type");
-                    Console.WriteLine("-------------------------");
+                    
+                    Console.WriteLine("{0,-15}{1,-10}{2,-15}", "Name", "Type", "Active");
+                    Console.WriteLine("-----------------------------------");
                     foreach (HallModel hall in halls)
                     {
-                        Console.WriteLine("{1,-15}{2,-10}", hall.hallName, hall.type);
+                        string actstr;
+                        if (hall.active)
+                        {
+                            actstr = "active";
+                        }else{
+                            actstr = "inactive";
+                        }
+                        Console.WriteLine("{0,-15}{1,-10}{2,-15}", hall.hallName, hall.type, actstr);
                     }
                     Console.WriteLine("\nPress Enter to return to menu.");
                     var key = Console.ReadKey(true).Key;
@@ -152,7 +305,7 @@ static class ManageHall
 
                 case 3:
                     Console.Clear();
-                    Delete(logic);
+                    Edit(logic);
                     Start();
                     break;
                 
@@ -170,8 +323,8 @@ static class ManageHall
 
         Console.WriteLine(selectedOption == 1 ? ">> 1 - View halls" : "1 - View halls");
         Console.WriteLine(selectedOption == 2 ? ">> 2 - Add a hall" : "2 - Add a hall");
-        Console.WriteLine(selectedOption == 3 ? ">> 3 - Delete a hall" : "3 - Delete a hall");
-        Console.WriteLine(selectedOption == 4 ? ">> 4 - Quit" : "4 - Quit");
+        Console.WriteLine(selectedOption == 3 ? ">> 3 - Edit a hall" : "3 - Edit a hall");
+        Console.WriteLine(selectedOption == 4 ? ">> 4 - Back to main menu" : "4 - Back to main menu");
     }
 }
 
