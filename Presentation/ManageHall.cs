@@ -129,11 +129,11 @@ static class ManageHall
                 case 1:
                     Console.Clear();
                     Console.WriteLine("Table of all halls\n");
-                    Console.WriteLine("{0,-6}{1,-15}{2,-10}", "ID", "Name", "Type");
-                    Console.WriteLine("-------------------------------");
+                    Console.WriteLine("{1,-15}{2,-10}", "Name", "Type");
+                    Console.WriteLine("-------------------------");
                     foreach (HallModel hall in halls)
                     {
-                        Console.WriteLine("{0,-6}{1,-15}{2,-10}", hall.hallID, hall.hallName, hall.type);
+                        Console.WriteLine("{1,-15}{2,-10}", hall.hallName, hall.type);
                     }
                     Console.WriteLine("\nPress Enter to return to menu.");
                     var key = Console.ReadKey(true).Key;
