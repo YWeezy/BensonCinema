@@ -6,6 +6,16 @@ class PerformanceLogic {
         _performances = PerformanceAccess.LoadAll();
     }
 
+    public List<PerformanceModel> GetPerformances() 
+    {
+        return _performances;
+    }
+
+    public int GetTotalPerformances() 
+    {
+        return _performances.Count;
+    }
+
     public void UpdateList(PerformanceModel perf)
     {
         //Find if there is already an model with the same id
@@ -30,22 +40,19 @@ class PerformanceLogic {
         return currentId + 1;
     }
 
-    public string GetList() {
+    public void GetList() {
 
-        string listOfPerf = "List of performances:\n";
-        listOfPerf += "------------------------\n";
-
+        Console.WriteLine("Table of all performances:\n");
+        
+        Console.WriteLine("{0,-6}{1,-22}{2,-21}{3, -21}{4, -10}{5, -5}", "ID", "Name", "Start", "End", "Location", "Active");
+        Console.WriteLine("--------------------------------------------------------------------------------------");
         foreach (PerformanceModel performance in _performances)
         {
-            listOfPerf += $"ID: {performance.id}\n";
-            listOfPerf += $"Name: {performance.name}\n";
-            listOfPerf += $"Start: {performance.startDate}\n";
-            listOfPerf += $"End: {performance.endDate}\n";
-            listOfPerf += $"Location: {performance.locationId}\n";
-            listOfPerf += "------------------------\n";
+            Console.WriteLine("{0,-6}{1,-22}{2,-21}{3, -21}{4, -10}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, performance.locationId, performance.active);
         }
+        Console.WriteLine("");
 
-        return listOfPerf;
+        return;
     }
 
     public bool DeletePerformance(int id) {
