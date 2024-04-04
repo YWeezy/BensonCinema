@@ -229,9 +229,10 @@ static class ManagePerformance
     static private void DisplayPerformances(PerformanceLogic logic, int selectedPerformanceIndex)
     {
         Console.Clear();
+        HallLogic hallLogic = new HallLogic();
         Console.WriteLine("Please select a performance to edit:\n");
 
-        Console.WriteLine("      {0,-6}{1,-22}{2,-21}{3, -21}{4, -10}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
+        Console.WriteLine("      {0,-6}{1,-22}{2,-21}{3, -21}{4, -20}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
         Console.WriteLine("      --------------------------------------------------------------------------------------");
         
         int index = 0;
@@ -246,7 +247,7 @@ static class ManagePerformance
                 Console.Write("   ");
             }
             
-            Console.WriteLine("   {0,-6}{1,-22}{2,-21}{3, -21}{4, -10}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, performance.hallId, performance.active);
+            Console.WriteLine("   {0,-6}{1,-22}{2,-21}{3, -21}{4, -20}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId), performance.active);
 
             index++;
         }

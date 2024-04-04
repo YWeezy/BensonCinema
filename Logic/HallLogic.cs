@@ -13,6 +13,12 @@ class HallLogic
         _halls = HallAccess.Hallget();
     }
 
+    public string? GetHallNameById(int id)
+    {
+        HallModel? hall = _halls.FirstOrDefault(h => h.hallID == id);
+        return hall != null ? hall.hallName : null;
+    }
+
     public int GetTotalHalls() 
     {
         return _halls.Count;
@@ -88,4 +94,5 @@ class HallLogic
         }
         return false;
     }
+
 }

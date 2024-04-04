@@ -42,13 +42,15 @@ class PerformanceLogic {
 
     public void DisplayTable() {
 
+        HallLogic hallLogic = new HallLogic();
+
         Console.WriteLine("Table of all performances:\n");
         
-        Console.WriteLine("{0,-6}{1,-22}{2,-21}{3, -21}{4, -10}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
-        Console.WriteLine("--------------------------------------------------------------------------------------");
+        Console.WriteLine("{0,-6}{1,-22}{2,-21}{3, -21}{4, -20}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
+        Console.WriteLine("------------------------------------------------------------------------------------------------");
         foreach (PerformanceModel performance in _performances)
         {
-            Console.WriteLine("{0,-6}{1,-22}{2,-21}{3, -21}{4, -10}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, performance.hallId, performance.active);
+            Console.WriteLine("{0,-6}{1,-22}{2,-21}{3, -21}{4, -20}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId), performance.active);
         }
         Console.WriteLine("");
 
