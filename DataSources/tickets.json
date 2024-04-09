@@ -1,9 +1,51 @@
 [
   {
+    "PerformanceId": 1,
+    "Title": "Demo A",
+    "Location": "BigBenson",
+    "Date": "3-4-2024",
+    "Time": "20:00-20:00",
+    "Seat": "80",
+    "Price": 40,
+    "RelationId": "aefc0ce3-def8-4a38-9023-c6ec9c3d9778"
+  },
+  {
+    "PerformanceId": 4,
+    "Title": "Hall",
+    "Location": "BigBenson",
+    "Date": "15-6-2023",
+    "Time": "00:00-00:00",
+    "Seat": "80",
+    "Price": 40,
+    "RelationId": "aefc0ce3-def8-4a38-9023-c6ec9c3d9778"
+  },
+  {
+    "PerformanceId": 2,
+    "Title": "Demo B",
+    "Location": "BigBenson",
+    "Date": "3-4-2024",
+    "Time": "22:00-22:00",
+    "Seat": "60",
+    "Price": 40,
+    "RelationId": "aefc0ce3-def8-4a38-9023-c6ec9c3d9778"
+  },
+  {
     "PerformanceId": 3,
     "Title": "The big bang",
+    "Location": "BigBenson",
     "Date": "15-12-2024",
-    "Seat": "3",
+    "Time": "12:00-12:00",
+    "Seat": "4443",
+    "Price": 40,
+    "RelationId": "aefc0ce3-def8-4a38-9023-c6ec9c3d9778"
+  },
+  {
+    "PerformanceId": 1,
+    "Title": "Demo A",
+    "Location": "BigBenson",
+    "Date": "3-4-2024",
+    "Time": "20:00-20:00",
+    "Seat": "55",
     "Price": 40,
     "RelationId": "aefc0ce3-def8-4a38-9023-c6ec9c3d9778"
   }

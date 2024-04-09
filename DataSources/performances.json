@@ -2,29 +2,33 @@
   {
     "id": 1,
     "name": "Demo A",
-    "startDate": "2024-03-01T12:00:00Z",
-    "endDate": "2024-03-01T13:00:00Z",
-    "locationId": 0
+    "startDate": "2024-04-03T20:00:00",
+    "endDate": "2024-04-03T21:00:00",
+    "hallId": 1,
+    "active": true
   },
   {
     "id": 2,
     "name": "Demo B",
-    "startDate": "0001-01-01T00:00:00",
-    "endDate": "0001-01-01T00:00:00",
-    "locationId": 0
+    "startDate": "2024-04-03T22:00:00",
+    "endDate": "2024-04-03T23:00:00",
+    "hallId": 1,
+    "active": true
   },
   {
     "id": 3,
     "name": "The big bang",
     "startDate": "2024-12-15T12:00:00",
     "endDate": "2024-12-28T12:00:00",
-    "locationId": 1
+    "hallId": 1,
+    "active": true
   },
   {
     "id": 4,
     "name": "Hall",
     "startDate": "2023-06-15T00:00:00",
     "endDate": "2023-12-18T00:00:00",
-    "locationId": 1
+    "hallId": 1,
+    "active": true
   }
 ]
