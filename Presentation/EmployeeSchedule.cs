@@ -45,7 +45,7 @@ static class EmployeeSchedule
             }
             catch (FileNotFoundException)
             {
-                Console.WriteLine("json not found.");
+                Console.WriteLine("Json not found.");
             }
             catch (Exception e)
             {
@@ -55,7 +55,7 @@ static class EmployeeSchedule
 
     static void AddSchedule(string path)
     {
-        Console.WriteLine("enter worker ID:");
+        Console.WriteLine("Enter worker ID:");
         string workerId = Console.ReadLine();
 
         Console.WriteLine("Enter Full name:");

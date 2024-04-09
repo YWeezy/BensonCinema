@@ -48,7 +48,7 @@ static class ManageHall
     {
         Console.Clear();
         Console.WriteLine("Press Q to Quit");
-        Console.WriteLine("hall Name: ");
+        Console.WriteLine("Hall Name: ");
         bool valid = false;
         string inputname = "";
         while (valid == false)
@@ -87,7 +87,7 @@ static class ManageHall
             else if (inputtype == "small" || inputtype == "medium" || inputtype == "large")
             {
                 valid = true;
-                Console.WriteLine("hall Added");
+                Console.WriteLine("Hall Added");
             }
             else{
                 Console.WriteLine("Type is Empty or not valid. Choose from Small/Medium/Large");
@@ -252,11 +252,11 @@ static class ManageHall
         {
             if (logic.Delete(idToDelete))
             {
-                Console.WriteLine($"hall with ID {idToDelete} deleted successfully.");
+                Console.WriteLine($"Hall with ID {idToDelete} deleted successfully.");
             }
             else
             {
-                Console.WriteLine($"hall with ID {idToDelete} not found.");
+                Console.WriteLine($"Hall with ID {idToDelete} not found.");
             }
         }
         else

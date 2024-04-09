@@ -161,7 +161,7 @@ static class Menu
                 ticketer.loadMytickets(Utils.LoggedInUser.Id);
                 Console.WriteLine("Press Enter to go back.");
                 // Wait for the user to press enter
-                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                while (Console.ReadKey().Key != ConsoleKey.Enter) {Console.Clear();}
                 ShowUserDefaultMenu();
                 break;
             case UserOption.Exit:
@@ -193,7 +193,8 @@ static class Menu
 
     private static void DisplayUserMenu(UserOption selectedOption)
     {
-        Console.WriteLine("Welcome", Utils.LoggedInUser.FullName);
+        Console.Clear();
+        Console.WriteLine("Welcome to the User Menu", Utils.LoggedInUser.FullName);
 
         foreach (UserOption option in Enum.GetValues(typeof(UserOption)))
         {
@@ -215,7 +216,7 @@ static class Menu
 
     private static void DisplayMenu(ContentManagerOption selectedOption)
     {
-        Console.WriteLine("Welcome to the application!");
+        Console.WriteLine("Welcome to the ContentManager's Menu!");
 
         foreach (ContentManagerOption option in Enum.GetValues(typeof(ContentManagerOption)))
         {
@@ -227,7 +228,7 @@ static class Menu
     private static void ShowEmployeeMenu()
     {
         // Display employee menu
-        Console.WriteLine("Employee Menu:");
+        Console.WriteLine("Welcome to the Employee Menu:");
         Console.WriteLine("1. View Tasks");
         Console.WriteLine("2. Assign Task");
         Console.WriteLine("3. View Employees");
