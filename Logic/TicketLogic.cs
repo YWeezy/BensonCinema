@@ -17,7 +17,7 @@ public class TicketLogic
 
     public void ShowAvailablePerformances()
     {
-        performanceLogic.GetList();
+        performanceLogic.DisplayTable();
     }
 
     public void PrintPerformanceById(int id)
@@ -30,7 +30,7 @@ public class TicketLogic
             Console.WriteLine($"Name: {performance.name}");
             Console.WriteLine($"Start Date: {performance.startDate}");
             Console.WriteLine($"End Date: {performance.endDate}");
-            Console.WriteLine($"Location ID: {performance.locationId}");
+            Console.WriteLine($"Hall ID: {performance.hallId}");
         }
         else
         {

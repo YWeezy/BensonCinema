@@ -7,7 +7,7 @@ public class TicketPresentation
     private TicketLogic ticketLogic = new TicketLogic();
     public void ShowAvailablePerformances()
     {
-        performanceLogic.GetList();
+        performanceLogic.DisplayTable();
     }
 
     public void ReserveTicket()

@@ -1,16 +1,16 @@
 using System.Text.Json;
-static class LocationAccess
+static class HallAccess
 {
     static private readonly string path = "./DataSources/halls.json";
-    public static List<LocationModel> Locationget(){
-        List<LocationModel> locs = new List <LocationModel>();
+    public static List<HallModel> Hallget(){
+        List<HallModel> locs = new List <HallModel>();
         try
         {
             // Read the JSON file
             string content = File.ReadAllText(path);
             var options = new JsonSerializerOptions { IncludeFields = true };
-            // Deserialize the JSON array into a list of Location objects
-            locs = JsonSerializer.Deserialize<List<LocationModel>>(content, options);
+            // Deserialize the JSON array into a list of Hall objects
+            locs = JsonSerializer.Deserialize<List<HallModel>>(content, options);
         }
         catch (FileNotFoundException)
         {
@@ -26,10 +26,10 @@ static class LocationAccess
         }
         return locs;
     }
-    public static void WriteAll(List<LocationModel> locations)
+    public static void WriteAll(List<HallModel> Halls)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
-        string json = JsonSerializer.Serialize(locations, options);
+        string json = JsonSerializer.Serialize(Halls, options);
         File.WriteAllText(path, json);
     }
 }

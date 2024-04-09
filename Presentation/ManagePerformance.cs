@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Runtime.CompilerServices;
 
 static class ManagePerformance
@@ -47,7 +48,7 @@ static class ManagePerformance
         string performanceName = null;
         bool performanceStartValid = false;
         bool performanceEndValid = false;
-        int locationId = 0;
+        int hallId = 0;
         DateTime performanceStartDT = DateTime.MinValue;
         DateTime performanceEndDT = DateTime.MinValue;
 
@@ -68,10 +69,10 @@ static class ManagePerformance
         // startDate
         while (performanceStartValid == false)
         {
-            Console.WriteLine("\nWhen does it start? (YYYY-MM-DD HH:MM:SS): ");
+            Console.WriteLine("\nWhen does it start? (DD-MM-YYYY HH:MM): ");
             string performanceStart = Console.ReadLine();
 
-            if (DateTime.TryParse(performanceStart, out performanceStartDT))
+            if (DateTime.TryParseExact(performanceStart, "d-M-yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out performanceStartDT))
             {
                 if (performanceStartDT < DateTime.Now) {
                     Console.WriteLine("You can't enter a date and time that is in the past.");
@@ -82,7 +83,7 @@ static class ManagePerformance
             }
             else
             {
-                Console.WriteLine("Invalid input. Please enter a valid date and time format (YYYY-MM-DD HH:MM:SS).");
+                Console.WriteLine("Invalid input. Please enter a valid date and time format (DD-MM-YYYY HH:MM).");
             }
         }
 
@@ -90,10 +91,10 @@ static class ManagePerformance
         // endDate
         while (performanceEndValid == false)
         {
-            Console.WriteLine("\nWhen does it end? (YYYY-MM-DD HH:MM:SS): ");
+            Console.WriteLine("\nWhen does it end? (DD-MM-YYYY HH:MM): ");
             string performanceEnd = Console.ReadLine();
 
-            if (DateTime.TryParse(performanceEnd, out performanceEndDT))
+            if (DateTime.TryParseExact(performanceEnd, "d-M-yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out performanceEndDT))
             {
                 if (performanceEndDT < performanceStartDT) {
                     Console.WriteLine("You can't enter a date and time that is before the starttime of the performance.");
@@ -106,25 +107,28 @@ static class ManagePerformance
             }
             else
             {
-                Console.WriteLine("Invalid input. Please enter a valid date and time format (YYYY-MM-DD HH:MM:SS).");
+                Console.WriteLine("Invalid input. Please enter a valid date and time format (DD-MM-YYYY HH:MM).");
             }
         }
 
         Console.Clear();
-        // locationid
-        while (locationId == 0)
+        // hallid
+        while (hallId == 0)
         {
             try
             {
                 bool performanceHallValid = false;
 
                 while (performanceHallValid == false) {
-                    Console.WriteLine("\nLocation ID: ");
-                    locationId = Convert.ToInt32(Console.ReadLine());
+                    HallLogic hallLogic = new HallLogic();
+                    hallLogic.DisplayTable(true);
 
-                    List<LocationModel> locs = LocationAccess.Locationget();
+                    Console.WriteLine("\nHall ID: ");
+                    hallId = Convert.ToInt32(Console.ReadLine());
 
-                    bool idExists = locs.Any(loc => loc.locationID == locationId);
+                    List<HallModel> locs = HallAccess.Hallget();
+
+                    bool idExists = locs.Any(loc => loc.hallID == hallId);
 
                     if (idExists)
                     {
@@ -132,14 +136,14 @@ static class ManagePerformance
                     }
                     else
                     {
-                        Console.WriteLine($"A hall with ID {locationId} does not exist.");
+                        Console.WriteLine($"A hall with ID {hallId} does not exist.");
                     }
                 }
 
             }
             catch (System.Exception)
             {
-                Console.WriteLine("Invalid input. Please provide a valid location ID.");
+                Console.WriteLine("Invalid input. Please provide a valid hall ID.");
             }
         }
 
@@ -147,7 +151,7 @@ static class ManagePerformance
         Console.WriteLine($"Name: {performanceName}");
         Console.WriteLine($"Start: {performanceStartDT}");
         Console.WriteLine($"End: {performanceEndDT}");
-        Console.WriteLine($"Location: {locationId}");
+        Console.WriteLine($"Hall: {hallId}");
 
         Console.WriteLine("\nAre you sure you want to add this performance? (Y/N)");
         string confirmation = Console.ReadLine();
@@ -156,7 +160,7 @@ static class ManagePerformance
         {
             case "y":
                 int newId = logic.GetNewId();
-                PerformanceModel performance = new PerformanceModel(newId, performanceName, performanceStartDT, performanceEndDT, locationId, true);
+                PerformanceModel performance = new PerformanceModel(newId, performanceName, performanceStartDT, performanceEndDT, hallId, true);
                 logic.UpdateList(performance);
                 Console.Clear();
                 Console.WriteLine("The performance was succesfully added.\n");
@@ -225,9 +229,10 @@ static class ManagePerformance
     static private void DisplayPerformances(PerformanceLogic logic, int selectedPerformanceIndex)
     {
         Console.Clear();
+        HallLogic hallLogic = new HallLogic();
         Console.WriteLine("Please select a performance to edit:\n");
 
-        Console.WriteLine("      {0,-6}{1,-22}{2,-21}{3, -21}{4, -10}{5, -5}", "ID", "Name", "Start", "End", "Location", "Active");
+        Console.WriteLine("      {0,-6}{1,-22}{2,-21}{3, -21}{4, -20}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
         Console.WriteLine("      --------------------------------------------------------------------------------------");
         
         int index = 0;
@@ -242,7 +247,7 @@ static class ManagePerformance
                 Console.Write("   ");
             }
             
-            Console.WriteLine("   {0,-6}{1,-22}{2,-21}{3, -21}{4, -10}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, performance.locationId, performance.active);
+            Console.WriteLine("   {0,-6}{1,-22}{2,-21}{3, -21}{4, -20}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId), performance.active);
 
             index++;
         }
@@ -255,7 +260,7 @@ static class ManagePerformance
         string performanceName = null;
         bool performanceStartValid = false;
         bool performanceEndValid = false;
-        int locationId = 0;
+        int hallId = 0;
         DateTime performanceStartDT = DateTime.MinValue;
         DateTime performanceEndDT = DateTime.MinValue;
         bool active = selectedPerformance.active;
@@ -285,7 +290,7 @@ static class ManagePerformance
                 performanceStartDT = selectedPerformance.startDate;
                 performanceStartValid = true;
             }
-            else if (DateTime.TryParse(performanceStart, out performanceStartDT))
+            else if (DateTime.TryParseExact(performanceStart, "d-M-yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out performanceStartDT))
             {
                 if (performanceStartDT < DateTime.Now)
                 {
@@ -299,7 +304,7 @@ static class ManagePerformance
             }
             else
             {
-                Console.WriteLine("Invalid input. Please enter a valid date and time format (YYYY-MM-DD HH:MM:SS).");
+                Console.WriteLine("Invalid input. Please enter a valid date and time format (DD-MM-YYYY HH:MM).");
             }
         }
 
@@ -315,7 +320,7 @@ static class ManagePerformance
                 performanceEndDT = selectedPerformance.endDate;
                 performanceEndValid = true;
             }
-            else if (DateTime.TryParse(performanceEnd, out performanceEndDT))
+            else if (DateTime.TryParseExact(performanceEnd, "d-M-yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out performanceEndDT))
             {
                 if (performanceEndDT < performanceStartDT)
                 {
@@ -333,13 +338,13 @@ static class ManagePerformance
             }
             else
             {
-                Console.WriteLine("Invalid input. Please enter a valid date and time format (YYYY-MM-DD HH:MM:SS).");
+                Console.WriteLine("Invalid input. Please enter a valid date and time format (DD-MM-YYYY HH:MM).");
             }
         }
 
         Console.Clear();
-        // locationid
-        while (locationId == 0)
+        // hallid
+        while (hallId == 0)
         {
             try
             {
@@ -347,20 +352,23 @@ static class ManagePerformance
 
                 while (performanceHallValid == false)
                 {
-                    Console.WriteLine($"\nCurrent hall ID: {selectedPerformance.locationId}\n\nEnter a new ID, or leave it blank to keep it.");
-                    string locationInput = Console.ReadLine();
+                    HallLogic hallLogic = new HallLogic();
+                    hallLogic.DisplayTable(true);
 
-                    if (string.IsNullOrEmpty(locationInput))
+                    Console.WriteLine($"\nCurrent hall ID: {selectedPerformance.hallId}\n\nEnter a new hall ID, or leave it blank to keep it.");
+                    string hallInput = Console.ReadLine().Trim();
+
+                    if (string.IsNullOrEmpty(hallInput))
                     {
-                        locationId = selectedPerformance.locationId;
+                        hallId = selectedPerformance.hallId;
                         break;
                     }
 
-                    locationId = Convert.ToInt32(locationInput);
+                    hallId = Convert.ToInt32(hallInput);
 
-                    List<LocationModel> locs = LocationAccess.Locationget();
+                    List<HallModel> locs = HallAccess.Hallget();
 
-                    bool idExists = locs.Any(loc => loc.locationID == locationId);
+                    bool idExists = locs.Any(loc => loc.hallID == hallId);
 
                     if (idExists)
                     {
@@ -368,13 +376,13 @@ static class ManagePerformance
                     }
                     else
                     {
-                        Console.WriteLine($"A hall with ID {locationId} does not exist.");
+                        Console.WriteLine($"A hall with ID {hallId} does not exist.");
                     }
                 }
             }
             catch (System.Exception)
             {
-                locationId = selectedPerformance.locationId;
+                hallId = selectedPerformance.hallId;
             }
         }
 
@@ -398,7 +406,7 @@ static class ManagePerformance
         Console.WriteLine($"Name: {performanceName}");
         Console.WriteLine($"Start: {performanceStartDT}");
         Console.WriteLine($"End: {performanceEndDT}");
-        Console.WriteLine($"Location: {locationId}");
+        Console.WriteLine($"Hall: {hallId}");
         Console.WriteLine($"Active: {active}");
 
         Console.WriteLine("\nAre you sure you want to make these changes? (Y/N)");
@@ -410,7 +418,7 @@ static class ManagePerformance
                 selectedPerformance.name = performanceName;
                 selectedPerformance.startDate = performanceStartDT;
                 selectedPerformance.endDate = performanceEndDT;
-                selectedPerformance.locationId = locationId;
+                selectedPerformance.hallId = hallId;
                 selectedPerformance.active = active;
                 logic.UpdateList(selectedPerformance);
                 Console.Clear();
@@ -430,7 +438,7 @@ static class ManagePerformance
         {
             case 1:
                 Console.Clear();
-                logic.GetList();
+                logic.DisplayTable();
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
                 Start();
