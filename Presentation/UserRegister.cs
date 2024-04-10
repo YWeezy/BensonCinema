@@ -10,7 +10,7 @@ static class UserRegister
     {
         Console.Clear();
         Console.WriteLine("Welcome to the register page");
-        Console.WriteLine("Choose your role (user/employee/content manager):");
+        Console.WriteLine("Choose your role (User /Employee/ Content manager):");
 
         UserRole role = GetSelectedUserRole();
         AskUserInfo(role);
@@ -25,7 +25,7 @@ static class UserRegister
         do
         {
             Console.Clear();
-            Console.WriteLine("Choose your role (use arrow keys to select, Enter to confirm):");
+            Console.WriteLine("Choose your role (Use arrow keys to select, Enter to confirm):");
             DisplayUserRole(selectedRole);
 
             key = Console.ReadKey(true).Key;

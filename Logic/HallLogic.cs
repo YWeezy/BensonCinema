@@ -29,7 +29,7 @@ class HallLogic
     }
 
     public void DisplayTable(bool showId = false) {
-        Console.WriteLine("Table of all halls\n");
+        Console.WriteLine("Table of all Halls\n");
 
         if (showId == false) {
             Console.WriteLine("{0,-15}{1,-10}{2,-15}", "Name", "Type", "Active");

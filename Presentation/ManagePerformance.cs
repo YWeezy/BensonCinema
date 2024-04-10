@@ -61,7 +61,7 @@ static class ManagePerformance
 
             if (string.IsNullOrEmpty(performanceName))
             {
-                Console.WriteLine("Invalid input. Please provide a performance name.");
+                Console.WriteLine("Invalid input. Please provide a Performance name.");
             }
         }
 
@@ -97,7 +97,7 @@ static class ManagePerformance
             if (DateTime.TryParseExact(performanceEnd, "d-M-yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out performanceEndDT))
             {
                 if (performanceEndDT < performanceStartDT) {
-                    Console.WriteLine("You can't enter a date and time that is before the starttime of the performance.");
+                    Console.WriteLine("You can't enter a date and time that is before the starttime of the Performance.");
                 } else if (performanceEndDT > DateTime.Now.AddMonths(6)) {
                     Console.WriteLine("You can't enter a date and time that is more than 6 months ahead of the starttime.");
                 } else {
@@ -136,14 +136,14 @@ static class ManagePerformance
                     }
                     else
                     {
-                        Console.WriteLine($"A hall with ID {hallId} does not exist.");
+                        Console.WriteLine($"A Hall with ID {hallId} does not exist.");
                     }
                 }
 
             }
             catch (System.Exception)
             {
-                Console.WriteLine("Invalid input. Please provide a valid hall ID.");
+                Console.WriteLine("Invalid input. Please provide a valid Hall ID.");
             }
         }
 
@@ -153,7 +153,7 @@ static class ManagePerformance
         Console.WriteLine($"End: {performanceEndDT}");
         Console.WriteLine($"Hall: {hallId}");
 
-        Console.WriteLine("\nAre you sure you want to add this performance? (Y/N)");
+        Console.WriteLine("\nAre you sure you want to add this Performance? (Y/N)");
         string confirmation = Console.ReadLine();
 
         switch (confirmation.ToLower())
@@ -163,18 +163,18 @@ static class ManagePerformance
                 PerformanceModel performance = new PerformanceModel(newId, performanceName, performanceStartDT, performanceEndDT, hallId, true);
                 logic.UpdateList(performance);
                 Console.Clear();
-                Console.WriteLine("The performance was succesfully added.\n");
+                Console.WriteLine("The Performance was succesfully added.\n");
                 break;
             default:
                 Console.Clear();
-                Console.WriteLine("The performance was not added.\n");
+                Console.WriteLine("The Performance was not added.\n");
                 break;
         }
     }
 
     static public void Delete(PerformanceLogic logic)
     {
-        Console.WriteLine("Enter the ID of the performance you want to delete: ");
+        Console.WriteLine("Enter the ID of the Performance you want to delete: ");
         int idToDelete;
         if (int.TryParse(Console.ReadLine(), out idToDelete))
         {
@@ -230,7 +230,7 @@ static class ManagePerformance
     {
         Console.Clear();
         HallLogic hallLogic = new HallLogic();
-        Console.WriteLine("Please select a performance to edit:\n");
+        Console.WriteLine("Please select a Performance to edit:\n");
 
         Console.WriteLine("      {0,-6}{1,-22}{2,-21}{3, -21}{4, -20}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
         Console.WriteLine("      --------------------------------------------------------------------------------------");
@@ -269,7 +269,7 @@ static class ManagePerformance
         // name
         while (string.IsNullOrEmpty(performanceName))
         {
-            Console.WriteLine($"\nCurrent performance name: {selectedPerformance.name}\n\nEnter a new name, or leave it blank to keep it.");
+            Console.WriteLine($"\nCurrent Performance name: {selectedPerformance.name}\n\nEnter a new name, or leave it blank to keep it.");
             performanceName = Console.ReadLine();
 
             if (string.IsNullOrEmpty(performanceName))
@@ -324,7 +324,7 @@ static class ManagePerformance
             {
                 if (performanceEndDT < performanceStartDT)
                 {
-                    Console.WriteLine("You can't enter a date and time that is before the start time of the performance.");
+                    Console.WriteLine("You can't enter a date and time that is before the start time of the Performance.");
                 }
                 else if (performanceEndDT > DateTime.Now.AddMonths(6))
                 {
@@ -355,7 +355,7 @@ static class ManagePerformance
                     HallLogic hallLogic = new HallLogic();
                     hallLogic.DisplayTable(true);
 
-                    Console.WriteLine($"\nCurrent hall ID: {selectedPerformance.hallId}\n\nEnter a new hall ID, or leave it blank to keep it.");
+                    Console.WriteLine($"\nCurrent Hall ID: {selectedPerformance.hallId}\n\nEnter a new Hall ID, or leave it blank to keep it.");
                     string hallInput = Console.ReadLine().Trim();
 
                     if (string.IsNullOrEmpty(hallInput))
@@ -376,7 +376,7 @@ static class ManagePerformance
                     }
                     else
                     {
-                        Console.WriteLine($"A hall with ID {hallId} does not exist.");
+                        Console.WriteLine($"A Hall with ID {hallId} does not exist.");
                     }
                 }
             }
@@ -422,11 +422,11 @@ static class ManagePerformance
                 selectedPerformance.active = active;
                 logic.UpdateList(selectedPerformance);
                 Console.Clear();
-                Console.WriteLine("The performance was successfully edited.\n");
+                Console.WriteLine("The Performance was successfully edited.\n");
                 break;
             default:
                 Console.Clear();
-                Console.WriteLine("The performance was not edited.\n");
+                Console.WriteLine("The Performance was not edited.\n");
                 break;
         }
     }
@@ -469,9 +469,9 @@ static class ManagePerformance
     {
         Console.WriteLine("What do you want to do?\n");
 
-        Console.WriteLine(selectedOption == 1 ? ">> View performances" : "   View performances");
-        Console.WriteLine(selectedOption == 2 ? ">> Add a performance" : "   Add a performance");
-        Console.WriteLine(selectedOption == 3 ? ">> Edit a performance" : "   Edit a performance");
+        Console.WriteLine(selectedOption == 1 ? ">> View Performances" : "   View Performances");
+        Console.WriteLine(selectedOption == 2 ? ">> Add a Performance" : "   Add a Performance");
+        Console.WriteLine(selectedOption == 3 ? ">> Edit a Performance" : "   Edit a Performance");
         Console.WriteLine(selectedOption == 4 ? ">> Back to main menu" : "   Back to main menu");
     }
 }

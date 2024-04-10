@@ -194,7 +194,7 @@ static class Menu
     private static void DisplayUserMenu(UserOption selectedOption)
     {
         Console.Clear();
-        Console.WriteLine("Welcome to the User Menu", Utils.LoggedInUser.FullName);
+        Console.WriteLine("Welcome to the User's Menu", Utils.LoggedInUser.FullName);
 
         foreach (UserOption option in Enum.GetValues(typeof(UserOption)))
         {
@@ -216,7 +216,7 @@ static class Menu
 
     private static void DisplayMenu(ContentManagerOption selectedOption)
     {
-        Console.WriteLine("Welcome to the ContentManager's Menu!");
+        Console.WriteLine("Welcome to the Content Manager's Menu!");
 
         foreach (ContentManagerOption option in Enum.GetValues(typeof(ContentManagerOption)))
         {
@@ -228,7 +228,7 @@ static class Menu
     private static void ShowEmployeeMenu()
     {
         // Display employee menu
-        Console.WriteLine("Welcome to the Employee Menu:");
+        Console.WriteLine("Welcome to the Employee's Menu:");
         Console.WriteLine("1. View Tasks");
         Console.WriteLine("2. Assign Task");
         Console.WriteLine("3. View Employees");
