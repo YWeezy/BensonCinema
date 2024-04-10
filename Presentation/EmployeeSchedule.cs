@@ -1,4 +1,5 @@
 using System.Drawing;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -122,24 +123,43 @@ static class EmployeeSchedule
 
         Console.WriteLine("Enter position:");
         string position = Console.ReadLine();
-
-        Console.WriteLine("Enter date: (DD-MM-YYYY)");
-        string date = Console.ReadLine();
-
-        Console.WriteLine("Enter total working hours for this date:");
-        string TotalHours = Console.ReadLine();
+        
+        string date;
+        do
+        { Console.WriteLine("Enter date: (DD-MM-YYYY for the schedule(within 1-2 weeks from today))");
+        date = Console.ReadLine();
+        } while (!IsValidDate(date));
 
         Console.WriteLine("Enter start time: (HH:MM)");
         string startTime = Console.ReadLine();
 
         Console.WriteLine("Enter end time: (HH:MM)");
         string endTime = Console.ReadLine();
+    
+        TimeSpan totalHours = TimeSpan.Parse(endTime).Subtract(TimeSpan.Parse(startTime));
+        Console.WriteLine($"Total working hours for this date: {totalHours} (HH-MM-SS)");
+        
 
         Console.WriteLine("The data you just entered has been saved.");
 
-        ScheduleModel newSchedule = new ScheduleModel(workerId, position, date, TotalHours, startTime, endTime);
+        ScheduleModel newSchedule = new ScheduleModel(workerId, position, date, totalHours.ToString(), startTime, endTime);
 
         ScheduleLogic scheduleLogicUp = new ScheduleLogic();
         scheduleLogicUp.UpdateList(newSchedule);
+    }
+    static bool IsValidDate(string inputdate)
+    {
+        if (DateTime.TryParseExact(inputdate, "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime parsedDate))
+        {
+            DateTime today = DateTime.Today;
+            DateTime oneWeekLater = today.AddDays(7);
+            DateTime twoWeeksLater = today.AddDays(14);
+
+            if (parsedDate>= oneWeekLater && parsedDate <= twoWeeksLater)
+             return true;
+        }
+        Console.WriteLine("Please enter a valid date within 1-2 weeks from today.");
+        return false;
+
     }
 }
