@@ -1,18 +1,9 @@
 [
   {
-    "workerNumber": null,
-    "position": "manager",
-    "date": "03-04-2024",
-    "totalHours": "10",
-    "startTime": "10:00",
-    "endTime": "20:00"
-  },
-  {
-    "workerNumber": "1231",
-    "position": "concierge",
-    "date": "05-04-2024",
-    "totalHours": "12",
-    "startTime": "10:00",
-    "endTime": "22:00"
+    "worker": "Lucas",
+    "date": "17-04-2024",
+    "totalHours": "09:00:00",
+    "startTime": "09:30",
+    "endTime": "18:30"
   }
 ]
