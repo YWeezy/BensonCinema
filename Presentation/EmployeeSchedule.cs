@@ -10,7 +10,7 @@ static class EmployeeSchedule
         Console.Clear();
         bool loop = true;
         int selectedOption = 1; // Default selected option
-        int totalOptions = 4; // Total number of options
+        int totalOptions = 5; // Total number of options
 
         while (loop)
             {
@@ -81,9 +81,9 @@ static class EmployeeSchedule
 
         Console.WriteLine(selectedOption == 1 ? color + ">> 1 - View schedules\u001b[0m" : " 1 - View schedules ");
         Console.WriteLine(selectedOption == 2 ? color + ">> 2 - Add a new schedule \u001b[0m" : " 2 - Add a new schedule");
-        Console.WriteLine(selectedOption == 3 ? color + ">> 2 - Remove a schedule \u001b[0m" : " 3 - Remove a schedule");
-        Console.WriteLine(selectedOption == 4 ? color + ">> 3 - Go back to the previous menu \u001b[0m" : " 4 - Go back to the previous menu");
-        Console.WriteLine(selectedOption == 5 ? color + ">> 4 - Close application \u001b[0m" : " 5 - Close application");
+        Console.WriteLine(selectedOption == 3 ? color + ">> 3 - Remove a schedule \u001b[0m" : " 3 - Remove a schedule");
+        Console.WriteLine(selectedOption == 4 ? color + ">> 4 - Go back to the previous menu \u001b[0m" : " 4 - Go back to the previous menu");
+        Console.WriteLine(selectedOption == 5 ? color + ">> 5 - Close application \u001b[0m" : " 5 - Close application");
         
 
     }
