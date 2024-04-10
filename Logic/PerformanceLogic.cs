@@ -46,11 +46,18 @@ class PerformanceLogic {
 
         Console.WriteLine("Table of all Performances:\n");
         
-        Console.WriteLine("{0,-6}{1,-22}{2,-21}{3, -21}{4, -20}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
-        Console.WriteLine("------------------------------------------------------------------------------------------------");
+        Console.WriteLine("{0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
+        Console.WriteLine("------------------------------------------------------------------------------------------------------------");
         foreach (PerformanceModel performance in _performances)
-        {
-            Console.WriteLine("{0,-6}{1,-22}{2,-21}{3, -21}{4, -20}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId), performance.active);
+        {   
+            string actstr;
+            if (performance.active)
+            {
+                actstr = "Active";
+            }else{
+                actstr = "Inactive";
+            }
+            Console.WriteLine("{0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId), actstr);
         }
         Console.WriteLine("");
 
