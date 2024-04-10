@@ -2,14 +2,8 @@ using System.Text.Json.Serialization;
 
 public class ScheduleModel
 {
-    [JsonPropertyName("workerId")]
-    public string WorkerId { get; set; }
-    
-    [JsonPropertyName("fullName")]
-    public string FullName { get; set; }
-
-    [JsonPropertyName("position")]
-    public string Position { get; set; }
+    [JsonPropertyName("worker")]
+    public string Worker { get; set; }
 
     [JsonPropertyName("date")]
     public string Date { get; set; }
@@ -25,11 +19,9 @@ public class ScheduleModel
 
 
 
-    public ScheduleModel( string workerId, string fullName, string position, string date, string totalHours, string startTime, string endTime)
+    public ScheduleModel( string worker, string date, string totalHours, string startTime, string endTime)
     {
-        this.WorkerId = workerId;
-        this.FullName = fullName;
-        this.Position = position;
+        this.Worker = worker;
         this.Date = date;
         this.TotalHours = totalHours;
         this.StartTime = startTime;
