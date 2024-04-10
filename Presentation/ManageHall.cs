@@ -134,7 +134,7 @@ static class ManageHall
     static private void DisplayHalls(HallLogic logic, int selectedHallIndex)
     {
         Console.Clear();
-        Console.WriteLine("Please select a hall to edit:\n");
+        Console.WriteLine("Please select a Hall to edit:\n");
 
         Console.WriteLine("      {0,-18}{1,-10}", "Name", "Type");
         Console.WriteLine("      -----------------------------------");
@@ -234,11 +234,11 @@ static class ManageHall
                 selectedHall.active = active;
                 logic.UpdateList(selectedHall);
                 Console.Clear();
-                Console.WriteLine("The hall was successfully edited.\n");
+                Console.WriteLine("The Hall was successfully edited.\n");
                 break;
             default:
                 Console.Clear();
-                Console.WriteLine("The hall was not edited.\n");
+                Console.WriteLine("The Hall was not edited.\n");
                 break;
         }
     }
@@ -246,7 +246,7 @@ static class ManageHall
 
     static public void Delete(HallLogic logic)
     {
-        Console.WriteLine("Enter the ID of the hall you want to delete: ");
+        Console.WriteLine("Enter the ID of the Hall you want to delete: ");
         int idToDelete;
         if (int.TryParse(Console.ReadLine(), out idToDelete))
         {
@@ -300,9 +300,9 @@ static class ManageHall
     {
         Console.WriteLine("What do you want to do?\n");
 
-        Console.WriteLine(selectedOption == 1 ? ">> View halls" : "   View halls");
-        Console.WriteLine(selectedOption == 2 ? ">> Add a hall" : "   Add a hall");
-        Console.WriteLine(selectedOption == 3 ? ">> Edit a hall" : "   Edit a hall");
+        Console.WriteLine(selectedOption == 1 ? ">> View Halls" : "   View Halls");
+        Console.WriteLine(selectedOption == 2 ? ">> Add a Hall" : "   Add a Hall");
+        Console.WriteLine(selectedOption == 3 ? ">> Edit a Hall" : "   Edit a Hall");
         Console.WriteLine(selectedOption == 4 ? ">> Back to main menu" : "   Back to main menu");
     }
 }
