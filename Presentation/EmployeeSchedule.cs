@@ -10,7 +10,7 @@ static class EmployeeSchedule
         Console.Clear();
         bool loop = true;
         int selectedOption = 1; // Default selected option
-        int totalOptions = 5; // Total number of options
+        int totalOptions = 6; // Total number of options
 
         while (loop)
             {
@@ -59,14 +59,21 @@ static class EmployeeSchedule
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
                 Schedule();
                 break;
-            case 3:
+    	    case 3:
+                Console.Clear();
+                EditSchedule(path);
+                Console.WriteLine("Press Enter to return to the menu.");
+                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                Schedule();
+                break;
+            case 4:
                 Console.Clear();
                 RemoveSchedule(path);
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
                 Schedule();
                 break;     
-            case 4:
+            case 5:
                 Console.Clear();
                 Menu.Start();
                 break;
@@ -76,14 +83,15 @@ static class EmployeeSchedule
     }
 
     static void DisplayMenu(int selectedOption)
-    {   string color = "\u001b[32m";
+    {   string color = "\u001b[0m";
         Console.WriteLine("What do you want to do?\n");
 
-        Console.WriteLine(selectedOption == 1 ? color + ">> 1 - View schedules\u001b[0m" : " 1 - View schedules ");
-        Console.WriteLine(selectedOption == 2 ? color + ">> 2 - Add a new schedule \u001b[0m" : " 2 - Add a new schedule");
-        Console.WriteLine(selectedOption == 3 ? color + ">> 3 - Remove a schedule \u001b[0m" : " 3 - Remove a schedule");
-        Console.WriteLine(selectedOption == 4 ? color + ">> 4 - Go back to the previous menu \u001b[0m" : " 4 - Go back to the previous menu");
-        Console.WriteLine(selectedOption == 5 ? color + ">> 5 - Close application \u001b[0m" : " 5 - Close application");
+        Console.WriteLine(selectedOption == 1 ? color + ">> View schedules\u001b[0m" : " View schedules ");
+        Console.WriteLine(selectedOption == 2 ? color + ">> Add a new schedule \u001b[0m" : " Add a new schedule");
+        Console.WriteLine(selectedOption == 3 ? color + ">> Edit a schedule \u001b[0m" : " Edit a schedule");
+        Console.WriteLine(selectedOption == 4 ? color + ">> Remove a schedule \u001b[0m" : " Remove a schedule");
+        Console.WriteLine(selectedOption == 5 ? color + ">> Go back to the previous menu \u001b[0m" : " Go back to the previous menu");
+        Console.WriteLine(selectedOption == 6 ? color + ">> Close application \u001b[0m" : " Close application");
         
 
     }
@@ -123,7 +131,7 @@ static class EmployeeSchedule
 
     static void AddSchedule(string path)
     {
-        Console.WriteLine("Please choose the employee you want to add a schedule for");
+        Console.WriteLine("Please choose the employee you want to add/edit a schedule for");
         string selectedEmployee = SelectEmployee();
         if (selectedEmployee == null)
             return;
@@ -143,10 +151,11 @@ static class EmployeeSchedule
         TimeSpan totalHours = TimeSpan.Parse(endTime).Subtract(TimeSpan.Parse(startTime));
         Console.WriteLine($"Total working hours for this date: {totalHours} (HH-MM-SS)");
         
+        string scheduleID = Guid.NewGuid().ToString();
 
         Console.WriteLine("The data you just entered has been saved.");
 
-        ScheduleModel newSchedule = new ScheduleModel( selectedEmployee, date, totalHours.ToString(), startTime, endTime);
+        ScheduleModel newSchedule = new ScheduleModel( scheduleID, selectedEmployee, date, totalHours.ToString(), startTime, endTime);
 
         ScheduleLogic scheduleLogicUp = new ScheduleLogic();
         scheduleLogicUp.UpdateList(newSchedule);
@@ -162,6 +171,85 @@ static class EmployeeSchedule
         ScheduleLogic scheduleLogicRE = new ScheduleLogic();
         scheduleLogicRE.RemoveSchedule(selectedEmployee);
     }
+    static void EditSchedule(string path)
+    {
+        Console.WriteLine("Please choose the employee whose schedule you want to edit");
+        string selectedEmployee = SelectEmployee();
+        if (selectedEmployee == null)
+            return;
+
+        ScheduleLogic scheduleLogic = new ScheduleLogic();
+        List<ScheduleModel> schedules = scheduleLogic.GetSchedules(selectedEmployee);
+
+        if (schedules.Count == 0)
+        {
+            Console.WriteLine($"No existing schedules found for {selectedEmployee}");
+            return;
+        }
+        
+        int selectedScheduleIndex = 0;
+        bool scheduleSelected = false;
+
+        do
+        {
+            Console.Clear();
+            Console.WriteLine($"Select a schedule to edit for {selectedEmployee}");
+            for (int i = 0; i < schedules.Count; i++)
+            {
+                if (i == selectedScheduleIndex)
+                    Console.WriteLine($">> { i + 1}. Date: {schedules[i].Date}  -  Starttime:{schedules[i].StartTime} to Endtime:{schedules[i].EndTime}");
+            else 
+                 Console.WriteLine($"{ i + 1}. {schedules[i].Date}  -  {schedules[i].StartTime} to {schedules[i].EndTime}");
+            }
+            
+            var key = Console.ReadKey(true).Key;
+
+            switch (key)
+            {
+                case ConsoleKey.UpArrow:
+                    selectedScheduleIndex = selectedScheduleIndex == 0 ? schedules.Count - 1 : selectedScheduleIndex - 1; 
+                    break;
+                case ConsoleKey.DownArrow:
+                    selectedScheduleIndex = selectedScheduleIndex == schedules.Count - 1 ? 0 : selectedScheduleIndex + 1; 
+                    break;
+                case ConsoleKey.Enter:
+                    scheduleSelected = true;
+                    break;
+                default:
+                    break;
+            }
+
+            } while(!scheduleSelected);
+
+            ScheduleModel selectedSchedule = schedules[selectedScheduleIndex];
+
+            Console.WriteLine("Enter new details");
+
+            string date;
+            do
+            {
+                Console.WriteLine("Enter date: (DD-MM-YYYY for the schedule(within 1-2 weeks from today))");
+                date = Console.ReadLine();
+            } while (!IsValidDate(date));
+
+            Console.WriteLine("Enter start time: (HH:MM)");
+            string startTime = Console.ReadLine();
+
+            Console.WriteLine("Enter end time: (HH:MM)");
+            string endTime = Console.ReadLine();
+
+            TimeSpan totalHours = TimeSpan.Parse(endTime).Subtract(TimeSpan.Parse(startTime));
+            Console.WriteLine($"Total working hours for this date: {totalHours} (HH-MM-SS)");
+
+            selectedSchedule.Date = date;
+            selectedSchedule.StartTime = startTime;
+            selectedSchedule.EndTime = endTime;
+            selectedSchedule.TotalHours = totalHours.ToString();
+
+            scheduleLogic.UpdateList(selectedSchedule);
+            
+        }
+        
     static bool IsValidDate(string inputdate)
     {
         if (DateTime.TryParseExact(inputdate, "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime parsedDate))
