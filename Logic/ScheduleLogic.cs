@@ -35,19 +35,20 @@ public class ScheduleLogic
         return _schedules.Where(s => s.Worker == employeeName).ToList();
     }
 
-    public void RemoveSchedule(string selectedEmployee)
+    public void RemoveSchedule(string scheduleID)
     {
-        int index = _schedules.FindIndex(s => s.ID == selectedEmployee);
+        int index = _schedules.FindIndex(s => s.ID == scheduleID);
         if (index != -1)
 
         {
+            string removedEmployee = _schedules[index].Worker;
             _schedules.RemoveAt(index);
             ScheduleAccess.WriteAll(_schedules);
-            Console.WriteLine($"Schedule for {selectedEmployee} removed succesfully.");
+            Console.WriteLine($"Schedule for {removedEmployee} removed succesfully.");
         }
         else 
-        {
-            Console.WriteLine($"Schedule for {selectedEmployee} not found.");
+        {   string employeeUnknown = _schedules[index].Worker;
+            Console.WriteLine($"Schedule for {employeeUnknown} not found.");
         }
     }
 

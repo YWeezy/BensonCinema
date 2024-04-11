@@ -50,15 +50,13 @@ public class EmployeeSelector
         {
             if (i == selectedIndex)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write(">>");
             }
             else 
             {
                 Console.Write("   ");
             }
-            Console.WriteLine(options[i]);
-            Console.ResetColor();        
+            Console.WriteLine(options[i]);      
         }
     }
     private void MoveSelectionUp()

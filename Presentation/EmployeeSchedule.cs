@@ -105,7 +105,7 @@ static class EmployeeSchedule
                 string json = File.ReadAllText(path);
                 List<ScheduleModel> schedules = JsonSerializer.Deserialize<List<ScheduleModel>>(json);
                 
-                Console.WriteLine("Schedule for this week:");
+                Console.WriteLine("Schedules for this week:");
                 Console.WriteLine("--------------------------------------------------------------------------------");
                 Console.WriteLine("| Worker       | Date       | Total Hours  | Start Time | End Time |");
                 Console.WriteLine("--------------------------------------------------------------------------------");
@@ -131,7 +131,7 @@ static class EmployeeSchedule
 
     static void AddSchedule(string path)
     {
-        Console.WriteLine("Please choose the employee you want to add/edit a schedule for");
+        Console.WriteLine("Please choose the employee you want to add/edit a schedule for:");
         string selectedEmployee = SelectEmployee();
         if (selectedEmployee == null)
             return;
@@ -163,17 +163,61 @@ static class EmployeeSchedule
 
     static void RemoveSchedule(string path)
     {
-        Console.WriteLine("Please choose the employee you want to add a schedule for");
+        Console.WriteLine("Please choose the employee you want to remove a schedule for:");
         string selectedEmployee = SelectEmployee();
         if (selectedEmployee == null)
             return;
 
-        ScheduleLogic scheduleLogicRE = new ScheduleLogic();
-        scheduleLogicRE.RemoveSchedule(selectedEmployee);
+        ScheduleLogic scheduleLogic = new ScheduleLogic();
+        List<ScheduleModel> schedules = scheduleLogic.GetSchedules(selectedEmployee);
+
+        if (schedules.Count == 0)
+        {
+            Console.WriteLine($"No existing schedules found for {selectedEmployee}");
+            return;
+        }
+
+        int selectedScheduleIndex = 0;
+        bool scheduleSelected = false;
+
+        do
+        {
+            Console.Clear();
+            Console.WriteLine($"Select a schedule to remove for {selectedEmployee}.");
+            for (int i = 0; i < schedules.Count; i++)
+            {
+                if (i == selectedScheduleIndex)
+                    Console.WriteLine($">> { i + 1}. Date: {schedules[i].Date}  -  Starttime:{schedules[i].StartTime} to Endtime:{schedules[i].EndTime}");
+            else 
+                 Console.WriteLine($"   { i + 1}. Date: {schedules[i].Date}  -  Starttime:{schedules[i].StartTime} to Endtime:{schedules[i].EndTime}");
+            }
+            
+            var key = Console.ReadKey(true).Key;
+
+            switch (key)
+            {
+                case ConsoleKey.UpArrow:
+                    selectedScheduleIndex = selectedScheduleIndex == 0 ? schedules.Count - 1 : selectedScheduleIndex - 1; 
+                    break;
+                case ConsoleKey.DownArrow:
+                    selectedScheduleIndex = selectedScheduleIndex == schedules.Count - 1 ? 0 : selectedScheduleIndex + 1; 
+                    break;
+                case ConsoleKey.Enter:
+                    scheduleSelected = true;
+                    break;
+                default:
+                    break;
+            }
+
+            } while(!scheduleSelected);
+
+        ScheduleModel selectedSchedule = schedules[selectedScheduleIndex];
+
+        scheduleLogic.RemoveSchedule(selectedSchedule.ID);
     }
     static void EditSchedule(string path)
     {
-        Console.WriteLine("Please choose the employee whose schedule you want to edit");
+        Console.WriteLine("Please choose the employee whose schedule you want to edit:");
         string selectedEmployee = SelectEmployee();
         if (selectedEmployee == null)
             return;
@@ -193,13 +237,13 @@ static class EmployeeSchedule
         do
         {
             Console.Clear();
-            Console.WriteLine($"Select a schedule to edit for {selectedEmployee}");
+            Console.WriteLine($"Select a schedule to edit for {selectedEmployee}.");
             for (int i = 0; i < schedules.Count; i++)
             {
                 if (i == selectedScheduleIndex)
                     Console.WriteLine($">> { i + 1}. Date: {schedules[i].Date}  -  Starttime:{schedules[i].StartTime} to Endtime:{schedules[i].EndTime}");
             else 
-                 Console.WriteLine($"{ i + 1}. {schedules[i].Date}  -  {schedules[i].StartTime} to {schedules[i].EndTime}");
+                 Console.WriteLine($"   { i + 1}. Date: {schedules[i].Date}  -  Starttime:{schedules[i].StartTime} to Endtime:{schedules[i].EndTime}");
             }
             
             var key = Console.ReadKey(true).Key;
