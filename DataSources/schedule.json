@@ -1,9 +1,10 @@
 [
   {
+    "id": "8a931375-4a81-4b5d-bac8-d38c64e4df74",
     "worker": "Lucas",
-    "date": "17-04-2024",
-    "totalHours": "09:00:00",
-    "startTime": "09:30",
-    "endTime": "18:30"
+    "date": "18-04-2024",
+    "totalHours": "05:00:00",
+    "startTime": "15:00",
+    "endTime": "20:00"
   }
 ]
