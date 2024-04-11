@@ -86,12 +86,12 @@ static class EmployeeSchedule
     {   string color = "\u001b[0m";
         Console.WriteLine("What do you want to do?\n");
 
-        Console.WriteLine(selectedOption == 1 ? color + ">> View schedules\u001b[0m" : " View schedules ");
-        Console.WriteLine(selectedOption == 2 ? color + ">> Add a new schedule \u001b[0m" : " Add a new schedule");
-        Console.WriteLine(selectedOption == 3 ? color + ">> Edit a schedule \u001b[0m" : " Edit a schedule");
-        Console.WriteLine(selectedOption == 4 ? color + ">> Remove a schedule \u001b[0m" : " Remove a schedule");
-        Console.WriteLine(selectedOption == 5 ? color + ">> Go back to the previous menu \u001b[0m" : " Go back to the previous menu");
-        Console.WriteLine(selectedOption == 6 ? color + ">> Close application \u001b[0m" : " Close application");
+        Console.WriteLine(selectedOption == 1 ? color + ">> View schedules\u001b[0m" : "   View schedules ");
+        Console.WriteLine(selectedOption == 2 ? color + ">> Add a new schedule \u001b[0m" : "   Add a new schedule");
+        Console.WriteLine(selectedOption == 3 ? color + ">> Edit a schedule \u001b[0m" : "   Edit a schedule");
+        Console.WriteLine(selectedOption == 4 ? color + ">> Remove a schedule \u001b[0m" : "   Remove a schedule");
+        Console.WriteLine(selectedOption == 5 ? color + ">> Go back to the previous menu \u001b[0m" : "   Go back to the previous menu");
+        Console.WriteLine(selectedOption == 6 ? color + ">> Close application \u001b[0m" : "   Close application");
         
 
     }
