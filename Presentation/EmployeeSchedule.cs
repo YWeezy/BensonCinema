@@ -131,7 +131,7 @@ static class EmployeeSchedule
 
     static void AddSchedule(string path)
     {
-        Console.WriteLine("Please choose the employee you want to add/edit a schedule for:");
+        Console.WriteLine("Please choose the employee you want to add a schedule for:");
         string selectedEmployee = SelectEmployee();
         if (selectedEmployee == null)
             return;

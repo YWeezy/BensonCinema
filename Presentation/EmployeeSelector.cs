@@ -46,7 +46,7 @@ public class EmployeeSelector
     {
         Console.Clear();
 
-        Console.WriteLine("Please select the employee you want to Add/Remove the schedule from.");
+        Console.WriteLine("Please select the employee you want to modify the schedule for:");
 
         for (int i = 0; i < options.Count; i++)
         {
