@@ -46,7 +46,7 @@ class HallLogic
                 Console.WriteLine("{0,-15}{1,-10}{2,-15}", hall.hallName, hall.type, actstr);
             }
         } else {
-            Console.WriteLine("{0, -5}{1,-15}{2,-10}{3,-15}", "\u001b[34mID", "Name", "Type", "Active\u001b[0m");
+            Console.WriteLine("{0, -5}{1,-15}{2,-10}{3,-15}", "\u001b[34mID   ", "Name", "Type", "Active\u001b[0m");
             Console.WriteLine("----------------------------------------");
             foreach (HallModel hall in _halls)
             {

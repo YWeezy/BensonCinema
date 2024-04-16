@@ -232,7 +232,7 @@ static class ManagePerformance
         HallLogic hallLogic = new HallLogic();
         Console.WriteLine("\u001b[0mPlease select a Performance to edit:\n");
 
-        Console.WriteLine("      {0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -5}", "D", "Name", "Start", "End", "Hall", "Active");
+        Console.WriteLine("      {0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
         Console.WriteLine("      ------------------------------------------------------------------------------------------------------------");
         
         int index = 0;
