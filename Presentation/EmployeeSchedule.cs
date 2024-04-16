@@ -116,7 +116,6 @@ static class EmployeeSchedule
             {
                 Console.WriteLine($" {schedule.Worker,-12}  {schedule.Date,-9}  {schedule.TotalHours,-12}  {schedule.StartTime,-10}  {schedule.EndTime,-8} ");
             }
-            Console.WriteLine("-------------------------------------------------------------");
         }
 
 
