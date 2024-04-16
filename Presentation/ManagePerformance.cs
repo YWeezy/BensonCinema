@@ -61,7 +61,7 @@ static class ManagePerformance
 
             if (string.IsNullOrEmpty(performanceName))
             {
-                Console.WriteLine("Invalid input. Please provide a Performance name.");
+                Console.WriteLine("\u001b[31mInvalid input. Please provide a Performance name.");
             }
         }
 
@@ -75,7 +75,7 @@ static class ManagePerformance
             if (DateTime.TryParseExact(performanceStart, "d-M-yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out performanceStartDT))
             {
                 if (performanceStartDT < DateTime.Now) {
-                    Console.WriteLine("You can't enter a date and time that is in the past.");
+                    Console.WriteLine("\u001b[31mYou can't enter a date and time that is in the past.");
                 } else {
                     Console.WriteLine("You entered: " + performanceStartDT);
                     performanceStartValid = true;
@@ -83,7 +83,7 @@ static class ManagePerformance
             }
             else
             {
-                Console.WriteLine("Invalid input. Please enter a valid date and time format (DD-MM-YYYY HH:MM).");
+                Console.WriteLine("\u001b[31mInvalid input. Please enter a valid date and time format (DD-MM-YYYY HH:MM).");
             }
         }
 
@@ -97,17 +97,17 @@ static class ManagePerformance
             if (DateTime.TryParseExact(performanceEnd, "d-M-yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out performanceEndDT))
             {
                 if (performanceEndDT < performanceStartDT) {
-                    Console.WriteLine("You can't enter a date and time that is before the starttime of the Performance.");
+                    Console.WriteLine("\u001b[31mYou can't enter a date and time that is before the starttime of the Performance.");
                 } else if (performanceEndDT > DateTime.Now.AddMonths(6)) {
-                    Console.WriteLine("You can't enter a date and time that is more than 6 months ahead of the starttime.");
+                    Console.WriteLine("\u001b[31mYou can't enter a date and time that is more than 6 months ahead of the starttime.");
                 } else {
-                    Console.WriteLine("You entered: " + performanceEndDT);
+                    Console.WriteLine("\u001b[32mYou entered: " + performanceEndDT);
                     performanceEndValid = true;
                 }
             }
             else
             {
-                Console.WriteLine("Invalid input. Please enter a valid date and time format (DD-MM-YYYY HH:MM).");
+                Console.WriteLine("\u001b[31mInvalid input. Please enter a valid date and time format (DD-MM-YYYY HH:MM).");
             }
         }
 
@@ -136,14 +136,14 @@ static class ManagePerformance
                     }
                     else
                     {
-                        Console.WriteLine($"A Hall with ID {hallId} does not exist.");
+                        Console.WriteLine($"\u001b[31mA Hall with ID {hallId} does not exist.");
                     }
                 }
 
             }
             catch (System.Exception)
             {
-                Console.WriteLine("Invalid input. Please provide a valid Hall ID.");
+                Console.WriteLine("\u001b[31mInvalid input. Please provide a valid Hall ID.");
             }
         }
 
@@ -153,7 +153,7 @@ static class ManagePerformance
         Console.WriteLine($"End: {performanceEndDT}");
         Console.WriteLine($"Hall: {hallId}");
 
-        Console.WriteLine("\nAre you sure you want to add this Performance? (Y/N)");
+        Console.WriteLine("\n\u001b[32mAre you sure you want to add this Performance?\u001b[0m (Y/N)");
         string confirmation = Console.ReadLine();
 
         switch (confirmation.ToLower())
@@ -163,33 +163,33 @@ static class ManagePerformance
                 PerformanceModel performance = new PerformanceModel(newId, performanceName, performanceStartDT, performanceEndDT, hallId, true);
                 logic.UpdateList(performance);
                 Console.Clear();
-                Console.WriteLine("The Performance was succesfully added.\n");
+                Console.WriteLine("\u001b[32mThe Performance was succesfully added.\u001b[0m\n");
                 break;
             default:
                 Console.Clear();
-                Console.WriteLine("The Performance was not added.\n");
+                Console.WriteLine("\u001b[31mThe Performance was not added.\u001b[0m\n");
                 break;
         }
     }
 
     static public void Delete(PerformanceLogic logic)
     {
-        Console.WriteLine("Enter the ID of the Performance you want to delete: ");
+        Console.WriteLine("Enter the ID of the Performance you want to \u001b[31mdelete\u001b[0m: ");
         int idToDelete;
         if (int.TryParse(Console.ReadLine(), out idToDelete))
         {
             if (logic.DeletePerformance(idToDelete))
             {
-                Console.WriteLine($"Performance with ID {idToDelete} deleted successfully.");
+                Console.WriteLine($"\u001b[32mPerformance with ID {idToDelete} deleted successfully.\u001b[0m");
             }
             else
             {
-                Console.WriteLine($"Performance with ID {idToDelete} not found.");
+                Console.WriteLine($"\u001b[31mPerformance with ID {idToDelete} not found.\u001b[0m");
             }
         }
         else
         {
-            Console.WriteLine("Invalid input. Please enter a valid ID.");
+            Console.WriteLine("\u001b[31mInvalid input. Please enter a valid ID.\u001b[0m");
         }
 
     }
@@ -230,9 +230,9 @@ static class ManagePerformance
     {
         Console.Clear();
         HallLogic hallLogic = new HallLogic();
-        Console.WriteLine("Please select a Performance to edit:\n");
+        Console.WriteLine("\u001b[0mPlease select a Performance to edit:\n");
 
-        Console.WriteLine("      {0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
+        Console.WriteLine("\u001b[0m      {0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
         Console.WriteLine("      ------------------------------------------------------------------------------------------------------------");
         
         int index = 0;
@@ -240,11 +240,11 @@ static class ManagePerformance
         {
             if (index == selectedPerformanceIndex)
             {
-                Console.Write(">> ");
+                Console.Write("\u001b[32m >>");
             }
             else
             {
-                Console.Write("   ");
+                Console.Write("\u001b[0m   ");
             }
 
             string actstr;
@@ -277,7 +277,7 @@ static class ManagePerformance
         // name
         while (string.IsNullOrEmpty(performanceName))
         {
-            Console.WriteLine($"\nCurrent Performance name: {selectedPerformance.name}\n\nEnter a new name, or leave it blank to keep it.");
+            Console.WriteLine($"\nCurrent Performance name: {selectedPerformance.name}\n\n\u001b[0mEnter a new name, or leave it blank to keep it.");
             performanceName = Console.ReadLine();
 
             if (string.IsNullOrEmpty(performanceName))
@@ -290,7 +290,7 @@ static class ManagePerformance
         // startDate
         while (performanceStartValid == false)
         {
-            Console.WriteLine($"\nCurrent start time: {selectedPerformance.startDate}: \n\nEnter a new date & time, or leave it blank to keep it.");
+            Console.WriteLine($"\n\u001b[32mCurrent start time: {selectedPerformance.startDate}: \n\n\u001b[0mEnter a new date & time, or leave it blank to keep it.");
             string performanceStart = Console.ReadLine();
 
             if (string.IsNullOrEmpty(performanceStart))
@@ -302,7 +302,7 @@ static class ManagePerformance
             {
                 if (performanceStartDT < DateTime.Now)
                 {
-                    Console.WriteLine("You can't enter a date and time that is in the past.");
+                    Console.WriteLine("\u001b[31mYou can't enter a date and time that is in the past.\u001b[0m");
                 }
                 else
                 {
@@ -312,7 +312,7 @@ static class ManagePerformance
             }
             else
             {
-                Console.WriteLine("Invalid input. Please enter a valid date and time format (DD-MM-YYYY HH:MM).");
+                Console.WriteLine("\u001b[31mInvalid input. Please enter a valid date and time format (DD-MM-YYYY HH:MM).\u001b[0m");
             }
         }
 
@@ -320,7 +320,7 @@ static class ManagePerformance
         // endDate
         while (performanceEndValid == false)
         {
-            Console.WriteLine($"\nCurrent end time: {selectedPerformance.endDate}: \n\nEnter a new date & time, or leave it blank to keep it.");
+            Console.WriteLine($"\n\u001b[32mCurrent end time: {selectedPerformance.endDate}: \n\n\u001b[0mEnter a new date & time, or leave it blank to keep it.");
             string performanceEnd = Console.ReadLine();
 
             if (string.IsNullOrEmpty(performanceEnd))
@@ -332,11 +332,11 @@ static class ManagePerformance
             {
                 if (performanceEndDT < performanceStartDT)
                 {
-                    Console.WriteLine("You can't enter a date and time that is before the start time of the Performance.");
+                    Console.WriteLine("\u001b[31mYou can't enter a date and time that is before the start time of the Performance.\u001b[0m");
                 }
                 else if (performanceEndDT > DateTime.Now.AddMonths(6))
                 {
-                    Console.WriteLine("You can't enter a date and time that is more than 6 months ahead of the start time.");
+                    Console.WriteLine("\u001b[31mYou can't enter a date and time that is more than 6 months ahead of the start time. \u001b[0m");
                 }
                 else
                 {
@@ -346,7 +346,7 @@ static class ManagePerformance
             }
             else
             {
-                Console.WriteLine("Invalid input. Please enter a valid date and time format (DD-MM-YYYY HH:MM).");
+                Console.WriteLine("\u001b[31mInvalid input. Please enter a valid date and time format (DD-MM-YYYY HH:MM).\u001b[0m");
             }
         }
 
@@ -363,7 +363,7 @@ static class ManagePerformance
                     HallLogic hallLogic = new HallLogic();
                     hallLogic.DisplayTable(true);
 
-                    Console.WriteLine($"\nCurrent Hall ID: {selectedPerformance.hallId}\n\nEnter a new Hall ID, or leave it blank to keep it.");
+                    Console.WriteLine($"\n\u001b[32mCurrent Hall ID: {selectedPerformance.hallId}\n\n\u001b[0mEnter a new Hall ID, or leave it blank to keep it.");
                     string hallInput = Console.ReadLine().Trim();
 
                     if (string.IsNullOrEmpty(hallInput))
@@ -384,7 +384,7 @@ static class ManagePerformance
                     }
                     else
                     {
-                        Console.WriteLine($"A Hall with ID {hallId} does not exist.");
+                        Console.WriteLine($"\u001b[31mA Hall with ID {hallId} does not exist.\u001b[0m");
                     }
                 }
             }
@@ -398,11 +398,11 @@ static class ManagePerformance
         // active
         if (selectedPerformance.active == false)
         {
-            Console.WriteLine($"\nCurrent active state: Inactive\n\nDo you want to switch to active? (Y/N)");
+            Console.WriteLine($"\nCurrent active state: \u001b[31mInactive\u001b[0m\n\nDo you want to switch to \u001b[31mActive\u001b[0m? (Y/N)");
         }
         else
         {
-            Console.WriteLine($"\nCurrent active state: Active\n\nDo you want to switch to inactive? (Y/N)");
+            Console.WriteLine($"\nCurrent active state: \u001b[32mActive\u001b[0m\n\nDo you want to switch to \u001b[31mInactive\u001b[0m? (Y/N)");
         }
 
         if (Console.ReadLine().ToLower() == "y")
@@ -411,11 +411,11 @@ static class ManagePerformance
         }
 
         Console.Clear();
-        Console.WriteLine($"Name: {performanceName}");
+        Console.WriteLine($"\u001b[34mName: {performanceName}");
         Console.WriteLine($"Start: {performanceStartDT}");
         Console.WriteLine($"End: {performanceEndDT}");
         Console.WriteLine($"Hall: {hallId}");
-        Console.WriteLine($"Active: {active}");
+        Console.WriteLine($"Active: {active}\u001b[0m");
 
         Console.WriteLine("\nAre you sure you want to make these changes? (Y/N)");
         string confirmation = Console.ReadLine();
@@ -430,11 +430,11 @@ static class ManagePerformance
                 selectedPerformance.active = active;
                 logic.UpdateList(selectedPerformance);
                 Console.Clear();
-                Console.WriteLine("The Performance was successfully edited.\n");
+                Console.WriteLine("\u001b[32mThe Performance was successfully edited.\u001b[0m\n");
                 break;
             default:
                 Console.Clear();
-                Console.WriteLine("The Performance was not edited.\n");
+                Console.WriteLine("\u001b[31mThe Performance was not edited.\u001b[0m\n");
                 break;
         }
     }

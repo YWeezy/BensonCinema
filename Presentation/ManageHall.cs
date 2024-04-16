@@ -59,7 +59,7 @@ static class ManageHall
                 return;
             }
             else if(halls.Any(hall => hall.hallName == inputname)){
-                Console.WriteLine($"Hallname with {inputname} already exist.");
+                Console.WriteLine($"\u001b[31mHallname with {inputname} already exist.\u001b[0m");
             }
             
             else if (inputname != "")
@@ -67,7 +67,7 @@ static class ManageHall
                 valid = true;
             }
             else{
-                Console.WriteLine("Name is empty. Try again!");
+                Console.WriteLine("\u001b[31mName is empty.\u001b[0m Try again!");
             }
         }
 
@@ -87,10 +87,10 @@ static class ManageHall
             else if (inputtype == "small" || inputtype == "medium" || inputtype == "large")
             {
                 valid = true;
-                Console.WriteLine("Hall Added");
+                Console.WriteLine("\u001b[32mHall Added\u001b[0m");
             }
             else{
-                Console.WriteLine("Type is Empty or not valid. Choose from Small/Medium/Large");
+                Console.WriteLine("\u001b[31mType is Empty or not valid.\u001b[0m Choose from Small/Medium/Large");
                 
             }
         }
@@ -134,7 +134,7 @@ static class ManageHall
     static private void DisplayHalls(HallLogic logic, int selectedHallIndex)
     {
         Console.Clear();
-        Console.WriteLine("Please select a Hall to edit:\n");
+        Console.WriteLine("\u001b[32mPlease select a Hall to edit:\u001b[0m\n");
 
         Console.WriteLine("      {0,-15}{1,-10}{2,-15}", "Name", "Type", "Active");
         Console.WriteLine("      -------------------------------------");
@@ -144,11 +144,11 @@ static class ManageHall
         {
             if (index == selectedHallIndex)
             {
-                Console.Write(">> ");
+                Console.Write("\u001b[32m>> ");
             }
             else
             {
-                Console.Write("   ");
+                Console.Write("\u001b[0m   ");
             }
 
             string actstr;
@@ -177,7 +177,7 @@ static class ManageHall
         // name
         while (string.IsNullOrEmpty(hallName))
         {
-            Console.WriteLine($"\nCurrent hall name: {selectedHall.hallName}\n\nEnter a new name, or leave it blank to keep it.");
+            Console.WriteLine($"\n\u001b[32mCurrent hall name: {selectedHall.hallName}\u001b[0m\n\nEnter a new name, or leave it blank to keep it.");
             hallName = Console.ReadLine();
 
             if (string.IsNullOrEmpty(hallName))
@@ -190,7 +190,7 @@ static class ManageHall
         //type
         while (string.IsNullOrEmpty(type))
         {   
-            Console.WriteLine($"\nCurrent type: {selectedHall.type}\n\nEnter a Small/Medium/Large, or leave it blank to keep it.");
+            Console.WriteLine($"\n\u001b[32mCurrent type: {selectedHall.type}\u001b[0m\n\nEnter a Small/Medium/Large, or leave it blank to keep it.");
             bool isValid = false;
             while (isValid == false)
             {
@@ -204,7 +204,7 @@ static class ManageHall
                 } else if (type == "small" || type == "medium" || type == "large"){
                     isValid = true;
                 } else{
-                    Console.WriteLine("Type is not valid. Choose from Small/Medium/Large");
+                    Console.WriteLine("\u001b[31mType is not valid.\u001b[0m Choose from Small/Medium/Large");
                 }
             }
             
@@ -214,11 +214,11 @@ static class ManageHall
         // active
         if (selectedHall.active == false)
         {
-            Console.WriteLine($"\nCurrent active state: Inactive\n\nDo you want to switch to active? (Y/N)");
+            Console.WriteLine($"\nCurrent active state: \u001b[31mInactive\u001b[0m\n\nDo you want to switch to \u001b[32mActive\u001b[0m? (Y/N)");
         }
         else
         {
-            Console.WriteLine($"\nCurrent active state: Active\n\nDo you want to switch to inactive? (Y/N)");
+            Console.WriteLine($"\nCurrent active state: \u001b[32mActive\u001b[0m\n\nDo you want to switch to \u001b[31mInactive\u001b[0m? (Y/N)");
         }
 
         if (Console.ReadLine().ToLower() == "y")
@@ -242,11 +242,11 @@ static class ManageHall
                 selectedHall.active = active;
                 logic.UpdateList(selectedHall);
                 Console.Clear();
-                Console.WriteLine("The Hall was successfully edited.\n");
+                Console.WriteLine("\u001b[32mThe Hall was successfully edited.\u001b[0m\n");
                 break;
             default:
                 Console.Clear();
-                Console.WriteLine("The Hall was not edited.\n");
+                Console.WriteLine("\u001b[31mThe Hall was not edited.\u001b[0m\n");
                 break;
         }
     }
@@ -260,16 +260,16 @@ static class ManageHall
         {
             if (logic.Delete(idToDelete))
             {
-                Console.WriteLine($"Hall with ID {idToDelete} deleted successfully.");
+                Console.WriteLine($"\u001b[32mHall with ID {idToDelete} deleted successfully.\u001b[0m");
             }
             else
             {
-                Console.WriteLine($"Hall with ID {idToDelete} not found.");
+                Console.WriteLine($"\u001b[31mHall with ID {idToDelete} not found.\u001b[0m");
             }
         }
         else
         {
-            Console.WriteLine("Invalid input. Please enter a valid ID.");
+            Console.WriteLine("\u001b[31mInvalid input.\u001b[0m Please enter a valid ID.");
         }
 
     }
