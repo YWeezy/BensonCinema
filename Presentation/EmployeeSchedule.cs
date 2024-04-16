@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using System.Text.Json;
 
 static class EmployeeSchedule
@@ -85,8 +86,9 @@ static class EmployeeSchedule
 
     static void DisplayMenu(int selectedOption)
     {
-        string color = "\u001b[0m";
-        Console.WriteLine("What do you want to do?\n");
+        string color = "\u001b[32m";
+        string neutral = "\u001b[0m";
+        Console.WriteLine($"{neutral}What do you want to do?\n");
 
         Console.WriteLine(selectedOption == 1 ? color + ">> View Schedules\u001b[0m" : "   View Schedules ");
         Console.WriteLine(selectedOption == 2 ? color + ">> Add a Schedule \u001b[0m" : "   Add a Schedule");
@@ -108,7 +110,7 @@ static class EmployeeSchedule
 
             Console.WriteLine("Schedules for this week:");
             Console.WriteLine("--------------------------------------------------------------------------------");
-            Console.WriteLine("| Worker       | Date       | Total Hours  | Start Time | End Time |");
+            Console.WriteLine("  Worker         Date         Total Hours    Start Time   End Time  ");
             Console.WriteLine("--------------------------------------------------------------------------------");
 
             foreach (var schedule in schedules)
@@ -165,7 +167,10 @@ static class EmployeeSchedule
 
     static void RemoveSchedule(string path)
     {
-        Console.WriteLine("Please choose the employee you want to remove a schedule for:");
+        string wrong = "\u001b[31m";
+        string neutral = "\u001b[0m";
+
+        Console.WriteLine($"{neutral}Please choose the employee you want to remove a schedule for:");
         string selectedEmployee = SelectEmployee();
         if (selectedEmployee == null)
             return;
@@ -175,7 +180,7 @@ static class EmployeeSchedule
 
         if (schedules.Count == 0)
         {
-            Console.WriteLine($"No existing schedules found for {selectedEmployee}");
+            Console.WriteLine($"{wrong}No existing schedules found for {selectedEmployee}");
             return;
         }
 
@@ -219,7 +224,9 @@ static class EmployeeSchedule
     }
     static void EditSchedule(string path)
     {
-        Console.WriteLine("Please choose the employee whose schedule you want to edit:");
+        string red = "\u001b[31m";
+        string neutral = "\u001b[0m"; 
+        Console.WriteLine($"{neutral}Please choose the employee whose schedule you want to edit:");
         string selectedEmployee = SelectEmployee();
         if (selectedEmployee == null)
             return;
@@ -229,7 +236,7 @@ static class EmployeeSchedule
 
         if (schedules.Count == 0)
         {
-            Console.WriteLine($"No existing schedules found for {selectedEmployee}");
+            Console.WriteLine($"{red}No existing schedules found for {selectedEmployee}");
             return;
         }
 
@@ -239,13 +246,15 @@ static class EmployeeSchedule
         do
         {
             Console.Clear();
+            string color = "\u001b[32m";
+            string noncolor = "\u001b[0m";
             Console.WriteLine($"Select a schedule to edit for {selectedEmployee}.");
             for (int i = 0; i < schedules.Count; i++)
             {
                 if (i == selectedScheduleIndex)
-                    Console.WriteLine($">> {i + 1}. Date: {schedules[i].Date}  -  Starttime:{schedules[i].StartTime} to Endtime:{schedules[i].EndTime}");
+                    Console.WriteLine($"{color}>> {i + 1}. Date: {schedules[i].Date}  -  Starttime:{schedules[i].StartTime} to Endtime:{schedules[i].EndTime}\u001b[0m");
                 else
-                    Console.WriteLine($"   {i + 1}. Date: {schedules[i].Date}  -  Starttime:{schedules[i].StartTime} to Endtime:{schedules[i].EndTime}");
+                    Console.WriteLine($"{noncolor}   {i + 1}. Date: {schedules[i].Date}  -  Starttime:{schedules[i].StartTime} to Endtime:{schedules[i].EndTime}");
             }
 
             var key = Console.ReadKey(true).Key;

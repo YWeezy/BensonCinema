@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 
 static class Menu
 {
@@ -205,22 +206,26 @@ static class Menu
 
     private static void DisplayMenu(MenuOption selectedOption)
     {
-        Console.WriteLine("Welcome to the application!");
+        string color = "\u001b[32m";
+        string neutral = "\u001b[0m";
+        Console.WriteLine($"{neutral} Welcome to the application!");
 
         foreach (MenuOption option in Enum.GetValues(typeof(MenuOption)))
         {
-            Console.Write(option == selectedOption ? ">> " : "   ");
+            Console.Write(option == selectedOption ? color + ">> " : neutral + "   ");
             Console.WriteLine($"{(int)option}. {option}");
         }
     }
 
     private static void DisplayMenu(ContentManagerOption selectedOption)
     {
-        Console.WriteLine("Welcome to the Content Manager's Menu!");
+        string color = "\u001b[32m";
+        string neutral = "\u001b[0m";
+        Console.WriteLine($"{neutral} Welcome to the Content Manager's Menu!");
 
         foreach (ContentManagerOption option in Enum.GetValues(typeof(ContentManagerOption)))
         {
-            Console.Write(option == selectedOption ? ">> " : "   ");
+            Console.Write(option == selectedOption ?  color +" >> " : neutral + "   ");
             Console.WriteLine($"{(int)option}. {option}");
         }
     }

@@ -1,3 +1,5 @@
+using System.Drawing;
+
 public class EmployeeSelector
 {
     private readonly List<string> options;
@@ -45,18 +47,19 @@ public class EmployeeSelector
     private void DisplayOptions()
     {
         Console.Clear();
-
-        Console.WriteLine("Please select the employee you want to modify the schedule for:");
+        string color = "\u001b[32m";
+        string neutral = " \u001b[0m";
+        Console.WriteLine($"{neutral}Please select the employee you want to modify the schedule for:");
 
         for (int i = 0; i < options.Count; i++)
         {
             if (i == selectedIndex)
             {
-                Console.Write(">>");
+                Console.Write($"{ color }>>  ");
             }
             else 
             {
-                Console.Write("   ");
+                Console.Write($"{neutral}   ");
             }
             Console.WriteLine(options[i]);      
         }

@@ -475,11 +475,12 @@ static class ManagePerformance
 
     static private void DisplayMenu(int selectedOption)
     {
+        string color = "\u001b[32m";
         Console.WriteLine("What do you want to do?\n");
 
-        Console.WriteLine(selectedOption == 1 ? ">> View Performances" : "   View Performances");
-        Console.WriteLine(selectedOption == 2 ? ">> Add a Performance" : "   Add a Performance");
-        Console.WriteLine(selectedOption == 3 ? ">> Edit a Performance" : "   Edit a Performance");
-        Console.WriteLine(selectedOption == 4 ? ">> Back to main menu" : "   Back to main menu");
+        Console.WriteLine(selectedOption == 1 ? color + ">> View Performances\u001b[0m" : "   View Performances");
+        Console.WriteLine(selectedOption == 2 ? color + ">> Add a Performance\u001b[0m" : "   Add a Performance");
+        Console.WriteLine(selectedOption == 3 ? color + ">> Edit a Performance\u001b[0m" : "   Edit a Performance");
+        Console.WriteLine(selectedOption == 4 ? color + ">> Back to main menu\u001b[0m" : "   Back to main menu");
     }
 }
