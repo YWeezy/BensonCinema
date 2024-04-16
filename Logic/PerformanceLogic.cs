@@ -46,7 +46,7 @@ class PerformanceLogic {
 
         Console.WriteLine("Table of all Performances:\n");
         
-        Console.WriteLine("{0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
+        Console.WriteLine("{0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -5}", "\u001b[34mID    ", "Name", "Start", "End", "Hall", "Active\u001b[0m");
         Console.WriteLine("------------------------------------------------------------------------------------------------------------");
         foreach (PerformanceModel performance in _performances)
         {   

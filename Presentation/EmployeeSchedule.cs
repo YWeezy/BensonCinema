@@ -108,16 +108,15 @@ static class EmployeeSchedule
             string json = File.ReadAllText(path);
             List<ScheduleModel> schedules = JsonSerializer.Deserialize<List<ScheduleModel>>(json);
 
-            Console.WriteLine("Schedules for this week:");
-            Console.WriteLine("--------------------------------------------------------------------------------");
-            Console.WriteLine("  Worker         Date         Total Hours    Start Time   End Time  ");
-            Console.WriteLine("--------------------------------------------------------------------------------");
+            Console.WriteLine("Schedules for this week:\n");
+            Console.WriteLine("\u001b[34m Worker        Date        Total Hours   Start Time  End Time  \u001b[0m");
+            Console.WriteLine("-------------------------------------------------------------");
 
             foreach (var schedule in schedules)
             {
-                Console.WriteLine($"| {schedule.Worker,-12} | {schedule.Date,-9} | {schedule.TotalHours,-12} | {schedule.StartTime,-10} | {schedule.EndTime,-8} |");
+                Console.WriteLine($" {schedule.Worker,-12}  {schedule.Date,-9}  {schedule.TotalHours,-12}  {schedule.StartTime,-10}  {schedule.EndTime,-8} ");
             }
-            Console.WriteLine("--------------------------------------------------------------------------------");
+            Console.WriteLine("-------------------------------------------------------------");
         }
 
 

@@ -32,7 +32,7 @@ class HallLogic
         Console.WriteLine("Table of all Halls\n");
 
         if (showId == false) {
-            Console.WriteLine("{0,-15}{1,-10}{2,-15}", "Name", "Type", "Active");
+            Console.WriteLine("\u001b[34m{0,-15}{1,-10}{2,-15}", "Name", "Type", "Active\u001b[0m");
             Console.WriteLine("-----------------------------------");
             foreach (HallModel hall in _halls)
             {
@@ -46,7 +46,7 @@ class HallLogic
                 Console.WriteLine("{0,-15}{1,-10}{2,-15}", hall.hallName, hall.type, actstr);
             }
         } else {
-            Console.WriteLine("{0, -5}{1,-15}{2,-10}{3,-15}", "ID", "Name", "Type", "Active");
+            Console.WriteLine("{0, -5}{1,-15}{2,-10}{3,-15}", "\u001b[34mID", "Name", "Type", "Active\u001b[0m");
             Console.WriteLine("----------------------------------------");
             foreach (HallModel hall in _halls)
             {

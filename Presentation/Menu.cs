@@ -227,7 +227,7 @@ static class Menu
 
         foreach (ContentManagerOption option in Enum.GetValues(typeof(ContentManagerOption)))
         {
-            Console.Write(option == selectedOption ?  color +" >> " : neutral + "   ");
+            Console.Write(option == selectedOption ?  color + " >> " : neutral + "    ");
             Console.WriteLine($"{(int)option}. {option}");
         }
     }
