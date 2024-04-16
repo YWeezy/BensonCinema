@@ -232,8 +232,8 @@ static class ManagePerformance
         HallLogic hallLogic = new HallLogic();
         Console.WriteLine("Please select a Performance to edit:\n");
 
-        Console.WriteLine("      {0,-6}{1,-22}{2,-21}{3, -21}{4, -20}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
-        Console.WriteLine("      --------------------------------------------------------------------------------------");
+        Console.WriteLine("      {0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
+        Console.WriteLine("      ------------------------------------------------------------------------------------------------------------");
         
         int index = 0;
         foreach (PerformanceModel performance in logic.GetPerformances())
@@ -246,8 +246,16 @@ static class ManagePerformance
             {
                 Console.Write("   ");
             }
+
+            string actstr;
+            if (performance.active)
+            {
+                actstr = "Active";
+            }else{
+                actstr = "Inactive";
+            }
             
-            Console.WriteLine("   {0,-6}{1,-22}{2,-21}{3, -21}{4, -20}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId), performance.active);
+            Console.WriteLine("   {0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId), actstr);
 
             index++;
         }
@@ -390,11 +398,11 @@ static class ManagePerformance
         // active
         if (selectedPerformance.active == false)
         {
-            Console.WriteLine($"\nCurrent active state: {selectedPerformance.active}\n\nDo you want to switch to active? (Y/N)");
+            Console.WriteLine($"\nCurrent active state: Inactive\n\nDo you want to switch to active? (Y/N)");
         }
         else
         {
-            Console.WriteLine($"\nCurrent active state: {selectedPerformance.active}\n\nDo you want to switch to inactive? (Y/N)");
+            Console.WriteLine($"\nCurrent active state: Active\n\nDo you want to switch to inactive? (Y/N)");
         }
 
         if (Console.ReadLine().ToLower() == "y")

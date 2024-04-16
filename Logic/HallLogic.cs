@@ -53,9 +53,9 @@ class HallLogic
                 string actstr;
                 if (hall.active)
                 {
-                    actstr = "active";
+                    actstr = "Active";
                 }else{
-                    actstr = "inactive";
+                    actstr = "Inactive";
                 }
                 Console.WriteLine("{0, -5}{1,-15}{2,-10}{3,-15}", hall.hallID, hall.hallName, hall.type, actstr);
             }

@@ -136,8 +136,8 @@ static class ManageHall
         Console.Clear();
         Console.WriteLine("Please select a Hall to edit:\n");
 
-        Console.WriteLine("      {0,-18}{1,-10}", "Name", "Type");
-        Console.WriteLine("      -----------------------------------");
+        Console.WriteLine("      {0,-15}{1,-10}{2,-15}", "Name", "Type", "Active");
+        Console.WriteLine("      -------------------------------------");
         
         int index = 0;
         foreach (HallModel hall in logic.GetList())
@@ -150,8 +150,16 @@ static class ManageHall
             {
                 Console.Write("   ");
             }
+
+            string actstr;
+            if (hall.active)
+            {
+                actstr = "Active";
+            }else{
+                actstr = "Inactive";
+            }
             
-            Console.WriteLine("   {0,-18}{1,-10}", hall.hallName, hall.type);
+            Console.WriteLine("   {0,-15}{1,-10}{2,-15}", hall.hallName, hall.type, actstr);
 
             index++;
         }
@@ -206,11 +214,11 @@ static class ManageHall
         // active
         if (selectedHall.active == false)
         {
-            Console.WriteLine($"\nCurrent active state: {selectedHall.active}\n\nDo you want to switch to active? (Y/N)");
+            Console.WriteLine($"\nCurrent active state: Inactive\n\nDo you want to switch to active? (Y/N)");
         }
         else
         {
-            Console.WriteLine($"\nCurrent active state: {selectedHall.active}\n\nDo you want to switch to inactive? (Y/N)");
+            Console.WriteLine($"\nCurrent active state: Active\n\nDo you want to switch to inactive? (Y/N)");
         }
 
         if (Console.ReadLine().ToLower() == "y")

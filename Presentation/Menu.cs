@@ -133,7 +133,7 @@ static class Menu
             case ContentManagerOption.Halls:
                 ManageHall.Start();
                 break;
-            case ContentManagerOption.schedule:
+            case ContentManagerOption.Schedule:
                 EmployeeSchedule.Schedule();
                 break;
             case ContentManagerOption.Exit:
@@ -256,7 +256,7 @@ static class Menu
     {
         Performances = 1,
         Halls,
-        schedule,
+        Schedule,
         Exit
     }
 
