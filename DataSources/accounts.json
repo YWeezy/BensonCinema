@@ -1,4 +1,4 @@
-﻿[
+[
   {
     "Id": "a1988e88-9d90-4b18-8e61-ffc2ba025f8a",
     "EmailAddress": "aarab@duck.com",
@@ -61,6 +61,14 @@
     "FullName": "po",
     "Password": "mzUEG\u002BGLWUsucc\u002BZgvYs6w==",
     "Role": 2,
+    "Tickets": []
+  },
+  {
+    "Id": "14e55b15-d55e-46d0-843d-221b73251584",
+    "EmailAddress": "la@.com",
+    "FullName": "la",
+    "Password": "35P62/cgGPd3wsy5OKhL/A==",
+    "Role": 1,
     "Tickets": []
   }
 ]

@@ -195,11 +195,13 @@ static class Menu
     private static void DisplayUserMenu(UserOption selectedOption)
     {
         Console.Clear();
-        Console.WriteLine("Welcome to the User's Menu", Utils.LoggedInUser.FullName);
+        string color = "\u001b[32m";
+        string neutral = "\u001b[0m";
+        Console.WriteLine($"{neutral}Welcome to the User's Menu", Utils.LoggedInUser.FullName);
 
         foreach (UserOption option in Enum.GetValues(typeof(UserOption)))
         {
-            Console.Write(option == selectedOption ? ">> " : "   ");
+            Console.Write(option == selectedOption ? color + ">> " : neutral + "   ");
             Console.WriteLine($"{(int)option}. {option}");
         }
     }
@@ -233,6 +235,7 @@ static class Menu
     private static void ShowEmployeeMenu()
     {
         // Display employee menu
+        Console.Clear();
         Console.WriteLine("Welcome to the Employee's Menu:");
         Console.WriteLine("1. View Tasks");
         Console.WriteLine("2. Assign Task");
