@@ -379,7 +379,8 @@ static class ManagePerformance
                     bool idExists = locs.Any(loc => loc.hallID == hallId);
 
                     if (idExists)
-                    {
+                    {   
+
                         performanceHallValid = true;
                     }
                     else
@@ -409,12 +410,12 @@ static class ManagePerformance
         {
             active = !active;
         }
-
+        HallLogic Hlogic = new HallLogic();
         Console.Clear();
         Console.WriteLine($"\u001b[34mName: {performanceName}");
         Console.WriteLine($"Start: {performanceStartDT}");
         Console.WriteLine($"End: {performanceEndDT}");
-        Console.WriteLine($"Hall: {hallId}");
+        Console.WriteLine($"Hall: {Hlogic.getHallNamebyId(hallId)}");
         Console.WriteLine($"Active: {active}\u001b[0m");
 
         Console.WriteLine("\nAre you sure you want to make these changes? (Y/N)");

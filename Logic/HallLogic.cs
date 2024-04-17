@@ -95,4 +95,9 @@ class HallLogic
         return false;
     }
 
+    public string getHallNamebyId(int id){
+        HallModel hall = _halls.Find(p => p.hallID == id);
+        return hall.hallName;
+    }
+
 }
