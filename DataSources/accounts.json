@@ -78,5 +78,13 @@
     "Password": "tpy/AtV1Rymif8ujBYdWsQ==",
     "Role": 2,
     "Tickets": []
+  },
+  {
+    "Id": "1d095b0d-74ff-4471-bf2c-eb8faf574e39",
+    "EmailAddress": "pat@.com",
+    "FullName": "Pratik",
+    "Password": "1\u002BoxyuXNl6oW5w/YJmRCGA==",
+    "Role": 1,
+    "Tickets": []
   }
 ]

@@ -234,14 +234,7 @@ static class Menu
 
     private static void ShowEmployeeMenu()
     {
-        // Display employee menu
-        Console.Clear();
-        Console.WriteLine("Welcome to the Employee's Menu:");
-        Console.WriteLine("1. View Tasks");
-        Console.WriteLine("2. Assign Task");
-        Console.WriteLine("3. View Employees");
-        Console.WriteLine("4. Logout");
-        Console.Write("Please select an option: ");
+        EmployeeSchedule.Schedule();
     }
 
 
