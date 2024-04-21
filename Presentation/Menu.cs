@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 
 static class Menu
 {
@@ -133,7 +134,7 @@ static class Menu
             case ContentManagerOption.Halls:
                 ManageHall.Start();
                 break;
-            case ContentManagerOption.schedule:
+            case ContentManagerOption.Schedule:
                 EmployeeSchedule.Schedule();
                 break;
             case ContentManagerOption.Exit:
@@ -194,33 +195,39 @@ static class Menu
     private static void DisplayUserMenu(UserOption selectedOption)
     {
         Console.Clear();
-        Console.WriteLine("Welcome to the User Menu", Utils.LoggedInUser.FullName);
+        string color = "\u001b[32m";
+        string neutral = "\u001b[0m";
+        Console.WriteLine($"{neutral}Welcome to the User's Menu", Utils.LoggedInUser.FullName);
 
         foreach (UserOption option in Enum.GetValues(typeof(UserOption)))
         {
-            Console.Write(option == selectedOption ? ">> " : "   ");
+            Console.Write(option == selectedOption ? color + ">> " : neutral + "   ");
             Console.WriteLine($"{(int)option}. {option}");
         }
     }
 
     private static void DisplayMenu(MenuOption selectedOption)
     {
-        Console.WriteLine("Welcome to the application!");
+        string color = "\u001b[32m";
+        string neutral = "\u001b[0m";
+        Console.WriteLine($"{neutral} Welcome to the application!");
 
         foreach (MenuOption option in Enum.GetValues(typeof(MenuOption)))
         {
-            Console.Write(option == selectedOption ? ">> " : "   ");
+            Console.Write(option == selectedOption ? color + ">> " : neutral + "   ");
             Console.WriteLine($"{(int)option}. {option}");
         }
     }
 
     private static void DisplayMenu(ContentManagerOption selectedOption)
     {
-        Console.WriteLine("Welcome to the ContentManager's Menu!");
+        string color = "\u001b[32m";
+        string neutral = "\u001b[0m";
+        Console.WriteLine($"{neutral} Welcome to the Content Manager's Menu!");
 
         foreach (ContentManagerOption option in Enum.GetValues(typeof(ContentManagerOption)))
         {
-            Console.Write(option == selectedOption ? ">> " : "   ");
+            Console.Write(option == selectedOption ?  color + " >> " : neutral + "    ");
             Console.WriteLine($"{(int)option}. {option}");
         }
     }
@@ -228,7 +235,8 @@ static class Menu
     private static void ShowEmployeeMenu()
     {
         // Display employee menu
-        Console.WriteLine("Welcome to the Employee Menu:");
+        Console.Clear();
+        Console.WriteLine("Welcome to the Employee's Menu:");
         Console.WriteLine("1. View Tasks");
         Console.WriteLine("2. Assign Task");
         Console.WriteLine("3. View Employees");
@@ -256,7 +264,7 @@ static class Menu
     {
         Performances = 1,
         Halls,
-        schedule,
+        Schedule,
         Exit
     }
 

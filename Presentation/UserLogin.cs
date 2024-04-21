@@ -20,20 +20,20 @@ static class UserLogin
 
                     // Set logged-in user
                     Utils.LoggedInUser = acc;
-                    Console.WriteLine("Login successful! " + Utils.LoggedInUser.FullName);
+                    Console.WriteLine("Login Successful! " + Utils.LoggedInUser.FullName);
                     Menu.Start();
                     return;
                 }
                 else
                 {
-                    Console.WriteLine("No account found with that email and password");
+                    Console.WriteLine("No account found with that Email and Password");
 
                 }
             }
         }
         else
         {
-            Console.WriteLine("Email or password cannot be empty");
+            Console.WriteLine("Email or Password cannot be empty");
         }
 
         Start(); // If login fails, try again

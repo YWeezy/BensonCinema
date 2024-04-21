@@ -5,12 +5,14 @@ static class UserRegister
     static private AccountsLogic accountsLogic = new AccountsLogic();
     static private string secretEmployeePassword = "123";
     static private string secretContentManagerPassword = "123";
+    static private int milisecondTimeOut = 2000;
+
 
     public static void Start()
     {
         Console.Clear();
         Console.WriteLine("Welcome to the register page");
-        Console.WriteLine("Choose your role (user/employee/content manager):");
+        Console.WriteLine("Choose your role (User /Employee/ Content manager):");
 
         UserRole role = GetSelectedUserRole();
         AskUserInfo(role);
@@ -25,7 +27,7 @@ static class UserRegister
         do
         {
             Console.Clear();
-            Console.WriteLine("Choose your role (use arrow keys to select, Enter to confirm):");
+            Console.WriteLine("Choose your role (Use arrow keys to select, Enter to confirm):");
             DisplayUserRole(selectedRole);
 
             key = Console.ReadKey(true).Key;
@@ -69,6 +71,7 @@ static class UserRegister
                 (role == UserRole.ContentManager && secretPassword != secretContentManagerPassword))
             {
                 Console.WriteLine("Incorrect secret password. Registration failed.");
+                Thread.Sleep(milisecondTimeOut);
                 Start();
             }
         }
@@ -77,6 +80,7 @@ static class UserRegister
         if (!IsValidEmail(email))
         {
             Console.WriteLine("Invalid email format. Registration failed.");
+            Thread.Sleep(milisecondTimeOut);
             Start();
         }
 
@@ -85,6 +89,8 @@ static class UserRegister
         if (!IsValidName(name))
         {
             Console.WriteLine("Invalid name format. Registration failed.");
+            Thread.Sleep(milisecondTimeOut);
+
             Start();
         }
 
@@ -96,6 +102,8 @@ static class UserRegister
         if (password == null)
         {
             Console.WriteLine("Error encrypting password. Registration failed.");
+            Thread.Sleep(milisecondTimeOut);
+
             Start();
         }
 
@@ -115,6 +123,7 @@ static class UserRegister
         }
         finally
         {
+            Thread.Sleep(milisecondTimeOut);
             Menu.Start();
         }
     }
