@@ -31,41 +31,41 @@ class AccountModel
         Role = role;
     }
 
-    public void LoadTickets()
-    {
-        var tickets = TicketsAccess.LoadAll();
-        foreach (TicketModel ticket in tickets)
-        {
-            if (ticket.RelationId == Id)
-            {
-                Tickets.Add(ticket);
-            }
-        }
-    }
+    // public void LoadTickets()
+    // {
+    //     var tickets = TicketsAccess.LoadAll();
+    //     foreach (TicketModel ticket in tickets)
+    //     {
+    //         if (ticket.RelationId == Id)
+    //         {
+    //             Tickets.Add(ticket);
+    //         }
+    //     }
+    // }
 
-    public void SaveTickets()
-    {
-        List<TicketModel> tickets = TicketsAccess.LoadAll();
-        foreach (TicketModel ticket in Tickets)
-        {
-            if (ticket.RelationId == Id)
-            {
-                tickets.Add(ticket);
-            }
-        }
-        TicketsAccess.WriteAll(tickets);
-    }
+    // public void SaveTickets()
+    // {
+    //     List<TicketModel> tickets = TicketsAccess.LoadAll();
+    //     foreach (TicketModel ticket in Tickets)
+    //     {
+    //         if (ticket.RelationId == Id)
+    //         {
+    //             tickets.Add(ticket);
+    //         }
+    //     }
+    //     TicketsAccess.WriteAll(tickets);
+    // }
 
     public void AddTicket(TicketModel ticket)
     {
         Tickets.Add(ticket);
-        SaveTickets();
+        // SaveTickets();
     }
 
     public void RemoveTicket(TicketModel ticket)
     {
         Tickets.Remove(ticket);
-        SaveTickets();
+        // SaveTickets();
     }
 
 }

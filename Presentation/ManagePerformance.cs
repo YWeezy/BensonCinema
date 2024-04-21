@@ -47,7 +47,8 @@ static class ManagePerformance
         bool editing = false;
         PerformanceModel selectedPerformance = null;
         bool active = true;
-        if (selectedPerformanceIndex != -1) {
+        if (selectedPerformanceIndex != -1)
+        {
             editing = true;
             selectedPerformance = logic.GetPerformances()[selectedPerformanceIndex];
             active = selectedPerformance.active;
@@ -83,10 +84,14 @@ static class ManagePerformance
 
             if (DateTime.TryParseExact(performanceStart, "d-M-yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out performanceStartDT))
             {
-                if (editing == false) {
-                    if (performanceStartDT < DateTime.Now) {
+                if (editing == false)
+                {
+                    if (performanceStartDT < DateTime.Now)
+                    {
                         Console.WriteLine("\u001b[31mYou can't enter a date and time that is in the past.\u001b[0m");
-                    } else {
+                    }
+                    else
+                    {
                         Console.WriteLine("\u001b[31mYou entered: " + performanceStartDT);
                         performanceStartValid = true;
                     }
@@ -108,11 +113,16 @@ static class ManagePerformance
 
             if (DateTime.TryParseExact(performanceEnd, "d-M-yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out performanceEndDT))
             {
-                if (performanceEndDT < performanceStartDT) {
+                if (performanceEndDT < performanceStartDT)
+                {
                     Console.WriteLine("\u001b[31mYou can't enter a date and time that is before the starttime of the Performance.\u001b[0m");
-                } else if (performanceEndDT > DateTime.Now.AddMonths(6)) {
+                }
+                else if (performanceEndDT > DateTime.Now.AddMonths(6))
+                {
                     Console.WriteLine("\u001b[31mYou can't enter a date and time that is more than 6 months ahead of the starttime.\u001b[0m");
-                } else {
+                }
+                else
+                {
                     Console.WriteLine("\u001b[32mYou entered: " + performanceEndDT);
                     performanceEndValid = true;
                 }
@@ -131,14 +141,15 @@ static class ManagePerformance
             {
                 bool performanceHallValid = false;
 
-                while (performanceHallValid == false) {
+                while (performanceHallValid == false)
+                {
                     HallLogic hallLogic = new HallLogic();
                     hallLogic.DisplayTable(true);
 
                     Console.WriteLine("\nHall ID: ");
                     hallId = editing ? Convert.ToInt32(ConsoleInput.EditLine(selectedPerformance.hallId)) : Convert.ToInt32(Console.ReadLine());
-
-                    List<HallModel> locs = HallAccess.Hallget();
+                    string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/halls.json"));
+                    List<HallModel> locs = DataAccess<HallModel>.LoadAll(path);
 
                     bool idExists = locs.Any(loc => loc.hallID == hallId);
 
@@ -159,8 +170,9 @@ static class ManagePerformance
             }
         }
 
-        if (editing == true) {
-            
+        if (editing == true)
+        {
+
             Console.Clear();
             // active
             if (selectedPerformance.active == false)
@@ -206,7 +218,9 @@ static class ManagePerformance
                     break;
             }
 
-        } else {
+        }
+        else
+        {
 
             Console.Clear();
             Console.WriteLine($"Name: {performanceName}");
@@ -256,16 +270,17 @@ static class ManagePerformance
 
     }
 
-    static public void Edit(PerformanceLogic logic) {
+    static public void Edit(PerformanceLogic logic)
+    {
         Console.Clear();
-        
+
         int selectedPerformanceIndex = 0;
         int totalPerformances = logic.GetTotalPerformances();
-        
+
         while (true)
         {
             DisplayPerformances(logic, selectedPerformanceIndex);
-            
+
             var key = Console.ReadKey(true).Key;
 
             switch (key)
@@ -296,7 +311,7 @@ static class ManagePerformance
 
         Console.WriteLine("      {0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
         Console.WriteLine("      ------------------------------------------------------------------------------------------------------------");
-        
+
         int index = 0;
         foreach (PerformanceModel performance in logic.GetPerformances())
         {
@@ -313,10 +328,12 @@ static class ManagePerformance
             if (performance.active)
             {
                 actstr = "Active";
-            }else{
+            }
+            else
+            {
                 actstr = "Inactive";
             }
-            
+
             Console.WriteLine("   {0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId), actstr);
 
             index++;
