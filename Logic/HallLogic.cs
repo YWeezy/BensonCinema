@@ -29,33 +29,33 @@ class HallLogic
     }
 
     public void DisplayTable(bool showId = false) {
-        Console.WriteLine("Table of all halls\n");
+        Console.WriteLine("Table of all Halls\n");
 
         if (showId == false) {
-            Console.WriteLine("{0,-15}{1,-10}{2,-15}", "Name", "Type", "Active");
+            Console.WriteLine("\u001b[34m{0,-15}{1,-10}{2,-15}", "Name", "Type", "Active\u001b[0m");
             Console.WriteLine("-----------------------------------");
             foreach (HallModel hall in _halls)
             {
                 string actstr;
                 if (hall.active)
                 {
-                    actstr = "active";
+                    actstr = "Active";
                 }else{
-                    actstr = "inactive";
+                    actstr = "Inactive";
                 }
                 Console.WriteLine("{0,-15}{1,-10}{2,-15}", hall.hallName, hall.type, actstr);
             }
         } else {
-            Console.WriteLine("{0, -5}{1,-15}{2,-10}{3,-15}", "ID", "Name", "Type", "Active");
+            Console.WriteLine("{0, -5}{1,-15}{2,-10}{3,-15}", "\u001b[34mID   ", "Name", "Type", "Active\u001b[0m");
             Console.WriteLine("----------------------------------------");
             foreach (HallModel hall in _halls)
             {
                 string actstr;
                 if (hall.active)
                 {
-                    actstr = "active";
+                    actstr = "Active";
                 }else{
-                    actstr = "inactive";
+                    actstr = "Inactive";
                 }
                 Console.WriteLine("{0, -5}{1,-15}{2,-10}{3,-15}", hall.hallID, hall.hallName, hall.type, actstr);
             }
@@ -93,6 +93,11 @@ class HallLogic
             return true;
         }
         return false;
+    }
+
+    public string getHallNamebyId(int id){
+        HallModel hall = _halls.Find(p => p.hallID == id);
+        return hall.hallName;
     }
 
 }

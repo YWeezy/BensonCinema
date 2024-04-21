@@ -26,7 +26,7 @@ public class TicketLogic
 
         HallLogic hallLogic = new HallLogic();
 
-        Console.WriteLine("Table of all performances:\n");
+        Console.WriteLine("Table of all Performances:\n");
         
         Console.WriteLine("{0,-6}{1,-22}{2,-21}{3, -21}{4, -20}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
         Console.WriteLine("------------------------------------------------------------------------------------------------");
@@ -71,34 +71,21 @@ public class TicketLogic
             Console.WriteLine("Performance not found.");
         }
     }
-public void loadMytickets(string id)
-{
-    // Load all tickets from the data source
-    List<TicketModel> allTickets = TicketsAccess.LoadAll();
-    
-    // Filter tickets based on the provided user ID
-    List<TicketModel> userTickets = allTickets.Where(t => t.RelationId == id).ToList();
-    
-    foreach (var ticket in userTickets)
+    public void loadMytickets(string id)
     {
-        Console.WriteLine("+----------------------------------------+");
-        Console.WriteLine("|              Ticket Details             |");
-        Console.WriteLine("+----------------------------------------+");
-        Console.WriteLine($"| Ticket ID: {ticket.PerformanceId,-28} |");
-        Console.WriteLine($"| Title: {ticket.Title,-32} |");
-        Console.WriteLine($"| Date: {ticket.Date,-33} |");
-        Console.WriteLine($"| Time: {ticket.Time,-33} |"); // Added line for time
-        Console.WriteLine($"| Location: {ticket.Location,-29} |"); // Added line for location
-        Console.WriteLine($"| Seat: {ticket.Seat,-33} |");
-        Console.WriteLine($"| Price: {ticket.Price,-32} |");    
-        Console.WriteLine("+----------------------------------------+");
-        Console.WriteLine(); 
+        // Load all tickets from the data source
+        List<TicketModel> allTickets = TicketsAccess.LoadAll();
+        
+        // Filter tickets based on the provided user ID
+        List<TicketModel> userTickets = allTickets.Where(t => t.RelationId == id).ToList();
+            
+        Console.WriteLine("Ticket ID              Title                 Date        Time                  Location              Seat             Price               ");
+        Console.WriteLine("------------------------------------------------------------------------------------------------------------------------------------------");
+
+        // Print ticket details
+        foreach (var ticket in userTickets)
+        {
+            Console.WriteLine($"{ticket.PerformanceId,-23}{ticket.Title,-22}{ticket.Date,-12}{ticket.Time,-22}{ticket.Location,-22}{ticket.Seat,-17}$ {ticket.Price,-12:F2}");
+        }
     }
-}
-
-
-
-
-
-
 }
