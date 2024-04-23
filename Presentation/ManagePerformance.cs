@@ -92,11 +92,12 @@ static class ManagePerformance
                     }
                     else
                     {
-                        Console.WriteLine("\u001b[31mYou entered: " + performanceStartDT);
+                        Console.WriteLine($"\u001b[31mYou entered: {performanceStartDT}\u001b[0m");
                         performanceStartValid = true;
                     }
+                } else {
+                    performanceStartValid = true;
                 }
-                performanceStartValid = true;
             }
             else
             {
