@@ -156,6 +156,8 @@ static class EmployeeSchedule
         Console.WriteLine($"Total working hours for this date: {totalHours} (HH-MM-SS)");
 
         Console.Clear();
+        Console.WriteLine("Select wich performance to add to the schedule.");
+        Console.WriteLine("Press ESC for no performance");
         PerformanceLogic logic = new PerformanceLogic();
         PerformanceModel selectedChoicePerf = ChoicePerf(logic, startTime, endTime, date);
         Console.WriteLine(selectedChoicePerf.name);
@@ -356,6 +358,7 @@ static class EmployeeSchedule
     {
         Console.Clear();
         int index = 0;
+        Console.WriteLine("Select wich performance to add to the schedule.");
         
         foreach (PerformanceModel performance in scheduledPerf)
         {
@@ -374,6 +377,7 @@ static class EmployeeSchedule
 
             index++;
         }
+        Console.WriteLine("Press ESC for no performance");
     }
 
     static public PerformanceModel ChoicePerf(PerformanceLogic logic, string startTime, string endTime, string date){
@@ -387,8 +391,6 @@ static class EmployeeSchedule
         DateTime startDatetime = datedt.Add(startTimeS);
 
         DateTime endDatetime = datedt.Add(endTimeS);
-        Console.WriteLine(startDatetime);
-        Console.WriteLine(endDatetime);
         while (true)
         {   
             List<PerformanceModel> allPerf = logic.GetPerformances();
