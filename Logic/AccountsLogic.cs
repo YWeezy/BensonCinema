@@ -6,10 +6,11 @@ class AccountsLogic
     private List<AccountModel> _accounts;
 
     static public AccountModel? CurrentAccount { get; private set; }
+    string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/accounts.json"));
 
     public AccountsLogic()
     {
-        _accounts = AccountsAccess.LoadAll();
+        _accounts = DataAccess<AccountModel>.LoadAll(path);
     }
 
     public void UpdateList(AccountModel acc)
@@ -24,7 +25,7 @@ class AccountsLogic
         }
 
         _accounts.Add(acc);
-        AccountsAccess.WriteAll(_accounts);
+        DataAccess<AccountModel>.WriteAll(_accounts, path);
         Console.WriteLine("Account created successfully!");
     }
 

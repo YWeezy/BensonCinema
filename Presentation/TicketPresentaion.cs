@@ -7,7 +7,7 @@ public class TicketPresentation
     private TicketLogic ticketLogic = new TicketLogic();
     public void ShowAvailablePerformances()
     {
-        Console.WriteLine(performanceLogic.GetList());
+        performanceLogic.DisplayTable();
     }
 
     public void ReserveTicket()
@@ -30,6 +30,7 @@ public class TicketPresentation
                 ticketLogic.GenerateTicket(performanceId, seat);
 
                 Console.WriteLine("Ticket reserved successfully!");
+                
         }
             else
             {

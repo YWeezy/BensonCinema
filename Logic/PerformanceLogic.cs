@@ -1,9 +1,22 @@
-class PerformanceLogic {
+class PerformanceLogic
+{
 
     private List<PerformanceModel> _performances = new List<PerformanceModel>();
+    string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/performances.json"));
 
-    public PerformanceLogic() {
-        _performances = PerformanceAccess.LoadAll();
+    public PerformanceLogic()
+    {
+        _performances = DataAccess<PerformanceModel>.LoadAll(path);
+    }
+
+    public List<PerformanceModel> GetPerformances()
+    {
+        return _performances;
+    }
+
+    public int GetTotalPerformances()
+    {
+        return _performances.Count;
     }
 
     public void UpdateList(PerformanceModel perf)
@@ -21,39 +34,50 @@ class PerformanceLogic {
             //add new model
             _performances.Add(perf);
         }
-        PerformanceAccess.WriteAll(_performances);
+        DataAccess<PerformanceModel>.WriteAll(_performances, path);
 
     }
 
-    public int GetNewId() {
+    public int GetNewId()
+    {
         int currentId = _performances.Last().id;
         return currentId + 1;
     }
 
-    public string GetList() {
+    public void DisplayTable()
+    {
 
-        string listOfPerf = "List of performances:\n";
-        listOfPerf += "------------------------\n";
+        HallLogic hallLogic = new HallLogic();
 
+        Console.WriteLine("Table of all Performances:\n");
+
+        Console.WriteLine("{0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -5}", "\u001b[34mID    ", "Name", "Start", "End", "Hall", "Active\u001b[0m");
+        Console.WriteLine("------------------------------------------------------------------------------------------------------------");
         foreach (PerformanceModel performance in _performances)
         {
-            listOfPerf += $"ID: {performance.id}\n";
-            listOfPerf += $"Name: {performance.name}\n";
-            listOfPerf += $"Start: {performance.startDate}\n";
-            listOfPerf += $"End: {performance.endDate}\n";
-            listOfPerf += $"Location: {performance.locationId}\n";
-            listOfPerf += "------------------------\n";
+            string actstr;
+            if (performance.active)
+            {
+                actstr = "Active";
+            }
+            else
+            {
+                actstr = "Inactive";
+            }
+            Console.WriteLine("{0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId), actstr);
         }
+        Console.WriteLine("");
 
-        return listOfPerf;
+        return;
     }
 
-    public bool DeletePerformance(int id) {
+    public bool DeletePerformance(int id)
+    {
         PerformanceModel perfToRemove = _performances.Find(p => p.id == id);
         if (perfToRemove != null)
         {
             _performances.Remove(perfToRemove);
-            PerformanceAccess.WriteAll(_performances);
+            DataAccess<PerformanceModel>.WriteAll(_performances, path);
             return true;
         }
         return false;

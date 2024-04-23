@@ -20,7 +20,7 @@
     "EmailAddress": "yes@.com",
     "FullName": "Lucas",
     "Password": "/w5mHqZpZE7o/6xa\u002B87ghw==",
-    "Role": 0,
+    "Role": 1,
     "Tickets": []
   },
   {
@@ -28,7 +28,7 @@
     "EmailAddress": "achraf.aarab@outlook.com",
     "FullName": "Achraf Aarab",
     "Password": "eO4Xx\u002B3lNN\u002B2BwbWvk7gxg==",
-    "Role": 2,
+    "Role": 1,
     "Tickets": []
   },
   {
@@ -52,6 +52,38 @@
     "EmailAddress": "ach.aarab@duck.com",
     "FullName": "Achraf Aarab",
     "Password": "g20/LdsKwFQdw3XP3J9fAQ==",
+    "Role": 2,
+    "Tickets": []
+  },
+  {
+    "Id": "409e93a8-c065-4126-9ec8-e5bdf5ab15a1",
+    "EmailAddress": "po@.com",
+    "FullName": "po",
+    "Password": "mzUEG\u002BGLWUsucc\u002BZgvYs6w==",
+    "Role": 2,
+    "Tickets": []
+  },
+  {
+    "Id": "14e55b15-d55e-46d0-843d-221b73251584",
+    "EmailAddress": "la@.com",
+    "FullName": "la",
+    "Password": "35P62/cgGPd3wsy5OKhL/A==",
+    "Role": 1,
+    "Tickets": []
+  },
+  {
+    "Id": "b4b2da87-f066-487f-90f4-e57d67e30c81",
+    "EmailAddress": "1@1.1",
+    "FullName": "1",
+    "Password": "tpy/AtV1Rymif8ujBYdWsQ==",
+    "Role": 2,
+    "Tickets": []
+  },
+  {
+    "Id": "db256204-d1ac-4328-bf88-85c90956f316",
+    "EmailAddress": "kk@kk.com",
+    "FullName": "Achraf",
+    "Password": "hnGCl9b6\u002BBGosyh1le\u002BExg==",
     "Role": 2,
     "Tickets": []
   }

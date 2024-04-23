@@ -1,27 +1,20 @@
 [
   {
-    "locationID": 1,
-    "locationName": "BigBenson",
-    "type": "Large"
+    "hallID": 1,
+    "hallName": "BigBenson",
+    "type": "Large",
+    "active": true
   },
   {
-    "locationID": 2,
-    "locationName": "Small-Kylo",
-    "type": "Medium"
+    "hallID": 2,
+    "hallName": "Small-Kylo",
+    "type": "Medium",
+    "active": true
   },
   {
-    "locationID": 5,
-    "locationName": "FitBenny",
-    "type": "Medium"
-  },
-  {
-    "locationID": 6,
-    "locationName": "BigWeez",
-    "type": "Small"
-  },
-  {
-    "locationID": 7,
-    "locationName": "ach",
-    "type": "medium"
+    "hallID": 3,
+    "hallName": "Beezz",
+    "type": "medium",
+    "active": false
   }
 ]
