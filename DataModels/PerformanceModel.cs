@@ -1,7 +1,7 @@
 using System.Data.Common;
 using System.Text.Json.Serialization;
 
-class PerformanceModel {
+public class PerformanceModel {
 
     [JsonPropertyName("id")]
     public int id { get; set; }
@@ -18,6 +18,9 @@ class PerformanceModel {
     [JsonPropertyName("hallId")]
     public int hallId { get; set; }
 
+    [JsonPropertyName("employees")]
+    public List<string> employees { get; set; }
+
     [JsonPropertyName("active")]
     public bool active { get; set; }
 
@@ -28,6 +31,7 @@ class PerformanceModel {
         this.endDate = endDate;
         this.hallId = hallId;
         this.active = active;
+        this.employees = new List<string>();
     }
 
 }

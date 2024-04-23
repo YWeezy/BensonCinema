@@ -1,5 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Text.Json;
+using System;
+using System.Globalization;
 
 static class EmployeeSchedule
 {
@@ -153,11 +155,19 @@ static class EmployeeSchedule
         TimeSpan totalHours = TimeSpan.Parse(endTime).Subtract(TimeSpan.Parse(startTime));
         Console.WriteLine($"Total working hours for this date: {totalHours} (HH-MM-SS)");
 
+        Console.Clear();
+        PerformanceLogic logic = new PerformanceLogic();
+        PerformanceModel selectedChoicePerf = ChoicePerf(logic, startTime, endTime, date);
+        Console.WriteLine(selectedChoicePerf.name);
+        selectedChoicePerf.employees.Add(selectedEmployee);
+        
+        logic.UpdateList(selectedChoicePerf);
+
         string scheduleID = Guid.NewGuid().ToString();
 
         Console.WriteLine("The data you just entered has been saved.");
 
-        ScheduleModel newSchedule = new ScheduleModel(scheduleID, selectedEmployee, date, totalHours.ToString(), startTime, endTime);
+        ScheduleModel newSchedule = new ScheduleModel(scheduleID, selectedEmployee, date, totalHours.ToString(), startTime, endTime, selectedChoicePerf, true);
 
         ScheduleLogic scheduleLogicUp = new ScheduleLogic();
         scheduleLogicUp.UpdateList(newSchedule);
@@ -340,5 +350,72 @@ static class EmployeeSchedule
             Console.WriteLine("File not found.");
             return null;
         }
+    }
+
+    static private void DisplayPerformances(IEnumerable<PerformanceModel> scheduledPerf, int selectedPerformanceIndex)
+    {
+        Console.Clear();
+        int index = 0;
+        
+        foreach (PerformanceModel performance in scheduledPerf)
+        {
+            if (index == selectedPerformanceIndex)
+            {
+                Console.Write("\u001b[32m >>");
+            }
+            else
+            {
+                Console.Write("\u001b[0m   ");
+            }
+
+    
+            
+            Console.WriteLine("   {0,-6}{1,-22}", performance.id, performance.name);
+
+            index++;
+        }
+    }
+
+    static public PerformanceModel ChoicePerf(PerformanceLogic logic, string startTime, string endTime, string date){
+        
+        int selectedPerformanceIndex = 0;
+
+        PerformanceModel selectedPerf;
+        TimeSpan startTimeS = TimeSpan.Parse(startTime);
+        TimeSpan endTimeS = TimeSpan.Parse(endTime);
+        DateTime datedt = DateTime.ParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+        DateTime startDatetime = datedt.Add(startTimeS);
+
+        DateTime endDatetime = datedt.Add(endTimeS);
+        Console.WriteLine(startDatetime);
+        Console.WriteLine(endDatetime);
+        while (true)
+        {   
+            List<PerformanceModel> allPerf = logic.GetPerformances();
+            IEnumerable<PerformanceModel> scheduledPerf = allPerf.Where(el => el.startDate >= startDatetime && el.endDate <= endDatetime && el.active == true);
+            int totalPerformances = scheduledPerf.Count();
+            DisplayPerformances(scheduledPerf, selectedPerformanceIndex);
+            
+            var key = Console.ReadKey(true).Key;
+
+            switch (key)
+            {
+                case ConsoleKey.UpArrow:
+                    selectedPerformanceIndex = selectedPerformanceIndex == 0 ? totalPerformances - 1 : selectedPerformanceIndex - 1;
+                    break;
+                case ConsoleKey.DownArrow:
+                    selectedPerformanceIndex = selectedPerformanceIndex == totalPerformances - 1 ? 0 : selectedPerformanceIndex + 1;
+                    break;
+                case ConsoleKey.Enter:
+                    selectedPerf = logic.GetPerformances()[selectedPerformanceIndex];
+                    Console.WriteLine(selectedPerf);
+                    return selectedPerf;
+                case ConsoleKey.Escape:
+                    return null;
+                default:
+                    break;
+            }
+        }
+        
     }
 }
