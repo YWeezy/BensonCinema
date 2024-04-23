@@ -90,11 +90,24 @@ class HallLogic
         //Find if there is already an model with the same id
         int index = _halls.FindIndex(s => s.hallID == hall.hallID);
 
-        //update existing model
-        _halls[index] = hall;
-
+        if (index != -1)
+        {
+            //update existing model
+            _halls[index] = hall;
+        }
+        else
+        {
+            //add new model
+            _halls.Add(hall);
+        }
         DataAccess<HallModel>.WriteAll(_halls, path);
 
+    }
+
+    public int GetNewId()
+    {
+        int currentId = _halls.Last().hallID;
+        return currentId + 1;
     }
 
     public bool Delete(int id)

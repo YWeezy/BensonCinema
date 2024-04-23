@@ -8,7 +8,7 @@ static class ManageHall
     //You could edit this to show different menus depending on the user's role
     static public void Start() {
         
-        HallLogic logichall = new HallLogic();
+        HallLogic logic = new HallLogic();
         Console.Clear();
         bool loop = true;
         int selectedOption = 1; // Default selected option
@@ -29,7 +29,7 @@ static class ManageHall
                     selectedOption = selectedOption == totalOptions ? 1 : selectedOption + 1;
                     break;
                 case ConsoleKey.Enter:
-                    PerformAction(selectedOption, logichall);
+                    PerformAction(selectedOption, logic);
                     break;
                 default:
                     break;
@@ -44,59 +44,121 @@ static class ManageHall
         
     }
 
-    static public void InsertForm(List<HallModel> halls)
+    static public void Update(HallLogic logic, int selectedHallIndex = -1)
     {
+        bool editing = false;
+        HallModel selectedHall = null;
+        bool active = true;
+        if (selectedHallIndex != -1)
+        {
+            editing = true;
+            selectedHall = logic.GetList()[selectedHallIndex];
+            active = selectedHall.active;
+        }
+
+        string hallName = null;
+        string type = null;
+
         Console.Clear();
-        Console.WriteLine("Press Q to Quit");
-        Console.WriteLine("Hall Name: ");
-        bool valid = false;
-        string inputname = "";
-        while (valid == false)
+        // name
+        while (string.IsNullOrEmpty(hallName))
         {
-            inputname = Console.ReadLine();
-            if (inputname == "Q")
+            Console.WriteLine("\nHall name: ");
+            hallName = editing ? ConsoleInput.EditLine(selectedHall.hallName) : Console.ReadLine();
+
+
+            if (string.IsNullOrEmpty(hallName))
             {
-                return;
+                Console.WriteLine("\u001b[31mInvalid input. Please provide a Hall name.\u001b[0m");
             }
-            else if(halls.Any(hall => hall.hallName == inputname)){
-                Console.WriteLine($"\u001b[31mHallname with {inputname} already exist.\u001b[0m");
-            }
-            
-            else if (inputname != "")
-            {
-                valid = true;
-            }
-            else{
-                Console.WriteLine("\u001b[31mName is empty.\u001b[0m Try again!");
+        }
+
+        Console.Clear();
+        // type
+        while (true)
+        {
+            Console.WriteLine("\nHall type: (Small/Medium/Large)");
+            type = editing ? ConsoleInput.EditLine(selectedHall.type) : Console.ReadLine();
+
+
+            if (type.ToLower() == "small" || type.ToLower() == "medium" || type.ToLower() == "large") {
+                break;
+            } else {
+                Console.WriteLine("\u001b[31mInvalid input. Please provide a correct Hall type.\u001b[0m");
             }
         }
 
         
-        
-        
-        Console.WriteLine("Type : Small/Medium/Large");
-        valid = false;
-        string inputtype = "";
-        while (valid == false)
+
+        if (editing == true)
         {
-            inputtype = Console.ReadLine().ToLower();
-            if (inputtype == "Q")
+
+            Console.Clear();
+            // active
+            if (selectedHall.active == false)
             {
-                return;
+                Console.WriteLine($"\nCurrent active state: \u001b[31mInactive\u001b[0m\n\nDo you want to switch to \u001b[31mActive\u001b[0m? (Y/N)");
             }
-            else if (inputtype == "small" || inputtype == "medium" || inputtype == "large")
+            else
             {
-                valid = true;
-                Console.WriteLine("\u001b[32mHall Added\u001b[0m");
+                Console.WriteLine($"\nCurrent active state: \u001b[32mActive\u001b[0m\n\nDo you want to switch to \u001b[31mInactive\u001b[0m? (Y/N)");
             }
-            else{
-                Console.WriteLine("\u001b[31mType is Empty or not valid.\u001b[0m Choose from Small/Medium/Large");
-                
+
+            if (Console.ReadLine().ToLower() == "y")
+            {
+                active = !active;
+            }
+
+            Console.Clear();
+            Console.WriteLine($"\u001b[34mName: {hallName}");
+            Console.WriteLine($"\u001b[34mType: {type}");
+            Console.WriteLine($"Active: {active}\u001b[0m");
+
+            Console.WriteLine("\nAre you sure you want to make these changes? (Y/N)");
+            string confirmation = Console.ReadLine();
+
+            switch (confirmation.ToLower())
+            {
+                case "y":
+                    selectedHall.hallName = hallName;
+                    selectedHall.type = type;
+                    selectedHall.active = active;
+                    logic.UpdateList(selectedHall);
+                    Console.Clear();
+                    Console.WriteLine("\u001b[32mThe Hall was successfully edited.\u001b[0m\n");
+                    break;
+                default:
+                    Console.Clear();
+                    Console.WriteLine("\u001b[31mThe Hall was not edited.\u001b[0m\n");
+                    break;
+            }
+
+        }
+        else
+        {
+
+            Console.Clear();
+            Console.WriteLine($"\u001b[34mName: {hallName}");
+            Console.WriteLine($"\u001b[34mType: {type}");
+
+            Console.WriteLine("\n\u001b[32mAre you sure you want to add this Hall?\u001b[0m (Y/N)");
+            string confirmation = Console.ReadLine();
+
+            switch (confirmation.ToLower())
+            {
+                case "y":
+                    int newId = logic.GetNewId();
+                    HallModel hall = new HallModel(newId, hallName, type, true);
+                    logic.UpdateList(hall);
+                    Console.Clear();
+                    Console.WriteLine("\u001b[32mThe Hall was succesfully added.\u001b[0m\n");
+                    break;
+                default:
+                    Console.Clear();
+                    Console.WriteLine("\u001b[31mThe Hall was not added.\u001b[0m\n");
+                    break;
             }
         }
-        var loc = new HallLogic();
-        loc.insertHall(inputname, inputtype);
-
     }
 
     static public void Edit(HallLogic logic) {
@@ -120,7 +182,7 @@ static class ManageHall
                     selectedHallIndex = selectedHallIndex == totalHalls - 1 ? 0 : selectedHallIndex + 1;
                     break;
                 case ConsoleKey.Enter:
-                    EditHall(logic, selectedHallIndex);
+                    Update(logic, selectedHallIndex);
                     return;
                 case ConsoleKey.Escape:
                     Start();
@@ -165,92 +227,6 @@ static class ManageHall
         }
     }
 
-    static private void EditHall(HallLogic logic, int selectedHallIndex)
-    {
-        HallModel selectedHall = logic.GetList()[selectedHallIndex];
-
-        string hallName = null;
-        string type = null;
-        bool active = selectedHall.active;
-
-        Console.Clear();
-        // name
-        while (string.IsNullOrEmpty(hallName))
-        {
-            Console.WriteLine($"\n\u001b[32mCurrent hall name: {selectedHall.hallName}\u001b[0m\n\nEnter a new name, or leave it blank to keep it.");
-            hallName = Console.ReadLine();
-
-            if (string.IsNullOrEmpty(hallName))
-            {
-                hallName = selectedHall.hallName;
-            }
-        }
-
-        Console.Clear();
-        //type
-        while (string.IsNullOrEmpty(type))
-        {   
-            Console.WriteLine($"\n\u001b[32mCurrent type: {selectedHall.type}\u001b[0m\n\nEnter a Small/Medium/Large, or leave it blank to keep it.");
-            bool isValid = false;
-            while (isValid == false)
-            {
-                
-                type = Console.ReadLine().ToLower();
-
-                if (string.IsNullOrEmpty(type))
-                {
-                    type = selectedHall.type;
-                    isValid = true;
-                } else if (type == "small" || type == "medium" || type == "large"){
-                    isValid = true;
-                } else{
-                    Console.WriteLine("\u001b[31mType is not valid.\u001b[0m Choose from Small/Medium/Large");
-                }
-            }
-            
-        }
-        
-        Console.Clear();
-        // active
-        if (selectedHall.active == false)
-        {
-            Console.WriteLine($"\nCurrent active state: \u001b[31mInactive\u001b[0m\n\nDo you want to switch to \u001b[32mActive\u001b[0m? (Y/N)");
-        }
-        else
-        {
-            Console.WriteLine($"\nCurrent active state: \u001b[32mActive\u001b[0m\n\nDo you want to switch to \u001b[31mInactive\u001b[0m? (Y/N)");
-        }
-
-        if (Console.ReadLine().ToLower() == "y")
-        {
-            active = !active;
-        }
-
-        Console.Clear();
-        Console.WriteLine($"Name: {hallName}");
-        Console.WriteLine($"Type: {type}");
-        Console.WriteLine($"Active: {active}");
-
-        Console.WriteLine("\nAre you sure you want to make these changes? (Y/N)");
-        string confirmation = Console.ReadLine();
-
-        switch (confirmation.ToLower())
-        {
-            case "y":
-                selectedHall.hallName = hallName;
-                selectedHall.type = type;
-                selectedHall.active = active;
-                logic.UpdateList(selectedHall);
-                Console.Clear();
-                Console.WriteLine("\u001b[32mThe Hall was successfully edited.\u001b[0m\n");
-                break;
-            default:
-                Console.Clear();
-                Console.WriteLine("\u001b[31mThe Hall was not edited.\u001b[0m\n");
-                break;
-        }
-    }
-
 
     static public void Delete(HallLogic logic)
     {
@@ -288,7 +264,7 @@ static class ManageHall
                     break;
                 case 2:
                     Console.Clear();
-                    ManageHall.InsertForm(halls);
+                    Update(logic);
                     Start();
                     break;
                 case 3:
