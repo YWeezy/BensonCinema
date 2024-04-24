@@ -358,7 +358,7 @@ static class EmployeeSchedule
     {
         Console.Clear();
         int index = 0;
-        Console.WriteLine("Select wich performance to add to the schedule.");
+        Console.WriteLine("\u001b[0m Select wich performance to add to the schedule.");
         
         foreach (PerformanceModel performance in scheduledPerf)
         {
@@ -377,7 +377,9 @@ static class EmployeeSchedule
 
             index++;
         }
-        Console.WriteLine("Press ESC for no performance");
+
+        Console.WriteLine("\u001b[0m Press ESC for no performance");
+        
     }
 
     static public PerformanceModel ChoicePerf(PerformanceLogic logic, string startTime, string endTime, string date){
