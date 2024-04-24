@@ -45,5 +45,14 @@
     "hallId": 2,
     "employees": [],
     "active": true
+  },
+  {
+    "id": 6,
+    "name": "ee",
+    "startDate": "2024-06-15T12:00:00",
+    "endDate": "2024-06-30T12:00:00",
+    "hallId": 1,
+    "employees": [],
+    "active": true
   }
 ]

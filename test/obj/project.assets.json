@@ -389,6 +389,16 @@
             "related": ".xml"
           }
         }
+      },
+      "Cinema/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/Cinema.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Cinema.dll": {}
+        }
       }
     }
   },
@@ -986,10 +996,16 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Cinema/1.0.0": {
+      "type": "project",
+      "path": "../benson/Cinema.csproj",
+      "msbuildProject": "../benson/Cinema.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "Cinema >= 1.0.0",
       "MSTest.TestAdapter >= 3.1.1",
       "MSTest.TestFramework >= 3.1.1",
       "Microsoft.NET.Test.Sdk >= 17.8.0",
@@ -1020,7 +1036,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/home/ach/Documents/code/project-b/BensonCinema/benson/Cinema.csproj": {
+              "projectPath": "/home/ach/Documents/code/project-b/BensonCinema/benson/Cinema.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

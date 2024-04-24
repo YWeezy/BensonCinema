@@ -2,7 +2,7 @@ using System;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 
-class AccountModel
+public class AccountModel
 {
     [JsonPropertyName("Id")]
     public string Id { get; set; }
@@ -26,7 +26,7 @@ class AccountModel
     {
         Id = Guid.NewGuid().ToString();
         EmailAddress = emailAddress;
-        Password = password;
+        Password = Utils.Encrypt(password);
         FullName = fullName;
         Role = role;
     }
@@ -70,7 +70,7 @@ class AccountModel
 
 }
 
-enum UserRole
+public enum UserRole
 {
     User,
     Employee,
