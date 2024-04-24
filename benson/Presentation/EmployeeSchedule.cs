@@ -197,7 +197,7 @@ public  class EmployeeSchedule
         Console.WriteLine("Select which performance to add to the schedule.");
         Console.WriteLine("Press ESC for no performance");
         PerformanceLogic logic = new PerformanceLogic();
-        PerformanceModel selectedChoicePerf = ChoicePerf(logic, startTime, endTime, date);
+        PerformanceModel selectedChoicePerf = ChoicePerf(logic, startTimeInput, endTimeInput, date);
         if (selectedChoicePerf == null){
 
         }
