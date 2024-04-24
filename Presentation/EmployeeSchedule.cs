@@ -142,7 +142,7 @@ static class EmployeeSchedule
         string date;
         do
         {
-            Console.WriteLine("Enter date: (DD-MM-YYYY for the schedule(within 1-2 weeks from today))");
+            Console.WriteLine("\u001b[0mEnter date: (DD-MM-YYYY for the schedule(within 1-2 weeks from today))");
             date = Console.ReadLine();
         } while (!IsValidDate(date));
 
@@ -160,10 +160,16 @@ static class EmployeeSchedule
         Console.WriteLine("Press ESC for no performance");
         PerformanceLogic logic = new PerformanceLogic();
         PerformanceModel selectedChoicePerf = ChoicePerf(logic, startTime, endTime, date);
-        Console.WriteLine(selectedChoicePerf.name);
-        selectedChoicePerf.employees.Add(selectedEmployee);
+        if (selectedChoicePerf == null){
+
+        }
+        else{
+            Console.WriteLine(selectedChoicePerf.name);
+            selectedChoicePerf.employees.Add(selectedEmployee);
+            logic.UpdateList(selectedChoicePerf);
+        }
         
-        logic.UpdateList(selectedChoicePerf);
+        
 
         string scheduleID = Guid.NewGuid().ToString();
 
