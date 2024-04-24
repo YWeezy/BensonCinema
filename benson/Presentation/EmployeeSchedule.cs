@@ -334,14 +334,14 @@ public  class EmployeeSchedule
         do
         {
             Console.WriteLine("Enter date: (DD-MM-YYYY for the schedule(within 1-2 weeks from today))");
-            date = Console.ReadLine();
+            date = ConsoleInput.EditLine(selectedSchedule.Date);
         } while (!IsValidDate(date));
 
         Console.WriteLine("Enter start time: (HH:MM)");
-        string startTime = Console.ReadLine();
+        string startTime = ConsoleInput.EditLine(selectedSchedule.StartTime);
 
         Console.WriteLine("Enter end time: (HH:MM)");
-        string endTime = Console.ReadLine();
+        string endTime = ConsoleInput.EditLine(selectedSchedule.EndTime);
 
         TimeSpan totalHours = TimeSpan.Parse(endTime).Subtract(TimeSpan.Parse(startTime));
         Console.WriteLine($"Total working hours for this date: {totalHours} (HH-MM-SS)");
