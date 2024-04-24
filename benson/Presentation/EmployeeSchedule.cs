@@ -189,7 +189,7 @@ public  class EmployeeSchedule
             }
         } while (!isStartTimeValid || !isEndTimeValid);
 
-
+        Console.Clear();
         TimeSpan totalHours = newEndTime.Subtract(newStartTime);
         Console.WriteLine($"Total working hours for this date: {totalHours} (HH-MM-SS)");
 
@@ -398,7 +398,7 @@ public  class EmployeeSchedule
     {
         Console.Clear();
         int index = 0;
-        Console.WriteLine("\u001b[0m Select wich performance to add to the schedule.");
+        Console.WriteLine("\u001b[0m Select which performance to add to the schedule.");
         foreach (PerformanceModel performance in scheduledPerf)
         {
             if (index == selectedPerformanceIndex)
@@ -434,37 +434,41 @@ public  class EmployeeSchedule
         DateTime endDatetime = datedt.Add(endTimeS);
         Console.WriteLine(startDatetime);
         Console.WriteLine(endDatetime);
-        while (true)
-        {   
-        {   
-            List<PerformanceModel> allPerf = logic.GetPerformances();
-            IEnumerable<PerformanceModel> scheduledPerf = allPerf.Where(el => el.startDate >= startDatetime && el.endDate <= endDatetime && el.active == true);
-            int totalPerformances = scheduledPerf.Count();
-            DisplayPerformances(scheduledPerf, selectedPerformanceIndex);
-            
-            
-            var key = Console.ReadKey(true).Key;
+        List<PerformanceModel> allPerf = logic.GetPerformances();
+        IEnumerable<PerformanceModel> scheduledPerf = allPerf.Where(el => el.startDate >= startDatetime && el.endDate <= endDatetime && el.active == true);
+        int totalPerformances = scheduledPerf.Count();
+        if (totalPerformances > 0){
+            while (true)
+            {   
+                
+                DisplayPerformances(scheduledPerf, selectedPerformanceIndex);
+                
+                
+                var key = Console.ReadKey(true).Key;
 
-            switch (key)
-            {
-                case ConsoleKey.UpArrow:
-                    selectedPerformanceIndex = selectedPerformanceIndex == 0 ? totalPerformances - 1 : selectedPerformanceIndex - 1;
-                    break;
-                case ConsoleKey.DownArrow:
-                    selectedPerformanceIndex = selectedPerformanceIndex == totalPerformances - 1 ? 0 : selectedPerformanceIndex + 1;
-                    break;
-                case ConsoleKey.Enter:
-                    List<PerformanceModel> scheduledPerfList = scheduledPerf.ToList();
-                    selectedPerf = logic.GetPerfById(scheduledPerfList[selectedPerformanceIndex].id);
-                    return selectedPerf;
-                case ConsoleKey.Escape:
-                    return null;
-                default:
-                    break;
+                switch (key)
+                {
+                    case ConsoleKey.UpArrow:
+                        selectedPerformanceIndex = selectedPerformanceIndex == 0 ? totalPerformances - 1 : selectedPerformanceIndex - 1;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        selectedPerformanceIndex = selectedPerformanceIndex == totalPerformances - 1 ? 0 : selectedPerformanceIndex + 1;
+                        break;
+                    case ConsoleKey.Enter:
+                        List<PerformanceModel> scheduledPerfList = scheduledPerf.ToList();
+                        selectedPerf = logic.GetPerfById(scheduledPerfList[selectedPerformanceIndex].id);
+                        return selectedPerf;
+                    case ConsoleKey.Escape:
+                        return null;
+                    default:
+                        break;
+                }
             }
+        }else{
+            return null;
         }
         
-        }
+    
     }
 
     static bool IsScheduleOverlap(string employee, string date, TimeSpan newStartTime, TimeSpan newEndTime)
