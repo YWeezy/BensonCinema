@@ -59,7 +59,15 @@ class PerformanceLogic
             string employeeString = "";
             foreach (string employee in performance.employees)
             {
-                employeeString += employee + " ";
+                employeeString += employee;
+                if (performance.employees.IndexOf(employee) == performance.employees.Count - 1) 
+                {
+                    
+                }
+                else
+                {
+                    employeeString += ", ";
+                }
             }
             
             Console.WriteLine("{0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -15}{6, -20}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId), actstr, employeeString);
