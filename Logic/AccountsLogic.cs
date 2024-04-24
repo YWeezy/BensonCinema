@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class AccountsLogic
+class AccountsLogic
 {
     private List<AccountModel> _accounts;
 
@@ -27,16 +27,6 @@ public class AccountsLogic
         _accounts.Add(acc);
         DataAccess<AccountModel>.WriteAll(_accounts, path);
         Console.WriteLine("Account created successfully!");
-    }
-    public bool CheckIfInDB(AccountModel acc)
-    {
-        int index = _accounts.FindIndex(s => s.EmailAddress == acc.EmailAddress);
-
-        if (index != -1)
-        {
-            return false;
-        }
-        return true;
     }
 
     public AccountModel CheckLogin(string email, string password)
