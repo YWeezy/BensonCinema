@@ -51,20 +51,18 @@ class PerformanceLogic
 
         Console.WriteLine("Table of all Performances:\n");
 
-        Console.WriteLine("{0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -5}", "\u001b[34mID    ", "Name", "Start", "End", "Hall", "Active\u001b[0m");
-        Console.WriteLine("------------------------------------------------------------------------------------------------------------");
+        Console.WriteLine("{0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -15}{6, -20}", "\u001b[34mID    ", "Name", "Start", "End", "Hall", "Active", "Employees\u001b[0m");
+        Console.WriteLine("-------------------------------------------------------------------------------------------------------------------------------");
         foreach (PerformanceModel performance in _performances)
         {
-            string actstr;
-            if (performance.active)
+            string actstr = performance.active ? "Active" : "Inactive";
+            string employeeString = "";
+            foreach (string employee in performance.employees)
             {
-                actstr = "Active";
+                employeeString += employee + " ";
             }
-            else
-            {
-                actstr = "Inactive";
-            }
-            Console.WriteLine("{0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId), actstr);
+            
+            Console.WriteLine("{0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -15}{6, -20}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId), actstr, employeeString);
         }
         Console.WriteLine("");
 
