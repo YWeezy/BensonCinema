@@ -38,6 +38,12 @@ class PerformanceLogic
 
     }
 
+    public PerformanceModel GetPerfById(int id)
+    {
+        PerformanceModel? performance = _performances.FirstOrDefault(h => h.id == id);
+        return performance != null ? performance : null;
+    }
+
     public int GetNewId()
     {
         int currentId = _performances.Last().id;

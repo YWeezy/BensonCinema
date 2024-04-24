@@ -142,7 +142,7 @@ static class EmployeeSchedule
         string date;
         do
         {
-            Console.WriteLine("Enter date: (DD-MM-YYYY for the schedule(within 1-2 weeks from today))");
+            Console.WriteLine("\u001b[0mEnter date: (DD-MM-YYYY for the schedule(within 1-2 weeks from today))");
             date = Console.ReadLine();
         } while (!IsValidDate(date));
 
@@ -156,17 +156,24 @@ static class EmployeeSchedule
         Console.WriteLine($"Total working hours for this date: {totalHours} (HH-MM-SS)");
 
         Console.Clear();
+        Console.WriteLine("Select wich performance to add to the schedule.");
+        Console.WriteLine("Press ESC for no performance");
         PerformanceLogic logic = new PerformanceLogic();
         PerformanceModel selectedChoicePerf = ChoicePerf(logic, startTime, endTime, date);
-        Console.WriteLine(selectedChoicePerf.name);
-        selectedChoicePerf.employees.Add(selectedEmployee);
+        if (selectedChoicePerf == null){
 
-        logic.UpdateList(selectedChoicePerf);
+        }
+        else{
+            selectedChoicePerf.employees.Add(selectedEmployee);
+            logic.UpdateList(selectedChoicePerf);
+        }
+        
+        
 
         string scheduleID = Guid.NewGuid().ToString();
 
         Console.WriteLine("The data you just entered has been saved.");
-
+        
         ScheduleModel newSchedule = new ScheduleModel(scheduleID, selectedEmployee, date, totalHours.ToString(), startTime, endTime, selectedChoicePerf, true);
 
         ScheduleLogic scheduleLogicUp = new ScheduleLogic();
@@ -233,7 +240,7 @@ static class EmployeeSchedule
     static void EditSchedule(string path)
     {
         string red = "\u001b[31m";
-        string neutral = "\u001b[0m";
+        string neutral = "\u001b[0m"; 
         Console.WriteLine($"{neutral}Please choose the employee whose schedule you want to edit:");
         string selectedEmployee = SelectEmployee();
         if (selectedEmployee == null)
@@ -304,17 +311,6 @@ static class EmployeeSchedule
         TimeSpan totalHours = TimeSpan.Parse(endTime).Subtract(TimeSpan.Parse(startTime));
         Console.WriteLine($"Total working hours for this date: {totalHours} (HH-MM-SS)");
 
-        string IsActive;
-        while (true)
-        {
-            Console.WriteLine("Is the schedule active? (Y/N)");
-            IsActive = Console.ReadLine().Trim().ToUpper();
-            if (IsActive == "Y" || IsActive == "N")
-            {
-                break;
-            }
-        }
-
         selectedSchedule.Date = date;
         selectedSchedule.StartTime = startTime;
         selectedSchedule.EndTime = endTime;
@@ -367,7 +363,8 @@ static class EmployeeSchedule
     {
         Console.Clear();
         int index = 0;
-
+        Console.WriteLine("\u001b[0m Select wich performance to add to the schedule.");
+        
         foreach (PerformanceModel performance in scheduledPerf)
         {
             if (index == selectedPerformanceIndex)
@@ -379,17 +376,19 @@ static class EmployeeSchedule
                 Console.Write("\u001b[0m   ");
             }
 
-
-
+    
+            
             Console.WriteLine("   {0,-6}{1,-22}", performance.id, performance.name);
 
             index++;
         }
+
+        Console.WriteLine("\u001b[0m Press ESC for no performance");
+        
     }
 
-    static public PerformanceModel ChoicePerf(PerformanceLogic logic, string startTime, string endTime, string date)
-    {
-
+    static public PerformanceModel ChoicePerf(PerformanceLogic logic, string startTime, string endTime, string date){
+        
         int selectedPerformanceIndex = 0;
 
         PerformanceModel selectedPerf;
@@ -399,15 +398,13 @@ static class EmployeeSchedule
         DateTime startDatetime = datedt.Add(startTimeS);
 
         DateTime endDatetime = datedt.Add(endTimeS);
-        Console.WriteLine(startDatetime);
-        Console.WriteLine(endDatetime);
         while (true)
-        {
+        {   
             List<PerformanceModel> allPerf = logic.GetPerformances();
             IEnumerable<PerformanceModel> scheduledPerf = allPerf.Where(el => el.startDate >= startDatetime && el.endDate <= endDatetime && el.active == true);
             int totalPerformances = scheduledPerf.Count();
             DisplayPerformances(scheduledPerf, selectedPerformanceIndex);
-
+            
             var key = Console.ReadKey(true).Key;
 
             switch (key)
@@ -419,8 +416,8 @@ static class EmployeeSchedule
                     selectedPerformanceIndex = selectedPerformanceIndex == totalPerformances - 1 ? 0 : selectedPerformanceIndex + 1;
                     break;
                 case ConsoleKey.Enter:
-                    selectedPerf = logic.GetPerformances()[selectedPerformanceIndex];
-                    Console.WriteLine(selectedPerf);
+                    List<PerformanceModel> scheduledPerfList = scheduledPerf.ToList();
+                    selectedPerf = logic.GetPerfById(scheduledPerfList[selectedPerformanceIndex].id);
                     return selectedPerf;
                 case ConsoleKey.Escape:
                     return null;
@@ -428,6 +425,6 @@ static class EmployeeSchedule
                     break;
             }
         }
-
+        
     }
 }

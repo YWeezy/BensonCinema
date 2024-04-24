@@ -54,5 +54,16 @@
     "hallId": 1,
     "employees": [],
     "active": true
+  },
+  {
+    "id": 7,
+    "name": "05-05-2024",
+    "startDate": "2024-05-05T12:00:00",
+    "endDate": "2024-05-05T18:00:00",
+    "hallId": 2,
+    "employees": [
+      "Achraf Aarab"
+    ],
+    "active": true
   }
 ]

@@ -134,5 +134,13 @@
     "Password": "7AaI/ZXBh1z0WpUvKKjQ8w==",
     "Role": 2,
     "Tickets": []
+  },
+  {
+    "Id": "ff73fca3-a29f-4dad-9bfb-06f3096abf7b",
+    "EmailAddress": "email@email.nl",
+    "FullName": "emailer",
+    "Password": "email123",
+    "Role": 2,
+    "Tickets": []
   }
 ]
