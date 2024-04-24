@@ -161,18 +161,12 @@ static class EmployeeSchedule
         Console.WriteLine(selectedChoicePerf.name);
         selectedChoicePerf.employees.Add(selectedEmployee);
 
-        }
-        else{
-            selectedChoicePerf.employees.Add(selectedEmployee);
-            logic.UpdateList(selectedChoicePerf);
-        }
-        
-        
+        logic.UpdateList(selectedChoicePerf);
 
         string scheduleID = Guid.NewGuid().ToString();
 
         Console.WriteLine("The data you just entered has been saved.");
-        
+
         ScheduleModel newSchedule = new ScheduleModel(scheduleID, selectedEmployee, date, totalHours.ToString(), startTime, endTime, selectedChoicePerf, true);
 
         ScheduleLogic scheduleLogicUp = new ScheduleLogic();
@@ -425,8 +419,8 @@ static class EmployeeSchedule
                     selectedPerformanceIndex = selectedPerformanceIndex == totalPerformances - 1 ? 0 : selectedPerformanceIndex + 1;
                     break;
                 case ConsoleKey.Enter:
-                    List<PerformanceModel> scheduledPerfList = scheduledPerf.ToList();
-                    selectedPerf = logic.GetPerfById(scheduledPerfList[selectedPerformanceIndex].id);
+                    selectedPerf = logic.GetPerformances()[selectedPerformanceIndex];
+                    Console.WriteLine(selectedPerf);
                     return selectedPerf;
                 case ConsoleKey.Escape:
                     return null;

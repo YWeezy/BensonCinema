@@ -6,11 +6,7 @@
     "endDate": "2024-04-03T21:00:00",
     "hallId": 1,
     "employees": [
-      "la",
-      "la",
-      "Achraf Aarab",
-      "Lucas",
-      "Lucas"
+      "la"
     ],
     "active": false
   },
@@ -52,24 +48,11 @@
   },
   {
     "id": 6,
-    "name": "test1",
-    "startDate": "2024-05-05T12:00:00",
-    "endDate": "2024-05-05T16:00:00",
+    "name": "ee",
+    "startDate": "2024-06-15T12:00:00",
+    "endDate": "2024-06-30T12:00:00",
     "hallId": 1,
-    "employees": [
-      "Lucas"
-    ],
-    "active": true
-  },
-  {
-    "id": 7,
-    "name": "test2",
-    "startDate": "2024-05-05T12:00:00",
-    "endDate": "2024-05-05T18:00:00",
-    "hallId": 2,
-    "employees": [
-      "Achraf Aarab"
-    ],
+    "employees": [],
     "active": true
   }
 ]

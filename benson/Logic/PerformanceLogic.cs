@@ -77,11 +77,6 @@ class PerformanceLogic
         return;
     }
 
-    public PerformanceModel GetPerfById(int id)
-    {
-        PerformanceModel? performance = _performances.FirstOrDefault(h => h.id == id);
-        return performance != null ? performance : null;
-    }
     public bool DeletePerformance(int id)
     {
         PerformanceModel perfToRemove = _performances.Find(p => p.id == id);
