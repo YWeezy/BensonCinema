@@ -144,7 +144,7 @@ public  class EmployeeSchedule
         string date;
         do
         {
-            Console.WriteLine("Enter date: (DD-MM-YYYY for the schedule(within 1-2 weeks from today))");
+            Console.WriteLine("\u001b[0mEnter date: (DD-MM-YYYY for the schedule(within 1-2 weeks from today))");
             date = Console.ReadLine();
         } while (!IsValidDate(date));
         TimeSpan newEndTime, newStartTime;
@@ -398,7 +398,7 @@ public  class EmployeeSchedule
     {
         Console.Clear();
         int index = 0;
-        
+        Console.WriteLine("\u001b[0m Select wich performance to add to the schedule.");
         foreach (PerformanceModel performance in scheduledPerf)
         {
             if (index == selectedPerformanceIndex)
@@ -418,6 +418,7 @@ public  class EmployeeSchedule
 
             index++;
         }
+        Console.WriteLine("\u001b[0m Press ESC for no performance");
     }
         
     static public PerformanceModel ChoicePerf(PerformanceLogic logic, string startTime, string endTime, string date){
