@@ -1,6 +1,6 @@
 using System.Globalization;
 
-class PerformanceLogic
+public class PerformanceLogic
 {
 
     private List<PerformanceModel> _performances = new List<PerformanceModel>();
