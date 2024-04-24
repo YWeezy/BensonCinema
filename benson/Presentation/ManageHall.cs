@@ -265,15 +265,22 @@ static class ManageHall
                 case 2:
                     Console.Clear();
                     Update(logic);
+                    Console.WriteLine("Press Enter to return to the menu.");
+                    while (Console.ReadKey().Key != ConsoleKey.Enter) { }
                     Start();
                     break;
                 case 3:
                     Console.Clear();
                     Edit(logic);
+                    Console.WriteLine("Press Enter to return to the menu.");
+                    while (Console.ReadKey().Key != ConsoleKey.Enter) { }
                     Start();
                     break;
                 case 4:
                     Menu.Start();
+                    Console.WriteLine("Press Enter to return to the menu.");
+                    while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                    Start();
                     break;
                 default:
                     break;
@@ -291,5 +298,3 @@ static class ManageHall
         Console.WriteLine(selectedOption == 4 ? color + ">> Back to main menu\u001b[0m" : "   Back to main menu");
     }
 }
-
-    

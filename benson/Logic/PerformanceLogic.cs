@@ -1,3 +1,5 @@
+using System.Globalization;
+
 public class PerformanceLogic
 {
 
@@ -9,9 +11,26 @@ public class PerformanceLogic
         _performances = DataAccess<PerformanceModel>.LoadAll(path);
     }
 
-    public List<PerformanceModel> GetPerformances()
+    public List<PerformanceModel> GetPerformances(string from = "01-01-0001", string to = "31-12-9999")
     {
-        return _performances;
+        DateTime fromDate;
+        DateTime toDate;
+
+        // parse from date
+        if (!DateTime.TryParseExact(from, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out fromDate))
+        {
+            Console.WriteLine("Invalid from date format. Using default from date.");
+            fromDate = DateTime.MinValue;
+        }
+
+        // parse to date
+        if (!DateTime.TryParseExact(to, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out toDate))
+        {
+            Console.WriteLine("Invalid to date format. Using default to date.");
+            toDate = DateTime.MaxValue;
+        }
+
+        return _performances.Where(performance => performance.startDate >= fromDate && performance.endDate <= toDate).ToList();
     }
 
     public int GetTotalPerformances()
