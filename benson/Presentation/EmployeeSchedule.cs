@@ -2,13 +2,14 @@ using System.Collections.ObjectModel;
 using System.Text.Json;
 using System;
 using System.Globalization;
+using System.IO;
+using System.Linq;
 
-static class EmployeeSchedule
+public  class EmployeeSchedule
 {
 
     public static void Schedule()
     {
-        {
             ScheduleLogic shell = new ScheduleLogic();
             Console.Clear();
             bool loop = true;
@@ -41,7 +42,6 @@ static class EmployeeSchedule
                 if (key == ConsoleKey.Enter)
                     break;
             }
-        }
     }
 
     static void PerformAction(int option, ScheduleLogic shell)
@@ -134,6 +134,8 @@ static class EmployeeSchedule
 
     static void AddSchedule(string path)
     {
+        bool isStartTimeValid, isEndTimeValid;
+
         Console.WriteLine("Please choose the employee you want to add a schedule for:");
         string selectedEmployee = SelectEmployee();
         if (selectedEmployee == null)
@@ -142,24 +144,57 @@ static class EmployeeSchedule
         string date;
         do
         {
-            Console.WriteLine("\u001b[0mEnter date: (DD-MM-YYYY for the schedule(within 1-2 weeks from today))");
+            Console.WriteLine("Enter date: (DD-MM-YYYY for the schedule(within 1-2 weeks from today))");
             date = Console.ReadLine();
         } while (!IsValidDate(date));
+        TimeSpan newEndTime, newStartTime;
+        string startTimeInput, endTimeInput;
+        do 
+        {
+         
 
-        Console.WriteLine("Enter Start Time: (HH:MM)");
-        string startTime = Console.ReadLine();
 
-        Console.WriteLine("Enter End Time: (HH:MM)");
-        string endTime = Console.ReadLine();
+            Console.WriteLine("Enter Start Time: (HH:MM)");
+            startTimeInput = Console.ReadLine();
 
-        TimeSpan totalHours = TimeSpan.Parse(endTime).Subtract(TimeSpan.Parse(startTime));
+            Console.WriteLine("Enter End Time: (HH:MM)");
+            endTimeInput = Console.ReadLine();
+
+            isStartTimeValid = TimeSpan.TryParse(startTimeInput, out newStartTime);
+            isEndTimeValid = TimeSpan.TryParse(endTimeInput, out newEndTime);
+
+            if (!isStartTimeValid)
+            {
+                Console.WriteLine("Invalid start time format.");
+            }
+
+            if (!isEndTimeValid)
+            {
+                Console.WriteLine("Invalid end time format");
+            }
+            if (isStartTimeValid && isEndTimeValid)
+            {
+                if (newStartTime >= newEndTime)     
+                {
+                    Console.WriteLine("Start time must be before end time.");
+                    isEndTimeValid = false;
+                    isStartTimeValid = false;
+                }
+                else if (IsScheduleOverlap(selectedEmployee, date, newStartTime, newEndTime))
+                {
+                    Console.WriteLine("This schedule overlaps with an existing schedule. Please choose a different time slot.");
+                    isStartTimeValid = false;
+                    isEndTimeValid = false;
+                }
+            }
+        } while (!isStartTimeValid || !isEndTimeValid);
+
+
+        TimeSpan totalHours = newEndTime.Subtract(newStartTime);
         Console.WriteLine($"Total working hours for this date: {totalHours} (HH-MM-SS)");
 
-        Console.Clear();
-        Console.WriteLine("Select wich performance to add to the schedule.");
-        Console.WriteLine("Press ESC for no performance");
         PerformanceLogic logic = new PerformanceLogic();
-        PerformanceModel selectedChoicePerf = ChoicePerf(logic, startTime, endTime, date);
+        PerformanceModel selectedChoicePerf = ChoicePerf(logic, startTimeInput, endTimeInput, date);
         if (selectedChoicePerf == null){
 
         }
@@ -173,8 +208,8 @@ static class EmployeeSchedule
         string scheduleID = Guid.NewGuid().ToString();
 
         Console.WriteLine("The data you just entered has been saved.");
-        
-        ScheduleModel newSchedule = new ScheduleModel(scheduleID, selectedEmployee, date, totalHours.ToString(), startTime, endTime, selectedChoicePerf, true);
+
+        ScheduleModel newSchedule = new ScheduleModel(scheduleID, selectedEmployee, date, totalHours.ToString(), startTimeInput, endTimeInput, selectedChoicePerf, true);
 
         ScheduleLogic scheduleLogicUp = new ScheduleLogic();
         scheduleLogicUp.UpdateList(newSchedule);
@@ -363,7 +398,6 @@ static class EmployeeSchedule
     {
         Console.Clear();
         int index = 0;
-        Console.WriteLine("\u001b[0m Select wich performance to add to the schedule.");
         
         foreach (PerformanceModel performance in scheduledPerf)
         {
@@ -378,15 +412,14 @@ static class EmployeeSchedule
 
     
             
+    
+            
             Console.WriteLine("   {0,-6}{1,-22}", performance.id, performance.name);
 
             index++;
         }
-
-        Console.WriteLine("\u001b[0m Press ESC for no performance");
-        
     }
-
+        
     static public PerformanceModel ChoicePerf(PerformanceLogic logic, string startTime, string endTime, string date){
         
         int selectedPerformanceIndex = 0;
@@ -398,12 +431,16 @@ static class EmployeeSchedule
         DateTime startDatetime = datedt.Add(startTimeS);
 
         DateTime endDatetime = datedt.Add(endTimeS);
+        Console.WriteLine(startDatetime);
+        Console.WriteLine(endDatetime);
         while (true)
+        {   
         {   
             List<PerformanceModel> allPerf = logic.GetPerformances();
             IEnumerable<PerformanceModel> scheduledPerf = allPerf.Where(el => el.startDate >= startDatetime && el.endDate <= endDatetime && el.active == true);
             int totalPerformances = scheduledPerf.Count();
             DisplayPerformances(scheduledPerf, selectedPerformanceIndex);
+            
             
             var key = Console.ReadKey(true).Key;
 
@@ -426,5 +463,31 @@ static class EmployeeSchedule
             }
         }
         
+        }
+    }
+
+    static bool IsScheduleOverlap(string employee, string date, TimeSpan newStartTime, TimeSpan newEndTime)
+    {
+        ScheduleLogic scheduleLogic = new ScheduleLogic();
+        List<ScheduleModel> schedules = scheduleLogic.GetSchedules(employee);
+
+        DateTime newDate = DateTime.ParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+
+        foreach (var schedule in schedules)
+        {
+            TimeSpan existingStartTime = TimeSpan.Parse(schedule.StartTime);
+            TimeSpan existingEndTime = TimeSpan.Parse(schedule.EndTime);
+
+            DateTime existingDate = DateTime.ParseExact(schedule.Date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+
+            if (existingDate == newDate &&
+            ((newStartTime >= existingStartTime && newStartTime < existingEndTime) ||
+            (newEndTime > existingStartTime && newEndTime <= existingEndTime) ||
+            (newStartTime <= existingStartTime && newEndTime >= existingEndTime)))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
