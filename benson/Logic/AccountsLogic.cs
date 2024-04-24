@@ -44,4 +44,8 @@ class AccountsLogic
         }
     }
 
+    public List<AccountModel> GetAllAccounts(int role = -1)
+    {
+        return (role < 0) ? _accounts : _accounts.FindAll(acc => Convert.ToInt32(acc.Role) == role);
+    }
 }
