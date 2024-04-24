@@ -38,5 +38,135 @@
       "active": false
     },
     "active": true
+  },
+  {
+    "id": "bf54f976-1af6-48d1-b9c7-e17674c63f87",
+    "worker": "la",
+    "date": "05-05-2024",
+    "totalHours": "08:00:00",
+    "startTime": "10:00",
+    "endTime": "18:00",
+    "performance": {
+      "id": 1,
+      "name": "Demo A",
+      "startDate": "2024-04-03T20:00:00",
+      "endDate": "2024-04-03T21:00:00",
+      "hallId": 1,
+      "employees": [
+        "la",
+        "la"
+      ],
+      "active": false
+    },
+    "active": true
+  },
+  {
+    "id": "ef53cc9d-fb40-4e78-b703-a3e114d5ca38",
+    "worker": "Achraf Aarab",
+    "date": "05-05-2024",
+    "totalHours": "08:00:00",
+    "startTime": "10:00",
+    "endTime": "18:00",
+    "performance": {
+      "id": 1,
+      "name": "Demo A",
+      "startDate": "2024-04-03T20:00:00",
+      "endDate": "2024-04-03T21:00:00",
+      "hallId": 1,
+      "employees": [
+        "la",
+        "la",
+        "Achraf Aarab"
+      ],
+      "active": false
+    },
+    "active": true
+  },
+  {
+    "id": "93ba3edf-85a9-407e-a091-3bfccf7daad8",
+    "worker": "Lucas",
+    "date": "05-05-2024",
+    "totalHours": "08:00:00",
+    "startTime": "10:00",
+    "endTime": "18:00",
+    "performance": {
+      "id": 1,
+      "name": "Demo A",
+      "startDate": "2024-04-03T20:00:00",
+      "endDate": "2024-04-03T21:00:00",
+      "hallId": 1,
+      "employees": [
+        "la",
+        "la",
+        "Achraf Aarab",
+        "Lucas"
+      ],
+      "active": false
+    },
+    "active": true
+  },
+  {
+    "id": "b45317af-49af-44a5-9854-ec8c90c3ce5f",
+    "worker": "Lucas",
+    "date": "05-05-2024",
+    "totalHours": "09:00:00",
+    "startTime": "10:00",
+    "endTime": "19:00",
+    "performance": {
+      "id": 1,
+      "name": "Demo A",
+      "startDate": "2024-04-03T20:00:00",
+      "endDate": "2024-04-03T21:00:00",
+      "hallId": 1,
+      "employees": [
+        "la",
+        "la",
+        "Achraf Aarab",
+        "Lucas",
+        "Lucas"
+      ],
+      "active": false
+    },
+    "active": true
+  },
+  {
+    "id": "4b4e865a-7b20-43b4-93ed-0440530c6f7b",
+    "worker": "Lucas",
+    "date": "05-05-2024",
+    "totalHours": "09:00:00",
+    "startTime": "10:00",
+    "endTime": "19:00",
+    "performance": {
+      "id": 6,
+      "name": "test1",
+      "startDate": "2024-05-05T12:00:00",
+      "endDate": "2024-05-05T16:00:00",
+      "hallId": 1,
+      "employees": [
+        "Lucas"
+      ],
+      "active": true
+    },
+    "active": true
+  },
+  {
+    "id": "5919f092-40ec-408b-988b-9514dd403d28",
+    "worker": "Achraf Aarab",
+    "date": "05-05-2024",
+    "totalHours": "09:00:00",
+    "startTime": "10:00",
+    "endTime": "19:00",
+    "performance": {
+      "id": 7,
+      "name": "test2",
+      "startDate": "2024-05-05T12:00:00",
+      "endDate": "2024-05-05T18:00:00",
+      "hallId": 2,
+      "employees": [
+        "Achraf Aarab"
+      ],
+      "active": true
+    },
+    "active": true
   }
 ]
