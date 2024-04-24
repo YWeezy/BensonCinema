@@ -160,7 +160,7 @@ static class EmployeeSchedule
         PerformanceModel selectedChoicePerf = ChoicePerf(logic, startTime, endTime, date);
         Console.WriteLine(selectedChoicePerf.name);
         selectedChoicePerf.employees.Add(selectedEmployee);
-        
+
         logic.UpdateList(selectedChoicePerf);
 
         string scheduleID = Guid.NewGuid().ToString();
@@ -233,7 +233,7 @@ static class EmployeeSchedule
     static void EditSchedule(string path)
     {
         string red = "\u001b[31m";
-        string neutral = "\u001b[0m"; 
+        string neutral = "\u001b[0m";
         Console.WriteLine($"{neutral}Please choose the employee whose schedule you want to edit:");
         string selectedEmployee = SelectEmployee();
         if (selectedEmployee == null)
@@ -304,6 +304,17 @@ static class EmployeeSchedule
         TimeSpan totalHours = TimeSpan.Parse(endTime).Subtract(TimeSpan.Parse(startTime));
         Console.WriteLine($"Total working hours for this date: {totalHours} (HH-MM-SS)");
 
+        string IsActive;
+        while (true)
+        {
+            Console.WriteLine("Is the schedule active? (Y/N)");
+            IsActive = Console.ReadLine().Trim().ToUpper();
+            if (IsActive == "Y" || IsActive == "N")
+            {
+                break;
+            }
+        }
+
         selectedSchedule.Date = date;
         selectedSchedule.StartTime = startTime;
         selectedSchedule.EndTime = endTime;
@@ -356,7 +367,7 @@ static class EmployeeSchedule
     {
         Console.Clear();
         int index = 0;
-        
+
         foreach (PerformanceModel performance in scheduledPerf)
         {
             if (index == selectedPerformanceIndex)
@@ -368,16 +379,17 @@ static class EmployeeSchedule
                 Console.Write("\u001b[0m   ");
             }
 
-    
-            
+
+
             Console.WriteLine("   {0,-6}{1,-22}", performance.id, performance.name);
 
             index++;
         }
     }
 
-    static public PerformanceModel ChoicePerf(PerformanceLogic logic, string startTime, string endTime, string date){
-        
+    static public PerformanceModel ChoicePerf(PerformanceLogic logic, string startTime, string endTime, string date)
+    {
+
         int selectedPerformanceIndex = 0;
 
         PerformanceModel selectedPerf;
@@ -390,12 +402,12 @@ static class EmployeeSchedule
         Console.WriteLine(startDatetime);
         Console.WriteLine(endDatetime);
         while (true)
-        {   
+        {
             List<PerformanceModel> allPerf = logic.GetPerformances();
             IEnumerable<PerformanceModel> scheduledPerf = allPerf.Where(el => el.startDate >= startDatetime && el.endDate <= endDatetime && el.active == true);
             int totalPerformances = scheduledPerf.Count();
             DisplayPerformances(scheduledPerf, selectedPerformanceIndex);
-            
+
             var key = Console.ReadKey(true).Key;
 
             switch (key)
@@ -416,6 +428,6 @@ static class EmployeeSchedule
                     break;
             }
         }
-        
+
     }
 }

@@ -26,7 +26,7 @@ public class AccountModel
     {
         Id = Guid.NewGuid().ToString();
         EmailAddress = emailAddress;
-        Password = Utils.Encrypt(password);
+        Password = password;
         FullName = fullName;
         Role = role;
     }

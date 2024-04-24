@@ -8,7 +8,7 @@ static class UserLogin
         Console.WriteLine("Please enter your email address");
         string email = Console.ReadLine().Trim().ToLower();
         Console.WriteLine("Please enter your password");
-        string password = Utils.Encrypt(Console.ReadLine().Trim().ToLower());
+        string password = Console.ReadLine().Trim().ToLower();
 
         if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
         {
@@ -21,6 +21,7 @@ static class UserLogin
                     // Set logged-in user
                     Utils.LoggedInUser = acc;
                     Console.WriteLine("Login Successful! " + Utils.LoggedInUser.FullName);
+                    Thread.Sleep(2000);
                     Menu.Start();
                     return;
                 }

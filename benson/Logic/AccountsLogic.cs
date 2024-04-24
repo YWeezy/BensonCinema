@@ -32,6 +32,16 @@ class AccountsLogic
     public AccountModel CheckLogin(string email, string password)
     {
         CurrentAccount = _accounts.Find(i => i.EmailAddress == email && i.Password == password);
-        return CurrentAccount;
+
+        if (CurrentAccount != null)
+        {
+            return CurrentAccount;
+        }
+        else
+        {
+            Console.WriteLine("Login failed: Invalid email or password.");
+            return null; // Or handle the failure in an appropriate way
+        }
     }
+
 }
