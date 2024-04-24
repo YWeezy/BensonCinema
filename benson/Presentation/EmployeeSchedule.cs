@@ -165,18 +165,18 @@ public  class EmployeeSchedule
 
             if (!isStartTimeValid)
             {
-                Console.WriteLine("Invalid start time format.");
+                Console.WriteLine("Invalid Start Time format.");
             }
 
             if (!isEndTimeValid)
             {
-                Console.WriteLine("Invalid end time format");
+                Console.WriteLine("Invalid End Time format");
             }
             if (isStartTimeValid && isEndTimeValid)
             {
                 if (newStartTime >= newEndTime)     
                 {
-                    Console.WriteLine("Start time must be before end time.");
+                    Console.WriteLine("Start Time must be before End Time.");
                     isEndTimeValid = false;
                     isStartTimeValid = false;
                 }
