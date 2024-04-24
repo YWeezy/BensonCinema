@@ -142,7 +142,7 @@ static class EmployeeSchedule
         string date;
         do
         {
-            Console.WriteLine("Enter date: (DD-MM-YYYY for the schedule(within 1-2 weeks from today))");
+            Console.WriteLine("\u001b[0mEnter date: (DD-MM-YYYY for the schedule(within 1-2 weeks from today))");
             date = Console.ReadLine();
         } while (!IsValidDate(date));
 
@@ -156,12 +156,20 @@ static class EmployeeSchedule
         Console.WriteLine($"Total working hours for this date: {totalHours} (HH-MM-SS)");
 
         Console.Clear();
+        Console.WriteLine("Select wich performance to add to the schedule.");
+        Console.WriteLine("Press ESC for no performance");
         PerformanceLogic logic = new PerformanceLogic();
         PerformanceModel selectedChoicePerf = ChoicePerf(logic, startTime, endTime, date);
-        Console.WriteLine(selectedChoicePerf.name);
-        selectedChoicePerf.employees.Add(selectedEmployee);
+        if (selectedChoicePerf == null){
 
-        logic.UpdateList(selectedChoicePerf);
+        }
+        else{
+            Console.WriteLine(selectedChoicePerf.name);
+            selectedChoicePerf.employees.Add(selectedEmployee);
+            logic.UpdateList(selectedChoicePerf);
+        }
+        
+        
 
         string scheduleID = Guid.NewGuid().ToString();
 
@@ -367,7 +375,8 @@ static class EmployeeSchedule
     {
         Console.Clear();
         int index = 0;
-
+        Console.WriteLine("\u001b[0m Select wich performance to add to the schedule.");
+        
         foreach (PerformanceModel performance in scheduledPerf)
         {
             if (index == selectedPerformanceIndex)
@@ -385,6 +394,9 @@ static class EmployeeSchedule
 
             index++;
         }
+
+        Console.WriteLine("\u001b[0m Press ESC for no performance");
+        
     }
 
     static public PerformanceModel ChoicePerf(PerformanceLogic logic, string startTime, string endTime, string date)
@@ -399,8 +411,6 @@ static class EmployeeSchedule
         DateTime startDatetime = datedt.Add(startTimeS);
 
         DateTime endDatetime = datedt.Add(endTimeS);
-        Console.WriteLine(startDatetime);
-        Console.WriteLine(endDatetime);
         while (true)
         {
             List<PerformanceModel> allPerf = logic.GetPerformances();
