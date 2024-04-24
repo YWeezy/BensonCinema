@@ -193,8 +193,11 @@ public  class EmployeeSchedule
         TimeSpan totalHours = newEndTime.Subtract(newStartTime);
         Console.WriteLine($"Total working hours for this date: {totalHours} (HH-MM-SS)");
 
+        Console.Clear();
+        Console.WriteLine("Select which performance to add to the schedule.");
+        Console.WriteLine("Press ESC for no performance");
         PerformanceLogic logic = new PerformanceLogic();
-        PerformanceModel selectedChoicePerf = ChoicePerf(logic, startTimeInput, endTimeInput, date);
+        PerformanceModel selectedChoicePerf = ChoicePerf(logic, startTime, endTime, date);
         if (selectedChoicePerf == null){
 
         }
@@ -202,7 +205,6 @@ public  class EmployeeSchedule
             selectedChoicePerf.employees.Add(selectedEmployee);
             logic.UpdateList(selectedChoicePerf);
         }
-        
         
 
         string scheduleID = Guid.NewGuid().ToString();
