@@ -54,28 +54,28 @@ public class EmployeeSchedule
                 ShowSchedule(path);
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                Schedule();
+                EmployeeMenu();
                 break;
             case 2:
                 Console.Clear();
                 AddSchedule(path);
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                Schedule();
+                EmployeeMenu();
                 break;
             case 3:
                 Console.Clear();
                 EditSchedule(path);
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                Schedule();
+                EmployeeMenu();
                 break;
             case 4:
                 Console.Clear();
                 RemoveSchedule(path);
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                Schedule();
+                EmployeeMenu();
                 break;
             case 5:
                 Console.Clear();
@@ -101,6 +101,72 @@ public class EmployeeSchedule
 
     }
 
+        public static void EmployeeMenu()
+    {
+        ScheduleLogic shell = new ScheduleLogic();
+        bool loop = true;
+        int selectedOption = 1; // Default selected option
+        int totalOptions = 2; // Total number of options
+
+        while (loop)
+        {
+            Console.Clear();
+            DisplayEmployeeMenu(selectedOption);
+
+            var key = Console.ReadKey(true).Key;
+
+            switch (key)
+            {
+                case ConsoleKey.UpArrow:
+                    selectedOption = selectedOption == 1 ? totalOptions : selectedOption - 1;
+                    break;
+                case ConsoleKey.DownArrow:
+                    selectedOption = selectedOption == totalOptions ? 1 : selectedOption + 1;
+                    break;
+                case ConsoleKey.Enter:
+                    PerformEmployeeAction(selectedOption, shell);
+                    break;
+                default:
+                    break;
+            }
+
+            // Break the loop if user selects an action
+            if (key == ConsoleKey.Enter)
+                break;
+        }
+    }
+
+        static void PerformEmployeeAction(int option, ScheduleLogic shell)
+    {
+        string path = "DataSources/schedule.json";
+        switch (option)
+        {
+            case 1:
+                Console.Clear();
+                ShowSchedule(path);
+                Console.WriteLine("Press Enter to return to the menu.");
+                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                EmployeeMenu();
+                break;
+            case 2:
+                Console.Clear();
+                Menu.Start();
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    static void DisplayEmployeeMenu(int selectedOption)
+    {
+        string color = "\u001b[32m";
+        string neutral = "\u001b[0m";
+        Console.WriteLine($"{neutral}What do you want to do?\n");
+
+        Console.WriteLine(selectedOption == 1 ? color + ">> View the Work Schedule\u001b[0m" : "   View the Work Schedule");
+        Console.WriteLine(selectedOption == 2 ? color + ">> Back to Main Menu\u001b[0m" : "   Back to Main Menu");
+    }
 
 
     static void ShowSchedule(string path)
@@ -130,6 +196,7 @@ public class EmployeeSchedule
             Console.WriteLine($"An error occured: {e.Message}");
         }
     }
+    
 
 
     static void AddSchedule(string path)

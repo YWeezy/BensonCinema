@@ -238,7 +238,7 @@ static class Menu
 
     private static void ShowEmployeeMenu()
     {
-        EmployeeSchedule.Schedule();
+        EmployeeSchedule.EmployeeMenu();
     }
 
 

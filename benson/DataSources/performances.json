@@ -65,5 +65,14 @@
       "Achraf Aarab"
     ],
     "active": true
+  },
+  {
+    "id": 8,
+    "name": "testperformance ",
+    "startDate": "2024-05-06T06:08:00",
+    "endDate": "2024-05-08T08:06:00",
+    "hallId": 2,
+    "employees": [],
+    "active": true
   }
 ]
