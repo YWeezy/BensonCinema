@@ -58,5 +58,15 @@
       "active": true
     },
     "active": true
+  },
+  {
+    "id": "ea02977c-2d91-4b89-a51d-cafb709d55c0",
+    "worker": "Mary Joe",
+    "date": "04-05-2024",
+    "totalHours": "04:00:00",
+    "startTime": "12:00",
+    "endTime": "16:00",
+    "performance": null,
+    "active": false
   }
 ]
