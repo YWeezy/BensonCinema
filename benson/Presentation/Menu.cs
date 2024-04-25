@@ -86,10 +86,6 @@ static class Menu
     }
 
 
-
-
-
-
     private static void ShowUserDefaultMenu()
     {
         UserOption selectedOption = UserOption.Reserve;
