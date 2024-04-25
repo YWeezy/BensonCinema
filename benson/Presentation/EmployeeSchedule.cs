@@ -54,28 +54,28 @@ public class EmployeeSchedule
                 ShowSchedule(path);
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                EmployeeMenu();
+                Schedule();
                 break;
             case 2:
                 Console.Clear();
                 AddSchedule(path);
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                EmployeeMenu();
+                Schedule();
                 break;
             case 3:
                 Console.Clear();
                 EditSchedule(path);
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                EmployeeMenu();
+                Schedule();
                 break;
             case 4:
                 Console.Clear();
                 RemoveSchedule(path);
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                EmployeeMenu();
+                Schedule();
                 break;
             case 5:
                 Console.Clear();
@@ -490,9 +490,6 @@ public class EmployeeSchedule
             {
                 Console.Write("\u001b[0m   ");
             }
-
-
-
 
 
             Console.WriteLine("   {0,-6}{1,-22}", performance.id, performance.name);
