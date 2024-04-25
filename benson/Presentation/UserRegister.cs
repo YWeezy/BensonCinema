@@ -97,7 +97,7 @@ static class UserRegister
 
 
         Console.WriteLine("Please enter your password:");
-        password = Utils.Encrypt(Console.ReadLine().Trim().ToLower());
+        password = Console.ReadLine().Trim().ToLower();
 
         if (password == null)
         {
@@ -110,6 +110,7 @@ static class UserRegister
         try
         {
             AccountModel user = new AccountModel(email, name, password, role);
+            Console.WriteLine($"Created user {user.Password}");
             accountsLogic.UpdateList(user);
 
             // Set logged-in user

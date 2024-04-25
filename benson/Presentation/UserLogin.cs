@@ -8,7 +8,7 @@ static class UserLogin
         Console.WriteLine("Please enter your email address");
         string email = Console.ReadLine().Trim().ToLower();
         Console.WriteLine("Please enter your password");
-        string password = Utils.Encrypt(Console.ReadLine().Trim().ToLower());
+        string password = Console.ReadLine().Trim().ToLower();
 
         if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
         {
@@ -25,20 +25,14 @@ static class UserLogin
                     Menu.Start();
                     return;
                 }
-                else
-                {
-                    Console.WriteLine("No account found with that Email and Password");
-
-                }
             }
         }
         else
         {
             Console.WriteLine("Email or Password cannot be empty");
         }
-        Console.WriteLine("Account already exists");
         Thread.Sleep(2000);
-
+        // Console.Clear();
         Start(); // If login fails, try again
     }
 }

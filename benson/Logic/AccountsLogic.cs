@@ -31,7 +31,7 @@ class AccountsLogic
 
     public AccountModel CheckLogin(string email, string password)
     {
-        CurrentAccount = _accounts.Find(i => i.EmailAddress == email && i.Password == password);
+        CurrentAccount = _accounts.Find(i => i.EmailAddress == email);
 
         if (CurrentAccount != null)
         {
