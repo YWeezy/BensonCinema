@@ -9,12 +9,14 @@ public class TicketLogic
     private PerformanceLogic performanceLogic = new PerformanceLogic();
     private List<PerformanceModel> Performances;
 
-    private List<HallModel> _halls {get;}
+    private List<HallModel> _halls { get; }
 
-    private List<TicketModel> Tickets;
+    private List<TicketModel> _tickets;
+    string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/tickets.json"));
     public TicketLogic()
     {
-        Performances = PerformanceAccess.LoadAll();
+
+        _tickets = DataAccess<TicketModel>.LoadAll(path);
     }
 
     public void ShowAvailablePerformances()
@@ -22,12 +24,13 @@ public class TicketLogic
         performanceLogic.DisplayTable();
     }
 
-        public void PrintPerformanceById(int id) {
+    public void PrintPerformanceById(int id)
+    {
 
         HallLogic hallLogic = new HallLogic();
 
         Console.WriteLine("Table of all Performances:\n");
-        
+
         Console.WriteLine("{0,-6}{1,-22}{2,-21}{3, -21}{4, -20}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
         Console.WriteLine("------------------------------------------------------------------------------------------------");
         foreach (PerformanceModel performance in Performances)
@@ -36,8 +39,8 @@ public class TicketLogic
             {
                 Console.WriteLine("{0,-6}{1,-22}{2,-21}{3, -21}{4, -20}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId), performance.active);
             }
-        
-       }
+
+        }
 
         Console.WriteLine("");
 
@@ -59,12 +62,12 @@ public class TicketLogic
             string Location = hallLogic.GetHallNameById(hallid);
 
             // Create a new ticket model
-            TicketModel ticket = new TicketModel(seat, performanceTitle,Location, performanceDate, StartTime + "-" +EndTime, id, 40);
+            TicketModel ticket = new TicketModel(seat, performanceTitle, Location, performanceDate, StartTime + "-" + EndTime, id, 40);
 
             // Write the ticket to the data source
-            List<TicketModel> tickets = TicketsAccess.LoadAll();
+            List<TicketModel> tickets = DataAccess<TicketModel>.LoadAll(path);
             tickets.Add(ticket);
-            TicketsAccess.WriteAll(tickets);
+            DataAccess<TicketModel>.WriteAll(tickets, path);
         }
         else
         {
@@ -74,11 +77,11 @@ public class TicketLogic
     public void loadMytickets(string id)
     {
         // Load all tickets from the data source
-        List<TicketModel> allTickets = TicketsAccess.LoadAll();
-        
+        List<TicketModel> allTickets = DataAccess<TicketModel>.LoadAll(path);
+
         // Filter tickets based on the provided user ID
         List<TicketModel> userTickets = allTickets.Where(t => t.RelationId == id).ToList();
-            
+
         Console.WriteLine("Ticket ID              Title                 Date        Time                  Location              Seat             Price               ");
         Console.WriteLine("------------------------------------------------------------------------------------------------------------------------------------------");
 

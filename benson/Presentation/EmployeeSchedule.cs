@@ -1,44 +1,46 @@
 using System.Collections.ObjectModel;
 using System.Text.Json;
+using System;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 
-static class EmployeeSchedule
+public class EmployeeSchedule
 {
 
     public static void Schedule()
     {
+        ScheduleLogic shell = new ScheduleLogic();
+        Console.Clear();
+        bool loop = true;
+        int selectedOption = 1; // Default selected option
+        int totalOptions = 5; // Total number of options
+
+        while (loop)
         {
-            ScheduleLogic shell = new ScheduleLogic();
             Console.Clear();
-            bool loop = true;
-            int selectedOption = 1; // Default selected option
-            int totalOptions = 5; // Total number of options
+            DisplayMenu(selectedOption);
 
-            while (loop)
+            var key = Console.ReadKey(true).Key;
+
+            switch (key)
             {
-                Console.Clear();
-                DisplayMenu(selectedOption);
-
-                var key = Console.ReadKey(true).Key;
-
-                switch (key)
-                {
-                    case ConsoleKey.UpArrow:
-                        selectedOption = selectedOption == 1 ? totalOptions : selectedOption - 1;
-                        break;
-                    case ConsoleKey.DownArrow:
-                        selectedOption = selectedOption == totalOptions ? 1 : selectedOption + 1;
-                        break;
-                    case ConsoleKey.Enter:
-                        PerformAction(selectedOption, shell);
-                        break;
-                    default:
-                        break;
-                }
-
-                // Break the loop if user selects an action
-                if (key == ConsoleKey.Enter)
+                case ConsoleKey.UpArrow:
+                    selectedOption = selectedOption == 1 ? totalOptions : selectedOption - 1;
+                    break;
+                case ConsoleKey.DownArrow:
+                    selectedOption = selectedOption == totalOptions ? 1 : selectedOption + 1;
+                    break;
+                case ConsoleKey.Enter:
+                    PerformAction(selectedOption, shell);
+                    break;
+                default:
                     break;
             }
+
+            // Break the loop if user selects an action
+            if (key == ConsoleKey.Enter)
+                break;
         }
     }
 
@@ -132,6 +134,8 @@ static class EmployeeSchedule
 
     static void AddSchedule(string path)
     {
+        bool isStartTimeValid, isEndTimeValid;
+
         Console.WriteLine("Please choose the employee you want to add a schedule for:");
         string selectedEmployee = SelectEmployee();
         if (selectedEmployee == null)
@@ -140,24 +144,74 @@ static class EmployeeSchedule
         string date;
         do
         {
-            Console.WriteLine("Enter date: (DD-MM-YYYY for the schedule(within 1-2 weeks from today))");
+            Console.WriteLine("\u001b[0mEnter date: (DD-MM-YYYY for the schedule(within 1-2 weeks from today))");
             date = Console.ReadLine();
         } while (!IsValidDate(date));
+        TimeSpan newEndTime, newStartTime;
+        string startTimeInput, endTimeInput;
+        do
+        {
 
-        Console.WriteLine("Enter Start Time: (HH:MM)");
-        string startTime = Console.ReadLine();
 
-        Console.WriteLine("Enter End Time: (HH:MM)");
-        string endTime = Console.ReadLine();
 
-        TimeSpan totalHours = TimeSpan.Parse(endTime).Subtract(TimeSpan.Parse(startTime));
+            Console.WriteLine("Enter Start Time: (HH:MM)");
+            startTimeInput = Console.ReadLine();
+
+            Console.WriteLine("Enter End Time: (HH:MM)");
+            endTimeInput = Console.ReadLine();
+
+            isStartTimeValid = TimeSpan.TryParse(startTimeInput, out newStartTime);
+            isEndTimeValid = TimeSpan.TryParse(endTimeInput, out newEndTime);
+
+            if (!isStartTimeValid)
+            {
+                Console.WriteLine("Invalid Start Time format.");
+            }
+
+            if (!isEndTimeValid)
+            {
+                Console.WriteLine("Invalid End Time format");
+            }
+            if (isStartTimeValid && isEndTimeValid)
+            {
+                if (newStartTime >= newEndTime)
+                {
+                    Console.WriteLine("Start Time must be before End Time.");
+                    isEndTimeValid = false;
+                    isStartTimeValid = false;
+                }
+                else if (IsScheduleOverlap(selectedEmployee, date, newStartTime, newEndTime))
+                {
+                    Console.WriteLine("This schedule overlaps with an existing schedule. Please choose a different time slot.");
+                    isStartTimeValid = false;
+                    isEndTimeValid = false;
+                }
+            }
+        } while (!isStartTimeValid || !isEndTimeValid);
+
+        Console.Clear();
+        TimeSpan totalHours = newEndTime.Subtract(newStartTime);
         Console.WriteLine($"Total working hours for this date: {totalHours} (HH-MM-SS)");
+
+        PerformanceLogic logic = new PerformanceLogic();
+        PerformanceModel selectedChoicePerf = ChoicePerf(logic, startTimeInput, endTimeInput, date);
+        if (selectedChoicePerf == null)
+        {
+
+        }
+        else
+        {
+            selectedChoicePerf.employees.Add(selectedEmployee);
+            logic.UpdateList(selectedChoicePerf);
+        }
+
+
 
         string scheduleID = Guid.NewGuid().ToString();
 
         Console.WriteLine("The data you just entered has been saved.");
 
-        ScheduleModel newSchedule = new ScheduleModel(scheduleID, selectedEmployee, date, totalHours.ToString(), startTime, endTime);
+        ScheduleModel newSchedule = new ScheduleModel(scheduleID, selectedEmployee, date, totalHours.ToString(), startTimeInput, endTimeInput, selectedChoicePerf, true);
 
         ScheduleLogic scheduleLogicUp = new ScheduleLogic();
         scheduleLogicUp.UpdateList(newSchedule);
@@ -223,7 +277,7 @@ static class EmployeeSchedule
     static void EditSchedule(string path)
     {
         string red = "\u001b[31m";
-        string neutral = "\u001b[0m"; 
+        string neutral = "\u001b[0m";
         Console.WriteLine($"{neutral}Please choose the employee whose schedule you want to edit:");
         string selectedEmployee = SelectEmployee();
         if (selectedEmployee == null)
@@ -282,14 +336,14 @@ static class EmployeeSchedule
         do
         {
             Console.WriteLine("Enter date: (DD-MM-YYYY for the schedule(within 1-2 weeks from today))");
-            date = Console.ReadLine();
+            date = ConsoleInput.EditLine(selectedSchedule.Date);
         } while (!IsValidDate(date));
 
         Console.WriteLine("Enter start time: (HH:MM)");
-        string startTime = Console.ReadLine();
+        string startTime = ConsoleInput.EditLine(selectedSchedule.StartTime);
 
         Console.WriteLine("Enter end time: (HH:MM)");
-        string endTime = Console.ReadLine();
+        string endTime = ConsoleInput.EditLine(selectedSchedule.EndTime);
 
         TimeSpan totalHours = TimeSpan.Parse(endTime).Subtract(TimeSpan.Parse(startTime));
         Console.WriteLine($"Total working hours for this date: {totalHours} (HH-MM-SS)");
@@ -298,6 +352,18 @@ static class EmployeeSchedule
         selectedSchedule.StartTime = startTime;
         selectedSchedule.EndTime = endTime;
         selectedSchedule.TotalHours = totalHours.ToString();
+
+        string IsActive;
+        while (true)
+        {
+            Console.WriteLine("Is the schedule active? (Y/N)");
+            IsActive = Console.ReadLine().Trim().ToUpper();
+            if (IsActive == "Y" || IsActive == "N")
+            {
+                break;
+            }
+        }
+        selectedSchedule.Active = (IsActive == "Y") ? true : false;
 
         scheduleLogic.UpdateList(selectedSchedule);
 
@@ -340,5 +406,111 @@ static class EmployeeSchedule
             Console.WriteLine("File not found.");
             return null;
         }
+    }
+
+    static private void DisplayPerformances(IEnumerable<PerformanceModel> scheduledPerf, int selectedPerformanceIndex)
+    {
+        Console.Clear();
+        int index = 0;
+        Console.WriteLine("\u001b[0m Select which performance to add to the schedule.");
+        foreach (PerformanceModel performance in scheduledPerf)
+        {
+            if (index == selectedPerformanceIndex)
+            {
+                Console.Write("\u001b[32m >>");
+            }
+            else
+            {
+                Console.Write("\u001b[0m   ");
+            }
+
+
+
+
+
+            Console.WriteLine("   {0,-6}{1,-22}", performance.id, performance.name);
+
+            index++;
+        }
+        Console.WriteLine("\u001b[0m Press ESC for no performance");
+    }
+
+    static public PerformanceModel ChoicePerf(PerformanceLogic logic, string startTime, string endTime, string date)
+    {
+
+        int selectedPerformanceIndex = 0;
+
+        PerformanceModel selectedPerf;
+        TimeSpan startTimeS = TimeSpan.Parse(startTime);
+        TimeSpan endTimeS = TimeSpan.Parse(endTime);
+        DateTime datedt = DateTime.ParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+        DateTime startDatetime = datedt.Add(startTimeS);
+
+        DateTime endDatetime = datedt.Add(endTimeS);
+        Console.WriteLine(startDatetime);
+        Console.WriteLine(endDatetime);
+        List<PerformanceModel> allPerf = logic.GetPerformances();
+        IEnumerable<PerformanceModel> scheduledPerf = allPerf.Where(el => el.startDate >= startDatetime && el.endDate <= endDatetime && el.active == true);
+        int totalPerformances = scheduledPerf.Count();
+        if (totalPerformances > 0)
+        {
+            while (true)
+            {
+
+                DisplayPerformances(scheduledPerf, selectedPerformanceIndex);
+
+
+                var key = Console.ReadKey(true).Key;
+
+                switch (key)
+                {
+                    case ConsoleKey.UpArrow:
+                        selectedPerformanceIndex = selectedPerformanceIndex == 0 ? totalPerformances - 1 : selectedPerformanceIndex - 1;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        selectedPerformanceIndex = selectedPerformanceIndex == totalPerformances - 1 ? 0 : selectedPerformanceIndex + 1;
+                        break;
+                    case ConsoleKey.Enter:
+                        List<PerformanceModel> scheduledPerfList = scheduledPerf.ToList();
+                        selectedPerf = logic.GetPerfById(scheduledPerfList[selectedPerformanceIndex].id);
+                        return selectedPerf;
+                    case ConsoleKey.Escape:
+                        return null;
+                    default:
+                        break;
+                }
+            }
+        }
+        else
+        {
+            return null;
+        }
+
+
+    }
+
+    static bool IsScheduleOverlap(string employee, string date, TimeSpan newStartTime, TimeSpan newEndTime)
+    {
+        ScheduleLogic scheduleLogic = new ScheduleLogic();
+        List<ScheduleModel> schedules = scheduleLogic.GetSchedules(employee);
+
+        DateTime newDate = DateTime.ParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+
+        foreach (var schedule in schedules)
+        {
+            TimeSpan existingStartTime = TimeSpan.Parse(schedule.StartTime);
+            TimeSpan existingEndTime = TimeSpan.Parse(schedule.EndTime);
+
+            DateTime existingDate = DateTime.ParseExact(schedule.Date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+
+            if (existingDate == newDate &&
+            ((newStartTime >= existingStartTime && newStartTime < existingEndTime) ||
+            (newEndTime > existingStartTime && newEndTime <= existingEndTime) ||
+            (newStartTime <= existingStartTime && newEndTime >= existingEndTime)))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

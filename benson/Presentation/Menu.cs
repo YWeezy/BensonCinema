@@ -137,6 +137,9 @@ static class Menu
             case ContentManagerOption.Schedule:
                 EmployeeSchedule.Schedule();
                 break;
+            case ContentManagerOption.ExportData:
+                ExportData.Start();
+                break;
             case ContentManagerOption.Exit:
                 Environment.Exit(0);
                 break;
@@ -227,8 +230,9 @@ static class Menu
 
         foreach (ContentManagerOption option in Enum.GetValues(typeof(ContentManagerOption)))
         {
-            Console.Write(option == selectedOption ?  color + " >> " : neutral + "    ");
-            Console.WriteLine($"{(int)option}. {option}");
+            string displayText = option == ContentManagerOption.ExportData ? "Export data" : option.ToString(); // custom text for ExportData
+            Console.Write(option == selectedOption ? color + " >> " : neutral + "    ");
+            Console.WriteLine($"{(int)option}. {displayText}");
         }
     }
 
@@ -258,6 +262,7 @@ static class Menu
         Performances = 1,
         Halls,
         Schedule,
+        ExportData,
         Exit
     }
 

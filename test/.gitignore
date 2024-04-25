@@ -3,7 +3,7 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
-*.json
+
 *.DS_Store
 # User-specific files
 *.rsuser
@@ -322,6 +322,8 @@ paket-files/
 
 # FAKE - F# Make
 .fake/
+.bin/
+bin/*
 
 # CodeRush personal settings
 .cr/personal
@@ -399,3 +401,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
