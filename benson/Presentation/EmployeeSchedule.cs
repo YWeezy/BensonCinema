@@ -177,12 +177,13 @@ public class EmployeeSchedule
             List<ScheduleModel> schedules = JsonSerializer.Deserialize<List<ScheduleModel>>(json);
 
             Console.WriteLine("Schedules for this week:\n");
-            Console.WriteLine("\u001b[34m Worker        Date        Total Hours   Start Time  End Time  \u001b[0m");
-            Console.WriteLine("-------------------------------------------------------------");
+            Console.WriteLine("\u001b[34m Worker        Date        Total Hours   Start Time  End Time  Active\u001b[0m");
+            Console.WriteLine("---------------------------------------------------------------------");
 
             foreach (var schedule in schedules)
-            {
-                Console.WriteLine($" {schedule.Worker,-12}  {schedule.Date,-9}  {schedule.TotalHours,-12}  {schedule.StartTime,-10}  {schedule.EndTime,-8} ");
+            {   
+                string actstr = schedule.Active ? "Active" : "Inactive";
+                Console.WriteLine($" {schedule.Worker,-12}  {schedule.Date,-9}  {schedule.TotalHours,-12}  {schedule.StartTime,-10}  {schedule.EndTime,-9} {actstr,-12}");
             }
         }
 
@@ -570,7 +571,7 @@ public class EmployeeSchedule
 
             DateTime existingDate = DateTime.ParseExact(schedule.Date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
 
-            if (existingDate == newDate &&
+            if (existingDate == newDate && schedule.Active == true &&
             ((newStartTime >= existingStartTime && newStartTime < existingEndTime) ||
             (newEndTime > existingStartTime && newEndTime <= existingEndTime) ||
             (newStartTime <= existingStartTime && newEndTime >= existingEndTime)))
