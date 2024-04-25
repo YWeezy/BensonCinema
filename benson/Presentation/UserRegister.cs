@@ -97,7 +97,7 @@ static class UserRegister
 
 
         Console.WriteLine("Please enter your password:");
-        password = Console.ReadLine().Trim().ToLower();
+        password = Utils.Encrypt(Console.ReadLine().Trim().ToLower());
 
         if (password == null)
         {

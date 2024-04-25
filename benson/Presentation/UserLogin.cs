@@ -8,7 +8,7 @@ static class UserLogin
         Console.WriteLine("Please enter your email address");
         string email = Console.ReadLine().Trim().ToLower();
         Console.WriteLine("Please enter your password");
-        string password = Console.ReadLine().Trim().ToLower();
+        string password = Utils.Encrypt(Console.ReadLine().Trim().ToLower());
 
         if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
         {
@@ -36,6 +36,8 @@ static class UserLogin
         {
             Console.WriteLine("Email or Password cannot be empty");
         }
+        Console.WriteLine("Account already exists");
+        Thread.Sleep(2000);
 
         Start(); // If login fails, try again
     }

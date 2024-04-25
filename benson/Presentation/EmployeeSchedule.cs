@@ -5,43 +5,43 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 
-public  class EmployeeSchedule
+public class EmployeeSchedule
 {
 
     public static void Schedule()
     {
-            ScheduleLogic shell = new ScheduleLogic();
+        ScheduleLogic shell = new ScheduleLogic();
+        Console.Clear();
+        bool loop = true;
+        int selectedOption = 1; // Default selected option
+        int totalOptions = 5; // Total number of options
+
+        while (loop)
+        {
             Console.Clear();
-            bool loop = true;
-            int selectedOption = 1; // Default selected option
-            int totalOptions = 5; // Total number of options
+            DisplayMenu(selectedOption);
 
-            while (loop)
+            var key = Console.ReadKey(true).Key;
+
+            switch (key)
             {
-                Console.Clear();
-                DisplayMenu(selectedOption);
-
-                var key = Console.ReadKey(true).Key;
-
-                switch (key)
-                {
-                    case ConsoleKey.UpArrow:
-                        selectedOption = selectedOption == 1 ? totalOptions : selectedOption - 1;
-                        break;
-                    case ConsoleKey.DownArrow:
-                        selectedOption = selectedOption == totalOptions ? 1 : selectedOption + 1;
-                        break;
-                    case ConsoleKey.Enter:
-                        PerformAction(selectedOption, shell);
-                        break;
-                    default:
-                        break;
-                }
-
-                // Break the loop if user selects an action
-                if (key == ConsoleKey.Enter)
+                case ConsoleKey.UpArrow:
+                    selectedOption = selectedOption == 1 ? totalOptions : selectedOption - 1;
+                    break;
+                case ConsoleKey.DownArrow:
+                    selectedOption = selectedOption == totalOptions ? 1 : selectedOption + 1;
+                    break;
+                case ConsoleKey.Enter:
+                    PerformAction(selectedOption, shell);
+                    break;
+                default:
                     break;
             }
+
+            // Break the loop if user selects an action
+            if (key == ConsoleKey.Enter)
+                break;
+        }
     }
 
     static void PerformAction(int option, ScheduleLogic shell)
@@ -149,9 +149,9 @@ public  class EmployeeSchedule
         } while (!IsValidDate(date));
         TimeSpan newEndTime, newStartTime;
         string startTimeInput, endTimeInput;
-        do 
+        do
         {
-         
+
 
 
             Console.WriteLine("Enter Start Time: (HH:MM)");
@@ -174,7 +174,7 @@ public  class EmployeeSchedule
             }
             if (isStartTimeValid && isEndTimeValid)
             {
-                if (newStartTime >= newEndTime)     
+                if (newStartTime >= newEndTime)
                 {
                     Console.WriteLine("Start Time must be before End Time.");
                     isEndTimeValid = false;
@@ -195,15 +195,17 @@ public  class EmployeeSchedule
 
         PerformanceLogic logic = new PerformanceLogic();
         PerformanceModel selectedChoicePerf = ChoicePerf(logic, startTimeInput, endTimeInput, date);
-        if (selectedChoicePerf == null){
+        if (selectedChoicePerf == null)
+        {
 
         }
-        else{
+        else
+        {
             selectedChoicePerf.employees.Add(selectedEmployee);
             logic.UpdateList(selectedChoicePerf);
         }
-        
-        
+
+
 
         string scheduleID = Guid.NewGuid().ToString();
 
@@ -275,7 +277,7 @@ public  class EmployeeSchedule
     static void EditSchedule(string path)
     {
         string red = "\u001b[31m";
-        string neutral = "\u001b[0m"; 
+        string neutral = "\u001b[0m";
         Console.WriteLine($"{neutral}Please choose the employee whose schedule you want to edit:");
         string selectedEmployee = SelectEmployee();
         if (selectedEmployee == null)
@@ -351,6 +353,18 @@ public  class EmployeeSchedule
         selectedSchedule.EndTime = endTime;
         selectedSchedule.TotalHours = totalHours.ToString();
 
+        string IsActive;
+        while (true)
+        {
+            Console.WriteLine("Is the schedule active? (Y/N)");
+            IsActive = Console.ReadLine().Trim().ToUpper();
+            if (IsActive == "Y" || IsActive == "N")
+            {
+                break;
+            }
+        }
+        selectedSchedule.Active = (IsActive == "Y") ? true : false;
+
         scheduleLogic.UpdateList(selectedSchedule);
 
     }
@@ -410,19 +424,20 @@ public  class EmployeeSchedule
                 Console.Write("\u001b[0m   ");
             }
 
-    
-            
-    
-            
+
+
+
+
             Console.WriteLine("   {0,-6}{1,-22}", performance.id, performance.name);
 
             index++;
         }
         Console.WriteLine("\u001b[0m Press ESC for no performance");
     }
-        
-    static public PerformanceModel ChoicePerf(PerformanceLogic logic, string startTime, string endTime, string date){
-        
+
+    static public PerformanceModel ChoicePerf(PerformanceLogic logic, string startTime, string endTime, string date)
+    {
+
         int selectedPerformanceIndex = 0;
 
         PerformanceModel selectedPerf;
@@ -437,13 +452,14 @@ public  class EmployeeSchedule
         List<PerformanceModel> allPerf = logic.GetPerformances();
         IEnumerable<PerformanceModel> scheduledPerf = allPerf.Where(el => el.startDate >= startDatetime && el.endDate <= endDatetime && el.active == true);
         int totalPerformances = scheduledPerf.Count();
-        if (totalPerformances > 0){
+        if (totalPerformances > 0)
+        {
             while (true)
-            {   
-                
+            {
+
                 DisplayPerformances(scheduledPerf, selectedPerformanceIndex);
-                
-                
+
+
                 var key = Console.ReadKey(true).Key;
 
                 switch (key)
@@ -464,11 +480,13 @@ public  class EmployeeSchedule
                         break;
                 }
             }
-        }else{
+        }
+        else
+        {
             return null;
         }
-        
-    
+
+
     }
 
     static bool IsScheduleOverlap(string employee, string date, TimeSpan newStartTime, TimeSpan newEndTime)
