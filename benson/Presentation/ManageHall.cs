@@ -125,7 +125,7 @@ static class ManageHall
                     selectedHall.active = active;
                     logic.UpdateList(selectedHall);
                     Console.Clear();
-                    Console.WriteLine("\u001b[32mThe Hall was successfully edited.\u001b[0m\n");
+                    Console.WriteLine("\u001b[32m✅The Hall was successfully edited.\u001b[0m\n");
                     break;
                 default:
                     Console.Clear();
@@ -151,7 +151,7 @@ static class ManageHall
                     HallModel hall = new HallModel(newId, hallName, type, true);
                     logic.UpdateList(hall);
                     Console.Clear();
-                    Console.WriteLine("\u001b[32mThe Hall was succesfully added.\u001b[0m\n");
+                    Console.WriteLine("\u001b[32m✅The Hall was succesfully added.\u001b[0m\n");
                     break;
                 default:
                     Console.Clear();
@@ -236,7 +236,7 @@ static class ManageHall
         {
             if (logic.Delete(idToDelete))
             {
-                Console.WriteLine($"\u001b[32mHall with ID {idToDelete} deleted successfully.\u001b[0m");
+                Console.WriteLine($"\u001b[32m✅Hall with ID {idToDelete} deleted successfully.\u001b[0m");
             }
             else
             {

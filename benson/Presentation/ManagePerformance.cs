@@ -211,7 +211,7 @@ static class ManagePerformance
                     selectedPerformance.active = active;
                     logic.UpdateList(selectedPerformance);
                     Console.Clear();
-                    Console.WriteLine("\u001b[32mThe Performance was successfully edited.\u001b[0m\n");
+                    Console.WriteLine("\u001b[32m✅The Performance was successfully edited.\u001b[0m\n");
                     break;
                 default:
                     Console.Clear();
@@ -239,7 +239,7 @@ static class ManagePerformance
                     PerformanceModel performance = new PerformanceModel(newId, performanceName, performanceStartDT, performanceEndDT, hallId, true);
                     logic.UpdateList(performance);
                     Console.Clear();
-                    Console.WriteLine("\u001b[32mThe Performance was succesfully added.\u001b[0m\n");
+                    Console.WriteLine("\u001b[32m✅The Performance was succesfully added.\u001b[0m\n");
                     break;
                 default:
                     Console.Clear();
@@ -257,7 +257,7 @@ static class ManagePerformance
         {
             if (logic.DeletePerformance(idToDelete))
             {
-                Console.WriteLine($"\u001b[32mPerformance with ID {idToDelete} deleted successfully.\u001b[0m");
+                Console.WriteLine($"\u001b[32m✅Performance with ID {idToDelete} deleted successfully.\u001b[0m");
             }
             else
             {

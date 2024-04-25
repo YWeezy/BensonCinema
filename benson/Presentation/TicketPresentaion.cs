@@ -29,7 +29,7 @@ public class TicketPresentation
 
                 ticketLogic.GenerateTicket(performanceId, seat);
 
-                Console.WriteLine("Ticket reserved successfully!");
+                Console.WriteLine("✅Ticket reserved successfully!");
                 
         }
             else

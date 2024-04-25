@@ -20,7 +20,7 @@ static class UserLogin
 
                     // Set logged-in user
                     Utils.LoggedInUser = acc;
-                    Console.WriteLine("Login Successful! " + Utils.LoggedInUser.FullName);
+                    Console.WriteLine("✅Login Successful! " + Utils.LoggedInUser.FullName);
                     Thread.Sleep(2000);
                     Menu.Start();
                     return;

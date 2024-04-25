@@ -114,7 +114,7 @@ static class UserRegister
 
             // Set logged-in user
             Utils.LoggedInUser = user;
-            Console.WriteLine("Registration successful!");
+            Console.WriteLine("✅Registration successful!");
         }
         catch (Exception ex)
         {
