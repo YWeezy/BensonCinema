@@ -39,6 +39,7 @@ public class ConsoleInput {
             }
         } while (keyInfo.Key != ConsoleKey.Enter);
 
+        Console.WriteLine();
         return (T)Convert.ChangeType(value, typeof(T));
     }
 
