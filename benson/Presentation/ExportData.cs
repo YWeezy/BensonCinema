@@ -4,7 +4,7 @@ using System.Globalization;
 static class ExportData
 {
     static public void Start() {
-        DisplayMenu(new string[] { "Export accounts", "Export halls", "Export performances", "Export schedules", "Back to main menu" });
+        DisplayMenu(new string[] { "Export accounts", "Export halls", "Export performances", "Back to main menu" }); // "Export schedules"
     }
 
     static public void End() {
@@ -158,7 +158,7 @@ static class ExportData
         AccountsLogic accountsLogic = new AccountsLogic();
         List<AccountModel> accounts = accountsLogic.GetAllAccounts(role);
 
-        string csvFilePath = "accounts.csv";
+        string csvFilePath = "Exports/accounts/accounts.csv";
 
         // Writing data to CSV
         using (StreamWriter writer = new StreamWriter(csvFilePath))
@@ -185,7 +185,7 @@ static class ExportData
         HallLogic hallLogic = new HallLogic();
         List<HallModel> halls = hallLogic.GetList();
 
-        string csvFilePath = "halls.csv";
+        string csvFilePath = "Exports/halls/halls.csv";
 
         // Writing data to CSV
         using (StreamWriter writer = new StreamWriter(csvFilePath))
@@ -212,7 +212,7 @@ static class ExportData
         PerformanceLogic performanceLogic = new PerformanceLogic();
         List<PerformanceModel> performances = performanceLogic.GetPerformances(from, to);
 
-        string csvFilePath = "performances.csv";
+        string csvFilePath = "Exports/performances/performances.csv";
 
         // Writing data to CSV
         using (StreamWriter writer = new StreamWriter(csvFilePath))
