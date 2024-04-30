@@ -46,7 +46,7 @@ public class ConsoleInput {
     private static void UpdateConsole(string value, int cursorPosition)
     {
         Console.SetCursorPosition(0, Console.CursorTop);
-        Console.Write(new string(' ', Console.WindowWidth));
+        Console.Write("");
         Console.SetCursorPosition(0, Console.CursorTop);
         Console.Write(value);
         Console.SetCursorPosition(cursorPosition, Console.CursorTop);
