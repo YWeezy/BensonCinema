@@ -11,9 +11,6 @@ static class UserRegister
     public static void Start()
     {
         Console.Clear();
-        Console.WriteLine("Welcome to the register page");
-        Console.WriteLine("Choose your role (User /Employee/ Content manager):");
-
         UserRole role = GetSelectedUserRole();
         AskUserInfo(role);
     }
@@ -27,7 +24,8 @@ static class UserRegister
         do
         {
             Console.Clear();
-            Console.WriteLine("Choose your role (Use arrow keys to select, Enter to confirm):");
+            Console.WriteLine($"{Color.Yellow}Welcome to the Register page!{Color.Reset}");
+            Console.WriteLine($"\n{Color.Yellow}Choose your role:{Color.Reset}\n");
             DisplayUserRole(selectedRole);
 
             key = Console.ReadKey(true).Key;
@@ -51,9 +49,9 @@ static class UserRegister
 
     private static void DisplayUserRole(UserRole selectedRole)
     {
-        Console.WriteLine(selectedRole == UserRole.User ? ">> User" : "   User");
-        Console.WriteLine(selectedRole == UserRole.Employee ? ">> Employee" : "   Employee");
-        Console.WriteLine(selectedRole == UserRole.ContentManager ? ">> Content Manager" : "   Content Manager");
+        Console.WriteLine(selectedRole == UserRole.User ? $"{Color.Green}>> User{Color.Reset}" : "   User");
+        Console.WriteLine(selectedRole == UserRole.Employee ? $"{Color.Green}>> Employee{Color.Reset}" : "   Employee");
+        Console.WriteLine(selectedRole == UserRole.ContentManager ? $"{Color.Green}>> Content Manager{Color.Reset}" : "   Content Manager");
     }
 
     private static void AskUserInfo(UserRole role)
@@ -65,7 +63,8 @@ static class UserRegister
         Console.Clear();
         if (role == UserRole.Employee || role == UserRole.ContentManager)
         {
-            Console.WriteLine("Please enter the secret registration password:");
+            Console.Clear();
+            Console.WriteLine($"{Color.Yellow}Please enter the secret registration password:{Color.Reset}");
             string secretPassword = Console.ReadLine().Trim();
             if ((role == UserRole.Employee && secretPassword != secretEmployeePassword) ||
                 (role == UserRole.ContentManager && secretPassword != secretContentManagerPassword))
@@ -75,33 +74,36 @@ static class UserRegister
                 Start();
             }
         }
-        Console.WriteLine("Please enter your email address:");
+
+        Console.Clear();
+        Console.WriteLine($"{Color.Yellow}Please enter your email address:{Color.Reset}");
         email = Console.ReadLine().Trim().ToLower();
         if (!IsValidEmail(email))
         {
-            Console.WriteLine("Invalid email format. Registration failed.");
+            Console.WriteLine($"\n{Color.Red}Invalid email format. Registration failed.{Color.Reset}");
             Thread.Sleep(milisecondTimeOut);
             Start();
         }
 
-        Console.WriteLine("Please enter your name:");
+        Console.Clear();
+        Console.WriteLine($"{Color.Yellow}Please enter your name:{Color.Reset}");
         name = Console.ReadLine().Trim();
         if (!IsValidName(name))
         {
-            Console.WriteLine("Invalid name format. Registration failed.");
+            Console.WriteLine($"\n{Color.Red}Invalid name format. Registration failed.{Color.Reset}");
             Thread.Sleep(milisecondTimeOut);
 
             Start();
         }
 
 
-
-        Console.WriteLine("Please enter your password:");
+        Console.Clear();
+        Console.WriteLine($"{Color.Yellow}Please enter your password:{Color.Reset}");
         password = Console.ReadLine().Trim().ToLower();
 
         if (password == null)
         {
-            Console.WriteLine("Error encrypting password. Registration failed.");
+            Console.WriteLine($"\n{Color.Red}Error encrypting password. Registration failed.{Color.Reset}");
             Thread.Sleep(milisecondTimeOut);
 
             Start();
@@ -109,18 +111,18 @@ static class UserRegister
 
         try
         {
+            Console.Clear();
             AccountModel user = new AccountModel(email, name, password, role);
-            Console.WriteLine($"Created user {user.Password}");
             accountsLogic.UpdateList(user);
 
             // Set logged-in user
             Utils.LoggedInUser = user;
-            Console.WriteLine("Registration successful!");
+            Console.WriteLine($"{Color.Green}Registration successful!{Color.Reset}");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error occurred: {ex.Message}");
-            Console.WriteLine("Registration failed.");
+            Console.WriteLine($"\n{Color.Red}Error occurred: {ex.Message}");
+            Console.WriteLine($"Registration failed.{Color.Reset}");
         }
         finally
         {

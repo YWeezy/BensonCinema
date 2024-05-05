@@ -4,10 +4,13 @@ static class UserLogin
 
     public static void Start()
     {
-        Console.WriteLine("Welcome to the login page");
-        Console.WriteLine("Please enter your email address");
+        Console.Clear();
+        Console.WriteLine($"{Color.Yellow}Welcome to the Login page!{Color.Reset}");
+        Console.WriteLine($"{Color.Yellow}Please enter your email address:{Color.Reset}");
         string email = Console.ReadLine().Trim().ToLower();
-        Console.WriteLine("Please enter your password");
+
+        Console.Clear();
+        Console.WriteLine($"{Color.Yellow}Please enter your password:{Color.Reset}");
         string password = Console.ReadLine().Trim().ToLower();
 
         if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
@@ -20,7 +23,7 @@ static class UserLogin
 
                     // Set logged-in user
                     Utils.LoggedInUser = acc;
-                    Console.WriteLine("Login Successful! " + Utils.LoggedInUser.FullName);
+                    Console.WriteLine($"\n{Color.Green}Logged in successfully, {Utils.LoggedInUser.FullName}!{Color.Reset}");
                     Thread.Sleep(2000);
                     Menu.Start();
                     return;
@@ -29,7 +32,7 @@ static class UserLogin
         }
         else
         {
-            Console.WriteLine("Email or Password cannot be empty");
+            Console.WriteLine($"\n{Color.Red}Email or Password cannot be empty.{Color.Reset}");
         }
         Thread.Sleep(2000);
         // Console.Clear();

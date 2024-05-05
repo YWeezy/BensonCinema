@@ -39,7 +39,7 @@ class AccountsLogic
         }
         else
         {
-            Console.WriteLine("Login failed: Invalid email or password.");
+            Console.WriteLine($"\n{Color.Red}Login failed: Invalid email or password.{Color.Reset}");
             return null; // Or handle the failure in an appropriate way
         }
     }

@@ -194,41 +194,35 @@ static class Menu
     private static void DisplayUserMenu(UserOption selectedOption)
     {
         Console.Clear();
-        string color = "\u001b[32m";
-        string neutral = "\u001b[0m";
-        Console.WriteLine($"{neutral}Welcome to the User's Menu", Utils.LoggedInUser.FullName);
+        Console.WriteLine($"{Color.Yellow}Welcome to the user menu!{Color.Reset}\n", Utils.LoggedInUser.FullName);
 
         foreach (UserOption option in Enum.GetValues(typeof(UserOption)))
         {
-            Console.Write(option == selectedOption ? color + ">> " : neutral + "   ");
-            Console.WriteLine($"{(int)option}. {option}");
+            Console.Write(option == selectedOption ? $"{Color.Green}>> " : "   ");
+            Console.WriteLine($"{option}{Color.Reset}");
         }
     }
 
     private static void DisplayMenu(MenuOption selectedOption)
     {
-        string color = "\u001b[32m";
-        string neutral = "\u001b[0m";
-        Console.WriteLine($"{neutral} Welcome to the application!");
+        Console.WriteLine($"{Color.Yellow}Welcome to the Dollhouse theater!{Color.Reset}\n");
 
         foreach (MenuOption option in Enum.GetValues(typeof(MenuOption)))
         {
-            Console.Write(option == selectedOption ? color + ">> " : neutral + "   ");
-            Console.WriteLine($"{(int)option}. {option}");
+            Console.Write(option == selectedOption ? $"{Color.Green}>> " : "   ");
+            Console.WriteLine($"{option}{Color.Reset}");
         }
     }
 
     private static void DisplayMenu(ContentManagerOption selectedOption)
     {
-        string color = "\u001b[32m";
-        string neutral = "\u001b[0m";
-        Console.WriteLine($"{neutral} Welcome to the Content Manager's Menu!");
+        Console.WriteLine($"{Color.Yellow}Welcome to the Content Manager menu!{Color.Reset}\n");
 
         foreach (ContentManagerOption option in Enum.GetValues(typeof(ContentManagerOption)))
         {
             string displayText = option == ContentManagerOption.ExportData ? "Export data" : option.ToString(); // custom text for ExportData
-            Console.Write(option == selectedOption ? color + " >> " : neutral + "    ");
-            Console.WriteLine($"{(int)option}. {displayText}");
+            Console.Write(option == selectedOption ? $"{Color.Green}>> " : "   ");
+            Console.WriteLine($"{displayText}{Color.Reset}");
         }
     }
 
@@ -236,8 +230,6 @@ static class Menu
     {
         EmployeeSchedule.EmployeeMenu();
     }
-
-
 
 
     enum MenuOption
@@ -261,6 +253,4 @@ static class Menu
         ExportData,
         Exit
     }
-
-
 }

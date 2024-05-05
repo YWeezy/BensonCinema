@@ -29,7 +29,7 @@ public class TicketLogic
 
         HallLogic hallLogic = new HallLogic();
 
-        Console.WriteLine("Table of all Performances:\n");
+        Console.WriteLine($"{Color.Yellow}Table of all Performances:{Color.Reset}\n");
 
         Console.WriteLine("{0,-6}{1,-22}{2,-21}{3, -21}{4, -20}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
         Console.WriteLine("------------------------------------------------------------------------------------------------");

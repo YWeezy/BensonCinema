@@ -21,11 +21,11 @@ static class ExportData
         while (true)
         {
             Console.Clear();
-            Console.WriteLine("What do you want to do?\n");
+            Console.WriteLine($"{Color.Yellow}What do you want to do?{Color.Reset}\n");
             for (int i = 0; i < totalOptions; i++)
             {
                 if (i == selectedOption)
-                    Console.WriteLine($"\u001b[32m>> {options[i]}\u001b[0m");
+                    Console.WriteLine($"{Color.Green}>> {options[i]}{Color.Reset}");
                 else
                     Console.WriteLine($"   {options[i]}");
             }
@@ -105,12 +105,12 @@ static class ExportData
 
                     if (DateTime.TryParseExact(startDate, "d-M-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out startDateDT))
                     {
-                        Console.WriteLine("\u001b[32mYou entered: " + startDateDT + "\u001b[0m");
+                        Console.WriteLine($"{Color.Green}You entered: {startDateDT}{Color.Reset}");
                         break;
                     }
                     else
                     {
-                        Console.WriteLine("\u001b[31mInvalid input.\u001b[0m Please enter a valid date format (DD-MM-YYYY).");
+                        Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Please enter a valid date format (DD-MM-YYYY).");
                     }
                 }
 
@@ -121,12 +121,12 @@ static class ExportData
 
                     if (DateTime.TryParseExact(endDate, "d-M-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out endDateDT))
                     {
-                        Console.WriteLine("\u001b[32mYou entered: " + endDateDT + "\u001b[0m");
+                        Console.WriteLine($"{Color.Green}You entered: {endDateDT}{Color.Reset}");
                         break;
                     }
                     else
                     {
-                        Console.WriteLine("\u001b[31mInvalid input.\u001b[0m Please enter a valid date format (DD-MM-YYYY).");
+                        Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Please enter a valid date format (DD-MM-YYYY).");
                     }
                 }
                
@@ -173,7 +173,7 @@ static class ExportData
             }
         }
 
-        Console.WriteLine($"\u001b[32mAccounts exported to {csvFilePath}\u001b[0m");
+        Console.WriteLine($"{Color.Green}Accounts exported to {csvFilePath}{Color.Reset}");
 
         End();
     }
@@ -200,7 +200,7 @@ static class ExportData
             }
         }
 
-        Console.WriteLine($"\u001b[32mHalls exported to {csvFilePath}\u001b[0m");
+        Console.WriteLine($"{Color.Green}Halls exported to {csvFilePath}{Color.Reset}");
 
         End();
     }
@@ -227,7 +227,7 @@ static class ExportData
             }
         }
 
-        Console.WriteLine($"\u001b[32mPerformances exported to {csvFilePath}\u001b[0m");
+        Console.WriteLine($"{Color.Green}Performances exported to {csvFilePath}{Color.Reset}");
 
         End();
     }

@@ -74,10 +74,11 @@ public class PerformanceLogic
 
         HallLogic hallLogic = new HallLogic();
 
-        Console.WriteLine("Table of all Performances:\n");
+        Console.WriteLine($"{Color.Yellow}Table of all Performances:{Color.Reset}\n");
 
-        Console.WriteLine("{0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -15}{6, -20}", "\u001b[34mID    ", "Name", "Start", "End", "Hall", "Active", "Employees\u001b[0m");
-        Console.WriteLine("-------------------------------------------------------------------------------------------------------------------------------");
+        Console.Write(Color.Blue);
+        Console.WriteLine("{0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -15}{6, -20}", "ID", "Name", "Start", "End", "Hall", "Active", "Employees");
+        Console.WriteLine($"{Color.Reset}-------------------------------------------------------------------------------------------------------------------------------");
         foreach (PerformanceModel performance in _performances)
         {
             string actstr = performance.active ? "Active" : "Inactive";

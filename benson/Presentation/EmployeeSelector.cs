@@ -47,19 +47,17 @@ public class EmployeeSelector
     private void DisplayOptions()
     {
         Console.Clear();
-        string color = "\u001b[32m";
-        string neutral = " \u001b[0m";
-        Console.WriteLine($"{neutral}Please select the employee you want to modify the schedule for:");
+        Console.WriteLine($"{Color.Yellow}Please select the employee you want to modify the schedule for:{Color.Reset}\n");
 
         for (int i = 0; i < options.Count; i++)
         {
             if (i == selectedIndex)
             {
-                Console.Write($"{ color }>>  ");
+                Console.Write($"{Color.Green}>>  ");
             }
             else 
             {
-                Console.Write($"{neutral}   ");
+                Console.Write($"{Color.Reset}   ");
             }
             Console.WriteLine(options[i]);      
         }
