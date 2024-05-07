@@ -59,3 +59,72 @@ static class Utils
         return Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount);
     }
 }
+
+public class Color {
+    public static string Reset = "\u001B[0m";
+    public static string Black = "\u001B[30m";
+    public static string Red = "\u001B[31m";
+    public static string Green = "\u001B[32m";
+    public static string Yellow = "\u001B[33m";
+    public static string Blue = "\u001B[34m";
+    public static string Purple = "\u001B[35m";
+    public static string Cyan = "\u001B[36m";
+    public static string White = "\u001B[37m";
+    public static string Blink = "\u001B[5m";
+}
+
+
+public class ConsoleInput {
+    public static T EditLine<T>(T initialValue)
+    {
+        string? value = initialValue.ToString();
+        int cursorPosition = value.Length;
+        Console.Write(value);
+        ConsoleKeyInfo keyInfo;
+
+        do
+        {
+            keyInfo = Console.ReadKey(true);
+
+            if (keyInfo.Key == ConsoleKey.Backspace && cursorPosition > 0)
+            {
+                value = value.Remove(cursorPosition - 1, 1);
+                cursorPosition--;
+                UpdateConsole(value, cursorPosition);
+            }
+            else if (keyInfo.Key == ConsoleKey.Delete && cursorPosition < value.Length)
+            {
+                value = value.Remove(cursorPosition, 1);
+                UpdateConsole(value, cursorPosition);
+            }
+            else if (keyInfo.Key == ConsoleKey.LeftArrow && cursorPosition > 0)
+            {
+                cursorPosition--;
+                UpdateConsole(value, cursorPosition);
+            }
+            else if (keyInfo.Key == ConsoleKey.RightArrow && cursorPosition < value.Length)
+            {
+                cursorPosition++;
+                UpdateConsole(value, cursorPosition);
+            }
+            else if (!char.IsControl(keyInfo.KeyChar))
+            {
+                value = value.Insert(cursorPosition, keyInfo.KeyChar.ToString());
+                cursorPosition++;
+                UpdateConsole(value, cursorPosition);
+            }
+        } while (keyInfo.Key != ConsoleKey.Enter);
+
+        Console.WriteLine();
+        return (T)Convert.ChangeType(value, typeof(T));
+    }
+
+    private static void UpdateConsole(string value, int cursorPosition)
+    {
+        Console.SetCursorPosition(0, Console.CursorTop);
+        Console.Write(new string(' ', Console.WindowWidth));
+        Console.SetCursorPosition(0, Console.CursorTop);
+        Console.Write(value);
+        Console.SetCursorPosition(cursorPosition, Console.CursorTop);
+    }
+}
