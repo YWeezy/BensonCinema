@@ -207,7 +207,7 @@ public class EmployeeSchedule
         do
         {
             Console.WriteLine($"{Color.Reset}Enter date: (DD-MM-YYYY for the schedule(within 1-2 weeks from today))");
-            date = Console.ReadLine();
+            date = DateSelector.GetDate(2);
         } while (!IsValidDate(date));
         TimeSpan newEndTime, newStartTime;
         string startTimeInput, endTimeInput;

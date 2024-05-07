@@ -60,7 +60,8 @@ static class Utils
     }
 }
 
-public class Color {
+public class Color
+{
     public static string Reset = "\u001B[0m";
     public static string Black = "\u001B[30m";
     public static string Red = "\u001B[31m";
@@ -74,7 +75,8 @@ public class Color {
 }
 
 
-public class ConsoleInput {
+public class ConsoleInput
+{
     public static T EditLine<T>(T initialValue)
     {
         string? value = initialValue.ToString();
@@ -128,3 +130,110 @@ public class ConsoleInput {
         Console.SetCursorPosition(cursorPosition, Console.CursorTop);
     }
 }
+
+public static class DateSelector
+{
+    public static DateTime CurrentDate = DateTime.Now;
+
+    public static string GetDate(int weekLimit)
+    {
+        Console.WriteLine();
+        do
+        {
+            Console.Clear();
+            Console.WriteLine(CurrentDate.ToString("dd-MM-yyyy"));
+            ConsoleKey key = Console.ReadKey(true).Key;
+
+            switch (key)
+            {
+                case ConsoleKey.UpArrow:
+                    CurrentDate = CurrentDate.AddDays(1);
+                    if (CurrentDate > DateTime.Now.AddDays(weekLimit * 7))
+                    {
+                        CurrentDate = DateTime.Now.AddDays(weekLimit * 7);
+                    }
+                    break;
+                case ConsoleKey.RightArrow:
+                    CurrentDate = CurrentDate.AddMonths(1);
+                    if (CurrentDate > DateTime.Now.AddDays(weekLimit * 7))
+                    {
+                        CurrentDate = DateTime.Now.AddDays(weekLimit * 7);
+                    }
+
+                    break;
+                case ConsoleKey.DownArrow:
+                    CurrentDate = CurrentDate.AddDays(-1);
+                    if (CurrentDate < DateTime.Now)
+                    {
+                        CurrentDate = DateTime.Now;
+                    }
+
+                    break;
+                case ConsoleKey.LeftArrow:
+                    CurrentDate = CurrentDate.AddMonths(-1);
+                    if (CurrentDate < DateTime.Now)
+                    {
+                        CurrentDate = DateTime.Now;
+                    }
+
+                    break;
+
+
+                case ConsoleKey.Enter:
+                    return CurrentDate.ToString("dd-MM-yyyy");
+
+                default:
+                    break;
+            }
+
+            // Break the loop if user selects an action
+            if (key == ConsoleKey.Enter)
+                break;
+
+        } while (true);
+        return DateTime.Now.ToString("dd-MM-yyyy");
+    }
+    public static string GetTime()
+    {
+        Console.WriteLine();
+        do
+        {
+            Console.Clear();
+            Console.WriteLine(CurrentDate.ToString("HH:mm"));
+            ConsoleKey key = Console.ReadKey(true).Key;
+
+            switch (key)
+            {
+                case ConsoleKey.UpArrow:
+                    CurrentDate = CurrentDate.AddHours(1);
+                    break;
+
+                case ConsoleKey.LeftArrow:
+                    CurrentDate = CurrentDate.AddMinutes(-1);
+                    break;
+
+                case ConsoleKey.RightArrow:
+                    CurrentDate = CurrentDate.AddMinutes(1);
+                    break;
+
+                case ConsoleKey.DownArrow:
+                    CurrentDate = CurrentDate.AddHours(-1);
+                    break;
+                case ConsoleKey.Enter:
+                    return CurrentDate.ToString("HH:mm");
+
+                default:
+                    break;
+            }
+
+            // Break the loop if user selects an action
+            if (key == ConsoleKey.Enter)
+                break;
+
+        } while (true);
+        return DateTime.Now.ToString("HH:mm");
+    }
+}
+
+
+
