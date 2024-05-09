@@ -2,77 +2,96 @@
   {
     "id": 1,
     "name": "Demo A",
+    "description": "grgergerg",
     "startDate": "2024-04-03T20:00:00",
     "endDate": "2024-04-03T21:00:00",
     "hallId": 1,
     "employees": [
       "la"
     ],
+    "ticketsAvailable": [],
     "active": false
   },
   {
     "id": 2,
     "name": "Demo B",
+    "description": "grgergerg",
     "startDate": "2024-04-03T22:00:00",
     "endDate": "2024-04-03T23:00:00",
     "hallId": 1,
     "employees": [],
+    "ticketsAvailable": [],
     "active": true
   },
   {
     "id": 3,
     "name": "The big bang",
+    "description": "grgergerg",
     "startDate": "2024-12-15T12:00:00",
     "endDate": "2024-12-28T12:00:00",
     "hallId": 1,
     "employees": [],
+    "ticketsAvailable": [],
     "active": true
   },
   {
     "id": 4,
     "name": "Hall",
+    "description": "grgergerg",
     "startDate": "2023-06-15T00:00:00",
     "endDate": "2023-12-18T00:00:00",
     "hallId": 1,
     "employees": [],
+    "ticketsAvailable": [],
     "active": false
   },
   {
     "id": 5,
     "name": "DemoC",
+    "description": "grgergerg",
     "startDate": "2024-04-29T15:00:00",
     "endDate": "2024-04-29T16:00:00",
     "hallId": 2,
     "employees": [],
+    "ticketsAvailable": [],
     "active": true
   },
   {
     "id": 6,
     "name": "ee",
+    "description": "grgergerg",
     "startDate": "2024-06-15T12:00:00",
     "endDate": "2024-06-30T12:00:00",
     "hallId": 1,
     "employees": [],
+    "ticketsAvailable": [],
     "active": true
   },
   {
     "id": 7,
     "name": "05-05-2024",
+    "description": "grgergerg",
     "startDate": "2024-05-05T12:00:00",
     "endDate": "2024-05-05T18:00:00",
     "hallId": 2,
     "employees": [
       "Achraf Aarab"
     ],
+    "ticketsAvailable": [],
     "active": true
   },
   {
     "id": 8,
     "name": "testperformance ",
+    "description": "grgergerg",
     "startDate": "2024-05-06T06:08:00",
     "endDate": "2024-05-08T08:06:00",
     "hallId": 2,
     "employees": [],
+    "ticketsAvailable": [[
+      [[1, "A", 1.5], [2, "B", 2.5], [3, "C", 3.5]],
+      [[true, false, true], [false, true, false]]
+    ]],
     "active": true
   }
 ]

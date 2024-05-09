@@ -4,9 +4,8 @@ public class Program
 {
     public static void Main()
     {
-        // Menu.Start();
+        Menu.Start();
 
-        DateSelector.GetDate(4);
     
     }
 }

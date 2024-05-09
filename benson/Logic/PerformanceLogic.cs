@@ -65,7 +65,8 @@ public class PerformanceLogic
 
     public int GetNewId()
     {
-        int currentId = _performances.Last().id;
+        Console.WriteLine(_performances);
+        int currentId = _performances.Max( obj => obj.id );
         return currentId + 1;
     }
 

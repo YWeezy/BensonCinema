@@ -1,6 +1,6 @@
 using System.Globalization;
 using System.Runtime.CompilerServices;
-
+using System.Text.RegularExpressions;
 static class ManagePerformance
 {
 
@@ -55,6 +55,8 @@ static class ManagePerformance
         }
 
         string performanceName = null;
+        List<(int, string, double)> ticketTypes = new List<(int, string, double)> ();
+        string description = null;
         bool performanceStartValid = false;
         bool performanceEndValid = false;
         int hallId = 0;
@@ -72,6 +74,19 @@ static class ManagePerformance
             if (string.IsNullOrEmpty(performanceName))
             {
                 Console.WriteLine($"{Color.Red}Invalid input. Please provide a Performance name.{Color.Reset}");
+            }
+        }
+
+        //description
+        while (string.IsNullOrEmpty(description))
+        {
+            Console.WriteLine($"{Color.Yellow}Performance description:{Color.Reset}");
+            description = editing ? ConsoleInput.EditLine(selectedPerformance.description) : Console.ReadLine();
+
+
+            if (string.IsNullOrEmpty(description))
+            {
+                Console.WriteLine($"{Color.Red}Invalid input. Please provide a Performance description.{Color.Reset}");
             }
         }
 
@@ -161,6 +176,59 @@ static class ManagePerformance
                 Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Please provide a valid Hall ID.");
             }
         }
+        //ticketTypes
+        Console.Clear();
+        bool donett = false;
+        while(donett == false){
+            int Amount;
+            string Name;
+            double Price;
+            Console.WriteLine($"{Color.Yellow}Add a ticket type with amount of tickets, the name of the ticket and the price.{Color.Reset}");
+            while (true){
+                Console.WriteLine("Amount:");
+                string readAmmount = Console.ReadLine();
+                if(int.TryParse(readAmmount, out int AmountV) && AmountV > 0){
+                    Amount = AmountV;
+                    break;
+                    
+                }else{
+                    Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Please provide a valid Number.");
+                }
+            }
+            while (true){
+                Console.WriteLine("Name:");
+                string readName = Console.ReadLine();
+                if(readName.Length < 35){
+                    Name = readName;
+                    break;
+                    
+                }else{
+                    Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Character of name must be below 35.");
+                }
+            }
+            while (true){
+                Console.WriteLine("Price:");
+                string readPrice = Console.ReadLine();
+                var regex = new Regex(@"^\d+\.\d{2}?$"); // ^\d+(\.|\,)\d{2}?$ use this incase your dec separator can be comma or decimal.
+                if (regex.IsMatch(readPrice)){
+                    Price = Convert.ToDouble(readPrice);
+                    break;
+                    
+                }else{
+                    Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Please provide a price with 2 Decimals");
+                }
+            }
+            ticketTypes.Add((Amount, Name, Price));
+
+            Console.WriteLine($"{Color.Yellow}Would you like to add another ticket type? (Y/N){Color.Reset}");
+            string inputadd = Console.ReadLine();
+            if (inputadd.ToLower() != "y"){
+                donett = true;
+            }
+
+            
+        }
+        
 
         if (editing == true)
         {
@@ -221,7 +289,7 @@ static class ManagePerformance
             {
                 case "y":
                     int newId = logic.GetNewId();
-                    PerformanceModel performance = new PerformanceModel(newId, performanceName, performanceStartDT, performanceEndDT, hallId, true);
+                    PerformanceModel performance = new PerformanceModel(newId, performanceName, description, performanceStartDT, performanceEndDT, hallId, ticketTypes, true);
                     logic.UpdateList(performance);
                     Console.Clear();
                     Console.WriteLine($"{Color.Green}The Performance was succesfully added.{Color.Reset}\n");
