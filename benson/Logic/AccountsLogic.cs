@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-class AccountsLogic
+public class AccountsLogic
 {
     private List<AccountModel> _accounts;
 
@@ -13,7 +13,7 @@ class AccountsLogic
         _accounts = DataAccess<AccountModel>.LoadAll(path);
     }
 
-    public void UpdateList(AccountModel acc)
+    public bool UpdateList(AccountModel acc)
     {
         int index = _accounts.FindIndex(s => s.EmailAddress == acc.EmailAddress);
 
@@ -21,27 +21,23 @@ class AccountsLogic
         {
             Console.WriteLine("An account with that email address already exists. Please try again.");
             UserRegister.Start();
-            return;
+            return false;
         }
 
         _accounts.Add(acc);
         DataAccess<AccountModel>.WriteAll(_accounts, path);
         Console.WriteLine("Account created successfully!");
+        return true;
     }
 
     public AccountModel CheckLogin(string email, string password)
     {
-        CurrentAccount = _accounts.Find(i => i.EmailAddress == email);
-
-        if (CurrentAccount != null)
+        if (email == null || password == null)
         {
-            return CurrentAccount;
+            return null;
         }
-        else
-        {
-            Console.WriteLine($"\n{Color.Red}Login failed: Invalid email or password.{Color.Reset}");
-            return null; // Or handle the failure in an appropriate way
-        }
+        CurrentAccount = _accounts.Find(i => i.EmailAddress == email && i.Password == password);
+        return CurrentAccount;
     }
 
     public List<AccountModel> GetAllAccounts(int role = -1)

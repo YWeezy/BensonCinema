@@ -4,11 +4,9 @@ public class Program
 {
     public static void Main()
     {
-        // Menu.Start();
+        Menu.Start();
 
-        DateSelector.GetDate(4);
-    
+        // DateSelector.GetDate(4);
+
     }
 }
-
-// Console.Write(Utils.getPassword());

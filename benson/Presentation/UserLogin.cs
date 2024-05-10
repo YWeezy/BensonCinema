@@ -11,7 +11,7 @@ static class UserLogin
 
         Console.Clear();
         Console.WriteLine($"{Color.Yellow}Please enter your password:{Color.Reset}");
-        string password = Console.ReadLine().Trim().ToLower();
+        string password = Utils.Encrypt(Console.ReadLine().Trim().ToLower());
 
         if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
         {

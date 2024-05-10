@@ -99,7 +99,7 @@ static class UserRegister
 
         Console.Clear();
         Console.WriteLine($"{Color.Yellow}Please enter your password:{Color.Reset}");
-        password = Console.ReadLine().Trim().ToLower();
+        password = Utils.Encrypt(Console.ReadLine().Trim().ToLower());
 
         if (password == null)
         {

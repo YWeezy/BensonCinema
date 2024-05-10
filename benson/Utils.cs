@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-static class Utils
+public static class Utils
 {
     //read the passPhrase from the .env file
     private static string passPhrase = Environment.GetEnvironmentVariable("PASS_PHRASE") ?? "password";
