@@ -88,7 +88,7 @@ static class Menu
 
     private static void ShowUserDefaultMenu()
     {
-        UserOption selectedOption = UserOption.Reserve;
+        UserOption selectedOption = UserOption.ViewPerformances;
 
         do
         {
@@ -100,10 +100,10 @@ static class Menu
             switch (key)
             {
                 case ConsoleKey.UpArrow:
-                    selectedOption = selectedOption == UserOption.Reserve ? UserOption.Exit : (UserOption)((int)selectedOption - 1);
+                    selectedOption = selectedOption == UserOption.ViewPerformances ? UserOption.Exit : (UserOption)((int)selectedOption - 1);
                     break;
                 case ConsoleKey.DownArrow:
-                    selectedOption = selectedOption == UserOption.Exit ? UserOption.Reserve : (UserOption)((int)selectedOption + 1);
+                    selectedOption = selectedOption == UserOption.Exit ? UserOption.ViewPerformances : (UserOption)((int)selectedOption + 1);
                     break;
                 case ConsoleKey.Enter:
                     PerformUserAction(selectedOption);
@@ -150,6 +150,13 @@ static class Menu
         TicketLogic ticketer = new TicketLogic();
         switch (option)
         {
+            case UserOption.ViewPerformances:
+                ViewPerformances.Start();
+                Console.WriteLine("Press Enter to go back.");
+                // Wait for the user to press enter
+                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                ShowUserDefaultMenu();
+                break;
             case UserOption.Reserve:
                 reserver.ReserveTicket();
                 Console.WriteLine("Press Enter to go back.");
@@ -198,8 +205,9 @@ static class Menu
 
         foreach (UserOption option in Enum.GetValues(typeof(UserOption)))
         {
+            string displayText = option == UserOption.ViewPerformances ? "View Performances" : option.ToString(); // custom text for View Performances
             Console.Write(option == selectedOption ? $"{Color.Green}>> " : "   ");
-            Console.WriteLine($"{option}{Color.Reset}");
+            Console.WriteLine($"{displayText}{Color.Reset}");
         }
     }
 
@@ -240,7 +248,8 @@ static class Menu
     }
     enum UserOption
     {
-        Reserve = 1,
+        ViewPerformances = 1,
+        Reserve,
         Reservations,
         Exit
     }
