@@ -214,5 +214,13 @@
     "Password": "qFf2rAtFy13i2HZ6riRmhw==",
     "Role": 0,
     "Tickets": []
+  },
+  {
+    "Id": "887600d6-fbe5-4170-8867-c1a253e1975d",
+    "EmailAddress": "test@.test",
+    "FullName": "test",
+    "Password": "es7rFwwR3d5Htgp1/2zSBQ==",
+    "Role": 2,
+    "Tickets": []
   }
 ]
