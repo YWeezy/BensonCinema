@@ -5,8 +5,9 @@ public class Program
     public static void Main()
     {
         Menu.Start();
+        // PerformanceLogic logic = new PerformanceLogic();
+        // Console.WriteLine(logic._performances);
 
-    
     }
 }
 

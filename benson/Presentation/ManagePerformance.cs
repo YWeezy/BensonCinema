@@ -55,7 +55,8 @@ static class ManagePerformance
         }
 
         string performanceName = null;
-        List<(int, string, double)> ticketTypes = new List<(int, string, double)> ();
+        List<Dictionary<string, object>> listOfDicts = new();
+        List<Dictionary<string, object>> innerListOfDicts = new();
         string description = null;
         bool performanceStartValid = false;
         bool performanceEndValid = false;
@@ -182,7 +183,7 @@ static class ManagePerformance
         while(donett == false){
             int Amount;
             string Name;
-            double Price;
+            double Price = 0.0;
             Console.WriteLine($"{Color.Yellow}Add a ticket type with amount of tickets, the name of the ticket and the price.{Color.Reset}");
             while (true){
                 Console.WriteLine("Amount:");
@@ -206,19 +207,24 @@ static class ManagePerformance
                     Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Character of name must be below 35.");
                 }
             }
-            while (true){
+            bool PriceIsValid = false;
+            while (!PriceIsValid){
                 Console.WriteLine("Price:");
                 string readPrice = Console.ReadLine();
                 var regex = new Regex(@"^\d+\.\d{2}?$"); // ^\d+(\.|\,)\d{2}?$ use this incase your dec separator can be comma or decimal.
                 if (regex.IsMatch(readPrice)){
                     Price = Convert.ToDouble(readPrice);
-                    break;
+                    PriceIsValid = true;
                     
                 }else{
                     Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Please provide a price with 2 Decimals");
                 }
             }
-            ticketTypes.Add((Amount, Name, Price));
+            Dictionary<string, object> ticketTypeAdd = new Dictionary<string, object>();
+            ticketTypeAdd["amount"] = Amount;
+            ticketTypeAdd["name"] = Name;
+            ticketTypeAdd["price"] = Price;
+            innerListOfDicts.Add(ticketTypeAdd);    
 
             Console.WriteLine($"{Color.Yellow}Would you like to add another ticket type? (Y/N){Color.Reset}");
             string inputadd = Console.ReadLine();
@@ -228,6 +234,8 @@ static class ManagePerformance
 
             
         }
+        Dictionary<string, object> dict2 = new Dictionary<string, object>();
+        dict2["ticketTypes"] = innerListOfDicts;
         
 
         if (editing == true)
@@ -289,7 +297,36 @@ static class ManagePerformance
             {
                 case "y":
                     int newId = logic.GetNewId();
-                    PerformanceModel performance = new PerformanceModel(newId, performanceName, description, performanceStartDT, performanceEndDT, hallId, ticketTypes, true);
+                    HallLogic hlogic = new HallLogic();
+                    bool[,] emptyseats = hlogic.GetSeatsOfHall(hallId);
+                    Dictionary<string, object> dict1 = new Dictionary<string, object>();
+                    
+                    
+
+
+
+                    for (int row = 0; (row < emptyseats.GetLength(0)); row++)
+                    {
+                        for (int col = 0; (col < emptyseats.GetLength(1)); col++)
+                        {
+                            emptyseats[row, col] = false;
+                        }
+                    }
+                    dict1["seats"] = ConvertBoolArrayToIntArray(emptyseats);
+                    listOfDicts.Add(dict1);
+                    listOfDicts.Add(dict2);
+                    Console.WriteLine("Boolean Array:");
+                    for (int i = 0; i < emptyseats.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < emptyseats.GetLength(1); j++)
+                        {
+                            Console.Write(emptyseats[i, j]);
+                            Console.Write(" "); // Add space between elements
+                        }
+                        Console.WriteLine(); // Move to the next row
+                    }
+                    Console.ReadLine();
+                    PerformanceModel performance = new PerformanceModel(newId, performanceName, description, performanceStartDT, performanceEndDT, hallId, listOfDicts, true);
                     logic.UpdateList(performance);
                     Console.Clear();
                     Console.WriteLine($"{Color.Green}The Performance was succesfully added.{Color.Reset}\n");
@@ -322,6 +359,22 @@ static class ManagePerformance
             Console.WriteLine($"{Color.Red}Invalid input. Please enter a valid ID.{Color.Reset}");
         }
 
+    }
+
+    static private int[][] ConvertBoolArrayToIntArray(bool[,] boolArray)
+    {
+        int rows = boolArray.GetLength(0);
+        int cols = boolArray.GetLength(1);
+        int[][] intArray = new int[rows][];
+        for (int i = 0; i < rows; i++)
+        {
+            intArray[i] = new int[cols];
+            for (int j = 0; j < cols; j++)
+            {
+                intArray[i][j] = boolArray[i, j] ? 1 : 0;
+            }
+        }
+        return intArray;
     }
 
     static public void Edit(PerformanceLogic logic)
