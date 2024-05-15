@@ -214,5 +214,13 @@
     "Password": "qFf2rAtFy13i2HZ6riRmhw==",
     "Role": 0,
     "Tickets": []
+  },
+  {
+    "Id": "d7135996-e980-4ab3-bda6-6ee25872276f",
+    "EmailAddress": "c#@c#.com",
+    "FullName": "c#",
+    "Password": "QQ4WimIO0E2ojnB0uy\u002BpnQ==",
+    "Role": 2,
+    "Tickets": []
   }
 ]

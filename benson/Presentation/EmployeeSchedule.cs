@@ -97,7 +97,7 @@ public class EmployeeSchedule
         Console.WriteLine(selectedOption == 5 ? $"{Color.Green}>> Back to main menu{Color.Reset}" : "   Back to main menu");
     }
 
-        public static void EmployeeMenu()
+    public static void EmployeeMenu()
     {
         ScheduleLogic shell = new ScheduleLogic();
         bool loop = true;
@@ -132,7 +132,7 @@ public class EmployeeSchedule
         }
     }
 
-        static void PerformEmployeeAction(int option, ScheduleLogic shell)
+    static void PerformEmployeeAction(int option, ScheduleLogic shell)
     {
         string path = "DataSources/schedule.json";
         switch (option)
@@ -158,8 +158,8 @@ public class EmployeeSchedule
     {
         Console.WriteLine($"{Color.Yellow}What do you want to do?{Color.Reset}\n");
 
-        Console.WriteLine(selectedOption == 1 ?  $"{Color.Green}>> View the Work Schedule{Color.Reset}" : "   View the Work Schedule");
-        Console.WriteLine(selectedOption == 2 ?  $"{Color.Green}>> Back to Main Menu{Color.Reset}" : "   Back to Main Menu");
+        Console.WriteLine(selectedOption == 1 ? $"{Color.Green}>> View the Work Schedule{Color.Reset}" : "   View the Work Schedule");
+        Console.WriteLine(selectedOption == 2 ? $"{Color.Green}>> Back to Main Menu{Color.Reset}" : "   Back to Main Menu");
     }
 
 
@@ -175,7 +175,7 @@ public class EmployeeSchedule
             Console.WriteLine("---------------------------------------------------------------------");
 
             foreach (var schedule in schedules)
-            {   
+            {
                 string actstr = schedule.Active ? "Active" : "Inactive";
                 Console.WriteLine($" {schedule.Worker,-12}  {schedule.Date,-9}  {schedule.TotalHours,-12}  {schedule.StartTime,-10}  {schedule.EndTime,-9} {actstr,-12}");
             }
@@ -191,7 +191,7 @@ public class EmployeeSchedule
             Console.WriteLine($"An error occured: {e.Message}");
         }
     }
-    
+
 
 
     static void AddSchedule(string path)
@@ -206,8 +206,9 @@ public class EmployeeSchedule
         string date;
         do
         {
-            Console.WriteLine($"{Color.Reset}Enter date: (DD-MM-YYYY for the schedule(within 1-2 weeks from today))");
-            date = DateSelector.GetDate(2);
+            Console.WriteLine($"{Color.Reset}Enter date: (DD-MM-YYYY for the schedule)");
+            date = DateSelector.GetDate(10, true);
+            IsValidDate(date);
         } while (!IsValidDate(date));
         TimeSpan newEndTime, newStartTime;
         string startTimeInput, endTimeInput;
@@ -217,10 +218,10 @@ public class EmployeeSchedule
 
 
             Console.WriteLine("Enter Start Time: (HH:MM)");
-            startTimeInput = Console.ReadLine();
+            startTimeInput = DateSelector.GetTime(true);
 
             Console.WriteLine("Enter End Time: (HH:MM)");
-            endTimeInput = Console.ReadLine();
+            endTimeInput = DateSelector.GetTime(false);
 
             isStartTimeValid = TimeSpan.TryParse(startTimeInput, out newStartTime);
             isEndTimeValid = TimeSpan.TryParse(endTimeInput, out newEndTime);
@@ -392,7 +393,10 @@ public class EmployeeSchedule
         do
         {
             Console.WriteLine("Enter date: (DD-MM-YYYY for the schedule(within 1-2 weeks from today))");
+            Thread.Sleep(2000);
+
             date = ConsoleInput.EditLine(selectedSchedule.Date);
+            IsValidDate(date);
         } while (!IsValidDate(date));
 
         Console.WriteLine("Enter start time: (HH:MM)");
@@ -429,15 +433,16 @@ public class EmployeeSchedule
     {
         if (DateTime.TryParseExact(inputdate, "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime parsedDate))
         {
-            DateTime today = DateTime.Today;
-            DateTime oneWeekLater = today.AddDays(7);
-            DateTime twoWeeksLater = today.AddDays(14);
-
-            if (parsedDate >= oneWeekLater && parsedDate <= twoWeeksLater)
-                return true;
+            return true;
         }
-        Console.WriteLine("Please enter a valid date within 1-2 weeks from today.");
-        return false;
+        else
+        {
+            Console.WriteLine($"{Color.Red}Invalid input. Please enter a valid date and time format (DD-MM-YYYY HH:MM).{Color.Reset}");
+            Thread.Sleep(2000);
+
+            return false;
+        }
+
     }
     public static string SelectEmployee()
     {

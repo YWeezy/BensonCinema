@@ -131,109 +131,107 @@ public class ConsoleInput
     }
 }
 
+
 public static class DateSelector
 {
-    public static DateTime CurrentDate = DateTime.Now;
+    public static DateTime CurrentDate { get; private set; } = DateTime.Now;
 
-    public static string GetDate(int weekLimit)
+    public static string GetDate(int weekLimit, bool isStartDate)
     {
-        Console.WriteLine();
-        do
+        while (true)
         {
             Console.Clear();
+            string message = isStartDate ? "Select a Start date? (< - month > + month ^ + day ):" : "Select a End date? (< - month > + month ^ + day ):";
+            Console.WriteLine(message);
             Console.WriteLine(CurrentDate.ToString("dd-MM-yyyy"));
             ConsoleKey key = Console.ReadKey(true).Key;
 
             switch (key)
             {
                 case ConsoleKey.UpArrow:
-                    CurrentDate = CurrentDate.AddDays(1);
-                    if (CurrentDate > DateTime.Now.AddDays(weekLimit * 7))
-                    {
-                        CurrentDate = DateTime.Now.AddDays(weekLimit * 7);
-                    }
+                    AdjustDate(1, 0, weekLimit);
                     break;
                 case ConsoleKey.RightArrow:
-                    CurrentDate = CurrentDate.AddMonths(1);
-                    if (CurrentDate > DateTime.Now.AddDays(weekLimit * 7))
-                    {
-                        CurrentDate = DateTime.Now.AddDays(weekLimit * 7);
-                    }
-
+                    AdjustDate(0, 1, weekLimit);
                     break;
                 case ConsoleKey.DownArrow:
-                    CurrentDate = CurrentDate.AddDays(-1);
-                    if (CurrentDate < DateTime.Now)
-                    {
-                        CurrentDate = DateTime.Now;
-                    }
-
+                    AdjustDate(-1, 0, weekLimit);
                     break;
                 case ConsoleKey.LeftArrow:
-                    CurrentDate = CurrentDate.AddMonths(-1);
-                    if (CurrentDate < DateTime.Now)
-                    {
-                        CurrentDate = DateTime.Now;
-                    }
-
+                    AdjustDate(0, -1, weekLimit);
                     break;
-
-
                 case ConsoleKey.Enter:
                     return CurrentDate.ToString("dd-MM-yyyy");
 
                 default:
                     break;
             }
-
-            // Break the loop if user selects an action
-            if (key == ConsoleKey.Enter)
-                break;
-
-        } while (true);
-        return DateTime.Now.ToString("dd-MM-yyyy");
+        }
     }
-    public static string GetTime()
+
+    public static string GetTime(bool isStartDate)
     {
-        Console.WriteLine();
-        do
+        DateTime CurrentTime = DateTime.Today.AddHours(12);
+        while (true)
         {
             Console.Clear();
-            Console.WriteLine(CurrentDate.ToString("HH:mm"));
+            string message = isStartDate ? "Enter Start Time (< - 15 minutes > + 15 minutes ^ + hour ):" : "Enter End Time? (< - 15 minutes > + 15 minutes ^ + hour ):";
+            Console.WriteLine(message);
+            Console.WriteLine(CurrentTime.ToString("HH:mm"));
             ConsoleKey key = Console.ReadKey(true).Key;
 
             switch (key)
             {
                 case ConsoleKey.UpArrow:
-                    CurrentDate = CurrentDate.AddHours(1);
+                    CurrentTime = CurrentTime.AddHours(1);
                     break;
-
                 case ConsoleKey.LeftArrow:
-                    CurrentDate = CurrentDate.AddMinutes(-1);
+                    CurrentTime = CurrentTime.AddMinutes(-15);
                     break;
-
                 case ConsoleKey.RightArrow:
-                    CurrentDate = CurrentDate.AddMinutes(1);
+                    CurrentTime = CurrentTime.AddMinutes(15);
                     break;
-
                 case ConsoleKey.DownArrow:
-                    CurrentDate = CurrentDate.AddHours(-1);
+                    CurrentTime = CurrentTime.AddHours(-1);
                     break;
                 case ConsoleKey.Enter:
-                    return CurrentDate.ToString("HH:mm");
+                    var formattedTime = CurrentTime.ToString("HH mm");
+                    string[] hoursAndMinutes = formattedTime.Split(" ");
+                    return $"{hoursAndMinutes[0]}:{hoursAndMinutes[0]}";
+
+
+
 
                 default:
                     break;
             }
+        }
+    }
 
-            // Break the loop if user selects an action
-            if (key == ConsoleKey.Enter)
-                break;
 
-        } while (true);
-        return DateTime.Now.ToString("HH:mm");
+    private static void AdjustDate(int dayIncrement, int monthIncrement, int weekLimit)
+    {
+        if (dayIncrement != 0)
+        {
+            CurrentDate = CurrentDate.AddDays(dayIncrement);
+        }
+        if (monthIncrement != 0)
+        {
+            CurrentDate = CurrentDate.AddMonths(monthIncrement);
+        }
+
+        DateTime maxDate = DateTime.Now.AddDays(weekLimit * 7);
+        if (CurrentDate > maxDate)
+        {
+            CurrentDate = maxDate;
+        }
+        if (CurrentDate < DateTime.Now)
+        {
+            CurrentDate = DateTime.Now;
+        }
     }
 }
+
 
 
 

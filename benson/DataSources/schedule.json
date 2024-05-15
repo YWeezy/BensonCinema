@@ -68,5 +68,15 @@
     "endTime": "16:00",
     "performance": null,
     "active": false
+  },
+  {
+    "id": "75bcf82a-b7b6-481f-8037-f3ab0c5ee767",
+    "worker": "Achraf Aarab",
+    "date": "18-05-2024",
+    "totalHours": "07:07:00",
+    "startTime": "13:13",
+    "endTime": "20:20",
+    "performance": null,
+    "active": true
   }
 ]
