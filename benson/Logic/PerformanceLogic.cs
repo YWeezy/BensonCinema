@@ -68,15 +68,15 @@ public class PerformanceLogic
 
     public int GetNewId()
     {
-        try
+        int currentId = 0;
+        foreach (var performance in _performances)
         {
-            int currentId = _performances.Last().id;
-            return currentId + 1;
+            if (performance.id > currentId)
+            {
+                currentId = performance.id;
+            }
         }
-        catch (System.Exception)
-        {
-            return 1;
-        }
+        return currentId + 1;
     }
 
     public void DisplayTable()
@@ -96,16 +96,16 @@ public class PerformanceLogic
             foreach (string employee in performance.employees)
             {
                 employeeString += employee;
-                if (performance.employees.IndexOf(employee) == performance.employees.Count - 1) 
+                if (performance.employees.IndexOf(employee) == performance.employees.Count - 1)
                 {
-                    
+
                 }
                 else
                 {
                     employeeString += ", ";
                 }
             }
-            
+
             Console.WriteLine("{0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -15}{6, -20}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId), actstr, employeeString);
         }
         Console.WriteLine("");

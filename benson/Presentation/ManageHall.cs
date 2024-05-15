@@ -6,8 +6,9 @@ static class ManageHall
     //This shows the menu. You can call back to this method to show the menu again
     //after another presentation method is completed.
     //You could edit this to show different menus depending on the user's role
-    static public void Start() {
-        
+    static public void Start()
+    {
+
         HallLogic logic = new HallLogic();
         Console.Clear();
         bool loop = true;
@@ -15,7 +16,7 @@ static class ManageHall
         int totalOptions = 4; // Total number of options
         while (loop)
         {
-            
+
             DisplayMenu(selectedOption);
 
             var key = Console.ReadKey(true).Key;
@@ -38,10 +39,10 @@ static class ManageHall
 
             // Break the loop if user selects an action
             if (key == ConsoleKey.Enter)
-                
+
                 break;
         }
-        
+
     }
 
     static public void Update(HallLogic logic, int selectedHallIndex = -1)
@@ -81,24 +82,30 @@ static class ManageHall
             type = editing ? ConsoleInput.EditLine(selectedHall.type) : Console.ReadLine();
 
 
-            if (type.ToLower() == "small" || type.ToLower() == "medium" || type.ToLower() == "large") {
+            if (type.ToLower() == "small" || type.ToLower() == "medium" || type.ToLower() == "large")
+            {
                 type = char.ToUpper(type[0]) + type.Substring(1); // first letter uppercase
                 break;
-            } else {
+            }
+            else
+            {
                 Console.WriteLine($"{Color.Red}Invalid input. Please provide a correct Hall type.{Color.Reset}");
             }
         }
 
-        
+
 
         if (editing == true)
         {
 
             Console.Clear();
             // active
-            if (selectedHall.active == false) {
+            if (selectedHall.active == false)
+            {
                 Console.WriteLine($"Current active state: {Color.Red}Inactive{Color.Reset}\n\n{Color.Yellow}Do you want to switch to {Color.Red}Active{Color.Yellow}? (Y/N){Color.Reset}");
-            } else {
+            }
+            else
+            {
                 Console.WriteLine($"Current active state: {Color.Green}Active{Color.Reset}\n\n{Color.Yellow}Do you want to switch to {Color.Red}Inactive{Color.Yellow}? (Y/N){Color.Reset}");
             }
 
@@ -159,16 +166,17 @@ static class ManageHall
         }
     }
 
-    static public void Edit(HallLogic logic) {
+    static public void Edit(HallLogic logic)
+    {
         Console.Clear();
-        
+
         int selectedHallIndex = 0;
         int totalHalls = logic.GetTotalHalls();
-        
+
         while (true)
         {
             DisplayHalls(logic, selectedHallIndex);
-            
+
             var key = Console.ReadKey(true).Key;
 
             switch (key)
@@ -198,7 +206,7 @@ static class ManageHall
 
         Console.WriteLine("      {0,-15}{1,-10}{2,-15}", "Name", "Type", "Active");
         Console.WriteLine("      -------------------------------------");
-        
+
         int index = 0;
         foreach (HallModel hall in logic.GetList())
         {
@@ -215,10 +223,12 @@ static class ManageHall
             if (hall.active)
             {
                 actstr = "Active";
-            }else{
+            }
+            else
+            {
                 actstr = "Inactive";
             }
-            
+
             Console.WriteLine("   {0,-15}{1,-10}{2,-15}", hall.hallName, hall.type, actstr);
 
             index++;
@@ -252,37 +262,37 @@ static class ManageHall
     {
         List<HallModel> halls = logic.GetList();
         switch (option)
-            {
-                case 1:
-                    Console.Clear();
-                    logic.DisplayTable();
-                    Console.WriteLine("\nPress Enter to return to menu.");
-                    while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                    Start();
-                    break;
-                case 2:
-                    Console.Clear();
-                    Update(logic);
-                    Console.WriteLine("Press Enter to return to the menu.");
-                    while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                    Start();
-                    break;
-                case 3:
-                    Console.Clear();
-                    Edit(logic);
-                    Console.WriteLine("Press Enter to return to the menu.");
-                    while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                    Start();
-                    break;
-                case 4:
-                    Menu.Start();
-                    Console.WriteLine("Press Enter to return to the menu.");
-                    while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                    Start();
-                    break;
-                default:
-                    break;
-            }
+        {
+            case 1:
+                Console.Clear();
+                logic.DisplayTable();
+                Console.WriteLine("\nPress Enter to return to menu.");
+                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                Start();
+                break;
+            case 2:
+                Console.Clear();
+                Update(logic);
+                Console.WriteLine("Press Enter to return to the menu.");
+                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                Start();
+                break;
+            case 3:
+                Console.Clear();
+                Edit(logic);
+                Console.WriteLine("Press Enter to return to the menu.");
+                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                Start();
+                break;
+            case 4:
+                Menu.Start();
+                Console.WriteLine("Press Enter to return to the menu.");
+                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                Start();
+                break;
+            default:
+                break;
+        }
     }
 
     static private void DisplayMenu(int selectedOption)
