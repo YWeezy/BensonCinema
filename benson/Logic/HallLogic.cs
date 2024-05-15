@@ -27,6 +27,21 @@ class HallLogic
         return _halls.Count;
     }
 
+    public bool[,] GetSeatsOfHall(int id){
+        HallModel? hall = _halls.FirstOrDefault(h => h.hallID == id);
+        switch (hall.type.ToLower()){
+            case "small":
+                return new bool[3, 10];
+            case "medium":
+                return new bool[5, 10];
+            case "large":
+                return new bool[8, 10];
+            default:
+             return null;
+        }
+
+    }
+
     public List<HallModel> GetList()
     {
         return _halls;

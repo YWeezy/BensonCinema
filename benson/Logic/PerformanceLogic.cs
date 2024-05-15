@@ -68,14 +68,8 @@ public class PerformanceLogic
 
     public int GetNewId()
     {
-        int currentId = 0;
-        foreach (var performance in _performances)
-        {
-            if (performance.id > currentId)
-            {
-                currentId = performance.id;
-            }
-        }
+        Console.WriteLine(_performances);
+        int currentId = _performances.Max( obj => obj.id );
         return currentId + 1;
     }
 
