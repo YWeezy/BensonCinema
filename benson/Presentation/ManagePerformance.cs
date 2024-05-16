@@ -228,12 +228,13 @@ static class ManagePerformance
             ticketTypeAdd["price"] = Price;
             innerListOfDicts.Add(ticketTypeAdd);    
 
-        if (editing)
+        
             Console.WriteLine($"{Color.Yellow}Would you like to add another ticket type? (Y/N){Color.Reset}");
             string inputadd = Console.ReadLine();
             if (inputadd.ToLower() != "y"){
                 donett = true;
             }
+            Console.Clear();
 
             
         }
@@ -311,17 +312,6 @@ static class ManagePerformance
                     dict1["seats"] = ConvertBoolArrayToIntArray(emptyseats);
                     listOfDicts.Add(dict1);
                     listOfDicts.Add(dict2);
-                    Console.WriteLine("Boolean Array:");
-                    for (int i = 0; i < emptyseats.GetLength(0); i++)
-                    {
-                        for (int j = 0; j < emptyseats.GetLength(1); j++)
-                        {
-                            Console.Write(emptyseats[i, j]);
-                            Console.Write(" "); // Add space between elements
-                        }
-                        Console.WriteLine(); // Move to the next row
-                    }
-                    Console.ReadLine();
                     PerformanceModel performance = new PerformanceModel(newId, performanceName, description, performanceStartDT, performanceEndDT, hallId, listOfDicts, true);
                     logic.UpdateList(performance);
                     Console.Clear();
