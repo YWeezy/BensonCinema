@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/home/ach/Documents/code/project-b/BensonCinema/test/test.csproj": {}
+    "C:\\Users\\GREED\\Documents\\GitHub\\BensonCinema\\test\\test.csproj": {}
   },
   "projects": {
-    "/home/ach/Documents/code/project-b/BensonCinema/benson/Cinema.csproj": {
+    "C:\\Users\\GREED\\Documents\\GitHub\\BensonCinema\\benson\\Cinema.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/ach/Documents/code/project-b/BensonCinema/benson/Cinema.csproj",
+        "projectUniqueName": "C:\\Users\\GREED\\Documents\\GitHub\\BensonCinema\\benson\\Cinema.csproj",
         "projectName": "Cinema",
-        "projectPath": "/home/ach/Documents/code/project-b/BensonCinema/benson/Cinema.csproj",
-        "packagesPath": "/home/ach/.nuget/packages/",
-        "outputPath": "/home/ach/Documents/code/project-b/BensonCinema/benson/obj/",
+        "projectPath": "C:\\Users\\GREED\\Documents\\GitHub\\BensonCinema\\benson\\Cinema.csproj",
+        "packagesPath": "C:\\Users\\GREED\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\GREED\\Documents\\GitHub\\BensonCinema\\benson\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/ach/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\GREED\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -32,11 +34,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -53,39 +50,59 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.15, 7.0.15]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[7.0.15, 7.0.15]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.15, 7.0.15]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[7.0.15, 7.0.15]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.204/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/ach/Documents/code/project-b/BensonCinema/test/test.csproj": {
+    "C:\\Users\\GREED\\Documents\\GitHub\\BensonCinema\\test\\test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/ach/Documents/code/project-b/BensonCinema/test/test.csproj",
+        "projectUniqueName": "C:\\Users\\GREED\\Documents\\GitHub\\BensonCinema\\test\\test.csproj",
         "projectName": "test",
-        "projectPath": "/home/ach/Documents/code/project-b/BensonCinema/test/test.csproj",
-        "packagesPath": "/home/ach/.nuget/packages/",
-        "outputPath": "/home/ach/Documents/code/project-b/BensonCinema/test/obj/",
+        "projectPath": "C:\\Users\\GREED\\Documents\\GitHub\\BensonCinema\\test\\test.csproj",
+        "packagesPath": "C:\\Users\\GREED\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\GREED\\Documents\\GitHub\\BensonCinema\\test\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/ach/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\GREED\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net8.0"
+          "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net8.0": {
-            "targetAlias": "net8.0",
+          "net7.0": {
+            "targetAlias": "net7.0",
             "projectReferences": {
-              "/home/ach/Documents/code/project-b/BensonCinema/benson/Cinema.csproj": {
-                "projectPath": "/home/ach/Documents/code/project-b/BensonCinema/benson/Cinema.csproj"
+              "C:\\Users\\GREED\\Documents\\GitHub\\BensonCinema\\benson\\Cinema.csproj": {
+                "projectPath": "C:\\Users\\GREED\\Documents\\GitHub\\BensonCinema\\benson\\Cinema.csproj"
               }
             }
           }
@@ -94,16 +111,11 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
+        "net7.0": {
+          "targetAlias": "net7.0",
           "dependencies": {
             "MSTest.TestAdapter": {
               "target": "Package",
@@ -133,12 +145,26 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.15, 7.0.15]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.15, 7.0.15]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[7.0.15, 7.0.15]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
