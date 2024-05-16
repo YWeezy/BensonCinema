@@ -1,3 +1,4 @@
+using System.Reflection;
 namespace test
 { 
 
@@ -9,8 +10,7 @@ namespace test
         [AssemblyInitialize]
         public static void Initialize(TestContext context)
         {
-            string excecutingAssemblyLocation = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(excecutingAssemblyLocation), "../../../TestDataSources/schedule.json" );
+            path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "../../../TestDataSources/schedule.json" );
 
         }
 
