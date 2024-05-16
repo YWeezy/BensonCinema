@@ -1,20 +1,26 @@
 [
   {
     "hallID": 1,
-    "hallName": "BigBenson",
+    "hallName": "Dollhouse A",
     "type": "Large",
     "active": true
   },
   {
     "hallID": 2,
-    "hallName": "Small-Kylo",
+    "hallName": "Dollhouse B",
     "type": "Medium",
     "active": true
   },
   {
     "hallID": 3,
-    "hallName": "Beezz",
-    "type": "medium",
+    "hallName": "Dollhouse C",
+    "type": "Small",
+    "active": true
+  },
+  {
+    "hallID": 4,
+    "hallName": "Dollhouse D",
+    "type": "Small",
     "active": false
   }
 ]

@@ -1,35 +1,410 @@
 [
   {
-    "id": 9,
-    "name": "Homecoming",
-    "description": null,
-    "startDate": "2024-06-01T15:15:00",
-    "endDate": "2024-06-04T15:15:00",
-    "hallId": 3,
-    "employees": [],
-    "ticketsAvailable": null,
+    "id": 1,
+    "name": "Benson\u0027s Adventure",
+    "description": "Embark on an epic journey with Benson as he sets out on a thrilling adventure filled with danger, mystery, and excitement...",
+    "startDate": "2024-06-05T14:00:00",
+    "endDate": "2024-06-05T17:00:00",
+    "hallId": 1,
+    "employees": [
+      "Jurn de Ruijter"
+    ],
+    "ticketsAvailable": [
+      {
+        "seats": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "ticketTypes": [
+          {
+            "amount": 80,
+            "name": "Regular",
+            "price": 2500
+          }
+        ]
+      }
+    ],
     "active": true
   },
   {
-    "id": 10,
-    "name": "Dungoon",
-    "description": null,
-    "startDate": "2024-06-14T16:16:00",
-    "endDate": "2024-06-17T13:13:00",
+    "id": 2,
+    "name": "Benson\u0027s Carnival",
+    "description": "Get ready for a night of side-splitting laughter with Benson and his hilarious troupe of comedians.",
+    "startDate": "2024-06-16T20:15:00",
+    "endDate": "2024-06-16T23:15:00",
     "hallId": 2,
-    "employees": [],
-    "ticketsAvailable": null,
+    "employees": [
+      "Casper Smits",
+      "Pan Nenkoek"
+    ],
+    "ticketsAvailable": [
+      {
+        "seats": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "ticketTypes": [
+          {
+            "amount": 40,
+            "name": "Adult",
+            "price": 3500
+          },
+          {
+            "amount": 10,
+            "name": "VIP",
+            "price": 5500
+          }
+        ]
+      }
+    ],
     "active": true
   },
   {
-    "id": 11,
-    "name": "Scooby-doo",
-    "description": null,
-    "startDate": "2024-05-21T12:12:00",
-    "endDate": "2024-05-25T14:14:00",
+    "id": 3,
+    "name": "Benson\u0027s Mystery",
+    "description": "Enter the eerie world of Benson\u0027s Mystery Manor, where nothing is as it seems.",
+    "startDate": "2024-06-08T19:00:00",
+    "endDate": "2024-06-08T22:00:00",
     "hallId": 3,
     "employees": [],
-    "ticketsAvailable": null,
+    "ticketsAvailable": [
+      {
+        "seats": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "ticketTypes": [
+          {
+            "amount": 20,
+            "name": "Adult",
+            "price": 4000
+          },
+          {
+            "amount": 10,
+            "name": "VIP",
+            "price": 6000
+          }
+        ]
+      }
+    ],
+    "active": true
+  },
+  {
+    "id": 4,
+    "name": "Benson\u0027s Tales",
+    "description": "Join Benson as he brings classic fairy tales to life in this magical performance.",
+    "startDate": "2024-06-20T15:00:00",
+    "endDate": "2024-06-20T18:00:00",
+    "hallId": 1,
+    "employees": [],
+    "ticketsAvailable": [
+      {
+        "seats": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "ticketTypes": [
+          {
+            "amount": 50,
+            "name": "Adult",
+            "price": 3500
+          },
+          {
+            "amount": 30,
+            "name": "Child",
+            "price": 2500
+          }
+        ]
+      }
+    ],
     "active": true
   }
 ]

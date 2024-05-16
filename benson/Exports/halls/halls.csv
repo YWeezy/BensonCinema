@@ -1,4 +1,5 @@
 hallID,hallName,type,active
-1,BigBenson,Large,True
-2,Small-Kylo,Medium,True
-3,Beezz,medium,False
+1,Dollhouse A,Large,True
+2,Dollhouse B,Medium,True
+3,Dollhouse C,Small,True
+4,Dollhouse D,Small,False

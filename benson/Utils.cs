@@ -136,12 +136,13 @@ public static class DateSelector
 {
     public static DateTime CurrentDate { get; private set; } = DateTime.Now;
 
-    public static string GetDate(int weekLimit, bool isStartDate)
+    public static string GetDate(int weekLimit, bool isStartDate, DateTime? optionalDate = null)
     {
+        CurrentDate = optionalDate ?? DateTime.Now; // Update the class-level property instead of defining a new local variable
         while (true)
         {
             Console.Clear();
-            string message = isStartDate ? "Select a Start date? (< - month > + month ^ + day ):" : "Select a End date? (< - month > + month ^ + day ):";
+            string message = isStartDate ? $"{Color.Yellow}Select a Start date? (< - month > + month ^ + day ):{Color.Reset}" : $"{Color.Yellow}Select a End date? (< - month > + month ^ + day ):{Color.Reset}";
             Console.WriteLine(message);
             Console.WriteLine(CurrentDate.ToString("dd-MM-yyyy"));
             ConsoleKey key = Console.ReadKey(true).Key;
@@ -169,13 +170,13 @@ public static class DateSelector
         }
     }
 
-    public static string GetTime(bool isStartDate)
+    public static string GetTime(bool isStartDate, DateTime? optionalTime = null)
     {
-        DateTime CurrentTime = DateTime.Today.AddHours(12);
+        DateTime CurrentTime = optionalTime ?? DateTime.Now.AddHours(1).Date.AddHours(DateTime.Now.Hour + 1);
         while (true)
         {
             Console.Clear();
-            string message = isStartDate ? "Enter Start Time (< - 15 minutes > + 15 minutes ^ + hour ):" : "Enter End Time? (< - 15 minutes > + 15 minutes ^ + hour ):";
+            string message = isStartDate ? $"{Color.Yellow}Enter Start Time (< - 15 minutes > + 15 minutes ^ + hour ):{Color.Reset}" : $"{Color.Yellow}Enter End Time? (< - 15 minutes > + 15 minutes ^ + hour ):{Color.Reset}";
             Console.WriteLine(message);
             Console.WriteLine(CurrentTime.ToString("HH:mm"));
             ConsoleKey key = Console.ReadKey(true).Key;
@@ -197,7 +198,7 @@ public static class DateSelector
                 case ConsoleKey.Enter:
                     var formattedTime = CurrentTime.ToString("HH mm");
                     string[] hoursAndMinutes = formattedTime.Split(" ");
-                    return $"{hoursAndMinutes[0]}:{hoursAndMinutes[0]}";
+                    return $"{hoursAndMinutes[0]}:{hoursAndMinutes[1]}";
 
 
 

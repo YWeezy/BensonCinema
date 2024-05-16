@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 
 static class ViewPerformances
 {
@@ -32,29 +33,80 @@ static class ViewPerformances
                     selectedPerformanceIndex = selectedPerformanceIndex == totalPerformances - 1 ? 0 : selectedPerformanceIndex + 1;
                     break;
                 case ConsoleKey.Enter:
-                    Show(logic, selectedPerformanceIndex);
+                    Show(logic, selectedPerformanceIndex, new string[] { "Buy ticket", "Back to previous menu" });
                     return;
                 case ConsoleKey.Escape:
-                    Start();
                     return;
                 default:
                     break;
             }
         }
     }
-
-    static public void Show(PerformanceLogic logic, int selectedPerformanceIndex)
+    static private void DisplayPerformanceMenu(string[] options)
     {
-        PerformanceModel selectedPerformance = logic.GetActivePerformances()[selectedPerformanceIndex];
-        HallLogic hallLogic = new HallLogic();
+            Console.WriteLine("");
+            
+    }
 
-        Console.Clear();
+    static private void PerformAction(string option)
+    {
+        switch (option)
+        {
+            case "Buy ticket":
+                Console.WriteLine($"{Color.Purple}Coming soon.{Color.Reset}");
+                Thread.Sleep(3000);
+                Start();
+                break;
+            case "Back to previous menu":
+                Start();
+                break;
+            default:
+                break;
+        }
+    }
 
-        Console.WriteLine($"{Color.Yellow}{selectedPerformance.name}{Color.Reset}");
-        Console.WriteLine($"\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dignissim elit felis, sit amet porta erat pretium eu. Duis eget massa et turpis dictum bibendum at in turpis. Phasellus consequat faucibus ligula, eu hendrerit mi pretium et. Maecenas vehicula elementum luctus. Praesent porttitor augue id ante aliquet, nec bibendum libero aliquam. Praesent interdum at dui et blandit. Cras ut felis non erat tempor dignissim in maximus lorem. Nullam massa arcu, sagittis in convallis at, egestas ac urna. In a tortor rhoncus, interdum sem et, hendrerit enim. Vivamus turpis eros, tempus a condimentum ac, convallis vitae elit. Donec gravida ac metus vel vulputate. Duis nec nibh eget diam tincidunt malesuada.");
-        Console.WriteLine($"\n{Color.Yellow}Time: {Color.Green}{selectedPerformance.startDate} {Color.Yellow}<-> {Color.Green}{selectedPerformance.endDate}{Color.Reset}");
-        Console.WriteLine($"\n{Color.Yellow}Hall: {Color.Green}{hallLogic.GetHallNameById(selectedPerformance.hallId)}{Color.Reset}");
-        Console.WriteLine($"\n{Color.Yellow}Tickets: {Color.Green}(5/60){Color.Reset}");
+    static public void Show(PerformanceLogic logic, int selectedPerformanceIndex, string[] options)
+    {
+        int selectedOption = 0;
+        int totalOptions = options.Length;
+        while (true)
+        {
+            PerformanceModel selectedPerformance = logic.GetActivePerformances()[selectedPerformanceIndex];
+            HallLogic hallLogic = new HallLogic();
+
+            Console.Clear();
+
+            Console.WriteLine($"{Color.Yellow}{selectedPerformance.name}{Color.Reset}");
+            Console.WriteLine($"\n{selectedPerformance.description}");
+            Console.WriteLine($"\n{Color.Yellow}Time: {Color.Green}{selectedPerformance.startDate} {Color.Yellow}<-> {Color.Green}{selectedPerformance.endDate}{Color.Reset}");
+            Console.WriteLine($"\n{Color.Yellow}Hall: {Color.Green}{hallLogic.GetHallNameById(selectedPerformance.hallId)}{Color.Reset}");
+            Console.WriteLine("");
+
+            for (int i = 0; i < totalOptions; i++)
+            {
+                if (i == selectedOption)
+                    Console.WriteLine($"{Color.Green}>> {options[i]}{Color.Reset}");
+                else
+                    Console.WriteLine($"   {options[i]}");
+            }
+
+            var key = Console.ReadKey(true).Key;
+
+            switch (key)
+            {
+                case ConsoleKey.UpArrow:
+                    selectedOption = selectedOption == 0 ? totalOptions - 1 : selectedOption - 1;
+                    break;
+                case ConsoleKey.DownArrow:
+                    selectedOption = selectedOption == totalOptions - 1 ? 0 : selectedOption + 1;
+                    break;
+                case ConsoleKey.Enter:
+                    PerformAction(options[selectedOption]);
+                    return;
+                default:
+                    break;
+            }
+        }
     }
 
     static private void DisplayPerformances(PerformanceLogic logic, int selectedPerformanceIndex)

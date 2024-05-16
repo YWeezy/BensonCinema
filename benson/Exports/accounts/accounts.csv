@@ -1,20 +1,4 @@
 Id,EmailAddress,FullName,Role
-aefc0ce3-def8-4a38-9023-c6ec9c3d9778,johndoe12@gmail.com,John Doe,Employee
-9c5b208b-892d-4287-a1b1-7bfcce482a58,Mary4Joe@outlook.com,Mary Joe,Employee
-ead26fb7-ed56-4e6e-9dbd-9ec4d6d0d69d,aa@aa.com,Achraf Aarab,ContentManager
-41864c26-836b-4ceb-9fa2-c7a53c7806a8,wesdd@gmail.com,wesddd,ContentManager
-ffeb92ea-3dc2-4432-b88f-0e7d4e02fcf7,ach.aarab@duck.com,Achraf Aarab,ContentManager
-409e93a8-c065-4126-9ec8-e5bdf5ab15a1,po@.com,po,ContentManager
-b4b2da87-f066-487f-90f4-e57d67e30c81,1@1.1,1,ContentManager
-db256204-d1ac-4328-bf88-85c90956f316,kk@kk.com,Achraf,ContentManager
-00d915a8-6215-4c35-8492-6908d91c6413,aaa@aaa.com,ach,ContentManager
-0112f52b-140b-4175-8fbf-abcac59952de,lll@lll.com,ach,ContentManager
-e247680b-6650-4eef-a4de-9c9a397b8b40,123@123.com,123,ContentManager
-5ea33f94-fbaa-4382-8a1d-135a40322e65,mmm@mmm.com,mmm@mmm.com,ContentManager
-332417a6-5e50-4122-a1f1-629ff362459f,jj@jj.com,JJ,ContentManager
-1e1d6d29-afa1-4fef-bcb0-1b4e2fe9715c,gg@gg.com,gg,ContentManager
-ff73fca3-a29f-4dad-9bfb-06f3096abf7b,email@email.nl,emailer,ContentManager
-d3ad62d0-b70b-4741-9441-d749f56cb1dc,pa@.com,pa,ContentManager
-5dc05427-eae1-4cf9-8671-f02384a84677,vv@vv.com,vv,ContentManager
-22a9bfef-676c-40f6-ae15-6be495e0d361,dd@dd.com,dd,ContentManager
-f3a70d78-e7e6-4b60-96e2-1a2626ed9925,content@.com,content,ContentManager
+d7135996-e980-4ab3-bda6-6ee25872276f,c#@c#.com,c#,ContentManager
+28599f21-b3f6-43a4-845f-a1a29e8128b2,wes@gmail.com,Wesley,ContentManager
+8d1d3a74-330a-4253-9d9f-96da82592ae6,admin@benson.com,Benson,ContentManager
