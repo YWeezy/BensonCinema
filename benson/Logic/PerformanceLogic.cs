@@ -36,6 +36,21 @@ public class PerformanceLogic
         return _performances.Where(performance => performance.startDate >= fromDate && performance.endDate <= toDate).ToList();
     }
 
+    public List<PerformanceModel> GetActivePerformances()
+    {
+        string from = DateTime.Today.ToString("dd-MM-yyyy");
+        DateTime fromDate;
+
+        // parse from date
+        if (!DateTime.TryParseExact(from, "dd-MM-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out fromDate))
+        {
+            Console.WriteLine("Invalid from date format. Using default from date.");
+            fromDate = DateTime.MinValue;
+        }
+
+        return _performances.Where(performance => performance.startDate >= fromDate && performance.active == true).ToList();
+    }
+
     public int GetTotalPerformances()
     {
         return _performances.Count;
@@ -68,8 +83,14 @@ public class PerformanceLogic
 
     public int GetNewId()
     {
-        Console.WriteLine(_performances);
-        int currentId = _performances.Max( obj => obj.id );
+        int currentId = 0;
+        foreach (var performance in _performances)
+        {
+            if (performance.id > currentId)
+            {
+                currentId = performance.id;
+            }
+        }
         return currentId + 1;
     }
 
