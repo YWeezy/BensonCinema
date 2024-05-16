@@ -36,15 +36,11 @@ static class UserLogin
                 {
                     // Set logged-in user
                     Utils.LoggedInUser = acc;
-<<<<<<< HEAD
-                    Console.WriteLine("✅Login Successful! " + Utils.LoggedInUser.FullName);
-=======
                     Console.WriteLine($"\n{Color.Green}Logged in successfully, {Utils.LoggedInUser.FullName}!{Color.Reset}");
 
                     // Write the email to the file
                     File.WriteAllText(filePath, acc.EmailAddress);
 
->>>>>>> Test
                     Thread.Sleep(2000);
                     Menu.Start();
                     return;

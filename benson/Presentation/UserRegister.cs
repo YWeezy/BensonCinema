@@ -117,11 +117,7 @@ static class UserRegister
 
             // Set logged-in user
             Utils.LoggedInUser = user;
-<<<<<<< HEAD
-            Console.WriteLine("✅Registration successful!");
-=======
             Console.WriteLine($"{Color.Green}Registration successful!{Color.Reset}");
->>>>>>> Test
         }
         catch (Exception ex)
         {

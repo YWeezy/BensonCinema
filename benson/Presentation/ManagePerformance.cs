@@ -280,22 +280,6 @@ public static class ManagePerformance
 
             if (confirmation.ToLower() == "y")
             {
-<<<<<<< HEAD
-                case "y":
-                    selectedPerformance.name = performanceName;
-                    selectedPerformance.startDate = performanceStartDT;
-                    selectedPerformance.endDate = performanceEndDT;
-                    selectedPerformance.hallId = hallId;
-                    selectedPerformance.active = active;
-                    logic.UpdateList(selectedPerformance);
-                    Console.Clear();
-                    Console.WriteLine("\u001b[32m✅The Performance was successfully edited.\u001b[0m\n");
-                    break;
-                default:
-                    Console.Clear();
-                    Console.WriteLine("\u001b[31mThe Performance was not edited.\u001b[0m\n");
-                    break;
-=======
                 selectedPerformance.name = performanceName;
                 selectedPerformance.startDate = performanceStartDT;
                 selectedPerformance.endDate = performanceEndDT;
@@ -309,7 +293,6 @@ public static class ManagePerformance
             {
                 Console.Clear();
                 Console.WriteLine($"{Color.Red}The Performance was not edited.{Color.Reset}\n");
->>>>>>> Test
             }
         }
         else
@@ -365,11 +348,7 @@ public static class ManagePerformance
         {
             if (logic.DeletePerformance(idToDelete))
             {
-<<<<<<< HEAD
-                Console.WriteLine($"\u001b[32m✅Performance with ID {idToDelete} deleted successfully.\u001b[0m");
-=======
                 Console.WriteLine($"{Color.Green}Performance with ID {idToDelete} deleted successfully.{Color.Reset}");
->>>>>>> Test
             }
             else
             {
