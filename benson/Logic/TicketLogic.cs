@@ -62,7 +62,7 @@ public class TicketLogic
             string Location = hallLogic.GetHallNameById(hallid);
 
             // Create a new ticket model
-            TicketModel ticket = new TicketModel(seat, performanceTitle, Location, performanceDate, StartTime + "-" + EndTime, id, 40);
+            TicketModel ticket = new TicketModel(seat, "regular", performanceTitle, Location, performanceDate, StartTime + "-" + EndTime, id, 40);
 
             // Write the ticket to the data source
             List<TicketModel> tickets = DataAccess<TicketModel>.LoadAll(path);

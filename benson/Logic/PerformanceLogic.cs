@@ -4,10 +4,13 @@ public class PerformanceLogic
 {
 
     private List<PerformanceModel> _performances = new List<PerformanceModel>();
-    string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/performances.json"));
+    public string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/performances.json"));
 
-    public PerformanceLogic()
+    public PerformanceLogic(string? newPath = null)
     {
+        if (newPath != null) {
+            path = newPath;
+        } 
         _performances = DataAccess<PerformanceModel>.LoadAll(path);
     }
 
@@ -80,7 +83,8 @@ public class PerformanceLogic
 
     public int GetNewId()
     {
-        int currentId = _performances.Last().id;
+        Console.WriteLine(_performances);
+        int currentId = _performances.Max( obj => obj.id );
         return currentId + 1;
     }
 
@@ -101,16 +105,16 @@ public class PerformanceLogic
             foreach (string employee in performance.employees)
             {
                 employeeString += employee;
-                if (performance.employees.IndexOf(employee) == performance.employees.Count - 1) 
+                if (performance.employees.IndexOf(employee) == performance.employees.Count - 1)
                 {
-                    
+
                 }
                 else
                 {
                     employeeString += ", ";
                 }
             }
-            
+
             Console.WriteLine("{0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -15}{6, -20}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId), actstr, employeeString);
         }
         Console.WriteLine("");

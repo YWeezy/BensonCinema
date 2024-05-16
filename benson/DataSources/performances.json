@@ -1,77 +1,150 @@
 [
+  
   {
-    "id": 1,
-    "name": "Demo A",
-    "startDate": "2024-04-03T20:00:00",
-    "endDate": "2024-04-03T21:00:00",
+    "id": 105,
+    "name": "awdsf",
+    "description": "sfdsfsdfs",
+    "startDate": "2024-05-17T12:00:00",
+    "endDate": "2024-05-17T18:00:00",
     "hallId": 1,
-    "employees": [
-      "la"
+    "employees": [],
+    "ticketsAvailable": [
+      {
+        "seats": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "ticketTypes": [
+          {
+            "amount": 14,
+            "name": "reg",
+            "price": 2
+          }
+        ]
+      }
     ],
-    "active": false
+    "active": true
   },
   {
-    "id": 2,
-    "name": "Demo B",
-    "startDate": "2024-04-03T22:00:00",
-    "endDate": "2024-04-03T23:00:00",
-    "hallId": 1,
+    "id": 9,
+    "name": "Homecoming",
+    "startDate": "2024-06-01T15:15:00",
+    "endDate": "2024-06-04T15:15:00",
+    "hallId": 3,
     "employees": [],
     "active": true
   },
   {
-    "id": 3,
-    "name": "The big bang",
-    "startDate": "2024-12-15T12:00:00",
-    "endDate": "2024-12-28T12:00:00",
-    "hallId": 1,
-    "employees": [],
-    "active": true
-  },
-  {
-    "id": 4,
-    "name": "Hall",
-    "startDate": "2023-06-15T00:00:00",
-    "endDate": "2023-12-18T00:00:00",
-    "hallId": 1,
-    "employees": [],
-    "active": false
-  },
-  {
-    "id": 5,
-    "name": "DemoC",
-    "startDate": "2024-04-29T15:00:00",
-    "endDate": "2024-04-29T16:00:00",
+    "id": 10,
+    "name": "Dungoon",
+    "startDate": "2024-06-14T16:16:00",
+    "endDate": "2024-06-17T13:13:00",
     "hallId": 2,
     "employees": [],
     "active": true
   },
   {
-    "id": 6,
-    "name": "ee",
-    "startDate": "2024-06-15T12:00:00",
-    "endDate": "2024-06-30T12:00:00",
-    "hallId": 1,
-    "employees": [],
-    "active": true
-  },
-  {
-    "id": 7,
-    "name": "05-05-2024",
-    "startDate": "2024-05-05T12:00:00",
-    "endDate": "2024-05-05T18:00:00",
-    "hallId": 2,
-    "employees": [
-      "Achraf Aarab"
-    ],
-    "active": true
-  },
-  {
-    "id": 8,
-    "name": "testperformance ",
-    "startDate": "2024-05-06T06:08:00",
-    "endDate": "2024-05-08T08:06:00",
-    "hallId": 2,
+    "id": 11,
+    "name": "Scooby-doo",
+    "startDate": "2024-05-21T12:12:00",
+    "endDate": "2024-05-25T14:14:00",
+    "hallId": 3,
     "employees": [],
     "active": true
   }

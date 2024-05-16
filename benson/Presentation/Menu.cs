@@ -137,6 +137,20 @@ static class Menu
                 ExportData.Start();
                 break;
             case ContentManagerOption.Exit:
+                Console.WriteLine("Bye! Come back soon.");
+                Thread.Sleep(2000);
+                try
+                {
+                    string filePath = "./../benson/DataSources/IsLoggedIn.txt";
+                    if (File.Exists(filePath))
+                    {
+                        File.Delete(filePath);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error deleting file: {ex.Message}");
+                }
                 Environment.Exit(0);
                 break;
             default:
@@ -168,10 +182,24 @@ static class Menu
                 ticketer.loadMytickets(Utils.LoggedInUser.Id);
                 Console.WriteLine("Press Enter to go back.");
                 // Wait for the user to press enter
-                while (Console.ReadKey().Key != ConsoleKey.Enter) {Console.Clear();}
+                while (Console.ReadKey().Key != ConsoleKey.Enter) { Console.Clear(); }
                 ShowUserDefaultMenu();
                 break;
             case UserOption.Exit:
+                Console.WriteLine("Bye! Come back soon.");
+                Thread.Sleep(2000);
+                try
+                {
+                    string filePath = "./../benson/DataSources/IsLoggedIn.txt";
+                    if (File.Exists(filePath))
+                    {
+                        File.Delete(filePath);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error deleting file: {ex.Message}");
+                }
                 Environment.Exit(0);
                 break;
             default:
@@ -190,6 +218,21 @@ static class Menu
                 UserRegister.Start();
                 break;
             case MenuOption.Exit:
+                Console.WriteLine("Bye! Come back soon.");
+                Thread.Sleep(2000);
+                try
+                {
+                    string filePath = "./../benson/DataSources/IsLoggedIn.txt";
+                    if (File.Exists(filePath))
+                    {
+                        File.Delete(filePath);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error deleting file: {ex.Message}");
+                }
+
                 Environment.Exit(0);
                 break;
             default:
