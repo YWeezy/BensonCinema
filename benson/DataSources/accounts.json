@@ -246,5 +246,13 @@
     "Password": "tpy/AtV1Rymif8ujBYdWsQ==",
     "Role": 2,
     "Tickets": []
+  },
+  {
+    "Id": "4c90dd30-2252-4150-a100-9dbaf0b6ca59",
+    "EmailAddress": "user@.com",
+    "FullName": "user",
+    "Password": "juDG9k5/alZQ95ZFyPteDw==",
+    "Role": 0,
+    "Tickets": []
   }
 ]

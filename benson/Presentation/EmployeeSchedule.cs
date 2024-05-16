@@ -429,7 +429,7 @@ public class EmployeeSchedule
 
     }
 
-    static bool IsValidDate(string inputdate)
+    public static bool IsValidDate(string inputdate)
     {
         if (DateTime.TryParseExact(inputdate, "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime parsedDate))
         {

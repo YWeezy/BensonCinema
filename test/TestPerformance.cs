@@ -4,16 +4,8 @@ namespace test;
 [TestClass]
 public class TestPerformance
 {
-
-    public static string performancePath;
-    public static string hallPath;
-
-    [AssemblyInitialize]
-    public static void Initialize(TestContext context)
-    {
-        performancePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "../../../TestDataSources/performances.json");
-        hallPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "../../../TestDataSources/halls.json");
-    }
+    string performancePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "../../../TestDataSources/performances.json");
+    string hallPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "../../../TestDataSources/halls.json");
 
     [TestMethod]
     public void TestGetPerformances()
