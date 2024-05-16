@@ -416,7 +416,7 @@ static class ManagePerformance
         int index = 0;
         foreach (PerformanceModel performance in logic.GetPerformances())
         {
-            Console.Write(index == selectedPerformanceIndex ? $"{Color.Green} >>" : "   ");
+            Console.Write(index == selectedPerformanceIndex ? $"{Color.Green} >>" : $"{Color.Reset}   ");
             string actstr = performance.active ? "Active" : "Inactive";
 
             Console.WriteLine("   {0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId), actstr);
