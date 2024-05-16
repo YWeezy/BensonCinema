@@ -170,6 +170,7 @@ public static class ManagePerformance
                     }
                     else
                     {
+                        Console.Clear();
                         Console.WriteLine($"{Color.Red}A Hall with ID {hallId} does not exist.{Color.Reset}");
                     }
                 }
