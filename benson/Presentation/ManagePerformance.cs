@@ -58,6 +58,8 @@ public static class ManagePerformance
         List<Dictionary<string, object>> listOfDicts = new();
         List<Dictionary<string, object>> innerListOfDicts = new();
         string description = null;
+        string performanceStart;
+        string performanceEnd;
         bool performanceStartValid = false;
         bool performanceEndValid = false;
         int hallId = 0;
@@ -88,15 +90,20 @@ public static class ManagePerformance
             if (string.IsNullOrEmpty(description))
             {
                 Console.WriteLine($"{Color.Red}Invalid input. Please provide a Performance description.{Color.Reset}");
+                Thread.Sleep(2000);
             }
         }
 
+        // starttime
         Console.Clear();
         while (!performanceStartValid)
         {
             Console.WriteLine($"{Color.Yellow}Select the performance start date and time:{Color.Reset}");
-
-            string performanceStart = DateSelector.GetDate(10, true) + " " + DateSelector.GetTime(true);
+            if (editing) {
+                performanceStart = DateSelector.GetDate(10, true, selectedPerformance.startDate.Date) + " " + DateSelector.GetTime(true, selectedPerformance.startDate);
+            } else {
+                performanceStart = DateSelector.GetDate(10, true) + " " + DateSelector.GetTime(true);
+            }
 
 
 
@@ -111,12 +118,18 @@ public static class ManagePerformance
             }
         }
 
+
+        // endtime
         Console.Clear();
         while (!performanceEndValid)
         {
             Console.WriteLine($"{Color.Yellow}Select the performance end date and time:{Color.Reset}");
 
-            string performanceEnd = DateSelector.GetDate(10, false) + " " + DateSelector.GetTime(false);
+            if (editing) {
+                performanceEnd = DateSelector.GetDate(10, false, selectedPerformance.endDate.Date) + " " + DateSelector.GetTime(false, selectedPerformance.endDate);
+            } else {
+                performanceEnd = DateSelector.GetDate(10, false) + " " + DateSelector.GetTime(false);
+            }
 
             if (DateTime.TryParseExact(performanceEnd, "dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out performanceEndDT))
             {
@@ -270,6 +283,7 @@ public static class ManagePerformance
             HallLogic Hlogic = new HallLogic();
             Console.Clear();
             Console.WriteLine($"{Color.Blue}Name: {Color.Reset}{performanceName}");
+            Console.WriteLine($"{Color.Blue}Description: {Color.Reset}{description}");
             Console.WriteLine($"{Color.Blue}Start: {Color.Reset}{performanceStartDT}");
             Console.WriteLine($"{Color.Blue}End: {Color.Reset}{performanceEndDT}");
             Console.WriteLine($"{Color.Blue}Hall: {Color.Reset}{Hlogic.GetHallNameById(hallId)}");
@@ -281,6 +295,7 @@ public static class ManagePerformance
             if (confirmation.ToLower() == "y")
             {
                 selectedPerformance.name = performanceName;
+                selectedPerformance.description = description;
                 selectedPerformance.startDate = performanceStartDT;
                 selectedPerformance.endDate = performanceEndDT;
                 selectedPerformance.hallId = hallId;
@@ -299,6 +314,7 @@ public static class ManagePerformance
         {
             Console.Clear();
             Console.WriteLine($"{Color.Blue}Name: {Color.Reset}{performanceName}");
+            Console.WriteLine($"{Color.Blue}Description: {Color.Reset}{description}");
             Console.WriteLine($"{Color.Blue}Start: {Color.Reset}{performanceStartDT}");
             Console.WriteLine($"{Color.Blue}End: {Color.Reset}{performanceEndDT}");
             Console.WriteLine($"{Color.Blue}Hall: {Color.Reset}{hallId}");

@@ -145,8 +145,21 @@ public class EmployeeSchedule
                 EmployeeMenu();
                 break;
             case 2:
-                Console.Clear();
-                Menu.Start();
+                Console.WriteLine("Bye! Come back soon.");
+                Thread.Sleep(2000);
+                try
+                {
+                    string filePath = "./../benson/DataSources/IsLoggedIn.txt";
+                    if (File.Exists(filePath))
+                    {
+                        File.Delete(filePath);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error deleting file: {ex.Message}");
+                }
+                Environment.Exit(0);
                 break;
             default:
                 break;
@@ -159,7 +172,7 @@ public class EmployeeSchedule
         Console.WriteLine($"{Color.Yellow}What do you want to do?{Color.Reset}\n");
 
         Console.WriteLine(selectedOption == 1 ? $"{Color.Green}>> View the Work Schedule{Color.Reset}" : "   View the Work Schedule");
-        Console.WriteLine(selectedOption == 2 ? $"{Color.Green}>> Back to Main Menu{Color.Reset}" : "   Back to Main Menu");
+        Console.WriteLine(selectedOption == 2 ? $"{Color.Green}>> Exit{Color.Reset}" : "   Exit");
     }
 
 
@@ -170,25 +183,25 @@ public class EmployeeSchedule
             string json = File.ReadAllText(path);
             List<ScheduleModel> schedules = JsonSerializer.Deserialize<List<ScheduleModel>>(json);
 
-            Console.WriteLine($"Schedules for this week:\n{Color.Blue}");
-            Console.WriteLine($" Worker        Date        Total Hours   Start Time  End Time  Active{Color.Reset}");
-            Console.WriteLine("---------------------------------------------------------------------");
+            Console.WriteLine($"{Color.Yellow}Schedules for this week:\n{Color.Blue}");
+            Console.WriteLine($" Worker            Date        Total Hours   Start Time  End Time  Active{Color.Reset}");
+            Console.WriteLine("-------------------------------------------------------------------------");
 
             foreach (var schedule in schedules)
             {
                 string actstr = schedule.Active ? "Active" : "Inactive";
-                Console.WriteLine($" {schedule.Worker,-12}  {schedule.Date,-9}  {schedule.TotalHours,-12}  {schedule.StartTime,-10}  {schedule.EndTime,-9} {actstr,-12}");
+                Console.WriteLine($" {schedule.Worker,-16}  {schedule.Date,-9}  {schedule.TotalHours,-12}  {schedule.StartTime,-10}  {schedule.EndTime,-9} {actstr,-12}");
             }
         }
 
 
         catch (FileNotFoundException)
         {
-            Console.WriteLine("Json not found.");
+            Console.WriteLine($"{Color.Red}Json not found.{Color.Reset}");
         }
         catch (Exception e)
         {
-            Console.WriteLine($"An error occured: {e.Message}");
+            Console.WriteLine($"{Color.Red}An error occured: {e.Message}{Color.Reset}");
         }
     }
 
@@ -198,7 +211,7 @@ public class EmployeeSchedule
     {
         bool isStartTimeValid, isEndTimeValid;
 
-        Console.WriteLine("Please choose the employee you want to add a schedule for:");
+        Console.WriteLine($"{Color.Yellow}Please choose the employee you want to add a schedule for:{Color.Reset}");
         string selectedEmployee = SelectEmployee();
         if (selectedEmployee == null)
             return;
@@ -206,7 +219,7 @@ public class EmployeeSchedule
         string date;
         do
         {
-            Console.WriteLine($"{Color.Reset}Enter date: (DD-MM-YYYY for the schedule)");
+            Console.WriteLine($"{Color.Yellow}Enter date for the schedule{Color.Reset}");
             date = DateSelector.GetDate(10, true);
             IsValidDate(date);
         } while (!IsValidDate(date));
@@ -217,10 +230,10 @@ public class EmployeeSchedule
 
 
 
-            Console.WriteLine("Enter Start Time: (HH:MM)");
+            Console.WriteLine($"{Color.Yellow}Enter Start Time: (HH:MM){Color.Reset}");
             startTimeInput = DateSelector.GetTime(true);
 
-            Console.WriteLine("Enter End Time: (HH:MM)");
+            Console.WriteLine($"{Color.Yellow}Enter End Time: (HH:MM){Color.Reset}");
             endTimeInput = DateSelector.GetTime(false);
 
             isStartTimeValid = TimeSpan.TryParse(startTimeInput, out newStartTime);
@@ -228,24 +241,24 @@ public class EmployeeSchedule
 
             if (!isStartTimeValid)
             {
-                Console.WriteLine("Invalid Start Time format.");
+                Console.WriteLine($"{Color.Red}Invalid Start Time format.{Color.Reset}");
             }
 
             if (!isEndTimeValid)
             {
-                Console.WriteLine("Invalid End Time format");
+                Console.WriteLine($"{Color.Red}Invalid End Time format.{Color.Yellow}");
             }
             if (isStartTimeValid && isEndTimeValid)
             {
                 if (newStartTime >= newEndTime)
                 {
-                    Console.WriteLine("Start Time must be before End Time.");
+                    Console.WriteLine($"{Color.Red}Start Time must be before End Time.{Color.Yellow}");
                     isEndTimeValid = false;
                     isStartTimeValid = false;
                 }
                 else if (IsScheduleOverlap(selectedEmployee, date, newStartTime, newEndTime))
                 {
-                    Console.WriteLine("This schedule overlaps with an existing schedule. Please choose a different time slot.");
+                    Console.WriteLine($"{Color.Red}This schedule overlaps with an existing schedule. Please choose a different time slot.{Color.Yellow}");
                     isStartTimeValid = false;
                     isEndTimeValid = false;
                 }
@@ -254,7 +267,7 @@ public class EmployeeSchedule
 
         Console.Clear();
         TimeSpan totalHours = newEndTime.Subtract(newStartTime);
-        Console.WriteLine($"Total working hours for this date: {totalHours} (HH-MM-SS)");
+        Console.WriteLine($"{Color.Blue}Total working hours for this date: {totalHours} (HH-MM-SS){Color.Reset}");
 
         PerformanceLogic logic = new PerformanceLogic();
         PerformanceModel selectedChoicePerf = ChoicePerf(logic, startTimeInput, endTimeInput, date);
@@ -272,7 +285,7 @@ public class EmployeeSchedule
 
         string scheduleID = Guid.NewGuid().ToString();
 
-        Console.WriteLine("The data you just entered has been saved.");
+        Console.WriteLine($"{Color.Green}The data you just entered has been saved.{Color.Reset}");
 
         ScheduleModel newSchedule = new ScheduleModel(scheduleID, selectedEmployee, date, totalHours.ToString(), startTimeInput, endTimeInput, selectedChoicePerf, true);
 
@@ -283,7 +296,7 @@ public class EmployeeSchedule
     static void RemoveSchedule(string path)
     {
 
-        Console.WriteLine($"{Color.Reset}Please choose the employee you want to remove a schedule for:");
+        Console.WriteLine($"{Color.Yellow}Please choose the employee you want to remove a schedule for:{Color.Reset}");
         string selectedEmployee = SelectEmployee();
         if (selectedEmployee == null)
             return;
@@ -293,7 +306,7 @@ public class EmployeeSchedule
 
         if (schedules.Count == 0)
         {
-            Console.WriteLine($"{Color.Red}No existing schedules found for {selectedEmployee}");
+            Console.WriteLine($"{Color.Red}No existing schedules found for {selectedEmployee}{Color.Reset}");
             return;
         }
 
@@ -303,13 +316,13 @@ public class EmployeeSchedule
         do
         {
             Console.Clear();
-            Console.WriteLine($"Select a schedule to remove for {selectedEmployee}.");
+            Console.WriteLine($"{Color.Yellow}Select a schedule to remove for {selectedEmployee}.{Color.Reset}");
             for (int i = 0; i < schedules.Count; i++)
             {
                 if (i == selectedScheduleIndex)
-                    Console.WriteLine($">> {i + 1}. Date: {schedules[i].Date}  -  Starttime:{schedules[i].StartTime} to Endtime:{schedules[i].EndTime}");
+                    Console.WriteLine($"{Color.Green}>> {i + 1}. Date: {schedules[i].Date}  -  {schedules[i].StartTime} to {schedules[i].EndTime}{Color.Reset}");
                 else
-                    Console.WriteLine($"   {i + 1}. Date: {schedules[i].Date}  -  Starttime:{schedules[i].StartTime} to Endtime:{schedules[i].EndTime}");
+                    Console.WriteLine($"   {i + 1}. Date: {schedules[i].Date}  -  {schedules[i].StartTime} to {schedules[i].EndTime}");
             }
 
             var key = Console.ReadKey(true).Key;
@@ -337,7 +350,7 @@ public class EmployeeSchedule
     }
     static void EditSchedule(string path)
     {
-        Console.WriteLine($"{Color.Reset}Please choose the employee whose schedule you want to edit:");
+        Console.WriteLine($"{Color.Yellow}Please choose the employee whose schedule you want to edit:{Color.Reset}");
         string selectedEmployee = SelectEmployee();
         if (selectedEmployee == null)
             return;
@@ -347,7 +360,7 @@ public class EmployeeSchedule
 
         if (schedules.Count == 0)
         {
-            Console.WriteLine($"{Color.Red}No existing schedules found for {selectedEmployee}");
+            Console.WriteLine($"{Color.Red}No existing schedules found for {selectedEmployee}{Color.Reset}");
             return;
         }
 
@@ -357,13 +370,13 @@ public class EmployeeSchedule
         do
         {
             Console.Clear();
-            Console.WriteLine($"Select a schedule to edit for {selectedEmployee}.");
+            Console.WriteLine($"{Color.Yellow}Select a schedule to edit for {selectedEmployee}.{Color.Reset}");
             for (int i = 0; i < schedules.Count; i++)
             {
                 if (i == selectedScheduleIndex)
-                    Console.WriteLine($"{Color.Green}>> {i + 1}. Date: {schedules[i].Date}  -  Starttime:{schedules[i].StartTime} to Endtime:{schedules[i].EndTime}{Color.Reset}");
+                    Console.WriteLine($"{Color.Green}>> {i + 1}. Date: {schedules[i].Date}  -  {schedules[i].StartTime} to {schedules[i].EndTime}{Color.Reset}");
                 else
-                    Console.WriteLine($"{Color.Reset}   {i + 1}. Date: {schedules[i].Date}  -  Starttime:{schedules[i].StartTime} to Endtime:{schedules[i].EndTime}");
+                    Console.WriteLine($"{Color.Reset}   {i + 1}. Date: {schedules[i].Date}  -  {schedules[i].StartTime} to {schedules[i].EndTime}");
             }
 
             var key = Console.ReadKey(true).Key;
@@ -387,36 +400,38 @@ public class EmployeeSchedule
 
         ScheduleModel selectedSchedule = schedules[selectedScheduleIndex];
 
-        Console.WriteLine("Enter new details");
+
+                Console.WriteLine($"{Color.Yellow}Enter new details.{Color.Reset}");
+
 
         string date;
         do
         {
-            Console.WriteLine("Enter date: (DD-MM-YYYY for the schedule(within 1-2 weeks from today))");
-            Thread.Sleep(2000);
-
-            date = ConsoleInput.EditLine(selectedSchedule.Date);
+            Console.WriteLine($"{Color.Yellow}Enter date:{Color.Reset}");
+            date = DateSelector.GetDate(10, true, DateTime.Parse(selectedSchedule.Date).Date);
             IsValidDate(date);
         } while (!IsValidDate(date));
+        TimeSpan newEndTime, newStartTime;
+        string startTimeInput, endTimeInput;
 
-        Console.WriteLine("Enter start time: (HH:MM)");
-        string startTime = ConsoleInput.EditLine(selectedSchedule.StartTime);
+        Console.WriteLine($"{Color.Yellow}Enter Start Time: (HH:MM){Color.Reset}");
+        startTimeInput = DateSelector.GetTime(true, DateTime.Parse(selectedSchedule.Date).Date);
 
-        Console.WriteLine("Enter end time: (HH:MM)");
-        string endTime = ConsoleInput.EditLine(selectedSchedule.EndTime);
+        Console.WriteLine($"{Color.Yellow}Enter End Time: (HH:MM){Color.Reset}");
+        endTimeInput = DateSelector.GetTime(false, DateTime.Parse(selectedSchedule.Date).Date);
 
-        TimeSpan totalHours = TimeSpan.Parse(endTime).Subtract(TimeSpan.Parse(startTime));
-        Console.WriteLine($"Total working hours for this date: {totalHours} (HH-MM-SS)");
+        TimeSpan totalHours = TimeSpan.Parse(endTimeInput).Subtract(TimeSpan.Parse(startTimeInput));
+        Console.WriteLine($"{Color.Blue}Total working hours for this date: {totalHours} (HH-MM-SS){Color.Reset}");
 
         selectedSchedule.Date = date;
-        selectedSchedule.StartTime = startTime;
-        selectedSchedule.EndTime = endTime;
+        selectedSchedule.StartTime = startTimeInput;
+        selectedSchedule.EndTime = endTimeInput;
         selectedSchedule.TotalHours = totalHours.ToString();
 
         string IsActive;
         while (true)
         {
-            Console.WriteLine("Is the schedule active? (Y/N)");
+            Console.WriteLine($"{Color.Yellow}Is the schedule active? (Y/N){Color.Reset}");
             IsActive = Console.ReadLine().Trim().ToUpper();
             if (IsActive == "Y" || IsActive == "N")
             {
@@ -464,7 +479,7 @@ public class EmployeeSchedule
         }
         catch (FileNotFoundException)
         {
-            Console.WriteLine("File not found.");
+            Console.WriteLine($"{Color.Red}File not found.{Color.Reset}");
             return null;
         }
     }
@@ -473,7 +488,7 @@ public class EmployeeSchedule
     {
         Console.Clear();
         int index = 0;
-        Console.WriteLine($"{Color.Reset}Select which performance to add to the schedule.");
+        Console.WriteLine($"{Color.Yellow}Select which performance to add to the schedule.{Color.Reset}");
         foreach (PerformanceModel performance in scheduledPerf)
         {
             if (index == selectedPerformanceIndex)

@@ -166,16 +166,6 @@ static class Menu
         {
             case UserOption.ViewPerformances:
                 ViewPerformances.Start();
-                Console.WriteLine("Press Enter to go back.");
-                // Wait for the user to press enter
-                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                ShowUserDefaultMenu();
-                break;
-            case UserOption.Reserve:
-                reserver.ReserveTicket();
-                Console.WriteLine("Press Enter to go back.");
-                // Wait for the user to press enter
-                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
                 ShowUserDefaultMenu();
                 break;
             case UserOption.Reservations:
@@ -292,7 +282,6 @@ static class Menu
     enum UserOption
     {
         ViewPerformances = 1,
-        Reserve,
         Reservations,
         Exit
     }

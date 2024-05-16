@@ -1,4 +1,6 @@
 id,name,startDate,endDate,hallId,active
-1,Demo A,3-4-2024 20:00:00,3-4-2024 21:00:00,1,False
-2,Demo B,5-5-2024 22:00:00,5-5-2024 23:00:00,2,True
-3,Demo C,7-5-2024 22:00:00,7-5-2024 23:00:00,3,True
+1,Benson's Adventure Quest,5-6-2024 14:00:00,5-6-2024 17:00:00,1,True
+2,Benson's Comedy Carnival,16-6-2024 20:15:00,16-6-2024 23:15:00,2,True
+3,Benson's Mystery Manor,8-6-2024 19:00:00,8-6-2024 22:00:00,3,True
+4,Benson's Timeless Tales,20-6-2024 15:00:00,20-6-2024 18:00:00,1,True
+5,test Benson,18-5-2024 23:00:00,19-5-2024 23:45:00,4,True
