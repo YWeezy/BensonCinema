@@ -336,7 +336,6 @@ public static class ManagePerformance
             {
                 Console.Clear();
                 Console.WriteLine($"{Color.Red}The Performance was not added.{Color.Reset}\n");
->>>>>>> Test
             }
         }
     }
