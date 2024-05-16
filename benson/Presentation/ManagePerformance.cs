@@ -53,7 +53,7 @@ public static class ManagePerformance
             selectedPerformance = logic.GetPerformances()[selectedPerformanceIndex];
             active = selectedPerformance.active;
         }
-
+        HallLogic hallLogic = new HallLogic();
         string performanceName = null;
         List<Dictionary<string, object>> listOfDicts = new();
         List<Dictionary<string, object>> innerListOfDicts = new();
@@ -154,7 +154,7 @@ public static class ManagePerformance
 
                 while (!performanceHallValid)
                 {
-                    HallLogic hallLogic = new HallLogic();
+                    
                     hallLogic.DisplayTable(true);
 
                     Console.WriteLine($"{Color.Yellow}In which hall do you want the Performance to take place? Enter the Hall ID:{Color.Reset}");
@@ -180,67 +180,81 @@ public static class ManagePerformance
             }
         }
         //ticketTypes
-        Console.Clear();
-        bool donett = false;
-        while(donett == false){
-            int Amount;
-            string Name;
-            double Price = 0.0;
-            Console.WriteLine($"{Color.Yellow}Add a ticket type with amount of tickets, the name of the ticket and the price.{Color.Reset}");
-            while (true){
-                Console.WriteLine("Amount:");
-                string readAmmount = Console.ReadLine();
-                if(int.TryParse(readAmmount, out int AmountV) && AmountV > 0){
-                    Amount = AmountV;
-                    break;
-                    
-                }else{
-                    Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Please provide a valid Number.");
-                }
-            }
-            while (true){
-                Console.WriteLine("Name:");
-                string readName = Console.ReadLine();
-                if(readName.Length < 35){
-                    Name = readName;
-                    break;
-                    
-                }else{
-                    Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Character of name must be below 35.");
-                }
-            }
-            bool PriceIsValid = false;
-            while (!PriceIsValid){
-                Console.WriteLine("Price:");
-                string readPrice = Console.ReadLine();
-                var regex = new Regex(@"^\d+\.\d{2}?$"); // ^\d+(\.|\,)\d{2}?$ use this incase your dec separator can be comma or decimal.
-                if (regex.IsMatch(readPrice)){
-                    Price = Convert.ToDouble(readPrice);
-                    PriceIsValid = true;
-                    
-                }else{
-                    Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Please provide a price with 2 Decimals");
-                }
-            }
-            Dictionary<string, object> ticketTypeAdd = new Dictionary<string, object>();
-            ticketTypeAdd["amount"] = Amount;
-            ticketTypeAdd["name"] = Name;
-            ticketTypeAdd["price"] = Price;
-            innerListOfDicts.Add(ticketTypeAdd);    
-
-        
-            Console.WriteLine($"{Color.Yellow}Would you like to add another ticket type? (Y/N){Color.Reset}");
-            string inputadd = Console.ReadLine();
-            if (inputadd.ToLower() != "y"){
-                donett = true;
-            }
-            Console.Clear();
-
+        Dictionary<string, object> dictTickets = new Dictionary<string, object>();
+        if (!editing){
             
+            Console.Clear();
+            bool donett = false;
+            int maxSeats = hallLogic.GetSeatsCount(hallId);
+            while(donett == false){
+                int Amount;
+                string Name;
+                double Price = 0.0;
+
+                Console.WriteLine($"{Color.Yellow}Add a ticket type with amount of tickets, the name of the ticket and the price.{Color.Reset}");
+                
+                while (true){
+                    
+                    
+                    Console.WriteLine($"Amount: (Max {maxSeats})");
+                    string readAmmount = Console.ReadLine();
+                    
+                    if(int.TryParse(readAmmount, out int AmountV) && AmountV > 0 && AmountV <= maxSeats){
+                        maxSeats -= AmountV;
+                        Amount = AmountV;
+                        break;
+                        
+                    }else{
+                        Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Please provide a valid Number.");
+                    }
+                }
+                while (true){
+                    Console.WriteLine("Name:");
+                    string readName = Console.ReadLine();
+                    if(readName.Length < 35){
+                        Name = readName;
+                        break;
+                        
+                    }else{
+                        Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Character of name must be below 35.");
+                    }
+                }
+                bool PriceIsValid = false;
+                while (!PriceIsValid){
+                    Console.WriteLine("Price:");
+                    string readPrice = Console.ReadLine();
+                    var regex = new Regex(@"^\d+\.\d{2}?$"); // ^\d+(\.|\,)\d{2}?$ use this incase your dec separator can be comma or decimal.
+                    if (regex.IsMatch(readPrice)){
+                        Price = Convert.ToDouble(readPrice);
+                        PriceIsValid = true;
+                        
+                    }else{
+                        Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Please provide a price with 2 Decimals");
+                    }
+                }
+                Dictionary<string, object> ticketTypeAdd = new Dictionary<string, object>();
+                ticketTypeAdd["amount"] = Amount;
+                ticketTypeAdd["name"] = Name;
+                ticketTypeAdd["price"] = Price;
+                innerListOfDicts.Add(ticketTypeAdd);    
+
+                if (maxSeats == 0){
+                    donett = true;
+                }else{
+                    Console.WriteLine($"{Color.Yellow}Would you like to add another ticket type? (Y/N){Color.Reset}");
+                    string inputadd = Console.ReadLine();
+                    if (inputadd.ToLower() != "y"){
+                        donett = true;
+                    }
+                    Console.Clear();
+                }
+                
+
+                
+            }
+            
+            dictTickets["ticketTypes"] = innerListOfDicts;
         }
-        Dictionary<string, object> dict2 = new Dictionary<string, object>();
-        dict2["ticketTypes"] = innerListOfDicts;
-        
 
         if (editing == true)
         {
@@ -296,7 +310,7 @@ public static class ManagePerformance
                     int newId = logic.GetNewId();
                     HallLogic hlogic = new HallLogic();
                     bool[,] emptyseats = hlogic.GetSeatsOfHall(hallId);
-                    Dictionary<string, object> dict1 = new Dictionary<string, object>();
+                    Dictionary<string, object> dictSeats = new Dictionary<string, object>();
                     
                     
 
@@ -309,9 +323,9 @@ public static class ManagePerformance
                             emptyseats[row, col] = false;
                         }
                     }
-                    dict1["seats"] = ConvertBoolArrayToIntArray(emptyseats);
-                    listOfDicts.Add(dict1);
-                    listOfDicts.Add(dict2);
+                    dictSeats["seats"] = ConvertBoolArrayToIntArray(emptyseats);
+                    listOfDicts.Add(dictSeats);
+                    listOfDicts.Add(dictTickets);
                     PerformanceModel performance = new PerformanceModel(newId, performanceName, description, performanceStartDT, performanceEndDT, hallId, listOfDicts, true);
                     logic.UpdateList(performance);
                     Console.Clear();
