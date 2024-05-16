@@ -12,6 +12,7 @@ public class TestPerformance
     {
         // Arrange
         PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
+        PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
         
         // Act
         List<PerformanceModel> performances = performanceLogic.GetPerformances();
@@ -24,6 +25,7 @@ public class TestPerformance
     public void TestGetNewId()
     {
         // Arrange
+        PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
         PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
         
         // Act
@@ -38,8 +40,12 @@ public class TestPerformance
     {
         // Arrange
         PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
+        PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
         int newId = performanceLogic.GetNewId();
 
+        List<Dictionary<string, object>> listOfDicts = new();
+
+        PerformanceModel performanceToAdd = new PerformanceModel(newId, "Demo A", "Test description", DateTime.Now.AddDays(1), DateTime.Now.AddDays(2), 1, listOfDicts, true);
         List<Dictionary<string, object>> listOfDicts = new();
 
         PerformanceModel performanceToAdd = new PerformanceModel(newId, "Demo A", "Test description", DateTime.Now.AddDays(1), DateTime.Now.AddDays(2), 1, listOfDicts, true);
@@ -56,6 +62,7 @@ public class TestPerformance
     {
         // Arrange
         PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
+        PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
         
         // Act
         int totalPerformances = performanceLogic.GetTotalPerformances();
@@ -68,6 +75,7 @@ public class TestPerformance
     public void TestGetPerfById()
     {
         // Arrange
+        PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
         PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
         int id = 1;
         
@@ -82,6 +90,7 @@ public class TestPerformance
     public void TestDeletePerformance()
     {
         // Arrange
+        PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
         PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
         int idToDelete = 1; // ID of the performance to delete
         
