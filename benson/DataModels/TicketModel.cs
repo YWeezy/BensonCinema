@@ -21,6 +21,9 @@ public class TicketModel
     [JsonPropertyName("Seat")]
     public string Seat { get; set; }
 
+    [JsonPropertyName("Type")]
+    public string Type { get; set; }
+
     [JsonPropertyName("Price")]
     public double Price { get; set; }
 
@@ -29,9 +32,10 @@ public class TicketModel
 
     public TicketModel(){}
 
-    public TicketModel(string seat, string title,string location,string date,string time, int id, double price)
+    public TicketModel(string seat, string type, string title,string location,string date,string time, int id, double price)
     {
         Seat = seat;
+        Type = type;
         Title = title;
         Location = location;
         Date = date;

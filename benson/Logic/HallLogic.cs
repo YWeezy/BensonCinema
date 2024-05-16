@@ -5,14 +5,16 @@ using System.Text.Json;
 using Microsoft.VisualBasic;
 
 
-class HallLogic
+public class HallLogic
 {
     private List<HallModel> _halls { get; }
-    string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/halls.json"));
+    public string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/halls.json"));
 
-    public HallLogic()
+    public HallLogic(string? newPath = null)
     {
-
+        if (newPath != null) {
+            path = newPath;
+        } 
         _halls = DataAccess<HallModel>.LoadAll(path);
     }
 
@@ -25,6 +27,21 @@ class HallLogic
     public int GetTotalHalls()
     {
         return _halls.Count;
+    }
+
+    public bool[,] GetSeatsOfHall(int id){
+        HallModel? hall = _halls.FirstOrDefault(h => h.hallID == id);
+        switch (hall.type.ToLower()){
+            case "small":
+                return new bool[3, 10];
+            case "medium":
+                return new bool[5, 10];
+            case "large":
+                return new bool[8, 10];
+            default:
+             return null;
+        }
+
     }
 
     public List<HallModel> GetList()
