@@ -125,7 +125,14 @@ public class HallLogic
 
     public int GetNewId()
     {
-        int currentId = _halls.Last().hallID;
+        int currentId = 0;
+        foreach (var hall in _halls)
+        {
+            if (hall.hallID > currentId)
+            {
+                currentId = hall.hallID;
+            }
+        }
         return currentId + 1;
     }
 
@@ -143,8 +150,15 @@ public class HallLogic
 
     public string getHallNamebyId(int id)
     {
-        HallModel hall = _halls.Find(p => p.hallID == id);
-        return hall.hallName;
+        try
+        {
+            HallModel hall = _halls.Find(p => p.hallID == id);
+            return hall.hallName;
+        }
+        catch (System.Exception)
+        {
+            return "";
+        }
     }
 
 }

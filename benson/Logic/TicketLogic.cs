@@ -13,9 +13,12 @@ public class TicketLogic
 
     private List<TicketModel> _tickets;
     string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/tickets.json"));
-    public TicketLogic()
-    {
 
+    public TicketLogic(string? newPath = null)
+    {
+        if (newPath != null) {
+            path = newPath;
+        } 
         _tickets = DataAccess<TicketModel>.LoadAll(path);
     }
 
@@ -47,6 +50,10 @@ public class TicketLogic
         return;
     }
 
+    public List<TicketModel> GetList()
+    {
+        return _tickets;
+    }
 
     public void GenerateTicket(int id, string seat)
     {

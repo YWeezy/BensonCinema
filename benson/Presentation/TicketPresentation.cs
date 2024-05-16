@@ -22,7 +22,6 @@ public class TicketPresentation
             {
                 Console.Clear();
                 Console.WriteLine($"Selected Performance:");
-                ticketLogic.PrintPerformanceById(performanceId);
                 Console.WriteLine("Enter seat:");
 
                 string seat = Console.ReadLine();
