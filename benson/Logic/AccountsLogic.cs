@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Threading;
 public class AccountsLogic
 {
     private List<AccountModel> _accounts;
@@ -20,6 +20,7 @@ public class AccountsLogic
         if (index != -1)
         {
             Console.WriteLine("An account with that email address already exists. Please try again.");
+            Thread.Sleep(2000);
             UserRegister.Start();
             return false;
         }
