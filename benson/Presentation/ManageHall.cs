@@ -6,8 +6,9 @@ static class ManageHall
     //This shows the menu. You can call back to this method to show the menu again
     //after another presentation method is completed.
     //You could edit this to show different menus depending on the user's role
-    static public void Start() {
-        
+    static public void Start()
+    {
+
         HallLogic logic = new HallLogic();
         Console.Clear();
         bool loop = true;
@@ -15,7 +16,7 @@ static class ManageHall
         int totalOptions = 4; // Total number of options
         while (loop)
         {
-            
+
             DisplayMenu(selectedOption);
 
             var key = Console.ReadKey(true).Key;
@@ -38,10 +39,10 @@ static class ManageHall
 
             // Break the loop if user selects an action
             if (key == ConsoleKey.Enter)
-                
+
                 break;
         }
-        
+
     }
 
     static public void Update(HallLogic logic, int selectedHallIndex = -1)
@@ -63,13 +64,13 @@ static class ManageHall
         // name
         while (string.IsNullOrEmpty(hallName))
         {
-            Console.WriteLine("\nHall name: ");
+            Console.WriteLine($"{Color.Yellow}Hall name:{Color.Reset}");
             hallName = editing ? ConsoleInput.EditLine(selectedHall.hallName) : Console.ReadLine();
 
 
             if (string.IsNullOrEmpty(hallName))
             {
-                Console.WriteLine("\u001b[31mInvalid input. Please provide a Hall name.\u001b[0m");
+                Console.WriteLine($"{Color.Red}Invalid input. Please provide a Hall name.{Color.Reset}");
             }
         }
 
@@ -77,18 +78,22 @@ static class ManageHall
         // type
         while (true)
         {
-            Console.WriteLine("\nHall type: (Small/Medium/Large)");
+            Console.WriteLine($"{Color.Yellow}Hall type: (Small/Medium/Large){Color.Reset}");
             type = editing ? ConsoleInput.EditLine(selectedHall.type) : Console.ReadLine();
 
 
-            if (type.ToLower() == "small" || type.ToLower() == "medium" || type.ToLower() == "large") {
+            if (type.ToLower() == "small" || type.ToLower() == "medium" || type.ToLower() == "large")
+            {
+                type = char.ToUpper(type[0]) + type.Substring(1); // first letter uppercase
                 break;
-            } else {
-                Console.WriteLine("\u001b[31mInvalid input. Please provide a correct Hall type.\u001b[0m");
+            }
+            else
+            {
+                Console.WriteLine($"{Color.Red}Invalid input. Please provide a correct Hall type.{Color.Reset}");
             }
         }
 
-        
+
 
         if (editing == true)
         {
@@ -97,11 +102,11 @@ static class ManageHall
             // active
             if (selectedHall.active == false)
             {
-                Console.WriteLine($"\nCurrent active state: \u001b[31mInactive\u001b[0m\n\nDo you want to switch to \u001b[31mActive\u001b[0m? (Y/N)");
+                Console.WriteLine($"Current active state: {Color.Red}Inactive{Color.Reset}\n\n{Color.Yellow}Do you want to switch to {Color.Red}Active{Color.Yellow}? (Y/N){Color.Reset}");
             }
             else
             {
-                Console.WriteLine($"\nCurrent active state: \u001b[32mActive\u001b[0m\n\nDo you want to switch to \u001b[31mInactive\u001b[0m? (Y/N)");
+                Console.WriteLine($"Current active state: {Color.Green}Active{Color.Reset}\n\n{Color.Yellow}Do you want to switch to {Color.Red}Inactive{Color.Yellow}? (Y/N){Color.Reset}");
             }
 
             if (Console.ReadLine().ToLower() == "y")
@@ -110,11 +115,11 @@ static class ManageHall
             }
 
             Console.Clear();
-            Console.WriteLine($"\u001b[34mName: {hallName}");
-            Console.WriteLine($"\u001b[34mType: {type}");
-            Console.WriteLine($"Active: {active}\u001b[0m");
+            Console.WriteLine($"{Color.Blue}Name: {hallName}");
+            Console.WriteLine($"{Color.Blue}Type: {type}");
+            Console.WriteLine($"Active: {active}{Color.Reset}");
 
-            Console.WriteLine("\nAre you sure you want to make these changes? (Y/N)");
+            Console.WriteLine($"\n{Color.Yellow}Are you sure you want to make these changes? (Y/N){Color.Reset}");
             string confirmation = Console.ReadLine();
 
             switch (confirmation.ToLower())
@@ -125,11 +130,11 @@ static class ManageHall
                     selectedHall.active = active;
                     logic.UpdateList(selectedHall);
                     Console.Clear();
-                    Console.WriteLine("\u001b[32m✅The Hall was successfully edited.\u001b[0m\n");
+                    Console.WriteLine($"{Color.Green}The Hall was successfully edited.{Color.Reset}\n");
                     break;
                 default:
                     Console.Clear();
-                    Console.WriteLine("\u001b[31mThe Hall was not edited.\u001b[0m\n");
+                    Console.WriteLine($"{Color.Red}The Hall was not edited.{Color.Reset}\n");
                     break;
             }
 
@@ -138,10 +143,10 @@ static class ManageHall
         {
 
             Console.Clear();
-            Console.WriteLine($"\u001b[34mName: {hallName}");
-            Console.WriteLine($"\u001b[34mType: {type}");
+            Console.WriteLine($"{Color.Blue}Name: {hallName}");
+            Console.WriteLine($"{Color.Blue}Type: {type}");
 
-            Console.WriteLine("\n\u001b[32mAre you sure you want to add this Hall?\u001b[0m (Y/N)");
+            Console.WriteLine($"\n{Color.Yellow}Are you sure you want to add this Hall? (Y/N){Color.Reset}");
             string confirmation = Console.ReadLine();
 
             switch (confirmation.ToLower())
@@ -151,26 +156,27 @@ static class ManageHall
                     HallModel hall = new HallModel(newId, hallName, type, true);
                     logic.UpdateList(hall);
                     Console.Clear();
-                    Console.WriteLine("\u001b[32m✅The Hall was succesfully added.\u001b[0m\n");
+                    Console.WriteLine($"{Color.Green}The Hall was succesfully added.{Color.Reset}\n");
                     break;
                 default:
                     Console.Clear();
-                    Console.WriteLine("\u001b[31mThe Hall was not added.\u001b[0m\n");
+                    Console.WriteLine($"{Color.Red}The Hall was not added.{Color.Reset}\n");
                     break;
             }
         }
     }
 
-    static public void Edit(HallLogic logic) {
+    static public void Edit(HallLogic logic)
+    {
         Console.Clear();
-        
+
         int selectedHallIndex = 0;
         int totalHalls = logic.GetTotalHalls();
-        
+
         while (true)
         {
             DisplayHalls(logic, selectedHallIndex);
-            
+
             var key = Console.ReadKey(true).Key;
 
             switch (key)
@@ -196,31 +202,33 @@ static class ManageHall
     static private void DisplayHalls(HallLogic logic, int selectedHallIndex)
     {
         Console.Clear();
-        Console.WriteLine("\u001b[32mPlease select a Hall to edit:\u001b[0m\n");
+        Console.WriteLine($"{Color.Yellow}Please select a Hall to edit:{Color.Reset}\n");
 
         Console.WriteLine("      {0,-15}{1,-10}{2,-15}", "Name", "Type", "Active");
         Console.WriteLine("      -------------------------------------");
-        
+
         int index = 0;
         foreach (HallModel hall in logic.GetList())
         {
             if (index == selectedHallIndex)
             {
-                Console.Write("\u001b[32m>> ");
+                Console.Write($"{Color.Green}>> ");
             }
             else
             {
-                Console.Write("\u001b[0m   ");
+                Console.Write($"{Color.Reset}   ");
             }
 
             string actstr;
             if (hall.active)
             {
                 actstr = "Active";
-            }else{
+            }
+            else
+            {
                 actstr = "Inactive";
             }
-            
+
             Console.WriteLine("   {0,-15}{1,-10}{2,-15}", hall.hallName, hall.type, actstr);
 
             index++;
@@ -236,16 +244,16 @@ static class ManageHall
         {
             if (logic.Delete(idToDelete))
             {
-                Console.WriteLine($"\u001b[32m✅Hall with ID {idToDelete} deleted successfully.\u001b[0m");
+                Console.WriteLine($"{Color.Green}Hall with ID {idToDelete} deleted successfully.{Color.Reset}");
             }
             else
             {
-                Console.WriteLine($"\u001b[31mHall with ID {idToDelete} not found.\u001b[0m");
+                Console.WriteLine($"{Color.Red}Hall with ID {idToDelete} not found.{Color.Reset}");
             }
         }
         else
         {
-            Console.WriteLine("\u001b[31mInvalid input.\u001b[0m Please enter a valid ID.");
+            Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Please enter a valid ID.");
         }
 
     }
@@ -254,47 +262,46 @@ static class ManageHall
     {
         List<HallModel> halls = logic.GetList();
         switch (option)
-            {
-                case 1:
-                    Console.Clear();
-                    logic.DisplayTable();
-                    Console.WriteLine("\nPress Enter to return to menu.");
-                    while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                    Start();
-                    break;
-                case 2:
-                    Console.Clear();
-                    Update(logic);
-                    Console.WriteLine("Press Enter to return to the menu.");
-                    while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                    Start();
-                    break;
-                case 3:
-                    Console.Clear();
-                    Edit(logic);
-                    Console.WriteLine("Press Enter to return to the menu.");
-                    while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                    Start();
-                    break;
-                case 4:
-                    Menu.Start();
-                    Console.WriteLine("Press Enter to return to the menu.");
-                    while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                    Start();
-                    break;
-                default:
-                    break;
-            }
+        {
+            case 1:
+                Console.Clear();
+                logic.DisplayTable();
+                Console.WriteLine("\nPress Enter to return to menu.");
+                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                Start();
+                break;
+            case 2:
+                Console.Clear();
+                Update(logic);
+                Console.WriteLine("Press Enter to return to the menu.");
+                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                Start();
+                break;
+            case 3:
+                Console.Clear();
+                Edit(logic);
+                Console.WriteLine("Press Enter to return to the menu.");
+                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                Start();
+                break;
+            case 4:
+                Menu.Start();
+                Console.WriteLine("Press Enter to return to the menu.");
+                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                Start();
+                break;
+            default:
+                break;
+        }
     }
 
     static private void DisplayMenu(int selectedOption)
     {
-        string color = "\u001b[32m";
-        Console.WriteLine("What do you want to do?\n");
+        Console.WriteLine($"{Color.Yellow}What do you want to do?{Color.Reset}\n");
 
-        Console.WriteLine(selectedOption == 1 ? color + ">> View Halls\u001b[0m" : "   View Halls");
-        Console.WriteLine(selectedOption == 2 ? color + ">> Add a Hall\u001b[0m" : "   Add a Hall");
-        Console.WriteLine(selectedOption == 3 ? color + ">> Edit a Hall\u001b[0m" : "   Edit a Hall");
-        Console.WriteLine(selectedOption == 4 ? color + ">> Back to main menu\u001b[0m" : "   Back to main menu");
+        Console.WriteLine(selectedOption == 1 ? $"{Color.Green}>> View Halls{Color.Reset}" : "   View Halls");
+        Console.WriteLine(selectedOption == 2 ? $"{Color.Green}>> Add a Hall{Color.Reset}" : "   Add a Hall");
+        Console.WriteLine(selectedOption == 3 ? $"{Color.Green}>> Edit a Hall{Color.Reset}" : "   Edit a Hall");
+        Console.WriteLine(selectedOption == 4 ? $"{Color.Green}>> Back to main menu{Color.Reset}" : "   Back to main menu");
     }
 }

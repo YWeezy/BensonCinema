@@ -4,18 +4,25 @@ namespace test;
 public class UnitTest1
 {
     [TestMethod]
-    public void TestEncryption()
+    public void TestAccountEncryption()
     {
-        AccountModel user = new("achraf.aarab@benson.com", "Achraf Aarab", "achraf", UserRole.User);
-        Assert.AreNotEqual(user.Password, "achraf");
+        string password = "ThisIsNotSafe";
+        string hashedPassword = Utils.Encrypt(password);
+        Assert.AreNotEqual(password, hashedPassword);
     }
 
     [TestMethod]
-    public void TestAccount()
+    public void TestAccountCreation()
     {
         AccountModel user = new("achraf.aarab@benson.com", "Achraf Aarab", "achraf", UserRole.User);
         Assert.AreEqual(user.EmailAddress, "achraf.aarab@benson.com");
         Assert.AreEqual(user.FullName, "Achraf Aarab");
         Assert.AreEqual(user.Role, UserRole.User);
+    }
+    [TestMethod]
+
+    public void TestDuplicatedAccount()
+    {
+        //picked up by AccountLogic.UpdateList on Register
     }
 }

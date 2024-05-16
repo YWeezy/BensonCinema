@@ -1,0 +1,4 @@
+hallID,hallName,type,active
+1,BigBenson,Large,True
+2,Small-Kylo,Medium,True
+3,Beezz,medium,False

@@ -34,12 +34,13 @@ class HallLogic
 
     public void DisplayTable(bool showId = false)
     {
-        Console.WriteLine("Table of all Halls\n");
+        Console.WriteLine($"{Color.Yellow}Table of all Halls:{Color.Reset}\n");
 
         if (showId == false)
         {
-            Console.WriteLine("\u001b[34m{0,-15}{1,-10}{2,-15}", "Name", "Type", "Active\u001b[0m");
-            Console.WriteLine("-----------------------------------");
+            Console.Write(Color.Blue);
+            Console.WriteLine("{0,-15}{1,-10}{2,-15}", "Name", "Type", "Active");
+            Console.WriteLine($"{Color.Reset}-----------------------------------");
             foreach (HallModel hall in _halls)
             {
                 string actstr;
@@ -56,8 +57,9 @@ class HallLogic
         }
         else
         {
-            Console.WriteLine("{0, -5}{1,-15}{2,-10}{3,-15}", "\u001b[34mID   ", "Name", "Type", "Active\u001b[0m");
-            Console.WriteLine("----------------------------------------");
+            Console.Write(Color.Blue);
+            Console.WriteLine("{0, -5}{1,-15}{2,-10}{3,-15}", "ID", "Name", "Type", "Active");
+            Console.WriteLine($"{Color.Reset}----------------------------------------");
             foreach (HallModel hall in _halls)
             {
                 string actstr;

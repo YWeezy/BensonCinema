@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-static class Utils
+public static class Utils
 {
     //read the passPhrase from the .env file
     private static string passPhrase = Environment.GetEnvironmentVariable("PASS_PHRASE") ?? "password";
@@ -59,3 +59,179 @@ static class Utils
         return Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount);
     }
 }
+
+public class Color
+{
+    public static string Reset = "\u001B[0m";
+    public static string Black = "\u001B[30m";
+    public static string Red = "\u001B[31m";
+    public static string Green = "\u001B[32m";
+    public static string Yellow = "\u001B[33m";
+    public static string Blue = "\u001B[34m";
+    public static string Purple = "\u001B[35m";
+    public static string Cyan = "\u001B[36m";
+    public static string White = "\u001B[37m";
+    public static string Blink = "\u001B[5m";
+}
+
+
+public class ConsoleInput
+{
+    public static T EditLine<T>(T initialValue)
+    {
+        string? value = initialValue.ToString();
+        int cursorPosition = value.Length;
+        Console.Write(value);
+        ConsoleKeyInfo keyInfo;
+
+        do
+        {
+            keyInfo = Console.ReadKey(true);
+
+            if (keyInfo.Key == ConsoleKey.Backspace && cursorPosition > 0)
+            {
+                value = value.Remove(cursorPosition - 1, 1);
+                cursorPosition--;
+                UpdateConsole(value, cursorPosition);
+            }
+            else if (keyInfo.Key == ConsoleKey.Delete && cursorPosition < value.Length)
+            {
+                value = value.Remove(cursorPosition, 1);
+                UpdateConsole(value, cursorPosition);
+            }
+            else if (keyInfo.Key == ConsoleKey.LeftArrow && cursorPosition > 0)
+            {
+                cursorPosition--;
+                UpdateConsole(value, cursorPosition);
+            }
+            else if (keyInfo.Key == ConsoleKey.RightArrow && cursorPosition < value.Length)
+            {
+                cursorPosition++;
+                UpdateConsole(value, cursorPosition);
+            }
+            else if (!char.IsControl(keyInfo.KeyChar))
+            {
+                value = value.Insert(cursorPosition, keyInfo.KeyChar.ToString());
+                cursorPosition++;
+                UpdateConsole(value, cursorPosition);
+            }
+        } while (keyInfo.Key != ConsoleKey.Enter);
+
+        Console.WriteLine();
+        return (T)Convert.ChangeType(value, typeof(T));
+    }
+
+    private static void UpdateConsole(string value, int cursorPosition)
+    {
+        Console.SetCursorPosition(0, Console.CursorTop);
+        Console.Write(new string(' ', Console.WindowWidth));
+        Console.SetCursorPosition(0, Console.CursorTop);
+        Console.Write(value);
+        Console.SetCursorPosition(cursorPosition, Console.CursorTop);
+    }
+}
+
+
+public static class DateSelector
+{
+    public static DateTime CurrentDate { get; private set; } = DateTime.Now;
+
+    public static string GetDate(int weekLimit, bool isStartDate)
+    {
+        while (true)
+        {
+            Console.Clear();
+            string message = isStartDate ? "Select a Start date? (< - month > + month ^ + day ):" : "Select a End date? (< - month > + month ^ + day ):";
+            Console.WriteLine(message);
+            Console.WriteLine(CurrentDate.ToString("dd-MM-yyyy"));
+            ConsoleKey key = Console.ReadKey(true).Key;
+
+            switch (key)
+            {
+                case ConsoleKey.UpArrow:
+                    AdjustDate(1, 0, weekLimit);
+                    break;
+                case ConsoleKey.RightArrow:
+                    AdjustDate(0, 1, weekLimit);
+                    break;
+                case ConsoleKey.DownArrow:
+                    AdjustDate(-1, 0, weekLimit);
+                    break;
+                case ConsoleKey.LeftArrow:
+                    AdjustDate(0, -1, weekLimit);
+                    break;
+                case ConsoleKey.Enter:
+                    return CurrentDate.ToString("dd-MM-yyyy");
+
+                default:
+                    break;
+            }
+        }
+    }
+
+    public static string GetTime(bool isStartDate)
+    {
+        DateTime CurrentTime = DateTime.Today.AddHours(12);
+        while (true)
+        {
+            Console.Clear();
+            string message = isStartDate ? "Enter Start Time (< - 15 minutes > + 15 minutes ^ + hour ):" : "Enter End Time? (< - 15 minutes > + 15 minutes ^ + hour ):";
+            Console.WriteLine(message);
+            Console.WriteLine(CurrentTime.ToString("HH:mm"));
+            ConsoleKey key = Console.ReadKey(true).Key;
+
+            switch (key)
+            {
+                case ConsoleKey.UpArrow:
+                    CurrentTime = CurrentTime.AddHours(1);
+                    break;
+                case ConsoleKey.LeftArrow:
+                    CurrentTime = CurrentTime.AddMinutes(-15);
+                    break;
+                case ConsoleKey.RightArrow:
+                    CurrentTime = CurrentTime.AddMinutes(15);
+                    break;
+                case ConsoleKey.DownArrow:
+                    CurrentTime = CurrentTime.AddHours(-1);
+                    break;
+                case ConsoleKey.Enter:
+                    var formattedTime = CurrentTime.ToString("HH mm");
+                    string[] hoursAndMinutes = formattedTime.Split(" ");
+                    return $"{hoursAndMinutes[0]}:{hoursAndMinutes[0]}";
+
+
+
+
+                default:
+                    break;
+            }
+        }
+    }
+
+
+    private static void AdjustDate(int dayIncrement, int monthIncrement, int weekLimit)
+    {
+        if (dayIncrement != 0)
+        {
+            CurrentDate = CurrentDate.AddDays(dayIncrement);
+        }
+        if (monthIncrement != 0)
+        {
+            CurrentDate = CurrentDate.AddMonths(monthIncrement);
+        }
+
+        DateTime maxDate = DateTime.Now.AddDays(weekLimit * 7);
+        if (CurrentDate > maxDate)
+        {
+            CurrentDate = maxDate;
+        }
+        if (CurrentDate < DateTime.Now)
+        {
+            CurrentDate = DateTime.Now;
+        }
+    }
+}
+
+
+
+
