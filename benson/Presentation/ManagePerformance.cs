@@ -6,7 +6,7 @@ using System.Linq;
 
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-static class ManagePerformance
+public static class ManagePerformance
 {
     static public void Start()
     {
@@ -345,7 +345,7 @@ static class ManagePerformance
         }
     }
 
-    static private int[][] ConvertBoolArrayToIntArray(bool[,] boolArray)
+    public static int[][] ConvertBoolArrayToIntArray(bool[,] boolArray)
     {
         int rows = boolArray.GetLength(0);
         int cols = boolArray.GetLength(1);

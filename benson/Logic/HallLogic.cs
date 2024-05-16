@@ -5,14 +5,16 @@ using System.Text.Json;
 using Microsoft.VisualBasic;
 
 
-class HallLogic
+public class HallLogic
 {
     private List<HallModel> _halls { get; }
-    string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/halls.json"));
+    public string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/halls.json"));
 
-    public HallLogic()
+    public HallLogic(string? newPath = null)
     {
-
+        if (newPath != null) {
+            path = newPath;
+        } 
         _halls = DataAccess<HallModel>.LoadAll(path);
     }
 
