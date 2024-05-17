@@ -5,6 +5,7 @@ public class TicketPresentation
 {
     private PerformanceLogic performanceLogic = new PerformanceLogic();
     private TicketLogic ticketLogic = new TicketLogic();
+
     public void ShowAvailablePerformances()
     {
         performanceLogic.DisplayTable();
@@ -12,34 +13,66 @@ public class TicketPresentation
 
     public void ReserveTicket()
     {
-        ShowAvailablePerformances();
+        int selectedPerformanceIndex = 0;
+        int totalPerformances = performanceLogic.GetTotalPerformances();
 
-        Console.WriteLine("Enter the ID of the performance you want to reserve a ticket for:");
-        if (int.TryParse(Console.ReadLine(), out int performanceId))
+        while (true)
         {
-            
-            if (performanceId != null)
+            DisplayPerformances(selectedPerformanceIndex);
+
+            var key = Console.ReadKey(true).Key;
+
+            switch (key)
             {
-                Console.Clear();
-                Console.WriteLine($"Selected Performance:");
-                Console.WriteLine("Enter seat:");
-
-                string seat = Console.ReadLine();
-
-                ticketLogic.GenerateTicket(performanceId, seat);
-
-                Console.WriteLine("Ticket reserved successfully!");
-                
-        }
-            else
-            {
-                Console.WriteLine("Invalid performance ID.");
+                case ConsoleKey.UpArrow:
+                    selectedPerformanceIndex = selectedPerformanceIndex == 0 ? totalPerformances - 1 : selectedPerformanceIndex - 1;
+                    break;
+                case ConsoleKey.DownArrow:
+                    selectedPerformanceIndex = selectedPerformanceIndex == totalPerformances - 1 ? 0 : selectedPerformanceIndex + 1;
+                    break;
+                case ConsoleKey.Enter:
+                    ConfirmPerformanceSelection(selectedPerformanceIndex);
+                    return;
+                case ConsoleKey.Escape:
+                    return;
+                default:
+                    break;
             }
-        }
-        else
-        {
-            Console.WriteLine("Invalid input for performance ID.");
         }
     }
 
+    private void DisplayPerformances(int selectedPerformanceIndex)
+    {
+        Console.Clear();
+        Console.WriteLine($"{Color.Yellow}Select a performance to reserve a ticket for:{Color.Blue}\n");
+
+        var performances = performanceLogic.GetPerformances();
+
+        Console.WriteLine("{0,-6}{1,-22}{2,-26}{3,-26}{4,-20}{5,-10}", "ID", "Name", "Start", "End", "Hall", "Active");
+        Console.WriteLine($"{Color.Reset}  -------------------------------------------------------------------------------------------------------------");
+
+        int index = 0;
+        foreach (var performance in performances)
+        {
+            Console.Write(index == selectedPerformanceIndex ? ">> " : "   ");
+            Console.WriteLine("{0,-6}{1,-22}{2,-26}{3,-26}{4,-20}{5,-10}", performance.id, performance.name, performance.startDate, performance.endDate, performance.hallId, performance.active ? "Active" : "Inactive");
+            index++;
+        }
+    }
+
+    private void ConfirmPerformanceSelection(int selectedPerformanceIndex)
+    {
+        var performance = performanceLogic.GetPerformances()[selectedPerformanceIndex];
+
+        Console.Clear();
+        Console.WriteLine($"Selected Performance: {performance.name}");
+        Console.WriteLine("Enter seat:");
+
+        string seat = Console.ReadLine();
+
+        ticketLogic.GenerateTicket(performance.id, seat);
+
+        Console.Clear();
+        Console.WriteLine("Ticket reserved successfully!");
+    }
 }
