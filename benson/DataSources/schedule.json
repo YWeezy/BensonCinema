@@ -1,0 +1,707 @@
+[
+  {
+    "id": "90f068a4-c1eb-4e9a-9430-f716353fc758",
+    "worker": "Jurn de Ruijter",
+    "date": "05-06-2024",
+    "totalHours": "06:00:00",
+    "startTime": "12:00",
+    "endTime": "18:00",
+    "performance": {
+      "id": 1,
+      "name": "Benson\u0027s Adventure Quest",
+      "description": "Embark on an epic journey with Benson as he sets out on a thrilling adventure filled with danger, mystery, and excitement...",
+      "startDate": "2024-06-05T14:00:00",
+      "endDate": "2024-06-05T17:00:00",
+      "hallId": 1,
+      "employees": [
+        "Jurn de Ruijter"
+      ],
+      "ticketsAvailable": [
+        {
+          "seats": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        {
+          "ticketTypes": [
+            {
+              "amount": 80,
+              "name": "Regular",
+              "price": 2500
+            }
+          ]
+        }
+      ],
+      "active": true
+    },
+    "active": true
+  },
+  {
+    "id": "e5831488-b8e1-4376-9ebe-0d6e1e203264",
+    "worker": "Casper Smits",
+    "date": "16-06-2024",
+    "totalHours": "05:15:00",
+    "startTime": "18:30",
+    "endTime": "23:45",
+    "performance": {
+      "id": 2,
+      "name": "Benson\u0027s Comedy Carnival",
+      "description": "Get ready for a night of side-splitting laughter with Benson and his hilarious troupe of comedians.",
+      "startDate": "2024-06-16T20:15:00",
+      "endDate": "2024-06-16T23:15:00",
+      "hallId": 2,
+      "employees": [
+        "Casper Smits"
+      ],
+      "ticketsAvailable": [
+        {
+          "seats": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        {
+          "ticketTypes": [
+            {
+              "amount": 40,
+              "name": "Adult",
+              "price": 3500
+            },
+            {
+              "amount": 10,
+              "name": "VIP",
+              "price": 5500
+            }
+          ]
+        }
+      ],
+      "active": true
+    },
+    "active": true
+  },
+  {
+    "id": "1607e650-d21e-4ff8-aa5b-e3d582c2c3d3",
+    "worker": "Jurn de Ruijter",
+    "date": "28-05-2024",
+    "totalHours": "10:00:00",
+    "startTime": "12:00",
+    "endTime": "22:00",
+    "performance": null,
+    "active": true
+  },
+  {
+    "id": "ac18a372-b87a-4adf-9d48-e99c92d0a89e",
+    "worker": "Casper Smits",
+    "date": "26-05-2024",
+    "totalHours": "06:00:00",
+    "startTime": "12:00",
+    "endTime": "18:00",
+    "performance": null,
+    "active": true
+  },
+  {
+    "id": "2cd09db0-b2e6-4d08-9566-17976b4c04e0",
+    "worker": "Jurn de Ruijter",
+    "date": "26-05-2024",
+    "totalHours": "07:00:00",
+    "startTime": "12:00",
+    "endTime": "19:00",
+    "performance": null,
+    "active": true
+  },
+  {
+    "id": "7ab63374-a189-40e4-9df6-f276b1090e64",
+    "worker": "Casper Smits",
+    "date": "27-05-2024",
+    "totalHours": "10:00:00",
+    "startTime": "10:00",
+    "endTime": "20:00",
+    "performance": null,
+    "active": true
+  },
+  {
+    "id": "6571021a-46f1-49a4-a903-a194796d1daa",
+    "worker": "Jurn de Ruijter",
+    "date": "20-06-2024",
+    "totalHours": "04:00:00",
+    "startTime": "14:00",
+    "endTime": "18:00",
+    "performance": {
+      "id": 4,
+      "name": "Benson\u0027s Tales",
+      "description": "Join Benson as he brings classic fairy tales to life in this magical performance.",
+      "startDate": "2024-06-20T15:00:00",
+      "endDate": "2024-06-20T18:00:00",
+      "hallId": 1,
+      "employees": [
+        "Pan Nenkoek",
+        "Jurn de Ruijter"
+      ],
+      "ticketsAvailable": [
+        {
+          "seats": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        {
+          "ticketTypes": [
+            {
+              "amount": 50,
+              "name": "Adult",
+              "price": 3500
+            },
+            {
+              "amount": 30,
+              "name": "Child",
+              "price": 2500
+            }
+          ]
+        }
+      ],
+      "active": true
+    },
+    "active": true
+  },
+  {
+    "id": "f50ebf2e-2a0c-4311-9ace-3acb37312183",
+    "worker": "Jurn de Ruijter",
+    "date": "30-05-2024",
+    "totalHours": "11:00:00",
+    "startTime": "10:00",
+    "endTime": "21:00",
+    "performance": null,
+    "active": true
+  },
+  {
+    "id": "6498482b-68e4-44d9-b460-1deec98bcd95",
+    "worker": "Casper Smits",
+    "date": "30-05-2024",
+    "totalHours": "11:00:00",
+    "startTime": "11:00",
+    "endTime": "22:00",
+    "performance": null,
+    "active": true
+  },
+  {
+    "id": "bea8ebcd-6fde-4e08-b242-fe631b28aea8",
+    "worker": "Pan Nenkoek",
+    "date": "28-05-2024",
+    "totalHours": "15:00:00",
+    "startTime": "08:00",
+    "endTime": "23:00",
+    "performance": {
+      "id": 5,
+      "name": "Gi-Jo",
+      "description": "Gi-Jo on a adventure",
+      "startDate": "2024-05-26T12:00:00",
+      "endDate": "2024-05-30T23:00:00",
+      "hallId": 1,
+      "employees": [
+        "Pan Nenkoek",
+        "Pan Nenkoek"
+      ],
+      "ticketsAvailable": [
+        {
+          "seats": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        {
+          "ticketTypes": [
+            {
+              "amount": 20,
+              "name": "Regular",
+              "price": 1299
+            }
+          ]
+        }
+      ],
+      "active": true
+    },
+    "active": true
+  },
+  {
+    "id": "e0797846-619d-4fac-99be-98fe10f817ee",
+    "worker": "Pan Nenkoek",
+    "date": "20-06-2024",
+    "totalHours": "05:00:00",
+    "startTime": "15:00",
+    "endTime": "20:00",
+    "performance": {
+      "id": 4,
+      "name": "Benson\u0027s Tales",
+      "description": "Join Benson as he brings classic fairy tales to life in this magical performance.",
+      "startDate": "2024-06-20T15:00:00",
+      "endDate": "2024-06-20T18:00:00",
+      "hallId": 1,
+      "employees": [
+        "Pan Nenkoek",
+        "Jurn de Ruijter",
+        "Pan Nenkoek",
+        "Pan Nenkoek",
+        "Pan Nenkoek"
+      ],
+      "ticketsAvailable": [
+        {
+          "seats": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        {
+          "ticketTypes": [
+            {
+              "amount": 50,
+              "name": "Adult",
+              "price": 3500
+            },
+            {
+              "amount": 30,
+              "name": "Child",
+              "price": 2500
+            }
+          ]
+        }
+      ],
+      "active": true
+    },
+    "active": true
+  }
+]
