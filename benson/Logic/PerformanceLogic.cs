@@ -140,4 +140,64 @@ public class PerformanceLogic
         return false;
     }
 
+    public List<Dictionary<string, object>> AddMaterials()
+    {
+        // List of dictionaries to store materials
+        List<Dictionary<string, object>> materials = new List<Dictionary<string, object>>();
+
+        Console.Clear();
+        Console.WriteLine($"{Color.Yellow}Materials List {Color.Red}Example{Color.Reset}{Color.Italic}:\n");
+        Console.WriteLine("{0,-20}{1,-10}", "Material", "Quantity");
+        Console.WriteLine(new string('-', 30));
+        Console.WriteLine("{0,-20}{1,-10}", "Stoelen", "10");
+        Console.WriteLine("{0,-20}{1,-10}\n", "Achrafen", "100");
+
+        Console.WriteLine($"{Color.FontReset}{Color.Yellow}Add materials for the performance (type '{Color.Italic}done{Color.FontReset}' when finished):{Color.Reset}");
+        while (true)
+        {
+            Console.WriteLine($"{Color.Italic}Type 'done' when finished{Color.FontReset}");
+            Console.WriteLine("Material: ");
+            string material = Console.ReadLine();
+
+            if (material.ToLower() == "done")
+            {
+                return materials;
+            }
+
+            if (!string.IsNullOrEmpty(material))
+            {
+                Console.Write("Quantity: ");
+                int quantity;
+                while (!int.TryParse(Console.ReadLine(), out quantity) || quantity <= 0)
+                {
+                    Console.WriteLine($"{Color.Red}Please enter a valid positive integer for quantity.{Color.Reset}");
+                    Console.Write("Quantity: ");
+                }
+
+                Dictionary<string, object> materialEntry = new Dictionary<string, object>();
+                materialEntry["material"] = material;
+                materialEntry["quantity"] = quantity;
+                materials.Add(materialEntry);
+
+                DisplayMaterials(materials);
+            }
+        }
+    }
+
+    private void DisplayMaterials(List<Dictionary<string, object>> materials)
+    {
+        Console.Clear();
+        Console.WriteLine($"{Color.Yellow}Materials List:{Color.Reset}\n");
+        Console.WriteLine("{0,-20}{1,-10}", "Material", "Quantity");
+        Console.WriteLine(new string('-', 30));
+
+        foreach (var material in materials)
+        {
+            Console.WriteLine("{0,-20}{1,-10}", material["material"], material["quantity"]);
+        }
+
+        Console.WriteLine();
+    }
+
+
 }
