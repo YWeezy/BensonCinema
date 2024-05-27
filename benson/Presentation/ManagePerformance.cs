@@ -310,6 +310,7 @@ public static class ManagePerformance
                 selectedPerformance.startDate = performanceStartDT;
                 selectedPerformance.endDate = performanceEndDT;
                 selectedPerformance.hallId = hallId;
+                selectedPerformance.listmaterials = materials;
                 selectedPerformance.active = active;
                 logic.UpdateList(selectedPerformance);
                 Console.Clear();
@@ -340,10 +341,6 @@ public static class ManagePerformance
                     bool[,] emptyseats = hlogic.GetSeatsOfHall(hallId);
                     Dictionary<string, object> dictSeats = new Dictionary<string, object>();
                     
-                    
-
-
-
                     for (int row = 0; (row < emptyseats.GetLength(0)); row++)
                     {
                         for (int col = 0; (col < emptyseats.GetLength(1)); col++)

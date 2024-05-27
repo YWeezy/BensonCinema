@@ -53,27 +53,42 @@ public class PerformanceLogic
 
     public int GetTotalPerformances()
     {
+        if (_performances == null)
+        {
+            Console.WriteLine($"{Color.Red}Error: _performances list is null{Color.Reset}");
+            Thread.Sleep(1000);
+            return 0;
+        }
         return _performances.Count;
     }
 
     public void UpdateList(PerformanceModel perf)
     {
-        //Find if there is already an model with the same id
-        int index = _performances.FindIndex(s => s.id == perf.id);
-
-        if (index != -1)
+        if (_performances == null || _performances.Count == 0)
         {
-            //update existing model
-            _performances[index] = perf;
+            // If _performances is null or empty, add the performance directly
+            _performances = new List<PerformanceModel>() { perf };
         }
         else
         {
-            //add new model
-            _performances.Add(perf);
-        }
-        DataAccess<PerformanceModel>.WriteAll(_performances, path);
+            // Find if there is already a model with the same id
+            int index = _performances.FindIndex(s => s.id == perf.id);
 
+            if (index != -1)
+            {
+                // Update existing model
+                _performances[index] = perf;
+            }
+            else
+            {
+                // Add new model
+                _performances.Add(perf);
+            }
+        }
+        
+        DataAccess<PerformanceModel>.WriteAll(_performances, path);
     }
+
 
     public PerformanceModel GetPerfById(int id)
     {
@@ -83,6 +98,11 @@ public class PerformanceLogic
 
     public int GetNewId()
     {
+        if (_performances == null || _performances.Count == 0)
+        {
+            return 1;
+        }
+
         int currentId = 0;
         foreach (var performance in _performances)
         {
@@ -94,9 +114,10 @@ public class PerformanceLogic
         return currentId + 1;
     }
 
+
     public void DisplayTable()
     {
-
+        
         HallLogic hallLogic = new HallLogic();
 
         Console.WriteLine($"{Color.Yellow}Table of all Performances:{Color.Reset}\n");

@@ -28,20 +28,20 @@ public class PerformanceModel {
     [JsonPropertyName("ticketsAvailable")]
     public List<Dictionary<string, object>> ticketsAvailable { get; set; }
 
-    [JsonPropertyName("materials")]
+    [JsonPropertyName("listmaterials")]
     public  List<Dictionary<string, object>> listmaterials { get; set; }
 
     [JsonPropertyName("active")]
     public bool active { get; set; }
 
-    public PerformanceModel(int id, string name, string description, DateTime startDate, DateTime endDate, int hallId, List<Dictionary<string, object>> materials, List<Dictionary<string, object>> ticketsAvailable, bool active) {
+    public PerformanceModel(int id, string name, string description, DateTime startDate, DateTime endDate, int hallId, List<Dictionary<string, object>> listmaterials, List<Dictionary<string, object>> ticketsAvailable, bool active) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
         this.hallId = hallId;
-        this.listmaterials = materials;
+        this.listmaterials = listmaterials ?? new List<Dictionary<string, object>>();
         this.active = active;
         this.employees = new List<string>();
         this.ticketsAvailable = ticketsAvailable;
