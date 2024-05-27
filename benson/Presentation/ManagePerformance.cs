@@ -193,18 +193,25 @@ public static class ManagePerformance
                 Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Please provide a valid Hall ID.");
             }
         }
-        //material adding. (NOT COMPLETE)
+        //Material adding.
         Console.Clear();
+        //Boolean for while loop
         bool material = false;
+        //Lists for handeling materials
         List<Dictionary<string, object>> materials = new();
-
+        List<Dictionary<string, object>> edited_material = new();
+        if (editing)
+        {
+            material = true;
+            edited_material = logic.EditMaterials(selectedPerformance.listmaterials);
+        }
         while (!material)
         {
             materials = logic.AddMaterials();
             material = true;
         }
 
-        //ticketTypes
+        //TicketTypes
         Dictionary<string, object> dictTickets = new Dictionary<string, object>();
         if (!editing){
             
@@ -310,7 +317,7 @@ public static class ManagePerformance
                 selectedPerformance.startDate = performanceStartDT;
                 selectedPerformance.endDate = performanceEndDT;
                 selectedPerformance.hallId = hallId;
-                selectedPerformance.listmaterials = materials;
+                selectedPerformance.listmaterials = edited_material;
                 selectedPerformance.active = active;
                 logic.UpdateList(selectedPerformance);
                 Console.Clear();

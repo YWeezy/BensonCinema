@@ -120,7 +120,16 @@
         ]
       }
     ],
-    "listmaterials": [],
+    "listmaterials": [
+      {
+        "material": "Wood",
+        "quantity": 100
+      },
+      {
+        "material": "Dolls",
+        "quantity": 600
+      }
+    ],
     "active": true
   },
   {
@@ -665,6 +674,14 @@
       {
         "material": "Chairs",
         "quantity": 10
+      },
+      {
+        "material": "Pineapples",
+        "quantity": 10
+      },
+      {
+        "material": "Wood",
+        "quantity": 100
       }
     ],
     "active": true
