@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Text.Json;
 
 public class PerformanceLogic
 {
@@ -197,13 +198,27 @@ public class PerformanceLogic
                     Console.WriteLine($"{Color.Red}Please enter a valid positive integer for quantity.{Color.Reset}");
                     Console.Write("Quantity: ");
                 }
+            bool found = false;
+            foreach (var item in materials)
+            {
+                if (item["material"].ToString().ToLower() == material.ToLower())
+                {
+                    item["quantity"] = (int)item["quantity"] + quantity;
+                    found = true;
+                    break;
+                }
+            }
 
-                Dictionary<string, object> materialEntry = new Dictionary<string, object>();
-                //Naming of the dictionary keys and values.
-                materialEntry["material"] = material;
-                materialEntry["quantity"] = quantity;
-                //adding to the list, which will be loaded in the json later.
+            if (!found)
+            {
+                Dictionary<string, object> materialEntry = new Dictionary<string, object>
+                {
+                    { "material", material },
+                    { "quantity", quantity }
+                };
                 materials.Add(materialEntry);
+            }
+
                 //Display of the user added materials.
                 DisplayMaterials(materials);
             }
@@ -273,7 +288,7 @@ public class PerformanceLogic
                     break;
                 }
 
-                if (!string.IsNullOrEmpty(material))
+                if (!string.IsNullOrEmpty(material) && !material.Contains(" "))
                 {
                     Console.Write("Quantity: ");
                     int quantity;
@@ -283,12 +298,41 @@ public class PerformanceLogic
                         Console.Write("Quantity: ");
                     }
 
-                    Dictionary<string, object> materialEntry = new Dictionary<string, object>();
-                    materialEntry["material"] = material;
-                    materialEntry["quantity"] = quantity;
-                    materials.Add(materialEntry);
+                bool found = false;
+                for (int i = 0; i < materials.Count; i++)
+                {
+                    if (materials[i]["material"].ToString().ToLower() == material.ToLower())
+                    {
+                        int existingQuantity;
+                        if (materials[i]["quantity"] is JsonElement jsonElement && jsonElement.ValueKind == JsonValueKind.Number)
+                        {
+                            existingQuantity = jsonElement.GetInt32();
+                        }
+                        else
+                        {
+                            existingQuantity = Convert.ToInt32(materials[i]["quantity"]);
+                        }
 
+                        materials[i]["quantity"] = existingQuantity + quantity;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    Dictionary<string, object> materialEntry = new Dictionary<string, object>
+                    {
+                        { "material", material },
+                        { "quantity", quantity }
+                    };
+                    materials.Add(materialEntry);
+                }
                     DisplayMaterials(materials, -1); // Update display after each addition.
+                }
+                else
+                {
+                    Console.WriteLine($"{Color.Red}Please enter a valid material name without spaces.{Color.Reset}");
                 }
             }
         }
