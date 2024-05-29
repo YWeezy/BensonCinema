@@ -24,6 +24,8 @@ public class HallLogic
         return hall != null ? hall.hallName : null;
     }
 
+
+
     public int GetTotalHalls()
     {
         return _halls.Count;
@@ -43,17 +45,37 @@ public class HallLogic
         }
     }
 
-    public bool[,] GetSeatsOfHall(int id){
+    public int[,] GetSeatsOfHall(int id){
         HallModel? hall = _halls.FirstOrDefault(h => h.hallID == id);
         switch (hall.type.ToLower()){
             case "small":
-                return new bool[3, 10];
+                int[,] seatsS = {
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9}
+                    };
+                return seatsS;
             case "medium":
-                return new bool[5, 10];
+                int[,] seatsM = {
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9, 9},
+                    {0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9}
+                    };
+                return seatsM;
             case "large":
-                return new bool[8, 10];
+                int[,] seatsL = {
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0, 0},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0, 0},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 9, 9},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 9, 9},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9 , 9, 9},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9 , 9, 9},
+                    };
+                return seatsL;
             default:
-             return null;
+                return null;
         }
 
     }

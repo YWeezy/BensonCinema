@@ -326,21 +326,15 @@ public static class ManagePerformance
             {
                     int newId = logic.GetNewId();
                     HallLogic hlogic = new HallLogic();
-                    bool[,] emptyseats = hlogic.GetSeatsOfHall(hallId);
+                    int[,] emptyseats = hlogic.GetSeatsOfHall(hallId);
                     Dictionary<string, object> dictSeats = new Dictionary<string, object>();
                     
                     
 
 
 
-                    for (int row = 0; (row < emptyseats.GetLength(0)); row++)
-                    {
-                        for (int col = 0; (col < emptyseats.GetLength(1)); col++)
-                        {
-                            emptyseats[row, col] = false;
-                        }
-                    }
-                    dictSeats["seats"] = ConvertBoolArrayToIntArray(emptyseats);
+                    
+                    dictSeats["seats"] = ConvertInt2DArrayToIntJArray(emptyseats);
                     listOfDicts.Add(dictSeats);
                     listOfDicts.Add(dictTickets);
                     PerformanceModel performance = new PerformanceModel(newId, performanceName, description, performanceStartDT, performanceEndDT, hallId, listOfDicts, true);
@@ -376,17 +370,17 @@ public static class ManagePerformance
         }
     }
 
-    public static int[][] ConvertBoolArrayToIntArray(bool[,] boolArray)
+    public static int[][] ConvertInt2DArrayToIntJArray(int[,] intarray)
     {
-        int rows = boolArray.GetLength(0);
-        int cols = boolArray.GetLength(1);
+        int rows = intarray.GetLength(0);
+        int cols = intarray.GetLength(1);
         int[][] intArray = new int[rows][];
         for (int i = 0; i < rows; i++)
         {
             intArray[i] = new int[cols];
             for (int j = 0; j < cols; j++)
             {
-                intArray[i][j] = boolArray[i, j] ? 1 : 0;
+                intArray[i][j] = intarray[i, j] != 0 ? 9 : 0;
             }
         }
         return intArray;

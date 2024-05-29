@@ -1,4 +1,7 @@
+using System.Dynamic;
 using System.Globalization;
+using System;
+using System.Text.Json;
 
 public class PerformanceLogic
 {
@@ -34,6 +37,13 @@ public class PerformanceLogic
         }
 
         return _performances.Where(performance => performance.startDate >= fromDate && performance.endDate <= toDate).ToList();
+    }
+
+    public int[][] GetSeatsById(int id){
+        PerformanceModel? performance = _performances.FirstOrDefault(h => h.id == id);
+        string seatsStr = Convert.ToString(performance.ticketsAvailable[0]["seats"]);
+        int[][] seats = JsonSerializer.Deserialize<int[][]>(seatsStr);
+        return seats;
     }
 
     public List<PerformanceModel> GetActivePerformances()
@@ -138,6 +148,22 @@ public class PerformanceLogic
             return true;
         }
         return false;
+    }
+
+    public static int[][] ConvertBoolArrayToIntArray(int[,] intarray)
+    {
+        int rows = intarray.GetLength(0);
+        int cols = intarray.GetLength(1);
+        int[][] intArray = new int[rows][];
+        for (int i = 0; i < rows; i++)
+        {
+            intArray[i] = new int[cols];
+            for (int j = 0; j < cols; j++)
+            {
+                intArray[i][j] = intarray[i, j] != 0 ? 9 : 0;
+            }
+        }
+        return intArray;
     }
 
 }

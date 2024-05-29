@@ -78,5 +78,13 @@
     "Password": "cphOtXxEbJcPnMaErlM/iw==",
     "Role": 2,
     "Tickets": []
+  },
+  {
+    "Id": "30fb2b58-90ee-42ec-aac9-72d4e1ab2231",
+    "EmailAddress": "wes@mail.com",
+    "FullName": "wesley",
+    "Password": "owU79EsKsFXEk5JKrBEn\u002BQ==",
+    "Role": 2,
+    "Tickets": []
   }
 ]
