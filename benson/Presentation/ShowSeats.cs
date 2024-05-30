@@ -1,20 +1,37 @@
-using Microsoft.VisualBasic;
+using System.Text.Json.Serialization;
+
+public class TicketType {
+    [JsonPropertyName("amount")]
+    public int Amount { get; set; }
+
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
+
+    [JsonPropertyName("price")]
+    public int Price { get; set; }
+}
 
 public class ShowSeats{
     public int[][] Seats;
     public PerformanceLogic PLogic;
     public HallLogic HLogic;
     private int PerId;
+    public List<TicketType> TicketTypes; 
     public ShowSeats(int perId){
         PLogic =  new PerformanceLogic();
         HLogic = new HallLogic();
         PerId = perId;
         Seats = PLogic.GetSeatsById(perId);
+        TicketTypes = PLogic.GetTicketTypesById(perId);
         
         
     }
 
     public void PrintSeats(int rowSelected = -1, int seatSelected = -1){ 
+        Console.Clear();
+        Console.WriteLine($"{Color.Yellow}Please select a seat:\n");
+        Console.WriteLine($"{Color.Green} Use arrow keys to move. Press enter to select.");
+        Console.WriteLine($"_ = Empty\nX = Occupied\nO = Selected{Color.Reset}");
         int rows = Seats.Length;
         int cols = Seats[0].Length;
         
@@ -88,6 +105,7 @@ public class ShowSeats{
 
     public List<(int, int)> SelectSeats(){
         List<(int, int)> SelectedSeats = new();
+        List<TicketType> SelectedTickets = new();
         bool done = false;
         while (!done){
             int rowselect = 0;
@@ -166,17 +184,97 @@ public class ShowSeats{
             if (Seats[rowselect][seatselect] == 2 || Seats[rowselect][seatselect] == 1)
             {
                 Console.Clear();
-                Console.WriteLine("Seat is already selected or unavailable. Try again.");
+                Console.WriteLine($"{Color.Red}Seat is already selected or unavailable. Try again.{Color.Reset}");
+                Console.ReadLine();
                 
             }else{
-                Console.WriteLine("Are you sure you want to select this seat? (y/n)");
+                Console.WriteLine($"{Color.Yellow}Are you sure you want to select this seat? (y/n){Color.Reset}");
                 if (Console.ReadLine().ToLower() == "y")
                 {
-                    SelectedSeats.Add((rowselect, seatselect));
-                    Seats[rowselect][seatselect] = 2;
-                    Console.WriteLine("Do you want to add another seat? (y/n)");
+                    Console.Clear();
+                    Console.WriteLine($"{Color.Yellow}Please choose a ticket for this seat:{Color.Reset}");
+                    int id = 1;
+                    foreach (var ticket in TicketTypes)
+                    {
+                        string formattedPrice = (ticket.Price / 100.0).ToString("F2");
+                        Console.WriteLine($"{Color.Cyan}{id}: €{formattedPrice} - {ticket.Name}{Color.Reset}");
+                        id++;
+                    }
+
+                    int ticketId = int.Parse(Console.ReadLine()) - 1;
+                    if (ticketId >= 0 && ticketId < TicketTypes.Count)
+                    {
+                        TicketType selectedTicket = TicketTypes[ticketId];
+                        SelectedTickets.Add(selectedTicket);
+                        SelectedSeats.Add((rowselect, seatselect));
+                        Seats[rowselect][seatselect] = 2;
+                        Console.WriteLine($"{Color.Green}The seat & ticket type is selected.{Color.Reset}");
+                    } else {
+                        Console.WriteLine($"{Color.Red}Invalid ticket selection. Please try again.{Color.Reset}");
+                    }
+                    Console.WriteLine($"{Color.Yellow}Do you want to add another seat? (y/n){Color.Reset}");
                     if (Console.ReadLine().ToLower() != "y")
                     {
+                        Console.Clear();
+                        Console.WriteLine($"{Color.Yellow}Selected seats:{Color.Reset}");
+                        foreach (var seat in SelectedSeats)
+                        {
+                        }
+
+                        for (int i = 0; i < SelectedSeats.Count; i++)
+                        {
+                            Console.WriteLine($"{Color.Cyan}Row: {SelectedSeats[i].Item1}, Seat: {SelectedSeats[i].Item2} - {SelectedTickets[i].Name}");
+                        }
+
+                        int totalPrice = 0;
+
+                        foreach (var ticket in SelectedTickets)
+                        {
+                            totalPrice += ticket.Price;
+                        }
+
+                        string formattedTotalPrice = (totalPrice / 100.0).ToString("F2");
+                        
+                        Console.WriteLine($"\n{Color.Yellow}Total price: {Color.Cyan}€{formattedTotalPrice}");
+
+                        Console.WriteLine($"\n{Color.Yellow}Press Enter to make the payment.{Color.Reset}");
+                        Console.ReadLine();
+
+                        Console.Clear();
+                        Console.WriteLine($"{Color.Cyan}Processing payment.");
+                        Thread.Sleep(333);
+                        
+                        Console.Clear();
+                        Console.WriteLine($"{Color.Cyan}Processing payment..");
+                        Thread.Sleep(333);
+                        
+                        Console.Clear();
+                        Console.WriteLine($"{Color.Cyan}Processing payment...");
+                        Thread.Sleep(333);
+                        
+                        Console.Clear();
+                        Console.WriteLine($"{Color.Cyan}Processing payment..");
+                        Thread.Sleep(333);
+                        
+                        Console.Clear();
+                        Console.WriteLine($"{Color.Cyan}Processing payment.");
+                        Thread.Sleep(333);
+                        
+                        Console.Clear();
+                        Console.WriteLine($"{Color.Cyan}Processing payment..");
+                        Thread.Sleep(333);
+                        
+                        Console.Clear();
+                        Console.WriteLine($"{Color.Cyan}Processing payment...");
+                        Thread.Sleep(333);
+                        
+                        Console.Clear();
+                        Console.WriteLine($"{Color.Cyan}Processing payment..");
+                        Thread.Sleep(333);
+
+                        Console.Clear();
+                        Console.WriteLine($"{Color.Green}Payment succesful!{Color.Reset}\n\n{Color.Yellow}Press Enter to continue{Color.Reset}");
+                        Console.ReadLine();
                         done = true;
                     }
                 }

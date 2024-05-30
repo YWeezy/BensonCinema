@@ -5,8 +5,5 @@ public class Program
     public static void Main()
     {
         Menu.Start();
-        // ShowSeats showSeats = new ShowSeats(6);
-        // showSeats.SelectSeats();
-        // showSeats.SaveSeats();
     }
 }

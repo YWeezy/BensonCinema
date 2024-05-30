@@ -1,6 +1,6 @@
 [
   {
-    "id": "90f068a4-c1eb-4e9a-9430-f716353fc758",
+    "id": "013d1064-0f95-4b8c-8592-fe5ad329d8cf",
     "worker": "Jurn de Ruijter",
     "date": "05-06-2024",
     "totalHours": "06:00:00",
@@ -8,7 +8,7 @@
     "endTime": "18:00",
     "performance": {
       "id": 1,
-      "name": "Benson\u0027s Adventure Quest",
+      "name": "Benson\u0027s Adventure",
       "description": "Embark on an epic journey with Benson as he sets out on a thrilling adventure filled with danger, mystery, and excitement...",
       "startDate": "2024-06-05T14:00:00",
       "endDate": "2024-06-05T17:00:00",
@@ -29,24 +29,6 @@
               0,
               0,
               0,
-              0
-            ],
-            [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0
-            ],
-            [
-              0,
-              0,
-              0,
               0,
               0,
               0,
@@ -56,6 +38,12 @@
               0
             ],
             [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
               0,
               0,
               0,
@@ -77,7 +65,13 @@
               0,
               0,
               0,
-              0
+              0,
+              0,
+              0,
+              0,
+              0,
+              9,
+              9
             ],
             [
               0,
@@ -89,7 +83,13 @@
               0,
               0,
               0,
-              0
+              0,
+              0,
+              0,
+              0,
+              0,
+              9,
+              9
             ],
             [
               0,
@@ -101,7 +101,13 @@
               0,
               0,
               0,
-              0
+              0,
+              9,
+              9,
+              9,
+              9,
+              9,
+              9
             ],
             [
               0,
@@ -113,7 +119,13 @@
               0,
               0,
               0,
-              0
+              0,
+              9,
+              9,
+              9,
+              9,
+              9,
+              9
             ]
           ]
         },
@@ -132,7 +144,7 @@
     "active": true
   },
   {
-    "id": "e5831488-b8e1-4376-9ebe-0d6e1e203264",
+    "id": "10cd90e1-88c9-411e-9f42-d5e03a46a432",
     "worker": "Casper Smits",
     "date": "16-06-2024",
     "totalHours": "05:15:00",
@@ -140,7 +152,7 @@
     "endTime": "23:45",
     "performance": {
       "id": 2,
-      "name": "Benson\u0027s Comedy Carnival",
+      "name": "Benson\u0027s Carnival",
       "description": "Get ready for a night of side-splitting laughter with Benson and his hilarious troupe of comedians.",
       "startDate": "2024-06-16T20:15:00",
       "endDate": "2024-06-16T23:15:00",
@@ -161,14 +173,6 @@
               0,
               0,
               0,
-              0
-            ],
-            [
-              0,
-              0,
-              0,
-              0,
-              0,
               0,
               0,
               0,
@@ -185,7 +189,11 @@
               0,
               0,
               0,
-              0
+              0,
+              0,
+              0,
+              9,
+              9
             ],
             [
               0,
@@ -197,7 +205,11 @@
               0,
               0,
               0,
-              0
+              0,
+              9,
+              9,
+              9,
+              9
             ],
             [
               0,
@@ -208,8 +220,28 @@
               0,
               0,
               0,
+              9,
+              9,
+              9,
+              9,
+              9,
+              9
+            ],
+            [
               0,
-              0
+              0,
+              0,
+              0,
+              0,
+              0,
+              9,
+              9,
+              9,
+              9,
+              9,
+              9,
+              9,
+              9
             ]
           ]
         },
@@ -233,7 +265,7 @@
     "active": true
   },
   {
-    "id": "922531a0-b630-46c6-b338-76c7e2202af2",
+    "id": "9d43b166-476e-4ee0-8148-106fad2facf6",
     "worker": "Pan Nenkoek",
     "date": "16-06-2024",
     "totalHours": "05:15:00",
@@ -241,7 +273,7 @@
     "endTime": "23:45",
     "performance": {
       "id": 2,
-      "name": "Benson\u0027s Comedy Carnival",
+      "name": "Benson\u0027s Carnival",
       "description": "Get ready for a night of side-splitting laughter with Benson and his hilarious troupe of comedians.",
       "startDate": "2024-06-16T20:15:00",
       "endDate": "2024-06-16T23:15:00",
@@ -263,14 +295,6 @@
               0,
               0,
               0,
-              0
-            ],
-            [
-              0,
-              0,
-              0,
-              0,
-              0,
               0,
               0,
               0,
@@ -287,7 +311,11 @@
               0,
               0,
               0,
-              0
+              0,
+              0,
+              0,
+              9,
+              9
             ],
             [
               0,
@@ -299,7 +327,11 @@
               0,
               0,
               0,
-              0
+              0,
+              9,
+              9,
+              9,
+              9
             ],
             [
               0,
@@ -310,8 +342,28 @@
               0,
               0,
               0,
+              9,
+              9,
+              9,
+              9,
+              9,
+              9
+            ],
+            [
               0,
-              0
+              0,
+              0,
+              0,
+              0,
+              0,
+              9,
+              9,
+              9,
+              9,
+              9,
+              9,
+              9,
+              9
             ]
           ]
         },

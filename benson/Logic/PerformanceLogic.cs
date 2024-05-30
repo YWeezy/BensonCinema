@@ -46,6 +46,17 @@ public class PerformanceLogic
         return seats;
     }
 
+    public List<TicketType> GetTicketTypesById(int id) {
+        PerformanceModel? performance = _performances.FirstOrDefault(h => h.id == id);
+        if (performance == null || performance.ticketsAvailable.Count < 2) {
+            return new List<TicketType>();
+        }
+        string ticketTypesStr = performance.ticketsAvailable[1]["ticketTypes"].ToString();
+        List<TicketType> ticketTypes = JsonSerializer.Deserialize<List<TicketType>>(ticketTypesStr);
+        return ticketTypes;
+    }
+
+
     public List<PerformanceModel> GetActivePerformances()
     {
         string from = DateTime.Today.ToString("dd-MM-yyyy");

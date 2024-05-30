@@ -48,13 +48,14 @@ static class ViewPerformances
             
     }
 
-    static private void PerformAction(string option)
+    static private void PerformAction(string option, int performanceId = 0)
     {
         switch (option)
         {
             case "Buy ticket":
-                Console.WriteLine($"{Color.Purple}Coming soon.{Color.Reset}");
-                Thread.Sleep(3000);
+                ShowSeats showSeats = new ShowSeats(performanceId);
+                showSeats.SelectSeats();
+                showSeats.SaveSeats();
                 Start();
                 break;
             case "Back to previous menu":
@@ -101,7 +102,7 @@ static class ViewPerformances
                     selectedOption = selectedOption == totalOptions - 1 ? 0 : selectedOption + 1;
                     break;
                 case ConsoleKey.Enter:
-                    PerformAction(options[selectedOption]);
+                    PerformAction(options[selectedOption], selectedPerformance.id);
                     return;
                 default:
                     break;
