@@ -101,6 +101,10 @@ public class ShowSeats{
             Console.Write(Color.Reset);
             Console.WriteLine();
         }
+        // Print the screen 
+        Console.WriteLine();
+        Console.WriteLine(new string('=', Seats[0].Length));
+        Console.WriteLine("     Podium     \n");
     }
 
     public List<(int, int)> SelectSeats(){
