@@ -16,15 +16,18 @@ public static class DataAccess<T>
         catch (FileNotFoundException)
         {
             Console.WriteLine($"The JSON file can not be found. Please provide the right path to JSON file.");
+            Thread.Sleep(2000);
 
         }
         catch (JsonException)
         {
             Console.WriteLine($"The JSON format is not valid. Please enter a path where the JSON file is valid.");
+            Thread.Sleep(2000);
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Something went wrong with loading the database:{ex.Message}");
+            Thread.Sleep(2000);
         }
         return null;
 

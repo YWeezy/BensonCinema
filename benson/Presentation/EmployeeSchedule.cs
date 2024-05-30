@@ -242,11 +242,15 @@ public class EmployeeSchedule
             if (!isStartTimeValid)
             {
                 Console.WriteLine($"{Color.Red}Invalid Start Time format.{Color.Reset}");
+                Thread.Sleep(2000);
+
             }
 
             if (!isEndTimeValid)
             {
                 Console.WriteLine($"{Color.Red}Invalid End Time format.{Color.Yellow}");
+                Thread.Sleep(2000);
+
             }
             if (isStartTimeValid && isEndTimeValid)
             {
@@ -255,12 +259,16 @@ public class EmployeeSchedule
                     Console.WriteLine($"{Color.Red}Start Time must be before End Time.{Color.Yellow}");
                     isEndTimeValid = false;
                     isStartTimeValid = false;
+                    Thread.Sleep(2000);
+
                 }
                 else if (IsScheduleOverlap(selectedEmployee, date, newStartTime, newEndTime))
                 {
                     Console.WriteLine($"{Color.Red}This schedule overlaps with an existing schedule. Please choose a different time slot.{Color.Yellow}");
                     isStartTimeValid = false;
                     isEndTimeValid = false;
+                    Thread.Sleep(2000);
+
                 }
             }
         } while (!isStartTimeValid || !isEndTimeValid);
@@ -307,6 +315,7 @@ public class EmployeeSchedule
         if (schedules.Count == 0)
         {
             Console.WriteLine($"{Color.Red}No existing schedules found for {selectedEmployee}{Color.Reset}");
+            Thread.Sleep(2000);
             return;
         }
 
@@ -401,7 +410,7 @@ public class EmployeeSchedule
         ScheduleModel selectedSchedule = schedules[selectedScheduleIndex];
 
 
-                Console.WriteLine($"{Color.Yellow}Enter new details.{Color.Reset}");
+        Console.WriteLine($"{Color.Yellow}Enter new details.{Color.Reset}");
 
 
         string date;
@@ -510,28 +519,33 @@ public class EmployeeSchedule
 
     static public PerformanceModel ChoicePerf(PerformanceLogic logic, string startTime, string endTime, string date)
     {
-
         int selectedPerformanceIndex = 0;
+        PerformanceModel selectedPerf = null;
 
-        PerformanceModel selectedPerf;
         TimeSpan startTimeS = TimeSpan.Parse(startTime);
         TimeSpan endTimeS = TimeSpan.Parse(endTime);
         DateTime datedt = DateTime.ParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
         DateTime startDatetime = datedt.Add(startTimeS);
-
         DateTime endDatetime = datedt.Add(endTimeS);
-        Console.WriteLine(startDatetime);
-        Console.WriteLine(endDatetime);
+
         List<PerformanceModel> allPerf = logic.GetPerformances();
-        IEnumerable<PerformanceModel> scheduledPerf = allPerf.Where(el => el.startDate >= startDatetime && el.endDate <= endDatetime && el.active == true);
+
+        IEnumerable<PerformanceModel> scheduledPerf = allPerf.Where(el => el.startDate <= endDatetime && el.endDate >= startDatetime && el.active);
+
+        // Output or process the scheduled performances for debugging
+        foreach (var perf in allPerf)
+        {
+            Console.WriteLine($"Performance: {perf.name}, Start: {perf.startDate}, End: {perf.endDate}, Active: {perf.active}");
+            Console.WriteLine(perf.startDate <= endDatetime);
+            Console.WriteLine(perf.endDate >= startDatetime);
+        }
+
         int totalPerformances = scheduledPerf.Count();
         if (totalPerformances > 0)
         {
             while (true)
             {
-
                 DisplayPerformances(scheduledPerf, selectedPerformanceIndex);
-
 
                 var key = Console.ReadKey(true).Key;
 
@@ -558,8 +572,6 @@ public class EmployeeSchedule
         {
             return null;
         }
-
-
     }
 
     static bool IsScheduleOverlap(string employee, string date, TimeSpan newStartTime, TimeSpan newEndTime)

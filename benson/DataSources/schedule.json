@@ -267,10 +267,10 @@
   {
     "id": "9d43b166-476e-4ee0-8148-106fad2facf6",
     "worker": "Pan Nenkoek",
-    "date": "16-06-2024",
-    "totalHours": "05:15:00",
-    "startTime": "18:30",
-    "endTime": "23:45",
+    "date": "20-06-2024",
+    "totalHours": "05:00:00",
+    "startTime": "15:00",
+    "endTime": "20:00",
     "performance": {
       "id": 2,
       "name": "Benson\u0027s Carnival",
@@ -279,7 +279,10 @@
       "endDate": "2024-06-16T23:15:00",
       "hallId": 2,
       "employees": [
-        "Casper Smits",
+        "Pan Nenkoek",
+        "Jurn de Ruijter",
+        "Pan Nenkoek",
+        "Pan Nenkoek",
         "Pan Nenkoek"
       ],
       "ticketsAvailable": [
@@ -318,6 +321,10 @@
               9
             ],
             [
+              0,
+              0,
+              0,
+              0,
               0,
               0,
               0,
@@ -370,14 +377,14 @@
         {
           "ticketTypes": [
             {
-              "amount": 40,
+              "amount": 50,
               "name": "Adult",
               "price": 3500
             },
             {
-              "amount": 10,
-              "name": "VIP",
-              "price": 5500
+              "amount": 30,
+              "name": "Child",
+              "price": 2500
             }
           ]
         }

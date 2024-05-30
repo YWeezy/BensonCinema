@@ -193,7 +193,25 @@ public static class ManagePerformance
                 Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Please provide a valid Hall ID.");
             }
         }
-        //ticketTypes
+        //Material adding.
+        Console.Clear();
+        //Boolean for while loop
+        bool material = false;
+        //Lists for handeling materials
+        List<Dictionary<string, object>> materials = new();
+        List<Dictionary<string, object>> edited_material = new();
+        if (editing)
+        {
+            material = true;
+            edited_material = logic.EditMaterials(selectedPerformance.listmaterials);
+        }
+        while (!material)
+        {
+            materials = logic.AddMaterials();
+            material = true;
+        }
+
+        //TicketTypes
         Dictionary<string, object> dictTickets = new Dictionary<string, object>();
         if (!editing){
             
@@ -299,6 +317,7 @@ public static class ManagePerformance
                 selectedPerformance.startDate = performanceStartDT;
                 selectedPerformance.endDate = performanceEndDT;
                 selectedPerformance.hallId = hallId;
+                selectedPerformance.listmaterials = edited_material;
                 selectedPerformance.active = active;
                 logic.UpdateList(selectedPerformance);
                 Console.Clear();
@@ -337,7 +356,7 @@ public static class ManagePerformance
                     dictSeats["seats"] = ConvertInt2DArrayToIntJArray(emptyseats);
                     listOfDicts.Add(dictSeats);
                     listOfDicts.Add(dictTickets);
-                    PerformanceModel performance = new PerformanceModel(newId, performanceName, description, performanceStartDT, performanceEndDT, hallId, listOfDicts, true);
+                    PerformanceModel performance = new PerformanceModel(newId, performanceName, description, performanceStartDT, performanceEndDT, hallId, materials, listOfDicts, true);
                     logic.UpdateList(performance);
                     Console.Clear();
                     Console.WriteLine($"{Color.Green}The Performance was succesfully added.{Color.Reset}\n");

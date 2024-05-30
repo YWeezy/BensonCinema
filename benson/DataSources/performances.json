@@ -132,6 +132,16 @@
         ]
       }
     ],
+    "listmaterials": [
+      {
+        "material": "Wood",
+        "quantity": 100
+      },
+      {
+        "material": "Dolls",
+        "quantity": 600
+      }
+    ],
     "active": true
   },
   {
@@ -245,6 +255,7 @@
         ]
       }
     ],
+    "listmaterials": [],
     "active": true
   },
   {
@@ -317,6 +328,7 @@
         ]
       }
     ],
+    "listmaterials": [],
     "active": true
   },
   {
@@ -326,7 +338,13 @@
     "startDate": "2024-06-20T15:00:00",
     "endDate": "2024-06-20T18:00:00",
     "hallId": 1,
-    "employees": [],
+    "employees": [
+      "Pan Nenkoek",
+      "Jurn de Ruijter",
+      "Pan Nenkoek",
+      "Pan Nenkoek",
+      "Pan Nenkoek"
+    ],
     "ticketsAvailable": [
       {
         "seats": [
@@ -455,6 +473,353 @@
         ]
       }
     ],
+    "listmaterials": [],
+    "active": true
+  },
+  {
+    "id": 5,
+    "name": "Gi-Jo",
+    "description": "Gi-Jo on a adventure",
+    "startDate": "2024-05-26T12:00:00",
+    "endDate": "2024-05-30T23:00:00",
+    "hallId": 1,
+    "employees": [
+      "Pan Nenkoek",
+      "Pan Nenkoek"
+    ],
+    "ticketsAvailable": [
+      {
+        "seats": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "ticketTypes": [
+          {
+            "amount": 20,
+            "name": "Regular",
+            "price": 1299
+          }
+        ]
+      }
+    ],
+    "listmaterials": [],
+    "active": true
+  },
+  {
+    "id": 6,
+    "name": "GoGo",
+    "description": "Gogo",
+    "startDate": "2024-05-30T12:00:00",
+    "endDate": "2024-06-01T12:00:00",
+    "hallId": 1,
+    "employees": [],
+    "ticketsAvailable": [
+      {
+        "seats": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "ticketTypes": [
+          {
+            "amount": 30,
+            "name": "Kinds",
+            "price": 1200
+          }
+        ]
+      }
+    ],
+    "listmaterials": [
+      {
+        "material": "Chairs",
+        "quantity": 10
+      },
+      {
+        "material": "Pineapples",
+        "quantity": 10
+      },
+      {
+        "material": "Wood",
+        "quantity": 100
+      }
+    ],
+    "active": true
+  },
+  {
+    "id": 7,
+    "name": "Homing",
+    "description": "homing incoming",
+    "startDate": "2024-05-25T08:00:00",
+    "endDate": "2024-06-10T18:00:00",
+    "hallId": 2,
+    "employees": [],
+    "ticketsAvailable": [
+      {
+        "seats": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "ticketTypes": [
+          {
+            "amount": 20,
+            "name": "Medium",
+            "price": 1299
+          }
+        ]
+      }
+    ],
+    "listmaterials": [],
     "active": true
   }
 ]

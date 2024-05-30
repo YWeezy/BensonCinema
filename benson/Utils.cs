@@ -72,6 +72,8 @@ public class Color
     public static string Cyan = "\u001B[36m";
     public static string White = "\u001B[37m";
     public static string Blink = "\u001B[5m";
+    public static string Italic = "\u001B[3m";
+    public static string FontReset = "\u001B[23m";
 }
 
 
