@@ -55,10 +55,11 @@ public class TicketLogic
         return _tickets;
     }
 
-    public void GenerateTicket(int id, string seat)
+    public void GenerateTicket(int id, string seat, string row)
     {
         HallLogic hallLogic = new HallLogic();
-        PerformanceModel performance = Performances.FirstOrDefault(p => p.id == id);
+        PerformanceLogic PLogic =   new PerformanceLogic();
+        PerformanceModel performance = PLogic.GetPerfById(id);
         if (performance != null)
         {
             string performanceTitle = performance.name;
@@ -67,9 +68,8 @@ public class TicketLogic
             string EndTime = performance.startDate.ToShortTimeString();
             int hallid = performance.hallId;
             string Location = hallLogic.GetHallNameById(hallid);
-
             // Create a new ticket model
-            TicketModel ticket = new TicketModel(seat, "regular", performanceTitle, Location, performanceDate, StartTime + "-" + EndTime, id, 40);
+            TicketModel ticket = new TicketModel(seat, row, "regular", performanceTitle, Location, performanceDate, StartTime + "-" + EndTime, id, 40);
 
             // Write the ticket to the data source
             List<TicketModel> tickets = DataAccess<TicketModel>.LoadAll(path);
@@ -89,13 +89,13 @@ public class TicketLogic
         // Filter tickets based on the provided user ID
         List<TicketModel> userTickets = allTickets.Where(t => t.RelationId == id).ToList();
 
-        Console.WriteLine("Ticket ID              Title                 Date        Time                  Location              Seat             Price               ");
+        Console.WriteLine("Ticket ID              Title                 Date        Time                  Location              Seat                        Price               ");
         Console.WriteLine("------------------------------------------------------------------------------------------------------------------------------------------");
 
         // Print ticket details
         foreach (var ticket in userTickets)
         {
-            Console.WriteLine($"{ticket.PerformanceId,-23}{ticket.Title,-22}{ticket.Date,-12}{ticket.Time,-22}{ticket.Location,-22}{ticket.Seat,-17}$ {ticket.Price,-12:F2}");
+            Console.WriteLine($"{ticket.PerformanceId,-23}{ticket.Title,-22}{ticket.Date,-12}{ticket.Time,-22}{ticket.Location,-22}Row {ticket.Row}/Seat {ticket.Seat,-17}$ {ticket.Price,-12:F2}");
         }
     }
 }

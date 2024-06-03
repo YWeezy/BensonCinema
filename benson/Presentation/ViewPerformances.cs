@@ -55,7 +55,7 @@ static class ViewPerformances
             case "Buy ticket":
                 ShowSeats showSeats = new ShowSeats(performanceId);
                 showSeats.SelectSeats();
-                showSeats.SaveSeats();
+                showSeats.SaveSeats(performanceId);
                 Start();
                 break;
             case "Back to previous menu":

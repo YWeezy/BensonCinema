@@ -160,7 +160,7 @@ static class Menu
 
     private static void PerformUserAction(UserOption option)
     {
-        TicketPresentation reserver = new TicketPresentation();
+        // TicketPresentation reserver = new TicketPresentation();
         TicketLogic ticketer = new TicketLogic();
         switch (option)
         {

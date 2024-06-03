@@ -13,6 +13,7 @@ public class TicketType {
 
 public class ShowSeats{
     public int[][] Seats;
+    List<(int, int)> SelectedSeats = new();
     public PerformanceLogic PLogic;
     public HallLogic HLogic;
     private int PerId;
@@ -108,7 +109,6 @@ public class ShowSeats{
     }
 
     public List<(int, int)> SelectSeats(){
-        List<(int, int)> SelectedSeats = new();
         List<TicketType> SelectedTickets = new();
         bool done = false;
         while (!done){
@@ -221,13 +221,13 @@ public class ShowSeats{
                     {
                         Console.Clear();
                         Console.WriteLine($"{Color.Yellow}Selected seats:{Color.Reset}");
-                        foreach (var seat in SelectedSeats)
-                        {
-                        }
 
                         for (int i = 0; i < SelectedSeats.Count; i++)
                         {
-                            Console.WriteLine($"{Color.Cyan}Row: {SelectedSeats[i].Item1}, Seat: {SelectedSeats[i].Item2} - {SelectedTickets[i].Name}");
+                            RowLetter rowLetter = (RowLetter)SelectedSeats[i].Item1;
+                            string row = rowLetter.ToString();
+                            string seat = (SelectedSeats[i].Item2 + 1).ToString();
+                            Console.WriteLine($"{Color.Cyan}Row: {row}, Seat: {seat} - {SelectedTickets[i].Name}");
                         }
 
                         int totalPrice = 0;
@@ -243,7 +243,7 @@ public class ShowSeats{
 
                         Console.WriteLine($"\n{Color.Yellow}Press Enter to make the payment.{Color.Reset}");
                         Console.ReadLine();
-
+                        
                         Console.Clear();
                         Console.WriteLine($"{Color.Cyan}Processing payment.");
                         Thread.Sleep(333);
@@ -279,6 +279,7 @@ public class ShowSeats{
                         Console.Clear();
                         Console.WriteLine($"{Color.Green}Payment succesful!{Color.Reset}\n\n{Color.Yellow}Press Enter to continue{Color.Reset}");
                         Console.ReadLine();
+
                         done = true;
                     }
                 }
@@ -293,7 +294,9 @@ public class ShowSeats{
         return SelectedSeats;
     }
 
-    public void SaveSeats(){
+    public void SaveSeats(int Perfid){
+
+        TicketLogic tinkiter = new TicketLogic();
         for (int i = 0; i < Seats.Length; i++)
         {
             for (int j = 0; j < Seats[0].Length; j++){
@@ -306,9 +309,26 @@ public class ShowSeats{
         perf.ticketsAvailable[0]["seats"] = Seats;
         PLogic.UpdateList(perf);
 
+        for (int i = 0; i < SelectedSeats.Count; i++)
+        {
+            RowLetter rowLetter = (RowLetter)SelectedSeats[i].Item1;
+            string row = rowLetter.ToString();
+            string seat = (SelectedSeats[i].Item2 + 1).ToString();
+            tinkiter.GenerateTicket(Perfid, seat, row);
+        }
+        }
 
+        public enum RowLetter
+        {
+            A = 0,
+            B = 1,
+            C = 2,
+            D = 3,
+            E = 4,
+            F = 5,
+            G = 6,
+        }
 
-    }
-        
+            
     
 }
