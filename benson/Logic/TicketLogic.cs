@@ -71,7 +71,7 @@ public class TicketLogic
             string Location = hallLogic.GetHallNameById(hallid);
             string formattedTotalPrice = (price / 100.0).ToString("F2");
             // Create a new ticket model
-            TicketsModel ticket = new TicketsModel(seat, row, "regular", performanceTitle, Location, performanceDate, StartTime + "-" + EndTime, id, 40);
+            TicketsModel ticket = new TicketsModel(seat, row, "regular", performanceTitle, Location, performanceDate, StartTime + "-" + EndTime, id, formattedTotalPrice);
 
             // Write the ticket to the data source
             List<TicketsModel> tickets = DataAccess<TicketsModel>.LoadAll();

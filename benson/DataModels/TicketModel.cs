@@ -35,7 +35,7 @@ public class TicketsModel
 
     public TicketsModel() { }
 
-    public TicketsModel(string seat, string row, string type, string title, string location, string date, string time, int id, double price)
+    public TicketsModel(string seat, string row, string type, string title, string location, string date, string time, int id, string price)
     {
         Seat = seat;
         Row = row;
