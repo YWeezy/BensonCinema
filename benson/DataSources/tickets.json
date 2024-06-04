@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "PerformanceId": 1,
+    "Title": "Benson\u0027s Adventure",
+    "Location": "Dollhouse A",
+    "Date": "5-6-2024",
+    "Time": "14:00-14:00",
+    "Seat": "4",
+    "Row": "A",
+    "Type": "regular",
+    "Price": 40,
+    "RelationId": "4c90dd30-2252-4150-a100-9dbaf0b6ca59"
+  }
+]

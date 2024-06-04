@@ -184,13 +184,13 @@ public class EmployeeSchedule
             List<ScheduleModel> schedules = JsonSerializer.Deserialize<List<ScheduleModel>>(json);
 
             Console.WriteLine($"{Color.Yellow}Schedules for this week:\n{Color.Blue}");
-            Console.WriteLine($" Worker            Date        Total Hours   Start Time  End Time  Active{Color.Reset}");
-            Console.WriteLine("-------------------------------------------------------------------------");
+            Console.WriteLine($" Worker            Date        Duration   Start Time  End Time  Active{Color.Reset}");
+            Console.WriteLine("----------------------------------------------------------------------");
 
             foreach (var schedule in schedules)
             {
                 string actstr = schedule.Active ? "Active" : "Inactive";
-                Console.WriteLine($" {schedule.Worker,-16}  {schedule.Date,-9}  {schedule.TotalHours,-12}  {schedule.StartTime,-10}  {schedule.EndTime,-9} {actstr,-12}");
+                Console.WriteLine($" {schedule.Worker,-16}  {schedule.Date,-9}  { schedule.TotalHours.ToString().Substring(0, schedule.TotalHours.ToString().Length - 3),-9}  {schedule.StartTime,-10}  {schedule.EndTime,-9} {actstr,-12}");
             }
         }
 
