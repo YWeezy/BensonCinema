@@ -6,8 +6,12 @@ using System.Linq;
 
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-public static class ManagePerformance
+public class ManagePerformance : IScreen
 {
+    void IScreen.Start()
+    {
+        ManagePerformance.Start();
+    }
     static public void Start()
     {
         PerformanceLogic logic = new PerformanceLogic();

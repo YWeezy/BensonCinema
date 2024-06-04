@@ -1,7 +1,11 @@
 using System;
 using System.Data;
-static class ManageHall
+class ManageHall: IScreen
 {
+    void IScreen.Start()
+    {
+        ManageHall.Start();
+    }
 
     //This shows the menu. You can call back to this method to show the menu again
     //after another presentation method is completed.

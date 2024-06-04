@@ -1,0 +1,3 @@
+interface IScreen{
+    void Start();
+}

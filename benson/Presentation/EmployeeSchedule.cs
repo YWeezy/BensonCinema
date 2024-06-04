@@ -5,10 +5,13 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 
-public class EmployeeSchedule
+public class EmployeeSchedule : IScreen
 {
-
-    public static void Schedule()
+    void IScreen.Start()
+    {
+        EmployeeSchedule.Start();
+    }
+    public static void Start()
     {
         ScheduleLogic shell = new ScheduleLogic();
         Console.Clear();
@@ -54,28 +57,28 @@ public class EmployeeSchedule
                 ShowSchedule(path);
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                Schedule();
+                Start();
                 break;
             case 2:
                 Console.Clear();
                 AddSchedule(path);
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                Schedule();
+                Start();
                 break;
             case 3:
                 Console.Clear();
                 EditSchedule(path);
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                Schedule();
+                Start();
                 break;
             case 4:
                 Console.Clear();
                 RemoveSchedule(path);
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                Schedule();
+                Start();
                 break;
             case 5:
                 Console.Clear();
