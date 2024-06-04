@@ -328,7 +328,12 @@
         ]
       }
     ],
-    "listmaterials": [],
+    "listmaterials": [
+      {
+        "material": "Dolls",
+        "quantity": 10
+      }
+    ],
     "active": true
   },
   {

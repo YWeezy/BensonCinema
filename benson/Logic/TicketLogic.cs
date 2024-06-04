@@ -6,11 +6,6 @@ using System.Text.Json;
 
 public class TicketLogic
 {
-    private PerformanceLogic performanceLogic = new PerformanceLogic();
-    private List<PerformancesModel> Performances;
-
-    private List<HallsModel> _halls { get; }
-
     private List<TicketsModel> _tickets;
     string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/tickets.json"));
 
@@ -23,38 +18,38 @@ public class TicketLogic
         _tickets = DataAccess<TicketsModel>.LoadAll();
     }
 
-    public void ShowAvailablePerformances()
-    {
-        performanceLogic.DisplayTable();
-    }
+    // public void ShowAvailablePerformances()
+    // {
+    //     performanceLogic.DisplayTable();
+    // }
 
-    public void PrintPerformanceById(int id)
-    {
+    // public void PrintPerformanceById(int id)
+    // {
 
-        HallLogic hallLogic = new HallLogic();
+    //     HallLogic hallLogic = new HallLogic();
 
-        Console.WriteLine($"{Color.Yellow}Table of all Performances:{Color.Reset}\n");
+    //     Console.WriteLine($"{Color.Yellow}Table of all Performances:{Color.Reset}\n");
 
-        Console.WriteLine("{0,-6}{1,-22}{2,-21}{3, -21}{4, -20}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
-        Console.WriteLine("------------------------------------------------------------------------------------------------");
-        foreach (PerformancesModel performance in Performances)
-        {
-            if (performance.id == id)
-            {
-                Console.WriteLine("{0,-6}{1,-22}{2,-21}{3, -21}{4, -20}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId), performance.active);
-            }
+    //     Console.WriteLine("{0,-6}{1,-22}{2,-21}{3, -21}{4, -20}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
+    //     Console.WriteLine("------------------------------------------------------------------------------------------------");
+    //     foreach (PerformancesModel performance in Performances)
+    //     {
+    //         if (performance.id == id)
+    //         {
+    //             Console.WriteLine("{0,-6}{1,-22}{2,-21}{3, -21}{4, -20}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId), performance.active);
+    //         }
 
-        }
+    //     }
 
-        Console.WriteLine("");
+    //     Console.WriteLine("");
 
-        return;
-    }
+    //     return;
+    // }
 
-    public List<TicketsModel> GetList()
-    {
-        return _tickets;
-    }
+    // public List<TicketsModel> GetList()
+    // {
+    //     return _tickets;
+    // }
 
     public void GenerateTicket(int id, string seat, string row, int price)
     {

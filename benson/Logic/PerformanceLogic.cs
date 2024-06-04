@@ -244,7 +244,71 @@ public class PerformanceLogic
             }
         }
     }
+    //Overloaded Addmaterials to handle List inputs
+    void AddMaterials(List<Dictionary<string, object>> materials)
+    {
+        Console.Clear();
+        Console.WriteLine($"{Color.Yellow}Add Materials for the Performance (type '{Color.Italic}done{Color.FontReset}' when finished):{Color.Reset}");
 
+        while (true)
+        {
+            Console.WriteLine($"{Color.Italic}Type 'done' when finished{Color.FontReset}");
+            Console.WriteLine("Material: ");
+            string material = Console.ReadLine();
+
+            if (material.ToLower() == "done")
+            {
+                break;
+            }
+
+            if (!string.IsNullOrEmpty(material) && !material.Contains(" "))
+            {
+                Console.Write("Quantity: ");
+                int quantity;
+                while (!int.TryParse(Console.ReadLine(), out quantity) || quantity <= 0)
+                {
+                    Console.WriteLine($"{Color.Red}Please enter a valid positive integer for quantity.{Color.Reset}");
+                    Console.Write("Quantity: ");
+                }
+
+                bool found = false;
+                for (int i = 0; i < materials.Count; i++)
+                {
+                    if (materials[i]["material"].ToString().ToLower() == material.ToLower())
+                    {
+                        int existingQuantity;
+                        if (materials[i]["quantity"] is JsonElement jsonElement && jsonElement.ValueKind == JsonValueKind.Number)
+                        {
+                            existingQuantity = jsonElement.GetInt32();
+                        }
+                        else
+                        {
+                            existingQuantity = Convert.ToInt32(materials[i]["quantity"]);
+                        }
+
+                        materials[i]["quantity"] = existingQuantity + quantity;
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                {
+                    Dictionary<string, object> materialEntry = new Dictionary<string, object>
+                {
+                    { "material", material },
+                    { "quantity", quantity }
+                };
+                    materials.Add(materialEntry);
+                }
+                DisplayMaterials(materials, -1); // Update display after each addition.
+            }
+            else
+            {
+                Console.WriteLine($"{Color.Red}Please enter a valid material name without spaces.{Color.Reset}");
+            }
+        }
+    }
     private void DisplayMaterials(List<Dictionary<string, object>> materials)
     {
         Console.Clear();
@@ -259,104 +323,38 @@ public class PerformanceLogic
 
         Console.WriteLine();
     }
+    // Overloaded Display function for EditMaterials that takes a selected material option.
+    void DisplayMaterials(List<Dictionary<string, object>> materials, int selectedIndex = -1)
+    {
+        Console.Clear();
+        Console.WriteLine($"{Color.Yellow}Existing Materials:{Color.Reset}\n");
+        Console.WriteLine($"{Color.Italic}{Color.Blue}Controls: {Color.Red}ESC{Color.Blue} to stop editing Materials, {Color.Red}Backspace{Color.Blue} to delete the Material and {Color.Red}Enter{Color.Blue} to add more Materials{Color.Reset}{Color.FontReset}");
+        Console.WriteLine("{0,-20}{1,-10}", "Material", "Quantity");
+        Console.WriteLine(new string('-', 30));
+
+        for (int i = 0; i < materials.Count; i++)
+        {
+            if (i == selectedIndex)
+            {
+                Console.Write($"{Color.Green}>> ");
+            }
+            else
+            {
+                Console.Write("");
+            }
+
+            Console.WriteLine("{0,-20}{1,-10}", materials[i]["material"], materials[i]["quantity"]);
+            Console.Write($"{Color.Reset}");
+        }
+
+        if (materials.Count == 0)
+        {
+            Console.WriteLine($"{Color.Red}No materials available.{Color.Reset}");
+        }
+    }
     public List<Dictionary<string, object>> EditMaterials(List<Dictionary<string, object>> materials)
     {
-        // Separate Display function for EditMaterials that takes a selected material option.
-        // This was added for better visibility of the selected material.
-        void DisplayMaterials(List<Dictionary<string, object>> materials, int selectedIndex = -1)
-        {
-            Console.Clear();
-            Console.WriteLine($"{Color.Yellow}Existing Materials:{Color.Reset}\n");
-            Console.WriteLine($"{Color.Italic}{Color.Blue}Controls: {Color.Red}ESC{Color.Blue} to stop editing Materials, {Color.Red}Backspace{Color.Blue} to delete the Material and {Color.Red}Enter{Color.Blue} to add more Materials{Color.Reset}{Color.FontReset}");
-            Console.WriteLine("{0,-20}{1,-10}", "Material", "Quantity");
-            Console.WriteLine(new string('-', 30));
-
-            for (int i = 0; i < materials.Count; i++)
-            {
-                if (i == selectedIndex)
-                {
-                    Console.Write($"{Color.Green}>> ");
-                }
-                else
-                {
-                    Console.Write("   ");
-                }
-
-                Console.WriteLine("{0,-20}{1,-10}", materials[i]["material"], materials[i]["quantity"]);
-                Console.Write($"{Color.Reset}");
-            }
-
-            if (materials.Count == 0)
-            {
-                Console.WriteLine($"{Color.Red}No materials available.{Color.Reset}");
-            }
-        }
         //Separate AddMaterial function to handel a list with materials.
-        void AddMaterials(List<Dictionary<string, object>> materials)
-        {
-            Console.Clear();
-            Console.WriteLine($"{Color.Yellow}Add Materials for the Performance (type '{Color.Italic}done{Color.FontReset}' when finished):{Color.Reset}");
-
-            while (true)
-            {
-                Console.WriteLine($"{Color.Italic}Type 'done' when finished{Color.FontReset}");
-                Console.WriteLine("Material: ");
-                string material = Console.ReadLine();
-
-                if (material.ToLower() == "done")
-                {
-                    break;
-                }
-
-                if (!string.IsNullOrEmpty(material) && !material.Contains(" "))
-                {
-                    Console.Write("Quantity: ");
-                    int quantity;
-                    while (!int.TryParse(Console.ReadLine(), out quantity) || quantity <= 0)
-                    {
-                        Console.WriteLine($"{Color.Red}Please enter a valid positive integer for quantity.{Color.Reset}");
-                        Console.Write("Quantity: ");
-                    }
-
-                    bool found = false;
-                    for (int i = 0; i < materials.Count; i++)
-                    {
-                        if (materials[i]["material"].ToString().ToLower() == material.ToLower())
-                        {
-                            int existingQuantity;
-                            if (materials[i]["quantity"] is JsonElement jsonElement && jsonElement.ValueKind == JsonValueKind.Number)
-                            {
-                                existingQuantity = jsonElement.GetInt32();
-                            }
-                            else
-                            {
-                                existingQuantity = Convert.ToInt32(materials[i]["quantity"]);
-                            }
-
-                            materials[i]["quantity"] = existingQuantity + quantity;
-                            found = true;
-                            break;
-                        }
-                    }
-
-                    if (!found)
-                    {
-                        Dictionary<string, object> materialEntry = new Dictionary<string, object>
-                    {
-                        { "material", material },
-                        { "quantity", quantity }
-                    };
-                        materials.Add(materialEntry);
-                    }
-                    DisplayMaterials(materials, -1); // Update display after each addition.
-                }
-                else
-                {
-                    Console.WriteLine($"{Color.Red}Please enter a valid material name without spaces.{Color.Reset}");
-                }
-            }
-        }
-
         int selectedMaterialIndex = materials.Count > 0 ? 0 : -1; // Start with the first material selected, or -1 if the list is empty.
 
         DisplayMaterials(materials, selectedMaterialIndex);
@@ -416,7 +414,6 @@ public class PerformanceLogic
             }
         }
     }
-
 
     public static int[][] ConvertBoolArrayToIntArray(int[,] intarray)
     {
