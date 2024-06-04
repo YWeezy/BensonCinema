@@ -172,7 +172,7 @@ static class Menu
                 ticketer.loadMytickets(Utils.LoggedInUser.Id);
                 Console.WriteLine("Press Enter to go back.");
                 // Wait for the user to press enter
-                while (Console.ReadKey().Key != ConsoleKey.Enter) { Console.Clear(); }
+                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
                 ShowUserDefaultMenu();
                 break;
             case UserOption.Exit:

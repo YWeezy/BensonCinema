@@ -163,7 +163,7 @@ public class PerformanceLogic
                 }
             }
 
-            Console.WriteLine("{0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -15}{6, -20}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId), actstr, employeeString);
+            Console.WriteLine("{0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -15}{6, -20}", performance.id, performance.name, performance.startDate.ToString().Substring(0, performance.startDate.ToString().Length - 3), performance.endDate.ToString().Substring(0, performance.endDate.ToString().Length - 3), hallLogic.GetHallNameById(performance.hallId), actstr, employeeString);
         }
         Console.WriteLine("");
 

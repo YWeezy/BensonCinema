@@ -1,1 +1,50 @@
-[]
+[
+  {
+    "PerformanceId": 3,
+    "Title": "Benson\u0027s Mystery",
+    "Location": "Dollhouse C",
+    "Date": "8-6-2024",
+    "Time": "19:00-19:00",
+    "Seat": "2",
+    "Row": "A",
+    "Type": "regular",
+    "Price": "40,00",
+    "RelationId": "4c90dd30-2252-4150-a100-9dbaf0b6ca59"
+  },
+  {
+    "PerformanceId": 3,
+    "Title": "Benson\u0027s Mystery",
+    "Location": "Dollhouse C",
+    "Date": "8-6-2024",
+    "Time": "19:00-19:00",
+    "Seat": "1",
+    "Row": "C",
+    "Type": "regular",
+    "Price": "60,00",
+    "RelationId": "4c90dd30-2252-4150-a100-9dbaf0b6ca59"
+  },
+  {
+    "PerformanceId": 3,
+    "Title": "Benson\u0027s Mystery",
+    "Location": "Dollhouse C",
+    "Date": "8-6-2024",
+    "Time": "19:00-19:00",
+    "Seat": "3",
+    "Row": "C",
+    "Type": "regular",
+    "Price": "40,00",
+    "RelationId": "4c90dd30-2252-4150-a100-9dbaf0b6ca59"
+  },
+  {
+    "PerformanceId": 3,
+    "Title": "Benson\u0027s Mystery",
+    "Location": "Dollhouse C",
+    "Date": "8-6-2024",
+    "Time": "19:00-19:00",
+    "Seat": "1",
+    "Row": "A",
+    "Type": "regular",
+    "Price": "60,00",
+    "RelationId": "4c90dd30-2252-4150-a100-9dbaf0b6ca59"
+  }
+]

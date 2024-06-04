@@ -79,7 +79,7 @@ static class ViewPerformances
 
             Console.WriteLine($"{Color.Yellow}{selectedPerformance.name}{Color.Reset}");
             Console.WriteLine($"\n{selectedPerformance.description}");
-            Console.WriteLine($"\n{Color.Yellow}Time: {Color.Green}{selectedPerformance.startDate} {Color.Yellow}<-> {Color.Green}{selectedPerformance.endDate}{Color.Reset}");
+            Console.WriteLine($"\n{Color.Yellow}Time: {Color.Green}{selectedPerformance.startDate.ToString().Substring(0, selectedPerformance.startDate.ToString().Length - 3)} {Color.Yellow}<-> {Color.Green}{selectedPerformance.endDate.ToString().Substring(0, selectedPerformance.endDate.ToString().Length - 3)}{Color.Reset}");
             Console.WriteLine($"\n{Color.Yellow}Hall: {Color.Green}{hallLogic.GetHallNameById(selectedPerformance.hallId)}{Color.Reset}");
             Console.WriteLine("");
 
@@ -130,7 +130,7 @@ static class ViewPerformances
             {
                 Console.Write($"{Color.Reset}   ");
             }
-            Console.WriteLine("   {0,-6}{1,-22}{2,-26}{3, -26}{4, -20}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId));
+            Console.WriteLine("   {0,-6}{1,-22}{2,-26}{3, -26}{4, -20}", performance.id, performance.name, performance.startDate.ToString().Substring(0, performance.startDate.ToString().Length - 3), performance.endDate.ToString().Substring(0, performance.endDate.ToString().Length - 3), hallLogic.GetHallNameById(performance.hallId));
 
             index++;
         }

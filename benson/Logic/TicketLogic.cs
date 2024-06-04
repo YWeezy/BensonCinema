@@ -56,7 +56,7 @@ public class TicketLogic
         return _tickets;
     }
 
-    public void GenerateTicket(int id, string seat, string row)
+    public void GenerateTicket(int id, string seat, string row, int price)
     {
         HallLogic hallLogic = new HallLogic();
         PerformanceLogic PLogic = new PerformanceLogic();
@@ -69,6 +69,7 @@ public class TicketLogic
             string EndTime = performance.startDate.ToShortTimeString();
             int hallid = performance.hallId;
             string Location = hallLogic.GetHallNameById(hallid);
+            string formattedTotalPrice = (price / 100.0).ToString("F2");
             // Create a new ticket model
             TicketsModel ticket = new TicketsModel(seat, row, "regular", performanceTitle, Location, performanceDate, StartTime + "-" + EndTime, id, 40);
 
@@ -84,6 +85,7 @@ public class TicketLogic
     }
     public void loadMytickets(string id)
     {
+        Console.Clear();
         // Load all tickets from the data source
         List<TicketsModel> allTickets = DataAccess<TicketsModel>.LoadAll();
 

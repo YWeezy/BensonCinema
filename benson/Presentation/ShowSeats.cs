@@ -14,6 +14,7 @@ public class TicketType {
 public class ShowSeats{
     public int[][] Seats;
     List<(int, int)> SelectedSeats = new();
+    List<TicketType> SelectedTickets = new();
     public PerformanceLogic PLogic;
     public HallLogic HLogic;
     private int PerId;
@@ -109,7 +110,7 @@ public class ShowSeats{
     }
 
     public List<(int, int)> SelectSeats(){
-        List<TicketType> SelectedTickets = new();
+
         bool done = false;
         while (!done){
             int rowselect = 0;
@@ -314,7 +315,8 @@ public class ShowSeats{
             RowLetter rowLetter = (RowLetter)SelectedSeats[i].Item1;
             string row = rowLetter.ToString();
             string seat = (SelectedSeats[i].Item2 + 1).ToString();
-            tinkiter.GenerateTicket(Perfid, seat, row);
+            int price = SelectedTickets[i].Price; // Added price
+            tinkiter.GenerateTicket(Perfid, seat, row, price);
         }
         }
 

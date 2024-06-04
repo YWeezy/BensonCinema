@@ -28,7 +28,7 @@ public class TicketsModel
     public string Type { get; set; }
 
     [JsonPropertyName("Price")]
-    public double Price { get; set; }
+    public string Price { get; set; }
 
     [JsonPropertyName("RelationId")]
     public string RelationId { get; set; }
