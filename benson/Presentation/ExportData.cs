@@ -3,11 +3,13 @@ using System.Globalization;
 
 static class ExportData
 {
-    static public void Start() {
+    static public void Start()
+    {
         DisplayMenu(new string[] { "Export accounts", "Export halls", "Export performances", "Back to main menu" }); // "Export schedules"
     }
 
-    static public void End() {
+    static public void End()
+    {
         Console.WriteLine("Press Enter to return to the menu.");
         while (Console.ReadKey().Key != ConsoleKey.Enter) { }
         Start();
@@ -98,7 +100,8 @@ static class ExportData
                 string startDate;
                 string endDate;
 
-                while (true) {
+                while (true)
+                {
                     Console.WriteLine("\nEnter a start date for the performances you want to export. (DD-MM-YYYY): ");
                     startDate = ConsoleInput.EditLine(DateTime.Now.AddDays(-30).ToString("dd-MM-yyyy"));
                     DateTime startDateDT = DateTime.MinValue;
@@ -114,7 +117,8 @@ static class ExportData
                     }
                 }
 
-                while (true) {
+                while (true)
+                {
                     Console.WriteLine("\nEnter an end date for the performances you want to export. (DD-MM-YYYY): ");
                     endDate = ConsoleInput.EditLine(DateTime.Now.ToString("dd-MM-yyyy"));
                     DateTime endDateDT = DateTime.MinValue;
@@ -129,16 +133,16 @@ static class ExportData
                         Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Please enter a valid date format (DD-MM-YYYY).");
                     }
                 }
-               
+
                 ExportPerformances(startDate, endDate);
                 break;
 
-            
+
             // Schedule options
             case "Export schedules":
                 End();
                 break;
-            
+
             case "Back to main menu":
                 Menu.Start();
                 break;
@@ -151,12 +155,13 @@ static class ExportData
     }
 
     // Methods for exporting
-    static private void ExportAccounts(int role = -1) {
+    static private void ExportAccounts(int role = -1)
+    {
         Console.Clear();
         Console.WriteLine("Exporting accounts...");
 
         AccountsLogic accountsLogic = new AccountsLogic();
-        List<AccountModel> accounts = accountsLogic.GetAllAccounts(role);
+        List<AccountsModel> accounts = accountsLogic.GetAllAccounts(role);
 
         string csvFilePath = "Exports/accounts/accounts.csv";
 
@@ -177,13 +182,14 @@ static class ExportData
 
         End();
     }
-    
-    static private void ExportHalls(int role = -1) {
+
+    static private void ExportHalls(int role = -1)
+    {
         Console.Clear();
         Console.WriteLine("Exporting halls...");
 
         HallLogic hallLogic = new HallLogic();
-        List<HallModel> halls = hallLogic.GetList();
+        List<HallsModel> halls = hallLogic.GetList();
 
         string csvFilePath = "Exports/halls/halls.csv";
 
@@ -205,12 +211,13 @@ static class ExportData
         End();
     }
 
-    static private void ExportPerformances(string from = "01-01-0001", string to = "31-12-9999") {
+    static private void ExportPerformances(string from = "01-01-0001", string to = "31-12-9999")
+    {
         Console.Clear();
         Console.WriteLine("Exporting performances...");
 
         PerformanceLogic performanceLogic = new PerformanceLogic();
-        List<PerformanceModel> performances = performanceLogic.GetPerformances(from, to);
+        List<PerformancesModel> performances = performanceLogic.GetPerformances(from, to);
 
         string csvFilePath = "Exports/performances/performances.csv";
 

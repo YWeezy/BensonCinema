@@ -72,7 +72,7 @@ static class ViewPerformances
         int totalOptions = options.Length;
         while (true)
         {
-            PerformanceModel selectedPerformance = logic.GetActivePerformances()[selectedPerformanceIndex];
+            PerformancesModel selectedPerformance = logic.GetActivePerformances()[selectedPerformanceIndex];
             HallLogic hallLogic = new HallLogic();
 
             Console.Clear();
@@ -120,7 +120,7 @@ static class ViewPerformances
         Console.WriteLine("      ----------------------------------------------------------------------------------------------------");
 
         int index = 0;
-        foreach (PerformanceModel performance in logic.GetActivePerformances())
+        foreach (PerformancesModel performance in logic.GetActivePerformances())
         {
             if (index == selectedPerformanceIndex)
             {

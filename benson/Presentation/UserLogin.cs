@@ -31,7 +31,7 @@ static class UserLogin
         {
             if (password != null)
             {
-                AccountModel acc = accountsLogic.CheckLogin(email, password);
+                AccountsModel acc = accountsLogic.CheckLogin(email, password);
                 if (acc != null)
                 {
                     // Set logged-in user

@@ -305,7 +305,7 @@ public class ShowSeats{
                 }
             }
         }
-        PerformanceModel perf = PLogic.GetPerfById(PerId);
+        PerformancesModel perf = PLogic.GetPerfById(PerId);
         perf.ticketsAvailable[0]["seats"] = Seats;
         PLogic.UpdateList(perf);
 

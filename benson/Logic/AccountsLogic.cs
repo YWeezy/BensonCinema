@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.Threading;
 public class AccountsLogic
 {
-    private List<AccountModel> _accounts;
+    private List<AccountsModel> _accounts;
 
-    static public AccountModel? CurrentAccount { get; private set; }
-    string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/accounts.json"));
+    static public AccountsModel? CurrentAccount { get; private set; }
 
     public AccountsLogic()
     {
-        _accounts = DataAccess<AccountModel>.LoadAll(path);
+        _accounts = DataAccess<AccountsModel>.LoadAll();
     }
 
-    public bool UpdateList(AccountModel acc)
+    public bool UpdateList(AccountsModel acc)
     {
         int index = _accounts.FindIndex(s => s.EmailAddress == acc.EmailAddress);
 
@@ -26,12 +25,12 @@ public class AccountsLogic
         }
 
         _accounts.Add(acc);
-        DataAccess<AccountModel>.WriteAll(_accounts, path);
+        DataAccess<AccountsModel>.WriteAll(_accounts);
         Console.WriteLine("Account created successfully!");
         return true;
     }
 
-    public AccountModel CheckLogin(string email, string password)
+    public AccountsModel CheckLogin(string email, string password)
     {
         if (email == null || password == null)
         {
@@ -41,7 +40,7 @@ public class AccountsLogic
         return CurrentAccount;
     }
 
-    public List<AccountModel> GetAllAccounts(int role = -1)
+    public List<AccountsModel> GetAllAccounts(int role = -1)
     {
         return (role < 0) ? _accounts : _accounts.FindAll(acc => Convert.ToInt32(acc.Role) == role);
     }

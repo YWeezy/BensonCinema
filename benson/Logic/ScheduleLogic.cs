@@ -3,17 +3,18 @@
 public class ScheduleLogic
 {
     string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/schedule.json"));
-    private List<ScheduleModel> _schedules = new List<ScheduleModel>();
+    private List<SchedulesModel> _schedules = new List<SchedulesModel>();
 
     public ScheduleLogic(string? newPath = null)
     {
-        if (newPath != null) {
+        if (newPath != null)
+        {
             path = newPath;
-        } 
-        _schedules = DataAccess<ScheduleModel>.LoadAll(path);
+        }
+        _schedules = DataAccess<SchedulesModel>.LoadAll();
     }
 
-    public bool UpdateList(ScheduleModel schedule)
+    public bool UpdateList(SchedulesModel schedule)
     {
         try
         {
@@ -24,12 +25,14 @@ public class ScheduleLogic
 
                 _schedules[index] = schedule;
                 Console.WriteLine("Schedule updated succesfully.");
-            } else {
+            }
+            else
+            {
 
                 _schedules.Add(schedule);
                 Console.WriteLine("New schedule added succesfully.");
             }
-            DataAccess<ScheduleModel>.WriteAll(_schedules, path);
+            DataAccess<SchedulesModel>.WriteAll(_schedules);
             return true;
         }
         catch (System.Exception)
@@ -38,7 +41,7 @@ public class ScheduleLogic
         }
     }
 
-    public List<ScheduleModel> GetSchedules(string employeeName)
+    public List<SchedulesModel> GetSchedules(string employeeName)
     {
         return _schedules.Where(s => s.Worker == employeeName).ToList();
     }
@@ -51,7 +54,7 @@ public class ScheduleLogic
         {
             string removedEmployee = _schedules[index].Worker;
             _schedules.RemoveAt(index);
-            DataAccess<ScheduleModel>.WriteAll(_schedules, path);
+            DataAccess<SchedulesModel>.WriteAll(_schedules);
             Console.WriteLine($"Schedule for {removedEmployee} removed succesfully.");
             return true;
         }

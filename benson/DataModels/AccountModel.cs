@@ -2,7 +2,7 @@ using System;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 
-public class AccountModel
+public class AccountsModel
 {
     [JsonPropertyName("Id")]
     public string Id { get; set; }
@@ -20,9 +20,9 @@ public class AccountModel
     public UserRole Role { get; set; }
 
     [JsonPropertyName("Tickets")]
-    public List<TicketModel> Tickets { get; set; } = new List<TicketModel>();
+    public List<TicketsModel> Tickets { get; set; } = new List<TicketsModel>();
 
-    public AccountModel(string emailAddress, string fullName, string password, UserRole role = UserRole.User)
+    public AccountsModel(string emailAddress, string fullName, string password, UserRole role = UserRole.User)
     {
         Id = Guid.NewGuid().ToString();
         EmailAddress = emailAddress;
@@ -56,13 +56,13 @@ public class AccountModel
     //     TicketsAccess.WriteAll(tickets);
     // }
 
-    public void AddTicket(TicketModel ticket)
+    public void AddTicket(TicketsModel ticket)
     {
         Tickets.Add(ticket);
         // SaveTickets();
     }
 
-    public void RemoveTicket(TicketModel ticket)
+    public void RemoveTicket(TicketsModel ticket)
     {
         Tickets.Remove(ticket);
         // SaveTickets();

@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-public class ScheduleModel
+public class SchedulesModel
 {
     [JsonPropertyName("id")]
     public string ID { get; set; }
@@ -12,7 +12,7 @@ public class ScheduleModel
     public string Date { get; set; }
 
     [JsonPropertyName("totalHours")]
-    public string TotalHours { get; set;}
+    public string TotalHours { get; set; }
 
     [JsonPropertyName("startTime")]
     public string StartTime { get; set; }
@@ -21,15 +21,16 @@ public class ScheduleModel
     public string EndTime { get; set; }
 
     [JsonPropertyName("performance")]
-    public PerformanceModel Performance { get; set; }
+    public PerformancesModel Performance { get; set; }
 
     [JsonPropertyName("active")]
     public bool Active { get; set; }
 
 
 
-    public ScheduleModel( string id, string worker, string date, string totalHours, string startTime, string endTime, PerformanceModel performance, bool active)
-    {   this.ID = id;
+    public SchedulesModel(string id, string worker, string date, string totalHours, string startTime, string endTime, PerformancesModel performance, bool active)
+    {
+        this.ID = id;
         this.Worker = worker;
         this.Date = date;
         this.TotalHours = totalHours;

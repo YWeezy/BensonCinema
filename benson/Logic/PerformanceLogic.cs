@@ -6,18 +6,15 @@ using System;
 public class PerformanceLogic
 {
 
-    private List<PerformanceModel> _performances = new List<PerformanceModel>();
+    private List<PerformancesModel> _performances = new List<PerformancesModel>();
     public string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/performances.json"));
 
-    public PerformanceLogic(string? newPath = null)
+    public PerformanceLogic()
     {
-        if (newPath != null) {
-            path = newPath;
-        } 
-        _performances = DataAccess<PerformanceModel>.LoadAll(path);
+        _performances = DataAccess<PerformancesModel>.LoadAll();
     }
 
-    public List<PerformanceModel> GetPerformances(string from = "01-01-0001", string to = "31-12-9999")
+    public List<PerformancesModel> GetPerformances(string from = "01-01-0001", string to = "31-12-9999")
     {
         DateTime fromDate;
         DateTime toDate;
@@ -39,16 +36,19 @@ public class PerformanceLogic
         return _performances.Where(performance => performance.startDate >= fromDate && performance.endDate <= toDate).ToList();
     }
 
-    public int[][] GetSeatsById(int id){
-        PerformanceModel? performance = _performances.FirstOrDefault(h => h.id == id);
+    public int[][] GetSeatsById(int id)
+    {
+        PerformancesModel? performance = _performances.FirstOrDefault(h => h.id == id);
         string seatsStr = Convert.ToString(performance.ticketsAvailable[0]["seats"]);
         int[][] seats = JsonSerializer.Deserialize<int[][]>(seatsStr);
         return seats;
     }
 
-    public List<TicketType> GetTicketTypesById(int id) {
-        PerformanceModel? performance = _performances.FirstOrDefault(h => h.id == id);
-        if (performance == null || performance.ticketsAvailable.Count < 2) {
+    public List<TicketType> GetTicketTypesById(int id)
+    {
+        PerformancesModel? performance = _performances.FirstOrDefault(h => h.id == id);
+        if (performance == null || performance.ticketsAvailable.Count < 2)
+        {
             return new List<TicketType>();
         }
         string ticketTypesStr = performance.ticketsAvailable[1]["ticketTypes"].ToString();
@@ -57,7 +57,7 @@ public class PerformanceLogic
     }
 
 
-    public List<PerformanceModel> GetActivePerformances()
+    public List<PerformancesModel> GetActivePerformances()
     {
         string from = DateTime.Today.ToString("dd-MM-yyyy");
         DateTime fromDate;
@@ -83,12 +83,12 @@ public class PerformanceLogic
         return _performances.Count;
     }
 
-    public void UpdateList(PerformanceModel perf)
+    public void UpdateList(PerformancesModel perf)
     {
         if (_performances == null || _performances.Count == 0)
         {
             // If _performances is null or empty, add the performance directly
-            _performances = new List<PerformanceModel>() { perf };
+            _performances = new List<PerformancesModel>() { perf };
         }
         else
         {
@@ -106,14 +106,14 @@ public class PerformanceLogic
                 _performances.Add(perf);
             }
         }
-        
-        DataAccess<PerformanceModel>.WriteAll(_performances, path);
+
+        DataAccess<PerformancesModel>.WriteAll(_performances);
     }
 
 
-    public PerformanceModel GetPerfById(int id)
+    public PerformancesModel GetPerfById(int id)
     {
-        PerformanceModel? performance = _performances.FirstOrDefault(h => h.id == id);
+        PerformancesModel? performance = _performances.FirstOrDefault(h => h.id == id);
         return performance != null ? performance : null;
     }
 
@@ -138,7 +138,7 @@ public class PerformanceLogic
 
     public void DisplayTable()
     {
-        
+
         HallLogic hallLogic = new HallLogic();
 
         Console.WriteLine($"{Color.Yellow}Table of all Performances:{Color.Reset}\n");
@@ -146,7 +146,7 @@ public class PerformanceLogic
         Console.Write(Color.Blue);
         Console.WriteLine("{0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -15}{6, -20}", "ID", "Name", "Start", "End", "Hall", "Active", "Employees");
         Console.WriteLine($"{Color.Reset}-------------------------------------------------------------------------------------------------------------------------------");
-        foreach (PerformanceModel performance in _performances)
+        foreach (PerformancesModel performance in _performances)
         {
             string actstr = performance.active ? "Active" : "Inactive";
             string employeeString = "";
@@ -172,11 +172,11 @@ public class PerformanceLogic
 
     public bool DeletePerformance(int id)
     {
-        PerformanceModel perfToRemove = _performances.Find(p => p.id == id);
+        PerformancesModel perfToRemove = _performances.Find(p => p.id == id);
         if (perfToRemove != null)
         {
             _performances.Remove(perfToRemove);
-            DataAccess<PerformanceModel>.WriteAll(_performances, path);
+            DataAccess<PerformancesModel>.WriteAll(_performances);
             return true;
         }
         return false;
@@ -218,26 +218,26 @@ public class PerformanceLogic
                     Console.WriteLine($"{Color.Red}Please enter a valid positive integer for quantity.{Color.Reset}");
                     Console.Write("Quantity: ");
                 }
-            bool found = false;
-            foreach (var item in materials)
-            {
-                if (item["material"].ToString().ToLower() == material.ToLower())
+                bool found = false;
+                foreach (var item in materials)
                 {
-                    item["quantity"] = (int)item["quantity"] + quantity;
-                    found = true;
-                    break;
+                    if (item["material"].ToString().ToLower() == material.ToLower())
+                    {
+                        item["quantity"] = (int)item["quantity"] + quantity;
+                        found = true;
+                        break;
+                    }
                 }
-            }
 
-            if (!found)
-            {
-                Dictionary<string, object> materialEntry = new Dictionary<string, object>
+                if (!found)
+                {
+                    Dictionary<string, object> materialEntry = new Dictionary<string, object>
                 {
                     { "material", material },
                     { "quantity", quantity }
                 };
-                materials.Add(materialEntry);
-            }
+                    materials.Add(materialEntry);
+                }
 
                 //Display of the user added materials.
                 DisplayMaterials(materials);
@@ -258,7 +258,7 @@ public class PerformanceLogic
         }
 
         Console.WriteLine();
-        }
+    }
     public List<Dictionary<string, object>> EditMaterials(List<Dictionary<string, object>> materials)
     {
         // Separate Display function for EditMaterials that takes a selected material option.
@@ -318,36 +318,36 @@ public class PerformanceLogic
                         Console.Write("Quantity: ");
                     }
 
-                bool found = false;
-                for (int i = 0; i < materials.Count; i++)
-                {
-                    if (materials[i]["material"].ToString().ToLower() == material.ToLower())
+                    bool found = false;
+                    for (int i = 0; i < materials.Count; i++)
                     {
-                        int existingQuantity;
-                        if (materials[i]["quantity"] is JsonElement jsonElement && jsonElement.ValueKind == JsonValueKind.Number)
+                        if (materials[i]["material"].ToString().ToLower() == material.ToLower())
                         {
-                            existingQuantity = jsonElement.GetInt32();
-                        }
-                        else
-                        {
-                            existingQuantity = Convert.ToInt32(materials[i]["quantity"]);
-                        }
+                            int existingQuantity;
+                            if (materials[i]["quantity"] is JsonElement jsonElement && jsonElement.ValueKind == JsonValueKind.Number)
+                            {
+                                existingQuantity = jsonElement.GetInt32();
+                            }
+                            else
+                            {
+                                existingQuantity = Convert.ToInt32(materials[i]["quantity"]);
+                            }
 
-                        materials[i]["quantity"] = existingQuantity + quantity;
-                        found = true;
-                        break;
+                            materials[i]["quantity"] = existingQuantity + quantity;
+                            found = true;
+                            break;
+                        }
                     }
-                }
 
-                if (!found)
-                {
-                    Dictionary<string, object> materialEntry = new Dictionary<string, object>
+                    if (!found)
+                    {
+                        Dictionary<string, object> materialEntry = new Dictionary<string, object>
                     {
                         { "material", material },
                         { "quantity", quantity }
                     };
-                    materials.Add(materialEntry);
-                }
+                        materials.Add(materialEntry);
+                    }
                     DisplayMaterials(materials, -1); // Update display after each addition.
                 }
                 else
@@ -364,7 +364,7 @@ public class PerformanceLogic
         while (true)
         {
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-            
+
             //Case functions for the Controls.
             switch (keyInfo.Key)
             {

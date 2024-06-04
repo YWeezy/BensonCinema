@@ -1,12 +1,12 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-public class HallModel
+public class HallsModel
 {
     [JsonPropertyName("hallID")]
     public int hallID { get; set; }
     [JsonPropertyName("hallName")]
-	public string hallName { get; set; }
+    public string hallName { get; set; }
 
     [JsonPropertyName("type")]
     public string type { get; set; }
@@ -16,12 +16,13 @@ public class HallModel
 
     [JsonConstructor]
 
-    public HallModel(int HallID, string HallName, string Type, bool Active){
+    public HallsModel(int HallID, string HallName, string Type, bool Active)
+    {
         hallID = HallID;
         hallName = HallName;
         type = Type;
         active = Active;
-    } 
+    }
 
-    
+
 }

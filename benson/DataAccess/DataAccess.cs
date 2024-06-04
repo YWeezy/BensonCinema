@@ -5,8 +5,14 @@ using System.Text.Json;
 
 public static class DataAccess<T>
 {
-    public static List<T> LoadAll(string filePath)
+    static string genericType = Convert.ToString(typeof(T));
+    static string fileName = genericType?.Split("Model")[0].ToLower();
+    static string filePath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @$"DataSources/{fileName}.json"));
+    public static List<T> LoadAll()
     {
+
+
+        System.Console.WriteLine(filePath);
         try
         {
             string json = File.ReadAllText(filePath);
@@ -33,7 +39,7 @@ public static class DataAccess<T>
 
     }
 
-    public static void WriteAll(List<T> accounts, string filePath)
+    public static void WriteAll(List<T> accounts)
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
         string json = JsonSerializer.Serialize(accounts, options);

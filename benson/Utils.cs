@@ -9,7 +9,7 @@ public static class Utils
     private static string passPhrase = Environment.GetEnvironmentVariable("PASS_PHRASE") ?? "password";
 
 
-    public static AccountModel LoggedInUser { get; set; } = null;
+    public static AccountsModel LoggedInUser { get; set; } = null;
 
     public static string getPassword()
     {
@@ -201,10 +201,6 @@ public static class DateSelector
                     var formattedTime = CurrentTime.ToString("HH mm");
                     string[] hoursAndMinutes = formattedTime.Split(" ");
                     return $"{hoursAndMinutes[0]}:{hoursAndMinutes[1]}";
-
-
-
-
                 default:
                     break;
             }

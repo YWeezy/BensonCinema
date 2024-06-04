@@ -48,7 +48,7 @@ static class ManageHall
     static public void Update(HallLogic logic, int selectedHallIndex = -1)
     {
         bool editing = false;
-        HallModel selectedHall = null;
+        HallsModel selectedHall = null;
         bool active = true;
         if (selectedHallIndex != -1)
         {
@@ -153,7 +153,7 @@ static class ManageHall
             {
                 case "y":
                     int newId = logic.GetNewId();
-                    HallModel hall = new HallModel(newId, hallName, type, true);
+                    HallsModel hall = new HallsModel(newId, hallName, type, true);
                     logic.UpdateList(hall);
                     Console.Clear();
                     Console.WriteLine($"{Color.Green}The Hall was succesfully added.{Color.Reset}\n");
@@ -208,7 +208,7 @@ static class ManageHall
         Console.WriteLine("      -------------------------------------");
 
         int index = 0;
-        foreach (HallModel hall in logic.GetList())
+        foreach (HallsModel hall in logic.GetList())
         {
             if (index == selectedHallIndex)
             {
@@ -260,7 +260,7 @@ static class ManageHall
 
     static private void PerformAction(int option, HallLogic logic)
     {
-        List<HallModel> halls = logic.GetList();
+        List<HallsModel> halls = logic.GetList();
         switch (option)
         {
             case 1:

@@ -45,7 +45,7 @@ public static class ManagePerformance
     static public void Update(PerformanceLogic logic, int selectedPerformanceIndex = -1)
     {
         bool editing = false;
-        PerformanceModel selectedPerformance = null;
+        PerformancesModel selectedPerformance = null;
         bool active = true;
         if (selectedPerformanceIndex != -1)
         {
@@ -99,9 +99,12 @@ public static class ManagePerformance
         while (!performanceStartValid)
         {
             Console.WriteLine($"{Color.Yellow}Select the performance start date and time:{Color.Reset}");
-            if (editing) {
+            if (editing)
+            {
                 performanceStart = DateSelector.GetDate(10, true, selectedPerformance.startDate.Date) + " " + DateSelector.GetTime(true, selectedPerformance.startDate);
-            } else {
+            }
+            else
+            {
                 performanceStart = DateSelector.GetDate(10, true) + " " + DateSelector.GetTime(true);
             }
 
@@ -125,9 +128,12 @@ public static class ManagePerformance
         {
             Console.WriteLine($"{Color.Yellow}Select the performance end date and time:{Color.Reset}");
 
-            if (editing) {
+            if (editing)
+            {
                 performanceEnd = DateSelector.GetDate(10, false, selectedPerformance.endDate.Date) + " " + DateSelector.GetTime(false, selectedPerformance.endDate);
-            } else {
+            }
+            else
+            {
                 performanceEnd = DateSelector.GetDate(10, false) + " " + DateSelector.GetTime(false);
             }
 
@@ -167,13 +173,13 @@ public static class ManagePerformance
 
                 while (!performanceHallValid)
                 {
-                    
+
                     hallLogic.DisplayTable(true);
 
                     Console.WriteLine($"{Color.Yellow}In which hall do you want the Performance to take place? Enter the Hall ID:{Color.Reset}");
                     hallId = editing ? Convert.ToInt32(ConsoleInput.EditLine(selectedPerformance.hallId)) : Convert.ToInt32(Console.ReadLine());
                     string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/halls.json"));
-                    List<HallModel> locs = DataAccess<HallModel>.LoadAll(path);
+                    List<HallsModel> locs = DataAccess<HallsModel>.LoadAll();
 
                     bool idExists = locs.Any(loc => loc.hallID == hallId);
 
@@ -213,54 +219,68 @@ public static class ManagePerformance
 
         //TicketTypes
         Dictionary<string, object> dictTickets = new Dictionary<string, object>();
-        if (!editing){
-            
+        if (!editing)
+        {
+
             Console.Clear();
             bool donett = false;
             int maxSeats = hallLogic.GetSeatsCount(hallId);
-            while(donett == false){
+            while (donett == false)
+            {
                 int Amount;
                 string Name;
                 double Price = 0.0;
 
                 Console.WriteLine($"{Color.Yellow}Add a ticket type with amount of tickets, the name of the ticket and the price.{Color.Reset}");
-                
-                while (true){
-                    
-                    
+
+                while (true)
+                {
+
+
                     Console.WriteLine($"Amount: (Max {maxSeats})");
                     string readAmmount = Console.ReadLine();
-                    
-                    if(int.TryParse(readAmmount, out int AmountV) && AmountV > 0 && AmountV <= maxSeats){
+
+                    if (int.TryParse(readAmmount, out int AmountV) && AmountV > 0 && AmountV <= maxSeats)
+                    {
                         maxSeats -= AmountV;
                         Amount = AmountV;
                         break;
-                        
-                    }else{
+
+                    }
+                    else
+                    {
                         Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Please provide a valid Number.");
                     }
                 }
-                while (true){
+                while (true)
+                {
                     Console.WriteLine("Name:");
                     string readName = Console.ReadLine();
-                    if(readName.Length < 35){
+                    if (readName.Length < 35)
+                    {
                         Name = readName;
                         break;
-                        
-                    }else{
+
+                    }
+                    else
+                    {
                         Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Character of name must be below 35.");
                     }
                 }
                 bool PriceIsValid = false;
-                while (!PriceIsValid){
+                while (!PriceIsValid)
+                {
                     Console.WriteLine("Price:");
                     string readPrice = Console.ReadLine();
                     var regex = new Regex(@"^\d+\.\d{2}?$"); // ^\d+(\.|\,)\d{2}?$ use this incase your dec separator can be comma or decimal.
-                    if (regex.IsMatch(readPrice)){
+                    if (regex.IsMatch(readPrice))
+                    {
                         Price = Convert.ToDouble(readPrice);
                         PriceIsValid = true;
-                        
-                    }else{
+
+                    }
+                    else
+                    {
                         Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Please provide a price with 2 Decimals");
                     }
                 }
@@ -268,23 +288,27 @@ public static class ManagePerformance
                 ticketTypeAdd["amount"] = Amount;
                 ticketTypeAdd["name"] = Name;
                 ticketTypeAdd["price"] = Price;
-                innerListOfDicts.Add(ticketTypeAdd);    
+                innerListOfDicts.Add(ticketTypeAdd);
 
-                if (maxSeats == 0){
+                if (maxSeats == 0)
+                {
                     donett = true;
-                }else{
+                }
+                else
+                {
                     Console.WriteLine($"{Color.Yellow}Would you like to add another ticket type? (Y/N){Color.Reset}");
                     string inputadd = Console.ReadLine();
-                    if (inputadd.ToLower() != "y"){
+                    if (inputadd.ToLower() != "y")
+                    {
                         donett = true;
                     }
                     Console.Clear();
                 }
-                
 
-                
+
+
             }
-            
+
             dictTickets["ticketTypes"] = innerListOfDicts;
         }
 
@@ -343,23 +367,17 @@ public static class ManagePerformance
 
             if (confirmation.ToLower() == "y")
             {
-                    int newId = logic.GetNewId();
-                    HallLogic hlogic = new HallLogic();
-                    int[,] emptyseats = hlogic.GetSeatsOfHall(hallId);
-                    Dictionary<string, object> dictSeats = new Dictionary<string, object>();
-                    
-                    
-
-
-
-                    
-                    dictSeats["seats"] = ConvertInt2DArrayToIntJArray(emptyseats);
-                    listOfDicts.Add(dictSeats);
-                    listOfDicts.Add(dictTickets);
-                    PerformanceModel performance = new PerformanceModel(newId, performanceName, description, performanceStartDT, performanceEndDT, hallId, materials, listOfDicts, true);
-                    logic.UpdateList(performance);
-                    Console.Clear();
-                    Console.WriteLine($"{Color.Green}The Performance was succesfully added.{Color.Reset}\n");
+                int newId = logic.GetNewId();
+                HallLogic hlogic = new HallLogic();
+                int[,] emptyseats = hlogic.GetSeatsOfHall(hallId);
+                Dictionary<string, object> dictSeats = new Dictionary<string, object>();
+                dictSeats["seats"] = ConvertInt2DArrayToIntJArray(emptyseats);
+                listOfDicts.Add(dictSeats);
+                listOfDicts.Add(dictTickets);
+                PerformancesModel performance = new PerformancesModel(newId, performanceName, description, performanceStartDT, performanceEndDT, hallId, materials, listOfDicts, true);
+                logic.UpdateList(performance);
+                Console.Clear();
+                Console.WriteLine($"{Color.Green}The Performance was succesfully added.{Color.Reset}\n");
             }
             else
             {
@@ -448,7 +466,7 @@ public static class ManagePerformance
         Console.WriteLine("      ------------------------------------------------------------------------------------------------------------");
 
         int index = 0;
-        foreach (PerformanceModel performance in logic.GetPerformances())
+        foreach (PerformancesModel performance in logic.GetPerformances())
         {
             Console.Write(index == selectedPerformanceIndex ? $"{Color.Green} >>" : $"{Color.Reset}   ");
             string actstr = performance.active ? "Active" : "Inactive";
