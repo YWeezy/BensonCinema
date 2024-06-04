@@ -130,7 +130,7 @@ static class ViewPerformances
             {
                 Console.Write($"{Color.Reset}   ");
             }
-            Console.WriteLine("   {0,-6}{1,-22}{2,-26}{3, -26}{4, -20}", performance.id, performance.name, performance.startDate.ToString().Substring(0, performance.startDate.ToString().Length - 3), performance.endDate.ToString().Substring(0, performance.endDate.ToString().Length - 3), hallLogic.GetHallNameById(performance.hallId));
+            Console.WriteLine("   {0,-6}{1,-22}{2,-26}{3, -26}{4, -20}", performance.id, performance.name, performance.startDate.ToString("dd-MM-yyyy H:mm"), performance.endDate.ToString("dd-MM-yyyy H:mm"), hallLogic.GetHallNameById(performance.hallId));
 
             index++;
         }
