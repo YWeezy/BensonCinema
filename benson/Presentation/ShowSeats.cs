@@ -206,7 +206,24 @@ public class ShowSeats{
                         id++;
                     }
 
-                    int ticketId = int.Parse(Console.ReadLine()) - 1;
+                    int ticketId = 0;
+                    bool isValidInput = false;
+
+                    while (!isValidInput)
+                    {
+                        string input = Console.ReadLine();
+                        
+                        try
+                        {
+                            ticketId = int.Parse(input) - 1;
+                            isValidInput = true;
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine($"{Color.Red}Invalid input. Please enter a valid ticket ID.{Color.Reset}");
+                        }
+                    }
+
                     if (ticketId >= 0 && ticketId < TicketTypes.Count)
                     {
                         TicketType selectedTicket = TicketTypes[ticketId];
