@@ -1,8 +1,12 @@
 using System;
 using System.Drawing;
 
-static class Menu
+class Menu : IScreen
 {
+    void IScreen.Start()
+    {
+        Menu.Start();
+    }
     public static void Start()
     {
         if (Utils.LoggedInUser != null)
@@ -131,7 +135,7 @@ static class Menu
                 ManageHall.Start();
                 break;
             case ContentManagerOption.Schedule:
-                EmployeeSchedule.Schedule();
+                EmployeeSchedule.Start();
                 break;
             case ContentManagerOption.ExportData:
                 ExportData.Start();

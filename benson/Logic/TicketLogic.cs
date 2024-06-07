@@ -85,9 +85,10 @@ public class TicketLogic
         List<TicketsModel> allTickets = DataAccess<TicketsModel>.LoadAll();
 
         // Filter tickets based on the provided user ID
-        List<TicketsModel> userTickets = allTickets.Where(t => t.RelationId == id).ToList();
-
-        Console.WriteLine("Ticket ID              Title                 Date        Time                  Location              Seat                        Price               ");
+        List<TicketModel> userTickets = allTickets.Where(t => t.RelationId == id).ToList();
+        Console.WriteLine($"{Color.Yellow}Table of Your Reservations:{Color.Reset}");
+        Console.WriteLine();
+        Console.WriteLine($"{Color.Yellow}Ticket ID              Title                 Date        Time                  Location              Seat                        Price               {Color.Reset}");
         Console.WriteLine("------------------------------------------------------------------------------------------------------------------------------------------");
 
         // Print ticket details
