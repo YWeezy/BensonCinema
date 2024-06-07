@@ -6,7 +6,7 @@ using System.Text.Json;
 
 public class TicketLogic
 {
-    private List<TicketsModel> _tickets;
+    private List<TicketModel> _tickets;
     string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/tickets.json"));
 
     public TicketLogic(string? newPath = null)
@@ -15,7 +15,7 @@ public class TicketLogic
         {
             path = newPath;
         }
-        _tickets = DataAccess<TicketsModel>.LoadAll();
+        _tickets = DataAccess<TicketModel>.LoadAll();
     }
 
     // public void ShowAvailablePerformances()
@@ -66,12 +66,12 @@ public class TicketLogic
             string Location = hallLogic.GetHallNameById(hallid);
             string formattedTotalPrice = (price / 100.0).ToString("F2");
             // Create a new ticket model
-            TicketsModel ticket = new TicketsModel(seat, row, "regular", performanceTitle, Location, performanceDate, StartTime + "-" + EndTime, id, formattedTotalPrice);
+            TicketModel ticket = new TicketModel(seat, row, "regular", performanceTitle, Location, performanceDate, StartTime + "-" + EndTime, id, formattedTotalPrice);
 
             // Write the ticket to the data source
-            List<TicketsModel> tickets = DataAccess<TicketsModel>.LoadAll();
+            List<TicketModel> tickets = DataAccess<TicketModel>.LoadAll();
             tickets.Add(ticket);
-            DataAccess<TicketsModel>.WriteAll(tickets);
+            DataAccess<TicketModel>.WriteAll(tickets);
         }
         else
         {
@@ -82,7 +82,7 @@ public class TicketLogic
     {
         Console.Clear();
         // Load all tickets from the data source
-        List<TicketsModel> allTickets = DataAccess<TicketsModel>.LoadAll();
+        List<TicketModel> allTickets = DataAccess<TicketModel>.LoadAll();
 
         // Filter tickets based on the provided user ID
         List<TicketModel> userTickets = allTickets.Where(t => t.RelationId == id).ToList();

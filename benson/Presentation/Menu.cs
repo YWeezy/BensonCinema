@@ -12,7 +12,7 @@ class Menu : IScreen
         if (Utils.LoggedInUser != null)
         {
             if (Utils.LoggedInUser.Role == UserRole.Employee)
-                ShowEmployeeMenu();
+                ShowEmployeeMenu(Utils.LoggedInUser.FullName);
             else if (Utils.LoggedInUser.Role == UserRole.ContentManager)
                 ShowContentManagerMenu();
             else
@@ -271,9 +271,9 @@ class Menu : IScreen
         }
     }
 
-    private static void ShowEmployeeMenu()
+    private static void ShowEmployeeMenu(string Fname)
     {
-        EmployeeSchedule.EmployeeMenu();
+        EmployeeSchedule.EmployeeMenu(Fname);
     }
 
 

@@ -54,7 +54,7 @@ public class EmployeeSchedule : IScreen
         {
             case 1:
                 Console.Clear();
-                ShowSchedule(path);
+                ShowSchedule(shell);
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
                 Start();
@@ -100,8 +100,9 @@ public class EmployeeSchedule : IScreen
         Console.WriteLine(selectedOption == 5 ? $"{Color.Green}>> Back to main menu{Color.Reset}" : "   Back to main menu");
     }
 
-    public static void EmployeeMenu()
+    public static void EmployeeMenu(string Fname)
     {
+        
         ScheduleLogic shell = new ScheduleLogic();
         bool loop = true;
         int selectedOption = 1; // Default selected option
@@ -123,7 +124,7 @@ public class EmployeeSchedule : IScreen
                     selectedOption = selectedOption == totalOptions ? 1 : selectedOption + 1;
                     break;
                 case ConsoleKey.Enter:
-                    PerformEmployeeAction(selectedOption, shell);
+                    PerformEmployeeAction(selectedOption, shell, Fname, shell);
                     break;
                 default:
                     break;
@@ -135,17 +136,17 @@ public class EmployeeSchedule : IScreen
         }
     }
 
-    static void PerformEmployeeAction(int option, ScheduleLogic shell)
+    static void PerformEmployeeAction(int option, ScheduleLogic shell , string Fname, ScheduleLogic logic)
     {
         string path = "DataSources/schedules.json";
         switch (option)
         {
             case 1:
                 Console.Clear();
-                ShowSchedule(path);
+                ShowSchedule(Fname, logic);
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                EmployeeMenu();
+                EmployeeMenu(Fname);
                 break;
             case 2:
                 Console.WriteLine("Bye! Come back soon.");
@@ -178,13 +179,42 @@ public class EmployeeSchedule : IScreen
         Console.WriteLine(selectedOption == 2 ? $"{Color.Green}>> Exit{Color.Reset}" : "   Exit");
     }
 
-
-    static void ShowSchedule(string path)
+    static void ShowSchedule(ScheduleLogic logic)
     {
         try
         {
-            string json = File.ReadAllText(path);
-            List<SchedulesModel> schedules = JsonSerializer.Deserialize<List<SchedulesModel>>(json);
+            
+            List<SchedulesModel> schedules = logic.GetSchedules();
+
+            Console.WriteLine($"{Color.Yellow}Schedules for this week:\n{Color.Blue}");
+            Console.WriteLine($" Worker            Date        Duration   Start Time  End Time  Active{Color.Reset}");
+            Console.WriteLine("----------------------------------------------------------------------");
+
+            foreach (var schedule in schedules)
+            {
+                string actstr = schedule.Active ? "Active" : "Inactive";
+                Console.WriteLine($" {schedule.Worker,-16}  {schedule.Date,-9}  { schedule.TotalHours.ToString().Substring(0, schedule.TotalHours.ToString().Length - 3),-9}  {schedule.StartTime,-10}  {schedule.EndTime,-9} {actstr,-12}");
+            }
+        }
+
+
+        catch (FileNotFoundException)
+        {
+            Console.WriteLine($"{Color.Red}Json not found.{Color.Reset}");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"{Color.Red}An error occured: {e.Message}{Color.Reset}");
+        }
+    }
+
+
+    static void ShowSchedule(string fname, ScheduleLogic logic)
+    {
+        try
+        {
+            
+            List<SchedulesModel> schedules = logic.GetSchedules(fname);
 
             Console.WriteLine($"{Color.Yellow}Schedules for this week:\n{Color.Blue}");
             Console.WriteLine($" Worker            Date        Duration   Start Time  End Time  Active{Color.Reset}");

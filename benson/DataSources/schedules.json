@@ -139,6 +139,7 @@
           ]
         }
       ],
+      "listmaterials": [],
       "active": true
     },
     "active": true
@@ -260,6 +261,7 @@
           ]
         }
       ],
+      "listmaterials": [],
       "active": true
     },
     "active": true
@@ -389,8 +391,29 @@
           ]
         }
       ],
+      "listmaterials": [],
       "active": true
     },
+    "active": true
+  },
+  {
+    "id": "096dd2d2-7a34-4df1-ad99-454e86dd1030",
+    "worker": "wesley",
+    "date": "07-06-2024",
+    "totalHours": "01:00:00",
+    "startTime": "22:00",
+    "endTime": "23:00",
+    "performance": null,
+    "active": true
+  },
+  {
+    "id": "243e571a-b4c3-4739-84a8-361dceaa0993",
+    "worker": "wesley",
+    "date": "10-06-2024",
+    "totalHours": "01:00:00",
+    "startTime": "22:00",
+    "endTime": "23:00",
+    "performance": null,
     "active": true
   }
 ]

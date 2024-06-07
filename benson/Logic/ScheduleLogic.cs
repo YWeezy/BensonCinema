@@ -46,6 +46,11 @@ public class ScheduleLogic
         return _schedules.Where(s => s.Worker == employeeName).ToList();
     }
 
+    public List<SchedulesModel> GetSchedules()
+    {
+        return _schedules.ToList();
+    }
+
     public bool RemoveSchedule(string scheduleID)
     {
         int index = _schedules.FindIndex(s => s.ID == scheduleID);

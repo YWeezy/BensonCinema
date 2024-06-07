@@ -1,7 +1,7 @@
 using System;
 using System.Text.Json.Serialization;
 
-public class TicketsModel
+public class TicketModel
 {
     [JsonPropertyName("PerformanceId")]
     public int PerformanceId { get; set; }
@@ -33,9 +33,9 @@ public class TicketsModel
     [JsonPropertyName("RelationId")]
     public string RelationId { get; set; }
 
-    public TicketsModel() { }
+    public TicketModel() { }
 
-    public TicketsModel(string seat, string row, string type, string title, string location, string date, string time, int id, string price)
+    public TicketModel(string seat, string row, string type, string title, string location, string date, string time, int id, string price)
     {
         Seat = seat;
         Row = row;

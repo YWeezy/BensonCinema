@@ -20,7 +20,7 @@ public class AccountsModel
     public UserRole Role { get; set; }
 
     [JsonPropertyName("Tickets")]
-    public List<TicketsModel> Tickets { get; set; } = new List<TicketsModel>();
+    public List<TicketModel> Tickets { get; set; } = new List<TicketModel>();
 
     public AccountsModel(string emailAddress, string fullName, string password, UserRole role = UserRole.User)
     {
@@ -56,13 +56,13 @@ public class AccountsModel
     //     TicketsAccess.WriteAll(tickets);
     // }
 
-    public void AddTicket(TicketsModel ticket)
+    public void AddTicket(TicketModel ticket)
     {
         Tickets.Add(ticket);
         // SaveTickets();
     }
 
-    public void RemoveTicket(TicketsModel ticket)
+    public void RemoveTicket(TicketModel ticket)
     {
         Tickets.Remove(ticket);
         // SaveTickets();
