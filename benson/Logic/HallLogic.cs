@@ -9,9 +9,12 @@ public class HallLogic
 {
     private List<HallsModel> _halls { get; }
 
-    public HallLogic()
+    public HallLogic(bool test = false)
     {
+        
         _halls = DataAccess<HallsModel>.LoadAll();
+        
+        
     }
 
     public string? GetHallNameById(int id)

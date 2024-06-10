@@ -4,17 +4,15 @@ namespace test;
 [TestClass]
 public class TestPerformance
 {
-    string performancePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "../../../TestDataSources/performances.json");
-    string hallPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "../../../TestDataSources/halls.json");
-
+    
     [TestMethod]
     public void TestGetPerformances()
     {
         // Arrange
-        PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
+        PerformanceLogic performanceLogic = new PerformanceLogic();
         
         // Act
-        List<PerformanceModel> performances = performanceLogic.GetPerformances();
+        List<PerformancesModel> performances = performanceLogic.GetPerformances();
 
         // Assert
         Assert.AreEqual(0, performances.Count);
@@ -24,7 +22,7 @@ public class TestPerformance
     public void TestGetNewId()
     {
         // Arrange
-        PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
+        PerformanceLogic performanceLogic = new PerformanceLogic();
         
         // Act
         int newId = performanceLogic.GetNewId();
@@ -37,12 +35,14 @@ public class TestPerformance
     public void TestUpdateList()
     {
         // Arrange
-        PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
+        PerformanceLogic performanceLogic = new PerformanceLogic();
         int newId = performanceLogic.GetNewId();
 
         List<Dictionary<string, object>> listOfDicts = new();
+        List<Dictionary<string, object>> listOfDicts2 = new();
+        
 
-        PerformanceModel performanceToAdd = new PerformanceModel(newId, "Demo A", "Test description", DateTime.Now.AddDays(1), DateTime.Now.AddDays(2), 1, listOfDicts, true);
+        PerformancesModel performanceToAdd = new PerformancesModel(newId, "Demo A", "Test description", DateTime.Now.AddDays(1), DateTime.Now.AddDays(2), 1, listOfDicts2, listOfDicts, true);
         
         // Act
         performanceLogic.UpdateList(performanceToAdd);
@@ -55,9 +55,10 @@ public class TestPerformance
     public void TestGetTotalPerformances()
     {
         // Arrange
-        PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
+        PerformanceLogic performanceLogic = new PerformanceLogic();
         
         // Act
+        Console.WriteLine(performanceLogic.GetTotalPerformances());
         int totalPerformances = performanceLogic.GetTotalPerformances();
 
         // Assert
@@ -68,11 +69,11 @@ public class TestPerformance
     public void TestGetPerfById()
     {
         // Arrange
-        PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
+        PerformanceLogic performanceLogic = new PerformanceLogic();
         int id = 1;
         
         // Act
-        PerformanceModel performance = performanceLogic.GetPerfById(id);
+        PerformancesModel performance = performanceLogic.GetPerfById(id);
 
         // Assert
         Assert.AreEqual(id, performance.id);
@@ -82,7 +83,7 @@ public class TestPerformance
     public void TestDeletePerformance()
     {
         // Arrange
-        PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
+        PerformanceLogic performanceLogic = new PerformanceLogic();
         int idToDelete = 1; // ID of the performance to delete
         
         // Act

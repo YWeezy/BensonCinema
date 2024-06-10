@@ -6,13 +6,12 @@ namespace test
 [TestClass]
     public class TestSeats
     {
-        string performancePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "../../../TestDataSources/performances.json");
-       
+        
         [TestMethod]
         public void TestPrintSeatsTrue()
         {
             bool test = true;
-            PerformanceLogic PLogic = new PerformanceLogic(performancePath);
+            PerformanceLogic PLogic = new PerformanceLogic();
             int[][] seats = PLogic.GetSeatsById(6);
             int[][] result = new int[][] {
                 new int[] { 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -37,7 +36,7 @@ namespace test
         public void TestPrintSeatsFalse()
         {
             bool test = true;
-            PerformanceLogic PLogic = new PerformanceLogic(performancePath);
+            PerformanceLogic PLogic = new PerformanceLogic();
             int[][] seats = PLogic.GetSeatsById(6);
             int[][] result = new int[][] {
                 new int[] { 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },

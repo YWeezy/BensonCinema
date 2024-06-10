@@ -5,13 +5,10 @@ public class ScheduleLogic
     string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/schedule.json"));
     private List<SchedulesModel> _schedules = new List<SchedulesModel>();
 
-    public ScheduleLogic(string? newPath = null)
+    public ScheduleLogic(bool test = false)
     {
-        if (newPath != null)
-        {
-            path = newPath;
-        }
         _schedules = DataAccess<SchedulesModel>.LoadAll();
+        
     }
 
     public bool UpdateList(SchedulesModel schedule)

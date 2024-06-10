@@ -9,9 +9,10 @@ public class PerformanceLogic
     private List<PerformancesModel> _performances = new List<PerformancesModel>();
     public string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/performances.json"));
 
-    public PerformanceLogic()
+    public PerformanceLogic(bool test = false)
     {
         _performances = DataAccess<PerformancesModel>.LoadAll();
+        
     }
 
     public List<PerformancesModel> GetPerformances(string from = "01-01-0001", string to = "31-12-9999")

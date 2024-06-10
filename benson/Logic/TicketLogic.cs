@@ -9,13 +9,11 @@ public class TicketLogic
     private List<TicketModel> _tickets;
     string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/tickets.json"));
 
-    public TicketLogic(string? newPath = null)
+    public TicketLogic(bool test = false)
     {
-        if (newPath != null)
-        {
-            path = newPath;
-        }
         _tickets = DataAccess<TicketModel>.LoadAll();
+        
+        
     }
 
     // public void ShowAvailablePerformances()

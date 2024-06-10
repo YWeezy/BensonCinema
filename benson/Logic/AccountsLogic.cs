@@ -7,9 +7,12 @@ public class AccountsLogic
 
     static public AccountsModel? CurrentAccount { get; private set; }
 
-    public AccountsLogic()
+    public AccountsLogic(bool test = false)
     {
+        
         _accounts = DataAccess<AccountsModel>.LoadAll();
+        
+        
     }
 
     public bool UpdateList(AccountsModel acc)

@@ -7,7 +7,8 @@ public static class DataAccess<T>
 {
     static string genericType = Convert.ToString(typeof(T));
     static string fileName = genericType?.Split("Model")[0].ToLower();
-    static string filePath = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @$"DataSources/{fileName}.json"));
+    
+    static string filePath = UnitTestDetector.IsInUnitTest ? Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @$"../../../../test/TestDataSources/{fileName}.json")) : Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @$"DataSources/{fileName}.json"));
     public static List<T> LoadAll()
     {
 

@@ -6,8 +6,7 @@ namespace test
 [TestClass]
     public class TestEmployeeSchedule
     {
-        string schedulePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "../../../TestDataSources/schedule.json");
-
+        
         [TestMethod]
         public void TestIsValidDate_ValidDate_ReturnsTrue()
         {
@@ -28,12 +27,13 @@ namespace test
         public void TestGetUpdateSchedules()
         {
             // Arrange
-            ScheduleLogic scheduleLogic = new ScheduleLogic(schedulePath);
+            ScheduleLogic scheduleLogic = new ScheduleLogic();
             string newId = "dccbbb63-2839-42d6-8300-92fd02801442"; // hardcoded value for testing purposes
 
             List<Dictionary<string, object>> listOfDicts = new();
+            List<Dictionary<string, object>> listOfDicts2 = new();
 
-            ScheduleModel updateToAdd = new ScheduleModel(newId, "John", "01-01-2024", "8", "08:00", "16:00", new PerformanceModel(1, "Demo A", "Test description", DateTime.Now.AddDays(1), DateTime.Now.AddDays(2), 1, listOfDicts, true), true);
+            SchedulesModel updateToAdd = new SchedulesModel(newId, "John", "01-01-2024", "8", "08:00", "16:00", new PerformancesModel(1, "Demo A", "Test description", DateTime.Now.AddDays(1), DateTime.Now.AddDays(2), 1, listOfDicts2, listOfDicts, true), true);
             
             // Act
             bool add = scheduleLogic.UpdateList(updateToAdd);
@@ -46,7 +46,7 @@ namespace test
         public void TestRemoveSchedule()
         {
             // Arrange
-            ScheduleLogic scheduleLogic = new ScheduleLogic(schedulePath);
+            ScheduleLogic scheduleLogic = new ScheduleLogic();
             string idToRemove = "dccbbb63-2839-42d6-8300-92fd02801442"; // hardcoded value for testing purposes
             string idToRemoveThatDoesntExist = "2c458eff-a8f9-45f7-a7e5-a6b4aa0aaac5"; // hardcoded value for testing purposes
             
