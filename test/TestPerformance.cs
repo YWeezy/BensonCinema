@@ -4,7 +4,7 @@ namespace test;
 [TestClass]
 public class TestPerformance
 {
-    
+    public int idToAddAndToRemove;
     [TestMethod]
     public void TestGetPerformances()
     {
@@ -15,7 +15,7 @@ public class TestPerformance
         List<PerformancesModel> performances = performanceLogic.GetPerformances();
 
         // Assert
-        Assert.AreEqual(0, performances.Count);
+        Assert.AreEqual(1, performances.Count);
     }
 
     [TestMethod]
@@ -28,7 +28,7 @@ public class TestPerformance
         int newId = performanceLogic.GetNewId();
 
         // Assert
-        Assert.AreEqual(1, newId);
+        Assert.AreEqual(7, newId);
     }
 
     [TestMethod]
@@ -36,13 +36,13 @@ public class TestPerformance
     {
         // Arrange
         PerformanceLogic performanceLogic = new PerformanceLogic();
-        int newId = performanceLogic.GetNewId();
-
+        idToAddAndToRemove = performanceLogic.GetNewId();
+        
         List<Dictionary<string, object>> listOfDicts = new();
         List<Dictionary<string, object>> listOfDicts2 = new();
         
 
-        PerformancesModel performanceToAdd = new PerformancesModel(newId, "Demo A", "Test description", DateTime.Now.AddDays(1), DateTime.Now.AddDays(2), 1, listOfDicts2, listOfDicts, true);
+        PerformancesModel performanceToAdd = new PerformancesModel(idToAddAndToRemove, "Demo A", "Test description", DateTime.Now.AddDays(1), DateTime.Now.AddDays(2), 1, listOfDicts2, listOfDicts, true);
         
         // Act
         performanceLogic.UpdateList(performanceToAdd);
@@ -58,11 +58,10 @@ public class TestPerformance
         PerformanceLogic performanceLogic = new PerformanceLogic();
         
         // Act
-        Console.WriteLine(performanceLogic.GetTotalPerformances());
         int totalPerformances = performanceLogic.GetTotalPerformances();
 
         // Assert
-        Assert.AreEqual(1, totalPerformances);
+        Assert.AreEqual(2, totalPerformances);
     }
 
     [TestMethod]
@@ -70,8 +69,7 @@ public class TestPerformance
     {
         // Arrange
         PerformanceLogic performanceLogic = new PerformanceLogic();
-        int id = 1;
-        
+        int id = 7;
         // Act
         PerformancesModel performance = performanceLogic.GetPerfById(id);
 
@@ -84,7 +82,7 @@ public class TestPerformance
     {
         // Arrange
         PerformanceLogic performanceLogic = new PerformanceLogic();
-        int idToDelete = 1; // ID of the performance to delete
+        int idToDelete = 7; // ID of the performance to delete
         
         // Act
         bool isDeleted = performanceLogic.DeletePerformance(idToDelete);
