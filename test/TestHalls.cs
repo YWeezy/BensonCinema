@@ -4,16 +4,16 @@ namespace test;
 [TestClass]
 public class TestHalls
 {
-    string hallPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "../../../TestDataSources/halls.json");
+    
 
     [TestMethod]
     public void TestGetList()
     {
         // Arrange
-        HallLogic hallLogic = new HallLogic(hallPath);
+        HallLogic hallLogic = new HallLogic();
         
         // Act
-        List<HallModel> halls = hallLogic.GetList();
+        List<HallsModel> halls = hallLogic.GetList();
 
         // Assert
         Assert.AreEqual(0, halls.Count);
@@ -23,7 +23,7 @@ public class TestHalls
     public void GetTotalHalls()
     {
         // Arrange
-        HallLogic hallLogic = new HallLogic(hallPath);
+        HallLogic hallLogic = new HallLogic();
         
         // Act
         int totalHalls = hallLogic.GetTotalHalls();
@@ -36,7 +36,7 @@ public class TestHalls
     public void TestGetNewId()
     {
         // Arrange
-        HallLogic hallLogic = new HallLogic(hallPath);
+        HallLogic hallLogic = new HallLogic();
         
         // Act
         int newId = hallLogic.GetNewId();
@@ -49,10 +49,10 @@ public class TestHalls
     public void TestUpdateList()
     {
         // Arrange
-        HallLogic hallLogic = new HallLogic(hallPath);
+        HallLogic hallLogic = new HallLogic();
         int newId = hallLogic.GetNewId();
 
-        HallModel hallToAdd = new HallModel(newId, "Hall A", "Medium", true);
+        HallsModel hallToAdd = new HallsModel(newId, "Hall A", "Medium", true);
         
         // Act
         hallLogic.UpdateList(hallToAdd);
@@ -65,7 +65,7 @@ public class TestHalls
     public void TestDeletePerformance()
     {
         // Arrange
-        HallLogic hallLogic = new HallLogic(hallPath);
+        HallLogic hallLogic = new HallLogic();
         int idToDelete = 1;
         
         // Act
@@ -79,7 +79,7 @@ public class TestHalls
     public void TestGetHallNamebyId()
     {
         // Arrange
-        HallLogic hallLogic = new HallLogic(hallPath);
+        HallLogic hallLogic = new HallLogic();
         int id = 1;
         
         // Act

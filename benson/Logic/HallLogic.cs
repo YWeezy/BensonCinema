@@ -7,31 +7,34 @@ using Microsoft.VisualBasic;
 
 public class HallLogic
 {
-    private List<HallModel> _halls { get; }
-    public string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/halls.json"));
+    private List<HallsModel> _halls { get; }
 
-    public HallLogic(string? newPath = null)
+    public HallLogic(bool test = false)
     {
-        if (newPath != null) {
-            path = newPath;
-        } 
-        _halls = DataAccess<HallModel>.LoadAll(path);
+        
+        _halls = DataAccess<HallsModel>.LoadAll();
+        
+        
     }
 
     public string? GetHallNameById(int id)
     {
-        HallModel? hall = _halls.FirstOrDefault(h => h.hallID == id);
+        HallsModel? hall = _halls.FirstOrDefault(h => h.hallID == id);
         return hall != null ? hall.hallName : null;
     }
+
+
 
     public int GetTotalHalls()
     {
         return _halls.Count;
     }
 
-    public int GetSeatsCount(int id){
-        HallModel? hall = _halls.FirstOrDefault(h => h.hallID == id);
-        switch (hall.type.ToLower()){
+    public int GetSeatsCount(int id)
+    {
+        HallsModel? hall = _halls.FirstOrDefault(h => h.hallID == id);
+        switch (hall.type.ToLower())
+        {
             case "small":
                 return 30;
             case "medium":
@@ -39,26 +42,48 @@ public class HallLogic
             case "large":
                 return 80;
             default:
-             return 0;
+                return 0;
         }
     }
 
-    public bool[,] GetSeatsOfHall(int id){
-        HallModel? hall = _halls.FirstOrDefault(h => h.hallID == id);
-        switch (hall.type.ToLower()){
+    public int[,] GetSeatsOfHall(int id)
+    {
+        HallsModel? hall = _halls.FirstOrDefault(h => h.hallID == id);
+        switch (hall.type.ToLower())
+        {
             case "small":
-                return new bool[3, 10];
+                int[,] seatsS = {
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9}
+                    };
+                return seatsS;
             case "medium":
-                return new bool[5, 10];
+                int[,] seatsM = {
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9, 9},
+                    {0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9}
+                    };
+                return seatsM;
             case "large":
-                return new bool[8, 10];
+                int[,] seatsL = {
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0, 0},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0, 0},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 9, 9},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 9, 9},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9 , 9, 9},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9 , 9, 9},
+                    };
+                return seatsL;
             default:
-             return null;
+                return null;
         }
 
     }
 
-    public List<HallModel> GetList()
+    public List<HallsModel> GetList()
     {
         return _halls;
     }
@@ -72,7 +97,7 @@ public class HallLogic
             Console.Write(Color.Blue);
             Console.WriteLine("{0,-15}{1,-10}{2,-15}", "Name", "Type", "Active");
             Console.WriteLine($"{Color.Reset}-----------------------------------");
-            foreach (HallModel hall in _halls)
+            foreach (HallsModel hall in _halls)
             {
                 string actstr;
                 if (hall.active)
@@ -91,7 +116,7 @@ public class HallLogic
             Console.Write(Color.Blue);
             Console.WriteLine("{0, -5}{1,-15}{2,-10}{3,-15}", "ID", "Name", "Type", "Active");
             Console.WriteLine($"{Color.Reset}----------------------------------------");
-            foreach (HallModel hall in _halls)
+            foreach (HallsModel hall in _halls)
             {
                 string actstr;
                 if (hall.active)
@@ -112,13 +137,13 @@ public class HallLogic
 
         int lastId = _halls.Last().hallID;
         int id = lastId + 1;
-        HallModel newHall = new HallModel(id, name, type, true);
+        HallsModel newHall = new HallsModel(id, name, type, true);
         _halls.Add(newHall);
 
-        DataAccess<HallModel>.WriteAll(_halls, path);
+        DataAccess<HallsModel>.WriteAll(_halls);
     }
 
-    public void UpdateList(HallModel hall)
+    public void UpdateList(HallsModel hall)
     {
         //Find if there is already an model with the same id
         int index = _halls.FindIndex(s => s.hallID == hall.hallID);
@@ -133,7 +158,7 @@ public class HallLogic
             //add new model
             _halls.Add(hall);
         }
-        DataAccess<HallModel>.WriteAll(_halls, path);
+        DataAccess<HallsModel>.WriteAll(_halls);
 
     }
 
@@ -152,11 +177,11 @@ public class HallLogic
 
     public bool Delete(int id)
     {
-        HallModel locToRemove = _halls.Find(p => p.hallID == id);
+        HallsModel locToRemove = _halls.Find(p => p.hallID == id);
         if (locToRemove != null)
         {
             _halls.Remove(locToRemove);
-            DataAccess<HallModel>.WriteAll(_halls, path);
+            DataAccess<HallsModel>.WriteAll(_halls);
             return true;
         }
         return false;
@@ -166,7 +191,7 @@ public class HallLogic
     {
         try
         {
-            HallModel hall = _halls.Find(p => p.hallID == id);
+            HallsModel hall = _halls.Find(p => p.hallID == id);
             return hall.hallName;
         }
         catch (System.Exception)

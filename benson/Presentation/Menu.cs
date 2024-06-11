@@ -1,14 +1,18 @@
 using System;
 using System.Drawing;
 
-static class Menu
+class Menu : IScreen
 {
+    void IScreen.Start()
+    {
+        Menu.Start();
+    }
     public static void Start()
     {
         if (Utils.LoggedInUser != null)
         {
             if (Utils.LoggedInUser.Role == UserRole.Employee)
-                ShowEmployeeMenu();
+                ShowEmployeeMenu(Utils.LoggedInUser.FullName);
             else if (Utils.LoggedInUser.Role == UserRole.ContentManager)
                 ShowContentManagerMenu();
             else
@@ -131,7 +135,7 @@ static class Menu
                 ManageHall.Start();
                 break;
             case ContentManagerOption.Schedule:
-                EmployeeSchedule.Schedule();
+                EmployeeSchedule.Start();
                 break;
             case ContentManagerOption.ExportData:
                 ExportData.Start();
@@ -160,7 +164,7 @@ static class Menu
 
     private static void PerformUserAction(UserOption option)
     {
-        TicketPresentation reserver = new TicketPresentation();
+        // TicketPresentation reserver = new TicketPresentation();
         TicketLogic ticketer = new TicketLogic();
         switch (option)
         {
@@ -172,7 +176,7 @@ static class Menu
                 ticketer.loadMytickets(Utils.LoggedInUser.Id);
                 Console.WriteLine("Press Enter to go back.");
                 // Wait for the user to press enter
-                while (Console.ReadKey().Key != ConsoleKey.Enter) { Console.Clear(); }
+                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
                 ShowUserDefaultMenu();
                 break;
             case UserOption.Exit:
@@ -267,9 +271,9 @@ static class Menu
         }
     }
 
-    private static void ShowEmployeeMenu()
+    private static void ShowEmployeeMenu(string Fname)
     {
-        EmployeeSchedule.EmployeeMenu();
+        EmployeeSchedule.EmployeeMenu(Fname);
     }
 
 

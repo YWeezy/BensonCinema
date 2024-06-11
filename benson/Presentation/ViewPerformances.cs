@@ -48,13 +48,14 @@ static class ViewPerformances
             
     }
 
-    static private void PerformAction(string option)
+    static private void PerformAction(string option, int performanceId = 0)
     {
         switch (option)
         {
             case "Buy ticket":
-                Console.WriteLine($"{Color.Purple}Coming soon.{Color.Reset}");
-                Thread.Sleep(3000);
+                ShowSeats showSeats = new ShowSeats(performanceId);
+                showSeats.SelectSeats();
+                showSeats.SaveSeats(performanceId);
                 Start();
                 break;
             case "Back to previous menu":
@@ -71,14 +72,14 @@ static class ViewPerformances
         int totalOptions = options.Length;
         while (true)
         {
-            PerformanceModel selectedPerformance = logic.GetActivePerformances()[selectedPerformanceIndex];
+            PerformancesModel selectedPerformance = logic.GetActivePerformances()[selectedPerformanceIndex];
             HallLogic hallLogic = new HallLogic();
 
             Console.Clear();
 
             Console.WriteLine($"{Color.Yellow}{selectedPerformance.name}{Color.Reset}");
             Console.WriteLine($"\n{selectedPerformance.description}");
-            Console.WriteLine($"\n{Color.Yellow}Time: {Color.Green}{selectedPerformance.startDate} {Color.Yellow}<-> {Color.Green}{selectedPerformance.endDate}{Color.Reset}");
+            Console.WriteLine($"\n{Color.Yellow}Time: {Color.Green}{selectedPerformance.startDate.ToString().Substring(0, selectedPerformance.startDate.ToString().Length - 3)} {Color.Yellow}<-> {Color.Green}{selectedPerformance.endDate.ToString().Substring(0, selectedPerformance.endDate.ToString().Length - 3)}{Color.Reset}");
             Console.WriteLine($"\n{Color.Yellow}Hall: {Color.Green}{hallLogic.GetHallNameById(selectedPerformance.hallId)}{Color.Reset}");
             Console.WriteLine("");
 
@@ -101,7 +102,7 @@ static class ViewPerformances
                     selectedOption = selectedOption == totalOptions - 1 ? 0 : selectedOption + 1;
                     break;
                 case ConsoleKey.Enter:
-                    PerformAction(options[selectedOption]);
+                    PerformAction(options[selectedOption], selectedPerformance.id);
                     return;
                 default:
                     break;
@@ -119,7 +120,7 @@ static class ViewPerformances
         Console.WriteLine("      ----------------------------------------------------------------------------------------------------");
 
         int index = 0;
-        foreach (PerformanceModel performance in logic.GetActivePerformances())
+        foreach (PerformancesModel performance in logic.GetActivePerformances())
         {
             if (index == selectedPerformanceIndex)
             {
@@ -129,7 +130,7 @@ static class ViewPerformances
             {
                 Console.Write($"{Color.Reset}   ");
             }
-            Console.WriteLine("   {0,-6}{1,-22}{2,-26}{3, -26}{4, -20}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId));
+            Console.WriteLine("   {0,-6}{1,-22}{2,-26}{3, -26}{4, -20}", performance.id, performance.name, performance.startDate.ToString("dd-MM-yyyy H:mm"), performance.endDate.ToString("dd-MM-yyyy H:mm"), hallLogic.GetHallNameById(performance.hallId));
 
             index++;
         }

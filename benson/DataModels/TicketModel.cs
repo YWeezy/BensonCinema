@@ -14,27 +14,31 @@ public class TicketModel
 
     [JsonPropertyName("Date")]
     public string Date { get; set; }
-    
+
     [JsonPropertyName("Time")]
     public string Time { get; set; }
 
     [JsonPropertyName("Seat")]
     public string Seat { get; set; }
 
+    [JsonPropertyName("Row")]
+    public string Row { get; set; }
+
     [JsonPropertyName("Type")]
     public string Type { get; set; }
 
     [JsonPropertyName("Price")]
-    public double Price { get; set; }
+    public string Price { get; set; }
 
     [JsonPropertyName("RelationId")]
     public string RelationId { get; set; }
 
-    public TicketModel(){}
+    public TicketModel() { }
 
-    public TicketModel(string seat, string type, string title,string location,string date,string time, int id, double price)
+    public TicketModel(string seat, string row, string type, string title, string location, string date, string time, int id, string price)
     {
         Seat = seat;
+        Row = row;
         Type = type;
         Title = title;
         Location = location;

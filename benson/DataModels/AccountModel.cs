@@ -2,7 +2,7 @@ using System;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 
-public class AccountModel
+public class AccountsModel
 {
     [JsonPropertyName("Id")]
     public string Id { get; set; }
@@ -22,7 +22,7 @@ public class AccountModel
     [JsonPropertyName("Tickets")]
     public List<TicketModel> Tickets { get; set; } = new List<TicketModel>();
 
-    public AccountModel(string emailAddress, string fullName, string password, UserRole role = UserRole.User)
+    public AccountsModel(string emailAddress, string fullName, string password, UserRole role = UserRole.User)
     {
         Id = Guid.NewGuid().ToString();
         EmailAddress = emailAddress;

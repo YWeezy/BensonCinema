@@ -4,45 +4,45 @@ namespace test;
 [TestClass]
 public class TestPerformance
 {
-    string performancePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "../../../TestDataSources/performances.json");
-    string hallPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "../../../TestDataSources/halls.json");
-
+    public int idToAddAndToRemove;
     [TestMethod]
     public void TestGetPerformances()
     {
         // Arrange
-        PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
+        PerformanceLogic performanceLogic = new PerformanceLogic();
         
         // Act
-        List<PerformanceModel> performances = performanceLogic.GetPerformances();
+        List<PerformancesModel> performances = performanceLogic.GetPerformances();
 
         // Assert
-        Assert.AreEqual(0, performances.Count);
+        Assert.AreEqual(1, performances.Count);
     }
 
     [TestMethod]
     public void TestGetNewId()
     {
         // Arrange
-        PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
+        PerformanceLogic performanceLogic = new PerformanceLogic();
         
         // Act
         int newId = performanceLogic.GetNewId();
 
         // Assert
-        Assert.AreEqual(1, newId);
+        Assert.AreEqual(7, newId);
     }
 
     [TestMethod]
     public void TestUpdateList()
     {
         // Arrange
-        PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
-        int newId = performanceLogic.GetNewId();
-
+        PerformanceLogic performanceLogic = new PerformanceLogic();
+        idToAddAndToRemove = performanceLogic.GetNewId();
+        
         List<Dictionary<string, object>> listOfDicts = new();
+        List<Dictionary<string, object>> listOfDicts2 = new();
+        
 
-        PerformanceModel performanceToAdd = new PerformanceModel(newId, "Demo A", "Test description", DateTime.Now.AddDays(1), DateTime.Now.AddDays(2), 1, listOfDicts, true);
+        PerformancesModel performanceToAdd = new PerformancesModel(idToAddAndToRemove, "Demo A", "Test description", DateTime.Now.AddDays(1), DateTime.Now.AddDays(2), 1, listOfDicts2, listOfDicts, true);
         
         // Act
         performanceLogic.UpdateList(performanceToAdd);
@@ -55,24 +55,23 @@ public class TestPerformance
     public void TestGetTotalPerformances()
     {
         // Arrange
-        PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
+        PerformanceLogic performanceLogic = new PerformanceLogic();
         
         // Act
         int totalPerformances = performanceLogic.GetTotalPerformances();
 
         // Assert
-        Assert.AreEqual(1, totalPerformances);
+        Assert.AreEqual(2, totalPerformances);
     }
 
     [TestMethod]
     public void TestGetPerfById()
     {
         // Arrange
-        PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
-        int id = 1;
-        
+        PerformanceLogic performanceLogic = new PerformanceLogic();
+        int id = 7;
         // Act
-        PerformanceModel performance = performanceLogic.GetPerfById(id);
+        PerformancesModel performance = performanceLogic.GetPerfById(id);
 
         // Assert
         Assert.AreEqual(id, performance.id);
@@ -82,8 +81,8 @@ public class TestPerformance
     public void TestDeletePerformance()
     {
         // Arrange
-        PerformanceLogic performanceLogic = new PerformanceLogic(performancePath);
-        int idToDelete = 1; // ID of the performance to delete
+        PerformanceLogic performanceLogic = new PerformanceLogic();
+        int idToDelete = 7; // ID of the performance to delete
         
         // Act
         bool isDeleted = performanceLogic.DeletePerformance(idToDelete);

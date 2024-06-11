@@ -5,10 +5,13 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 
-public class EmployeeSchedule
+public class EmployeeSchedule : IScreen
 {
-
-    public static void Schedule()
+    void IScreen.Start()
+    {
+        EmployeeSchedule.Start();
+    }
+    public static void Start()
     {
         ScheduleLogic shell = new ScheduleLogic();
         Console.Clear();
@@ -46,36 +49,36 @@ public class EmployeeSchedule
 
     static void PerformAction(int option, ScheduleLogic shell)
     {
-        string path = "DataSources/schedule.json";
+        string path = "DataSources/schedules.json";
         switch (option)
         {
             case 1:
                 Console.Clear();
-                ShowSchedule(path);
+                ShowSchedule(shell);
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                Schedule();
+                Start();
                 break;
             case 2:
                 Console.Clear();
                 AddSchedule(path);
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                Schedule();
+                Start();
                 break;
             case 3:
                 Console.Clear();
                 EditSchedule(path);
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                Schedule();
+                Start();
                 break;
             case 4:
                 Console.Clear();
                 RemoveSchedule(path);
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                Schedule();
+                Start();
                 break;
             case 5:
                 Console.Clear();
@@ -97,8 +100,9 @@ public class EmployeeSchedule
         Console.WriteLine(selectedOption == 5 ? $"{Color.Green}>> Back to main menu{Color.Reset}" : "   Back to main menu");
     }
 
-    public static void EmployeeMenu()
+    public static void EmployeeMenu(string Fname)
     {
+        
         ScheduleLogic shell = new ScheduleLogic();
         bool loop = true;
         int selectedOption = 1; // Default selected option
@@ -120,7 +124,7 @@ public class EmployeeSchedule
                     selectedOption = selectedOption == totalOptions ? 1 : selectedOption + 1;
                     break;
                 case ConsoleKey.Enter:
-                    PerformEmployeeAction(selectedOption, shell);
+                    PerformEmployeeAction(selectedOption, shell, Fname, shell);
                     break;
                 default:
                     break;
@@ -132,17 +136,17 @@ public class EmployeeSchedule
         }
     }
 
-    static void PerformEmployeeAction(int option, ScheduleLogic shell)
+    static void PerformEmployeeAction(int option, ScheduleLogic shell , string Fname, ScheduleLogic logic)
     {
-        string path = "DataSources/schedule.json";
+        string path = "DataSources/schedules.json";
         switch (option)
         {
             case 1:
                 Console.Clear();
-                ShowSchedule(path);
+                ShowSchedule(Fname, logic);
                 Console.WriteLine("Press Enter to return to the menu.");
                 while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                EmployeeMenu();
+                EmployeeMenu(Fname);
                 break;
             case 2:
                 Console.WriteLine("Bye! Come back soon.");
@@ -175,22 +179,51 @@ public class EmployeeSchedule
         Console.WriteLine(selectedOption == 2 ? $"{Color.Green}>> Exit{Color.Reset}" : "   Exit");
     }
 
-
-    static void ShowSchedule(string path)
+    static void ShowSchedule(ScheduleLogic logic)
     {
         try
         {
-            string json = File.ReadAllText(path);
-            List<ScheduleModel> schedules = JsonSerializer.Deserialize<List<ScheduleModel>>(json);
+            
+            List<SchedulesModel> schedules = logic.GetSchedules();
 
             Console.WriteLine($"{Color.Yellow}Schedules for this week:\n{Color.Blue}");
-            Console.WriteLine($" Worker            Date        Total Hours   Start Time  End Time  Active{Color.Reset}");
-            Console.WriteLine("-------------------------------------------------------------------------");
+            Console.WriteLine($" Worker            Date        Duration   Start Time  End Time  Active{Color.Reset}");
+            Console.WriteLine("----------------------------------------------------------------------");
 
             foreach (var schedule in schedules)
             {
                 string actstr = schedule.Active ? "Active" : "Inactive";
-                Console.WriteLine($" {schedule.Worker,-16}  {schedule.Date,-9}  {schedule.TotalHours,-12}  {schedule.StartTime,-10}  {schedule.EndTime,-9} {actstr,-12}");
+                Console.WriteLine($" {schedule.Worker,-16}  {schedule.Date,-9}  { schedule.TotalHours.ToString().Substring(0, schedule.TotalHours.ToString().Length - 3),-9}  {schedule.StartTime,-10}  {schedule.EndTime,-9} {actstr,-12}");
+            }
+        }
+
+
+        catch (FileNotFoundException)
+        {
+            Console.WriteLine($"{Color.Red}Json not found.{Color.Reset}");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"{Color.Red}An error occured: {e.Message}{Color.Reset}");
+        }
+    }
+
+
+    static void ShowSchedule(string fname, ScheduleLogic logic)
+    {
+        try
+        {
+            
+            List<SchedulesModel> schedules = logic.GetSchedules(fname);
+
+            Console.WriteLine($"{Color.Yellow}Schedules for this week:\n{Color.Blue}");
+            Console.WriteLine($" Worker            Date        Duration   Start Time  End Time  Active{Color.Reset}");
+            Console.WriteLine("----------------------------------------------------------------------");
+
+            foreach (var schedule in schedules)
+            {
+                string actstr = schedule.Active ? "Active" : "Inactive";
+                Console.WriteLine($" {schedule.Worker,-16}  {schedule.Date,-9}  { schedule.TotalHours.ToString().Substring(0, schedule.TotalHours.ToString().Length - 3),-9}  {schedule.StartTime,-10}  {schedule.EndTime,-9} {actstr,-12}");
             }
         }
 
@@ -278,7 +311,7 @@ public class EmployeeSchedule
         Console.WriteLine($"{Color.Blue}Total working hours for this date: {totalHours} (HH-MM-SS){Color.Reset}");
 
         PerformanceLogic logic = new PerformanceLogic();
-        PerformanceModel selectedChoicePerf = ChoicePerf(logic, startTimeInput, endTimeInput, date);
+        PerformancesModel selectedChoicePerf = ChoicePerf(logic, startTimeInput, endTimeInput, date);
         if (selectedChoicePerf == null)
         {
 
@@ -295,7 +328,7 @@ public class EmployeeSchedule
 
         Console.WriteLine($"{Color.Green}The data you just entered has been saved.{Color.Reset}");
 
-        ScheduleModel newSchedule = new ScheduleModel(scheduleID, selectedEmployee, date, totalHours.ToString(), startTimeInput, endTimeInput, selectedChoicePerf, true);
+        SchedulesModel newSchedule = new SchedulesModel(scheduleID, selectedEmployee, date, totalHours.ToString(), startTimeInput, endTimeInput, selectedChoicePerf, true);
 
         ScheduleLogic scheduleLogicUp = new ScheduleLogic();
         scheduleLogicUp.UpdateList(newSchedule);
@@ -310,7 +343,7 @@ public class EmployeeSchedule
             return;
 
         ScheduleLogic scheduleLogic = new ScheduleLogic();
-        List<ScheduleModel> schedules = scheduleLogic.GetSchedules(selectedEmployee);
+        List<SchedulesModel> schedules = scheduleLogic.GetSchedules(selectedEmployee);
 
         if (schedules.Count == 0)
         {
@@ -353,7 +386,7 @@ public class EmployeeSchedule
 
         } while (!scheduleSelected);
 
-        ScheduleModel selectedSchedule = schedules[selectedScheduleIndex];
+        SchedulesModel selectedSchedule = schedules[selectedScheduleIndex];
 
         scheduleLogic.RemoveSchedule(selectedSchedule.ID);
     }
@@ -365,7 +398,7 @@ public class EmployeeSchedule
             return;
 
         ScheduleLogic scheduleLogic = new ScheduleLogic();
-        List<ScheduleModel> schedules = scheduleLogic.GetSchedules(selectedEmployee);
+        List<SchedulesModel> schedules = scheduleLogic.GetSchedules(selectedEmployee);
 
         if (schedules.Count == 0)
         {
@@ -407,7 +440,7 @@ public class EmployeeSchedule
 
         } while (!scheduleSelected);
 
-        ScheduleModel selectedSchedule = schedules[selectedScheduleIndex];
+        SchedulesModel selectedSchedule = schedules[selectedScheduleIndex];
 
 
         Console.WriteLine($"{Color.Yellow}Enter new details.{Color.Reset}");
@@ -474,7 +507,7 @@ public class EmployeeSchedule
         try
         {
             string json = File.ReadAllText(path);
-            List<AccountModel> accounts = JsonSerializer.Deserialize<List<AccountModel>>(json);
+            List<AccountsModel> accounts = JsonSerializer.Deserialize<List<AccountsModel>>(json);
 
             List<string> employees = accounts
             .Where(account => account.Role == UserRole.Employee)
@@ -493,12 +526,12 @@ public class EmployeeSchedule
         }
     }
 
-    static private void DisplayPerformances(IEnumerable<PerformanceModel> scheduledPerf, int selectedPerformanceIndex)
+    static private void DisplayPerformances(IEnumerable<PerformancesModel> scheduledPerf, int selectedPerformanceIndex)
     {
         Console.Clear();
         int index = 0;
         Console.WriteLine($"{Color.Yellow}Select which performance to add to the schedule.{Color.Reset}");
-        foreach (PerformanceModel performance in scheduledPerf)
+        foreach (PerformancesModel performance in scheduledPerf)
         {
             if (index == selectedPerformanceIndex)
             {
@@ -517,10 +550,10 @@ public class EmployeeSchedule
         Console.WriteLine($"{Color.Reset}Press ESC for no performance");
     }
 
-    static public PerformanceModel ChoicePerf(PerformanceLogic logic, string startTime, string endTime, string date)
+    static public PerformancesModel ChoicePerf(PerformanceLogic logic, string startTime, string endTime, string date)
     {
         int selectedPerformanceIndex = 0;
-        PerformanceModel selectedPerf = null;
+        PerformancesModel selectedPerf = null;
 
         TimeSpan startTimeS = TimeSpan.Parse(startTime);
         TimeSpan endTimeS = TimeSpan.Parse(endTime);
@@ -528,9 +561,9 @@ public class EmployeeSchedule
         DateTime startDatetime = datedt.Add(startTimeS);
         DateTime endDatetime = datedt.Add(endTimeS);
 
-        List<PerformanceModel> allPerf = logic.GetPerformances();
+        List<PerformancesModel> allPerf = logic.GetPerformances();
 
-        IEnumerable<PerformanceModel> scheduledPerf = allPerf.Where(el => el.startDate <= endDatetime && el.endDate >= startDatetime && el.active);
+        IEnumerable<PerformancesModel> scheduledPerf = allPerf.Where(el => el.startDate <= endDatetime && el.endDate >= startDatetime && el.active);
 
         // Output or process the scheduled performances for debugging
         foreach (var perf in allPerf)
@@ -558,7 +591,7 @@ public class EmployeeSchedule
                         selectedPerformanceIndex = selectedPerformanceIndex == totalPerformances - 1 ? 0 : selectedPerformanceIndex + 1;
                         break;
                     case ConsoleKey.Enter:
-                        List<PerformanceModel> scheduledPerfList = scheduledPerf.ToList();
+                        List<PerformancesModel> scheduledPerfList = scheduledPerf.ToList();
                         selectedPerf = logic.GetPerfById(scheduledPerfList[selectedPerformanceIndex].id);
                         return selectedPerf;
                     case ConsoleKey.Escape:
@@ -577,7 +610,7 @@ public class EmployeeSchedule
     static bool IsScheduleOverlap(string employee, string date, TimeSpan newStartTime, TimeSpan newEndTime)
     {
         ScheduleLogic scheduleLogic = new ScheduleLogic();
-        List<ScheduleModel> schedules = scheduleLogic.GetSchedules(employee);
+        List<SchedulesModel> schedules = scheduleLogic.GetSchedules(employee);
 
         DateTime newDate = DateTime.ParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
 

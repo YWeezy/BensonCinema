@@ -112,7 +112,7 @@ static class UserRegister
         try
         {
             Console.Clear();
-            AccountModel user = new AccountModel(email, name, password, role);
+            AccountsModel user = new AccountsModel(email, name, password, role);
             accountsLogic.UpdateList(user);
 
             // Set logged-in user
