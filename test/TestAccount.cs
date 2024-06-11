@@ -7,14 +7,7 @@ public class UnitTest1
 {
     
 
-    [TestMethod]
-    public void testenv()
-    {
-        foreach(var item in AppDomain.CurrentDomain.GetAssemblies())
-        {
-            Console.WriteLine($"wegaanbaden {item.ToString()}");
-        }
-    }
+    
     [TestMethod]
     public void TestAccountEncryption()
     {
