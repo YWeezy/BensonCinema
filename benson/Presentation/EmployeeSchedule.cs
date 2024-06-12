@@ -565,14 +565,6 @@ public class EmployeeSchedule : IScreen
 
         IEnumerable<PerformancesModel> scheduledPerf = allPerf.Where(el => el.startDate <= endDatetime && el.endDate >= startDatetime && el.active);
 
-        // Output or process the scheduled performances for debugging
-        foreach (var perf in allPerf)
-        {
-            Console.WriteLine($"Performance: {perf.name}, Start: {perf.startDate}, End: {perf.endDate}, Active: {perf.active}");
-            Console.WriteLine(perf.startDate <= endDatetime);
-            Console.WriteLine(perf.endDate >= startDatetime);
-        }
-
         int totalPerformances = scheduledPerf.Count();
         if (totalPerformances > 0)
         {
