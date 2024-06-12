@@ -58,5 +58,17 @@
     "Type": "regular",
     "Price": "35,00",
     "RelationId": "4c90dd30-2252-4150-a100-9dbaf0b6ca59"
+  },
+  {
+    "PerformanceId": 4,
+    "Title": "Benson\u0027s Tales",
+    "Location": "Dollhouse A",
+    "Date": "20-6-2024",
+    "Time": "15:00-15:00",
+    "Seat": "6",
+    "Row": "E",
+    "Type": "regular",
+    "Price": "25,00",
+    "RelationId": "4c90dd30-2252-4150-a100-9dbaf0b6ca59"
   }
 ]
