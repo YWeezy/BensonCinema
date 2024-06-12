@@ -45,34 +45,42 @@ public class TestHalls
         Assert.AreEqual(1, newId);
     }
 
+    
+        
+    
+    
+
     [TestMethod]
     public void TestUpdateList()
     {
         // Arrange
         HallLogic hallLogic = new HallLogic();
-        int newId = hallLogic.GetNewId();
-
-        HallsModel hallToAdd = new HallsModel(newId, "Hall A", "Medium", true);
-        
+        HallsModel hallToAdd = new HallsModel(1, "Hall A", "Medium", true);
+        HallsModel hallToAdd2 = new HallsModel(2, "Hall B", "Large", true);
+        HallsModel hallToAdd3 = new HallsModel(3, "Hall C", "Large", true);
         // Act
         hallLogic.UpdateList(hallToAdd);
+        hallLogic.UpdateList(hallToAdd2);
 
         // Assert
         Assert.IsTrue(hallLogic.GetList().Contains(hallToAdd));
+        Assert.IsTrue(hallLogic.GetList().Contains(hallToAdd2));
+        Assert.IsFalse(hallLogic.GetList().Contains(hallToAdd3));
     }
 
     [TestMethod]
-    public void TestDeletePerformance()
+    public void TestEditUpdateList()
     {
         // Arrange
         HallLogic hallLogic = new HallLogic();
-        int idToDelete = 1;
+
+        HallsModel editedHallToAdd = new HallsModel(1, "Hall ACE", "Medium", true);
         
         // Act
-        bool isDeleted = hallLogic.Delete(idToDelete);
+        hallLogic.UpdateList(editedHallToAdd);
 
         // Assert
-        Assert.IsTrue(isDeleted);
+        Assert.IsTrue(hallLogic.GetList().Contains(editedHallToAdd));
     }
 
     [TestMethod]
@@ -82,12 +90,35 @@ public class TestHalls
         HallLogic hallLogic = new HallLogic();
         int id = 1;
         
+        
         // Act
         string hall = hallLogic.getHallNamebyId(id);
 
         // Assert
-        Assert.AreNotEqual("Hall A", hall);
+        Assert.AreEqual("Hall ACE", hall);
     }
+
+    [TestMethod]
+    public void TestDeletePerformance()
+    {
+        // Arrange
+        HallLogic hallLogic = new HallLogic();
+        int idToDelete = 1;
+        int idToDelete2 = 2;
+        int idToDelete3 = 3;
+        // Act
+        bool isDeleted = hallLogic.Delete(idToDelete);
+        bool isDeleted2 = hallLogic.Delete(idToDelete2);
+        bool isDeleted3 = hallLogic.Delete(idToDelete3);
+
+        // Assert
+        Assert.IsTrue(isDeleted);
+        Assert.IsTrue(isDeleted2);
+        Assert.IsFalse(isDeleted3);
+    }
+
+    
+    
 
 
 }

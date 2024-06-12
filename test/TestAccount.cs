@@ -1,12 +1,13 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace test;
+using System.Text.Json;
 
 [TestClass]
 public class UnitTest1
 {
     
-
+    
     
     [TestMethod]
     public void TestAccountEncryption()
@@ -37,7 +38,13 @@ public class UnitTest1
         AccountsModel userfail = logic.CheckLogin("achraf.aarab@benson.com","abahraf");
         Console.WriteLine(user);
         Console.WriteLine(userresult);
-        Assert.AreEqual(userresult, user);
+        Assert.AreEqual(user.EmailAddress, "achraf.aarab@benson.com");
+        Assert.AreEqual(user.FullName, "Achraf Aarab");
         Assert.IsNull(userfail);
+        //CLEAN
+        var emptyArray = new object[0]; // or use new string[0] if it's a string array
+        var jsonString = JsonSerializer.Serialize(emptyArray);
+        File.WriteAllText("../../../TestDataSources/accounts.json", jsonString);
     }
+    
 }
