@@ -22,7 +22,7 @@ public class ShowSeats{
 
     public void PrintSeats(int rowSelected = -1, int seatSelected = -1){ 
         Console.Clear();
-        Console.WriteLine($"{Color.Yellow}Please select a seat:\n");
+        Console.WriteLine($"{Color.Yellow}Please select a seat. You can select more seats afterwards if you want to.\n");
         Console.WriteLine($"{Color.Green} Use arrow keys to move. Press enter to select.");
         Console.WriteLine($"_ = Empty\nX = Occupied\nO = Selected{Color.Reset}");
         int rows = Seats.Length;
@@ -203,13 +203,13 @@ public class ShowSeats{
                     while (!isValidInput)
                     {
                         string input = Console.ReadLine();
-                        
-                        try
+
+                        if (int.TryParse(input, out int parsedInput))
                         {
-                            ticketId = int.Parse(input) - 1;
+                            ticketId = parsedInput - 1;
                             isValidInput = true;
                         }
-                        catch (FormatException)
+                        else
                         {
                             Console.WriteLine($"{Color.Red}Invalid input. Please enter a valid ticket ID.{Color.Reset}");
                         }

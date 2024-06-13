@@ -174,9 +174,9 @@ class Menu : IScreen
                 break;
             case UserOption.Reservations:
                 ticketer.loadMytickets(Utils.LoggedInUser.Id);
-                Console.WriteLine("Press Enter to go back.");
-                // Wait for the user to press enter
-                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                Console.WriteLine($"{Color.Cyan}\nPress ESC to go back to the Main Menu{Color.Reset}");
+                // Wait for the user to press esc
+                while (Console.ReadKey().Key != ConsoleKey.Escape) { }
                 ShowUserDefaultMenu();
                 break;
             case UserOption.Exit:
