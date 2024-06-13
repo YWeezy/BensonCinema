@@ -163,7 +163,7 @@ public class EmployeeSchedule : IScreen
                 {
                     Console.WriteLine($"Error deleting file: {ex.Message}");
                 }
-                Environment.Exit(0);
+                Menu.ShowDefaultMenu();
                 break;
             default:
                 break;

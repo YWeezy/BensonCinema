@@ -24,7 +24,7 @@ class Menu : IScreen
         }
     }
 
-    private static void ShowDefaultMenu()
+    public static void ShowDefaultMenu()
     {
         MenuOption selectedOption = MenuOption.Login;
 
@@ -155,7 +155,7 @@ class Menu : IScreen
                 {
                     Console.WriteLine($"Error deleting file: {ex.Message}");
                 }
-                Environment.Exit(0);
+                Menu.ShowDefaultMenu();
                 break;
             default:
                 break;
@@ -194,7 +194,7 @@ class Menu : IScreen
                 {
                     Console.WriteLine($"Error deleting file: {ex.Message}");
                 }
-                Environment.Exit(0);
+                Menu.ShowDefaultMenu();
                 break;
             default:
                 break;
