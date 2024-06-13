@@ -1,3 +1,20 @@
 [
-  
+  {
+    "hallID": 1,
+    "hallName": "DollHouse A",
+    "type": "Large",
+    "active": true
+  },
+  {
+    "hallID": 2,
+    "hallName": "DollHouse B",
+    "type": "Medium",
+    "active": true
+  },
+  {
+    "hallID": 3,
+    "hallName": "DollHouse C",
+    "type": "Small",
+    "active": true
+  }
 ]
