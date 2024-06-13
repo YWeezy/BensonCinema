@@ -1,3 +1,18 @@
 [
-  
+  {
+    "Id": "dd2880f8-c187-48eb-b74a-9a20a8099747",
+    "EmailAddress": "wesley101@gmail.com",
+    "FullName": "Wesley",
+    "Password": "7kUoOSY7qHQwgP1Gd5DZ6w==",
+    "Role": 0,
+    "Tickets": []
+  },
+  {
+    "Id": "d4d1456d-8e66-4e4e-b7c2-b811369c5cb0",
+    "EmailAddress": "kwintenemp@hr.nl",
+    "FullName": "#1Geheim",
+    "Password": "7kUoOSY7qHQwgP1Gd5DZ6w==",
+    "Role": 0,
+    "Tickets": []
+  }
 ]

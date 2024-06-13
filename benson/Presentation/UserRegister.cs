@@ -3,8 +3,8 @@ using System;
 static class UserRegister
 {
     static private AccountsLogic accountsLogic = new AccountsLogic();
-    static private string secretEmployeePassword = "123";
-    static private string secretContentManagerPassword = "123";
+    static private string secretEmployeePassword = "123Employee#";
+    static private string secretContentManagerPassword = "123Manager#";
     static private int milisecondTimeOut = 2000;
 
 
