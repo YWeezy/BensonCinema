@@ -62,7 +62,7 @@ public class TicketLogic
             string EndTime = performance.startDate.ToShortTimeString();
             int hallid = performance.hallId;
             string Location = hallLogic.GetHallNameById(hallid);
-            string formattedTotalPrice = (price / 100.0).ToString("F2");
+            string formattedTotalPrice = price.ToString("F2");
             // Create a new ticket model
             TicketModel ticket = new TicketModel(seat, row, "regular", performanceTitle, Location, performanceDate, StartTime + "-" + EndTime, id, formattedTotalPrice);
 
