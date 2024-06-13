@@ -192,7 +192,7 @@ public class ShowSeats{
                     int id = 1;
                     foreach (var ticket in TicketTypes)
                     {
-                        string formattedPrice = (ticket.Price / 100.0).ToString("F2");
+                        string formattedPrice = ticket.Price.ToString("F2");
                         Console.WriteLine($"{Color.Cyan}{id}: €{formattedPrice} - {ticket.Name}{Color.Reset}");
                         id++;
                     }
@@ -246,7 +246,7 @@ public class ShowSeats{
                             totalPrice += ticket.Price;
                         }
 
-                        string formattedTotalPrice = (totalPrice / 100.0).ToString("F2");
+                        string formattedTotalPrice = totalPrice.ToString("F2");
                         
                         Console.WriteLine($"\n{Color.Yellow}Total price: {Color.Cyan}€{formattedTotalPrice}");
 
