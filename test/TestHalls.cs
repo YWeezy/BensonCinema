@@ -99,7 +99,7 @@ public class TestHalls
     }
 
     [TestMethod]
-    public void TestDeletePerformance()
+    public void TestDeleteHalls()
     {
         // Arrange
         HallLogic hallLogic = new HallLogic();

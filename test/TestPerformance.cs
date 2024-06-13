@@ -36,13 +36,35 @@ public class TestPerformance
     {
         // Arrange
         PerformanceLogic performanceLogic = new PerformanceLogic();
-        idToAddAndToRemove = performanceLogic.GetNewId();
         
         List<Dictionary<string, object>> listOfDicts = new();
         List<Dictionary<string, object>> listOfDicts2 = new();
         
 
-        PerformancesModel performanceToAdd = new PerformancesModel(idToAddAndToRemove, "Demo A", "Test description", DateTime.Now.AddDays(1), DateTime.Now.AddDays(2), 1, listOfDicts2, listOfDicts, true);
+        PerformancesModel performanceToAdd = new PerformancesModel(1, "Demo A", "Test description", DateTime.Now.AddDays(1), DateTime.Now.AddDays(2), 1, listOfDicts2, listOfDicts, true);
+        PerformancesModel performanceToAdd2 = new PerformancesModel(2, "Demo B", "Test description", DateTime.Now.AddDays(1), DateTime.Now.AddDays(2), 1, listOfDicts2, listOfDicts, true);
+        PerformancesModel performanceToAdd3 = new PerformancesModel(3, "Demo B", "Test description", DateTime.Now.AddDays(1), DateTime.Now.AddDays(2), 1, listOfDicts2, listOfDicts, true);
+        // Act
+        performanceLogic.UpdateList(performanceToAdd);
+        performanceLogic.UpdateList(performanceToAdd2);
+
+        // Assert
+        Assert.IsTrue(performanceLogic.GetPerformances().Contains(performanceToAdd));
+        Assert.IsTrue(performanceLogic.GetPerformances().Contains(performanceToAdd2));
+        Assert.IsFalse(performanceLogic.GetPerformances().Contains(performanceToAdd3));
+    }
+
+    [TestMethod]
+    public void TestEditUpdateList()
+    {
+        // Arrange
+        PerformanceLogic performanceLogic = new PerformanceLogic();
+        
+        List<Dictionary<string, object>> listOfDicts = new();
+        List<Dictionary<string, object>> listOfDicts2 = new();
+        
+
+        PerformancesModel performanceToAdd = new PerformancesModel(1, "Demo ACED", "Test description", DateTime.Now.AddDays(1), DateTime.Now.AddDays(2), 1, listOfDicts2, listOfDicts, true);
         
         // Act
         performanceLogic.UpdateList(performanceToAdd);
@@ -61,7 +83,7 @@ public class TestPerformance
         int totalPerformances = performanceLogic.GetTotalPerformances();
 
         // Assert
-        Assert.AreEqual(2, totalPerformances);
+        Assert.AreEqual(3, totalPerformances);
     }
 
     [TestMethod]
@@ -69,7 +91,7 @@ public class TestPerformance
     {
         // Arrange
         PerformanceLogic performanceLogic = new PerformanceLogic();
-        int id = 7;
+        int id = 1;
         // Act
         PerformancesModel performance = performanceLogic.GetPerfById(id);
 
@@ -82,14 +104,18 @@ public class TestPerformance
     {
         // Arrange
         PerformanceLogic performanceLogic = new PerformanceLogic();
-        int idToDelete = 7; // ID of the performance to delete
-        
+        int idToDelete = 1;
+        int idToDelete2 = 2;
+        int idToDelete3 = 3;
         // Act
         bool isDeleted = performanceLogic.DeletePerformance(idToDelete);
+        bool isDeleted2 = performanceLogic.DeletePerformance(idToDelete2);
+        bool isDeleted3 = performanceLogic.DeletePerformance(idToDelete3);
 
         // Assert
         Assert.IsTrue(isDeleted);
-        Assert.IsNull(performanceLogic.GetPerfById(idToDelete));
+        Assert.IsTrue(isDeleted2);
+        Assert.IsFalse(isDeleted3);
     }
 
 

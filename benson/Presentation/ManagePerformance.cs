@@ -200,6 +200,7 @@ public class ManagePerformance : IScreen
             }
             catch (Exception)
             {
+                Console.Clear();
                 Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Please provide a valid Hall ID.");
             }
         }
