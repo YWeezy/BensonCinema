@@ -9,7 +9,7 @@ public class HallLogic
 {
     private List<HallsModel> _halls { get; }
 
-    public HallLogic(bool test = false)
+    public HallLogic()
     {
         
         _halls = DataAccess<HallsModel>.LoadAll();

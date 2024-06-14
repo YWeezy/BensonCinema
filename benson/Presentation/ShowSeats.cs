@@ -193,7 +193,7 @@ public class ShowSeats{
                     foreach (var ticket in TicketTypes)
                     {
                         string formattedPrice = ticket.Price.ToString("F2");
-                        Console.WriteLine($"{Color.Cyan}{id}: €{formattedPrice} - {ticket.Name}{Color.Reset}");
+                        Console.WriteLine($"{Color.Cyan}{id}: €{Convert.ToDouble(formattedPrice) / 100} - {ticket.Name}{Color.Reset}");
                         id++;
                     }
 
@@ -248,7 +248,7 @@ public class ShowSeats{
 
                         string formattedTotalPrice = totalPrice.ToString("F2");
                         
-                        Console.WriteLine($"\n{Color.Yellow}Total price: {Color.Cyan}€{formattedTotalPrice}");
+                        Console.WriteLine($"\n{Color.Yellow}Total price: {Color.Cyan}€{Convert.ToDouble(formattedTotalPrice) / 100}");
 
                         Console.WriteLine($"\n{Color.Yellow}Press Enter to make the payment.{Color.Reset}");
                         Console.ReadLine();

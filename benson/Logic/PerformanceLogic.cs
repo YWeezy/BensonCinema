@@ -7,9 +7,8 @@ public class PerformanceLogic
 {
 
     private List<PerformancesModel> _performances = new List<PerformancesModel>();
-    public string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/performances.json"));
 
-    public PerformanceLogic(bool test = false)
+    public PerformanceLogic()
     {
         _performances = DataAccess<PerformancesModel>.LoadAll();
         

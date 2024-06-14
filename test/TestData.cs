@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 [TestClass]
-public class DataEncryptionTest
+public class TestData
 {   
     private List<TicketModel> _tickets;
 

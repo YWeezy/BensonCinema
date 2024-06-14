@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 [TestClass]
-public class AccountsModelTests
+public class TestReserve
 {   
     private List<TicketModel> _tickets;
 

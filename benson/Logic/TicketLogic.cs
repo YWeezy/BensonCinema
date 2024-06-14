@@ -7,47 +7,13 @@ using System.Text.Json;
 public class TicketLogic
 {
     private List<TicketModel> _tickets;
-    string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/tickets.json"));
 
-    public TicketLogic(bool test = false)
+    public TicketLogic()
     {
         _tickets = DataAccess<TicketModel>.LoadAll();
         
         
     }
-
-    // public void ShowAvailablePerformances()
-    // {
-    //     performanceLogic.DisplayTable();
-    // }
-
-    // public void PrintPerformanceById(int id)
-    // {
-
-    //     HallLogic hallLogic = new HallLogic();
-
-    //     Console.WriteLine($"{Color.Yellow}Table of all Performances:{Color.Reset}\n");
-
-    //     Console.WriteLine("{0,-6}{1,-22}{2,-21}{3, -21}{4, -20}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
-    //     Console.WriteLine("------------------------------------------------------------------------------------------------");
-    //     foreach (PerformancesModel performance in Performances)
-    //     {
-    //         if (performance.id == id)
-    //         {
-    //             Console.WriteLine("{0,-6}{1,-22}{2,-21}{3, -21}{4, -20}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId), performance.active);
-    //         }
-
-    //     }
-
-    //     Console.WriteLine("");
-
-    //     return;
-    // }
-
-    // public List<TicketsModel> GetList()
-    // {
-    //     return _tickets;
-    // }
 
     public void GenerateTicket(int id, string seat, string row, int price)
     {
@@ -92,7 +58,7 @@ public class TicketLogic
         // Print ticket details
         foreach (var ticket in userTickets)
         {
-            Console.WriteLine($"{ticket.PerformanceId,-13}{ticket.Title,-22}{ticket.Date,-12}{ticket.Time,-17}{ticket.Location,-19}Row {ticket.Row}/Seat {ticket.Seat,-9}€{ticket.Price,-12:F2}");
+            Console.WriteLine($"{ticket.PerformanceId,-13}{ticket.Title,-22}{ticket.Date,-12}{ticket.Time,-17}{ticket.Location,-19}Row {ticket.Row}/Seat {ticket.Seat,-9}€{Convert.ToDouble(ticket.Price) / 100,-12:F2}");
         }
     }
 }

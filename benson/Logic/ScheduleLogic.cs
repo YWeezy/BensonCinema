@@ -2,10 +2,9 @@
 
 public class ScheduleLogic
 {
-    string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/schedule.json"));
     private List<SchedulesModel> _schedules = new List<SchedulesModel>();
 
-    public ScheduleLogic(bool test = false)
+    public ScheduleLogic()
     {
         _schedules = DataAccess<SchedulesModel>.LoadAll();
         

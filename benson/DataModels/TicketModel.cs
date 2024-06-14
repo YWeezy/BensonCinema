@@ -46,5 +46,8 @@ public class TicketModel
         Time = time ?? throw new ArgumentNullException(nameof(time));
         PerformanceId = performanceId;
         Price = price ?? throw new ArgumentNullException(nameof(price));
+        if (!UnitTestDetector.IsInUnitTest) {
+            RelationId = Utils.LoggedInUser.Id;
+        }
     }
 }

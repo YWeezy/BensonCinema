@@ -4,7 +4,7 @@ namespace test
 { 
 
 [TestClass]
-    public class TestEmployeeSchedule
+    public class TestSchedules
     {
         
         [TestMethod]
