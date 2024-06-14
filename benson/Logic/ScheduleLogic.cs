@@ -43,9 +43,16 @@ public class ScheduleLogic
         return _schedules.Where(s => s.Worker == employeeName).ToList();
     }
 
+    
+
     public List<SchedulesModel> GetSchedules()
     {
         return _schedules.ToList();
+    }
+
+    public List<SchedulesModel> GetActiveSchedules()
+    {
+        return _schedules.Where(s => s.Active == true).ToList();
     }
 
     public bool RemoveSchedule(string scheduleID)
