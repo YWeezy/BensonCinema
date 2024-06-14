@@ -141,7 +141,7 @@ class Menu : IScreen
                 ExportData.Start();
                 break;
             case ContentManagerOption.Exit:
-                Console.WriteLine("Bye! Come back soon.");
+                Console.WriteLine("👋 Bye! Come back soon.");
                 Thread.Sleep(2000);
                 try
                 {
@@ -180,7 +180,7 @@ class Menu : IScreen
                 ShowUserDefaultMenu();
                 break;
             case UserOption.Exit:
-                Console.WriteLine("Bye! Come back soon.");
+                Console.WriteLine("👋 Bye! Come back soon.");
                 Thread.Sleep(2000);
                 try
                 {
@@ -212,7 +212,7 @@ class Menu : IScreen
                 UserRegister.Start();
                 break;
             case MenuOption.Exit:
-                Console.WriteLine("Bye! Come back soon.");
+                Console.WriteLine("👋 Bye! Come back soon.");
                 Thread.Sleep(2000);
                 try
                 {

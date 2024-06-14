@@ -78,7 +78,7 @@ public class ManagePerformance : IScreen
 
             if (string.IsNullOrEmpty(performanceName))
             {
-                Console.WriteLine($"{Color.Red}Invalid input. Please provide a Performance name.{Color.Reset}");
+                Console.WriteLine($"{Color.Red}❌ Invalid input. Please provide a Performance name.{Color.Reset}");
                 Thread.Sleep(2000);
 
             }
@@ -93,7 +93,7 @@ public class ManagePerformance : IScreen
 
             if (string.IsNullOrEmpty(description))
             {
-                Console.WriteLine($"{Color.Red}Invalid input. Please provide a Performance description.{Color.Reset}");
+                Console.WriteLine($"{Color.Red}❌ Invalid input. Please provide a Performance description.{Color.Reset}");
                 Thread.Sleep(2000);
             }
         }
@@ -120,7 +120,7 @@ public class ManagePerformance : IScreen
             }
             else
             {
-                Console.WriteLine($"{Color.Red}Invalid input. Please enter a valid date and time format (DD-MM-YYYY HH:MM).{Color.Reset}");
+                Console.WriteLine($"{Color.Red}❌ Invalid input. Please enter a valid date and time format (DD-MM-YYYY HH:MM).{Color.Reset}");
                 Thread.Sleep(2000);
             }
         }
@@ -145,13 +145,13 @@ public class ManagePerformance : IScreen
             {
                 if (performanceEndDT < performanceStartDT)
                 {
-                    Console.WriteLine($"{Color.Red}You can't enter a date and time that is before the starttime of the Performance.{Color.Reset}");
+                    Console.WriteLine($"{Color.Red}❌ You can't enter a date and time that is before the starttime of the Performance.{Color.Reset}");
                     Thread.Sleep(2000);
 
                 }
                 else if (performanceEndDT > DateTime.Now.AddMonths(6))
                 {
-                    Console.WriteLine($"{Color.Red}You can't enter a date and time that is more than 6 months ahead of the starttime.{Color.Reset}");
+                    Console.WriteLine($"{Color.Red}❌ You can't enter a date and time that is more than 6 months ahead of the starttime.{Color.Reset}");
                     Thread.Sleep(2000);
 
                 }
@@ -162,7 +162,7 @@ public class ManagePerformance : IScreen
             }
             else
             {
-                Console.WriteLine($"{Color.Red}Invalid input. Please enter a valid date and time format (DD-MM-YYYY HH:MM).{Color.Reset}");
+                Console.WriteLine($"{Color.Red}❌ Invalid input. Please enter a valid date and time format (DD-MM-YYYY HH:MM).{Color.Reset}");
                 Thread.Sleep(2000);
 
             }
@@ -194,14 +194,14 @@ public class ManagePerformance : IScreen
                     else
                     {
                         Console.Clear();
-                        Console.WriteLine($"{Color.Red}A Hall with ID {hallId} does not exist.{Color.Reset}");
+                        Console.WriteLine($"{Color.Red}❌ A Hall with ID {hallId} does not exist.{Color.Reset}");
                     }
                 }
             }
             catch (Exception)
             {
                 Console.Clear();
-                Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Please provide a valid Hall ID.");
+                Console.WriteLine($"{Color.Red}❌ Invalid input.{Color.Reset} Please provide a valid Hall ID.");
             }
         }
         //Material adding.
@@ -254,7 +254,7 @@ public class ManagePerformance : IScreen
                     }
                     else
                     {
-                        Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Please provide a valid Number.");
+                        Console.WriteLine($"{Color.Red}❌ Invalid input.{Color.Reset} Please provide a valid Number.");
                     }
                 }
                 while (true)
@@ -269,7 +269,7 @@ public class ManagePerformance : IScreen
                     }
                     else
                     {
-                        Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Character of name must be below 35.");
+                        Console.WriteLine($"{Color.Red}❌ Invalid input.{Color.Reset} Character of name must be below 35.");
                     }
                 }
                 bool PriceIsValid = false;
@@ -286,7 +286,7 @@ public class ManagePerformance : IScreen
                     }
                     else
                     {
-                        Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Please provide a price with 2 Decimals");
+                        Console.WriteLine($"{Color.Red}❌ Invalid input.{Color.Reset} Please provide a price with 2 Decimals");
                     }
                 }
                 Dictionary<string, object> ticketTypeAdd = new Dictionary<string, object>();
@@ -320,7 +320,7 @@ public class ManagePerformance : IScreen
         if (editing == true)
         {
             Console.Clear();
-            Console.WriteLine($"Current active state: {(selectedPerformance.active ? $"{Color.Green}Active{Color.Reset}" : $"{Color.Red}Inactive{Color.Reset}")}\n\n{Color.Yellow}Do you want to switch to {(selectedPerformance.active ? $"{Color.Red}Inactive{Color.Yellow}" : $"{Color.Green}Active{Color.Yellow}")}? (Y/N){Color.Reset}");
+            Console.WriteLine($"Current active state: {(selectedPerformance.active ? $"{Color.Green}✅ Active{Color.Reset}" : $"{Color.Red}❌ Inactive{Color.Reset}")}\n\n{Color.Yellow}Do you want to switch to {(selectedPerformance.active ? $"{Color.Red}❌ Inactive{Color.Yellow}" : $"{Color.Green}✅ Active{Color.Yellow}")}? (Y/N){Color.Reset}");
 
             if (Console.ReadLine().ToLower() == "y")
             {
@@ -331,8 +331,8 @@ public class ManagePerformance : IScreen
             Console.Clear();
             Console.WriteLine($"{Color.Blue}Name: {Color.Reset}{performanceName}");
             Console.WriteLine($"{Color.Blue}Description: {Color.Reset}{description}");
-            Console.WriteLine($"{Color.Blue}Start: {Color.Reset}{performanceStartDT}");
-            Console.WriteLine($"{Color.Blue}End: {Color.Reset}{performanceEndDT}");
+            Console.WriteLine($"{Color.Blue}Start: {Color.Reset}{performanceStartDT.ToString().Substring(0, performanceStartDT.ToString().Length - 3)}");
+            Console.WriteLine($"{Color.Blue}End: {Color.Reset}{performanceEndDT.ToString().Substring(0, performanceEndDT.ToString().Length - 3)}");
             Console.WriteLine($"{Color.Blue}Hall: {Color.Reset}{Hlogic.GetHallNameById(hallId)}");
             Console.WriteLine($"{Color.Blue}Active: {Color.Reset}{active}");
 
@@ -350,12 +350,12 @@ public class ManagePerformance : IScreen
                 selectedPerformance.active = active;
                 logic.UpdateList(selectedPerformance);
                 Console.Clear();
-                Console.WriteLine($"{Color.Green}The Performance was successfully edited.{Color.Reset}\n");
+                Console.WriteLine($"{Color.Green}✅ The Performance was successfully edited.{Color.Reset}\n");
             }
             else
             {
                 Console.Clear();
-                Console.WriteLine($"{Color.Red}The Performance was not edited.{Color.Reset}\n");
+                Console.WriteLine($"{Color.Red}❌ The Performance was not edited.{Color.Reset}\n");
             }
         }
         else
@@ -363,8 +363,8 @@ public class ManagePerformance : IScreen
             Console.Clear();
             Console.WriteLine($"{Color.Blue}Name: {Color.Reset}{performanceName}");
             Console.WriteLine($"{Color.Blue}Description: {Color.Reset}{description}");
-            Console.WriteLine($"{Color.Blue}Start: {Color.Reset}{performanceStartDT}");
-            Console.WriteLine($"{Color.Blue}End: {Color.Reset}{performanceEndDT}");
+            Console.WriteLine($"{Color.Blue}Start: {Color.Reset}{performanceStartDT.ToString().Substring(0, performanceStartDT.ToString().Length - 3)}");
+            Console.WriteLine($"{Color.Blue}End: {Color.Reset}{performanceEndDT.ToString().Substring(0, performanceEndDT.ToString().Length - 3)}");
             Console.WriteLine($"{Color.Blue}Hall: {Color.Reset}{hallId}");
 
             Console.WriteLine($"\n{Color.Yellow}Are you sure you want to add this Performance? (Y/N){Color.Reset}");
@@ -382,12 +382,12 @@ public class ManagePerformance : IScreen
                 PerformancesModel performance = new PerformancesModel(newId, performanceName, description, performanceStartDT, performanceEndDT, hallId, materials, listOfDicts, true);
                 logic.UpdateList(performance);
                 Console.Clear();
-                Console.WriteLine($"{Color.Green}The Performance was succesfully added.{Color.Reset}\n");
+                Console.WriteLine($"{Color.Green}✅ The Performance was succesfully added.{Color.Reset}\n");
             }
             else
             {
                 Console.Clear();
-                Console.WriteLine($"{Color.Red}The Performance was not added.{Color.Reset}\n");
+                Console.WriteLine($"{Color.Red}❌ The Performance was not added.{Color.Reset}\n");
             }
         }
     }
@@ -399,16 +399,16 @@ public class ManagePerformance : IScreen
         {
             if (logic.DeletePerformance(idToDelete))
             {
-                Console.WriteLine($"{Color.Green}Performance with ID {idToDelete} deleted successfully.{Color.Reset}");
+                Console.WriteLine($"{Color.Green}✅ Performance with ID {idToDelete} deleted successfully.{Color.Reset}");
             }
             else
             {
-                Console.WriteLine($"{Color.Red}Performance with ID {idToDelete} not found.{Color.Reset}");
+                Console.WriteLine($"{Color.Red}❌ Performance with ID {idToDelete} not found.{Color.Reset}");
             }
         }
         else
         {
-            Console.WriteLine($"{Color.Red}Invalid input. Please enter a valid ID.{Color.Reset}");
+            Console.WriteLine($"{Color.Red}❌ Invalid input. Please enter a valid ID.{Color.Reset}");
         }
     }
 
@@ -474,7 +474,7 @@ public class ManagePerformance : IScreen
         foreach (PerformancesModel performance in logic.GetPerformances())
         {
             Console.Write(index == selectedPerformanceIndex ? $"{Color.Green} >>" : $"{Color.Reset}   ");
-            string actstr = performance.active ? "Active" : "Inactive";
+            string actstr = performance.active ? "✅ Active" : "Inactive";
 
             Console.WriteLine("   {0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId), actstr);
 

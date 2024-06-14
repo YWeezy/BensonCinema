@@ -194,7 +194,7 @@ public class PerformanceLogic
         Console.WriteLine("{0,-20}{1,-10}", "Material", "Quantity");
         Console.WriteLine(new string('-', 30));
         Console.WriteLine("{0,-20}{1,-10}", "Stoelen", "10");
-        Console.WriteLine("{0,-20}{1,-10}\n", "Achrafen", "100");
+        Console.WriteLine("{0,-20}{1,-10}\n", "Kleding", "10");
 
         Console.WriteLine($"{Color.FontReset}{Color.Yellow}Add materials for the performance (type '{Color.Italic}done{Color.FontReset}' when finished):{Color.Reset}");
         while (true)

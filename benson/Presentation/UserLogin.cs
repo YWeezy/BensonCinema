@@ -36,7 +36,7 @@ static class UserLogin
                 {
                     // Set logged-in user
                     Utils.LoggedInUser = acc;
-                    Console.WriteLine($"\n{Color.Green}Logged in successfully, {Utils.LoggedInUser.FullName}!{Color.Reset}");
+                    Console.WriteLine($"\n{Color.Green}✅ Logged in successfully, {Utils.LoggedInUser.FullName}!{Color.Reset}");
 
                     // Write the email to the file
                     File.WriteAllText(filePath, acc.EmailAddress);
@@ -47,13 +47,13 @@ static class UserLogin
                 }
                 else
                 {
-                    Console.WriteLine($"\n{Color.Red}Invalid email or password. Please try again.{Color.Reset}");
+                    Console.WriteLine($"\n{Color.Red}❌ Invalid email or password. Please try again.{Color.Reset}");
                 }
             }
         }
         else
         {
-            Console.WriteLine($"\n{Color.Red}Email or Password cannot be empty.{Color.Reset}");
+            Console.WriteLine($"\n{Color.Red}❌ Email or Password cannot be empty.{Color.Reset}");
         }
 
         Thread.Sleep(2000);

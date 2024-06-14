@@ -149,7 +149,7 @@ public class EmployeeSchedule : IScreen
                 EmployeeMenu(Fname);
                 break;
             case 2:
-                Console.WriteLine("Bye! Come back soon.");
+                Console.WriteLine("👋 Bye! Come back soon.");
                 Thread.Sleep(2000);
                 try
                 {
@@ -326,7 +326,7 @@ public class EmployeeSchedule : IScreen
 
         string scheduleID = Guid.NewGuid().ToString();
 
-        Console.WriteLine($"{Color.Green}The data you just entered has been saved.{Color.Reset}");
+        Console.WriteLine($"{Color.Green}✅ The data you just entered has been saved.{Color.Reset}");
 
         SchedulesModel newSchedule = new SchedulesModel(scheduleID, selectedEmployee, date, totalHours.ToString(), startTimeInput, endTimeInput, selectedChoicePerf, true);
 

@@ -180,7 +180,7 @@ public class ShowSeats{
             if (Seats[rowselect][seatselect] == 2 || Seats[rowselect][seatselect] == 1)
             {
                 Console.Clear();
-                Console.WriteLine($"{Color.Red}Seat is already selected or unavailable. Try again.{Color.Reset}");
+                Console.WriteLine($"{Color.Red}❌ Seat is already selected or unavailable. Try again.{Color.Reset}");
                 Console.ReadLine();
                 
             }else{
@@ -211,7 +211,7 @@ public class ShowSeats{
                         }
                         else
                         {
-                            Console.WriteLine($"{Color.Red}Invalid input. Please enter a valid ticket ID.{Color.Reset}");
+                            Console.WriteLine($"{Color.Red}❌ Invalid input. Please enter a valid ticket ID.{Color.Reset}");
                         }
                     }
 
@@ -221,9 +221,9 @@ public class ShowSeats{
                         SelectedTickets.Add(selectedTicket);
                         SelectedSeats.Add((rowselect, seatselect));
                         Seats[rowselect][seatselect] = 2;
-                        Console.WriteLine($"{Color.Green}The seat & ticket type is selected.{Color.Reset}");
+                        Console.WriteLine($"{Color.Green}✅ The seat & ticket type is selected.{Color.Reset}");
                     } else {
-                        Console.WriteLine($"{Color.Red}Invalid ticket selection. Please try again.{Color.Reset}");
+                        Console.WriteLine($"{Color.Red}❌ Invalid ticket selection. Please try again.{Color.Reset}");
                     }
                     Console.WriteLine($"{Color.Yellow}Do you want to add another seat? (y/n){Color.Reset}");
                     if (Console.ReadLine().ToLower() != "y")
@@ -286,7 +286,7 @@ public class ShowSeats{
                         Thread.Sleep(333);
 
                         Console.Clear();
-                        Console.WriteLine($"{Color.Green}Payment succesful!{Color.Reset}\n\n{Color.Yellow}Press Enter to continue{Color.Reset}");
+                        Console.WriteLine($"{Color.Green}✅ Payment succesful!{Color.Reset}\n\n{Color.Yellow}Press Enter to continue{Color.Reset}");
                         Console.ReadLine();
 
                         done = true;

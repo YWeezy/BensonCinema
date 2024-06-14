@@ -106,11 +106,11 @@ class ManageHall: IScreen
             // active
             if (selectedHall.active == false)
             {
-                Console.WriteLine($"Current active state: {Color.Red}Inactive{Color.Reset}\n\n{Color.Yellow}Do you want to switch to {Color.Red}Active{Color.Yellow}? (Y/N){Color.Reset}");
+                Console.WriteLine($"Current active state: {Color.Red}❌ Inactive{Color.Reset}\n\n{Color.Yellow}Do you want to switch to {Color.Red}✅ Active{Color.Yellow}? (Y/N){Color.Reset}");
             }
             else
             {
-                Console.WriteLine($"Current active state: {Color.Green}Active{Color.Reset}\n\n{Color.Yellow}Do you want to switch to {Color.Red}Inactive{Color.Yellow}? (Y/N){Color.Reset}");
+                Console.WriteLine($"Current active state: {Color.Green}✅ Active{Color.Reset}\n\n{Color.Yellow}Do you want to switch to {Color.Red}❌ Inactive{Color.Yellow}? (Y/N){Color.Reset}");
             }
 
             if (Console.ReadLine().ToLower() == "y")
@@ -134,11 +134,11 @@ class ManageHall: IScreen
                     selectedHall.active = active;
                     logic.UpdateList(selectedHall);
                     Console.Clear();
-                    Console.WriteLine($"{Color.Green}The Hall was successfully edited.{Color.Reset}\n");
+                    Console.WriteLine($"{Color.Green}✅ The Hall was successfully edited.{Color.Reset}\n");
                     break;
                 default:
                     Console.Clear();
-                    Console.WriteLine($"{Color.Red}The Hall was not edited.{Color.Reset}\n");
+                    Console.WriteLine($"{Color.Red}❌ The Hall was not edited.{Color.Reset}\n");
                     break;
             }
 
@@ -160,11 +160,11 @@ class ManageHall: IScreen
                     HallsModel hall = new HallsModel(newId, hallName, type, true);
                     logic.UpdateList(hall);
                     Console.Clear();
-                    Console.WriteLine($"{Color.Green}The Hall was succesfully added.{Color.Reset}\n");
+                    Console.WriteLine($"{Color.Green}✅ The Hall was succesfully added.{Color.Reset}\n");
                     break;
                 default:
                     Console.Clear();
-                    Console.WriteLine($"{Color.Red}The Hall was not added.{Color.Reset}\n");
+                    Console.WriteLine($"{Color.Red}❌ The Hall was not added.{Color.Reset}\n");
                     break;
             }
         }
@@ -248,16 +248,16 @@ class ManageHall: IScreen
         {
             if (logic.Delete(idToDelete))
             {
-                Console.WriteLine($"{Color.Green}Hall with ID {idToDelete} deleted successfully.{Color.Reset}");
+                Console.WriteLine($"{Color.Green}✅ Hall with ID {idToDelete} deleted successfully.{Color.Reset}");
             }
             else
             {
-                Console.WriteLine($"{Color.Red}Hall with ID {idToDelete} not found.{Color.Reset}");
+                Console.WriteLine($"{Color.Red}❌ Hall with ID {idToDelete} not found.{Color.Reset}");
             }
         }
         else
         {
-            Console.WriteLine($"{Color.Red}Invalid input.{Color.Reset} Please enter a valid ID.");
+            Console.WriteLine($"{Color.Red}❌ Invalid input.{Color.Reset} Please enter a valid ID.");
         }
 
     }

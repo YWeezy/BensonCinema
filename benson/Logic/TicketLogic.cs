@@ -84,15 +84,15 @@ public class TicketLogic
 
         // Filter tickets based on the provided user ID
         List<TicketModel> userTickets = allTickets.Where(t => t.RelationId == id).ToList();
-        Console.WriteLine($"{Color.Yellow}Table of Your Reservations:{Color.Reset}");
+        Console.WriteLine($"{Color.Yellow}Table of your reservations:{Color.Reset}");
         Console.WriteLine();
-        Console.WriteLine($"{Color.Yellow}Ticket ID              Title                 Date        Time                  Location              Seat                        Price               {Color.Reset}");
-        Console.WriteLine("------------------------------------------------------------------------------------------------------------------------------------------");
+        Console.WriteLine($"{Color.Blue}Ticket ID    Title                 Date        Time             Location           Seat                Price{Color.Reset}");
+        Console.WriteLine($"----------------------------------------------------------------------------------------------------------------");
 
         // Print ticket details
         foreach (var ticket in userTickets)
         {
-            Console.WriteLine($"{ticket.PerformanceId,-23}{ticket.Title,-22}{ticket.Date,-12}{ticket.Time,-22}{ticket.Location,-22}Row {ticket.Row}/Seat {ticket.Seat,-17}$ {ticket.Price,-12:F2}");
+            Console.WriteLine($"{ticket.PerformanceId,-13}{ticket.Title,-22}{ticket.Date,-12}{ticket.Time,-17}{ticket.Location,-19}Row {ticket.Row}/Seat {ticket.Seat,-9}€{ticket.Price,-12:F2}");
         }
     }
 }
