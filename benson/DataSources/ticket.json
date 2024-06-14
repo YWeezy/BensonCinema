@@ -1,74 +1,26 @@
 [
   {
-    "PerformanceId": 3,
-    "Title": "Benson\u0027s Mystery",
-    "Location": "Dollhouse C",
-    "Date": "8-6-2024",
-    "Time": "19:00-19:00",
+    "PerformanceId": 1,
+    "Title": "Emo\u0027s Adventure",
+    "Location": "DollHouse A",
+    "Date": "6/15/2024",
+    "Time": "2:00PM-2:00PM",
     "Seat": "2",
-    "Row": "A",
+    "Row": "B",
     "Type": "regular",
-    "Price": "40,00",
-    "RelationId": "4c90dd30-2252-4150-a100-9dbaf0b6ca59"
+    "Price": "2.00",
+    "RelationId": "dd2880f8-c187-48eb-b74a-9a20a8099747"
   },
   {
-    "PerformanceId": 3,
-    "Title": "Benson\u0027s Mystery",
-    "Location": "Dollhouse C",
-    "Date": "8-6-2024",
-    "Time": "19:00-19:00",
-    "Seat": "1",
-    "Row": "C",
-    "Type": "regular",
-    "Price": "60,00",
-    "RelationId": "4c90dd30-2252-4150-a100-9dbaf0b6ca59"
-  },
-  {
-    "PerformanceId": 3,
-    "Title": "Benson\u0027s Mystery",
-    "Location": "Dollhouse C",
-    "Date": "8-6-2024",
-    "Time": "19:00-19:00",
+    "PerformanceId": 1,
+    "Title": "Emo\u0027s Adventure",
+    "Location": "DollHouse A",
+    "Date": "6/15/2024",
+    "Time": "2:00PM-2:00PM",
     "Seat": "3",
-    "Row": "C",
+    "Row": "B",
     "Type": "regular",
-    "Price": "40,00",
-    "RelationId": "4c90dd30-2252-4150-a100-9dbaf0b6ca59"
-  },
-  {
-    "PerformanceId": 3,
-    "Title": "Benson\u0027s Mystery",
-    "Location": "Dollhouse C",
-    "Date": "8-6-2024",
-    "Time": "19:00-19:00",
-    "Seat": "1",
-    "Row": "A",
-    "Type": "regular",
-    "Price": "60,00",
-    "RelationId": "4c90dd30-2252-4150-a100-9dbaf0b6ca59"
-  },
-  {
-    "PerformanceId": 2,
-    "Title": "Benson\u0027s Carnival",
-    "Location": "Dollhouse B",
-    "Date": "16-6-2024",
-    "Time": "20:15-20:15",
-    "Seat": "1",
-    "Row": "A",
-    "Type": "regular",
-    "Price": "35,00",
-    "RelationId": "4c90dd30-2252-4150-a100-9dbaf0b6ca59"
-  },
-  {
-    "PerformanceId": 4,
-    "Title": "Benson\u0027s Tales",
-    "Location": "Dollhouse A",
-    "Date": "20-6-2024",
-    "Time": "15:00-15:00",
-    "Seat": "6",
-    "Row": "E",
-    "Type": "regular",
-    "Price": "25,00",
-    "RelationId": "4c90dd30-2252-4150-a100-9dbaf0b6ca59"
+    "Price": "2.00",
+    "RelationId": "dd2880f8-c187-48eb-b74a-9a20a8099747"
   }
 ]
