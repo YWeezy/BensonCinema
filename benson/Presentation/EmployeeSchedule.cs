@@ -149,7 +149,7 @@ public class EmployeeSchedule : IScreen
                 EmployeeMenu(Fname);
                 break;
             case 2:
-                Console.WriteLine("Bye! Come back soon.");
+                Console.WriteLine("👋 Bye! Come back soon.");
                 Thread.Sleep(2000);
                 try
                 {
@@ -163,7 +163,7 @@ public class EmployeeSchedule : IScreen
                 {
                     Console.WriteLine($"Error deleting file: {ex.Message}");
                 }
-                Environment.Exit(0);
+                Menu.ShowDefaultMenu();
                 break;
             default:
                 break;
@@ -326,7 +326,7 @@ public class EmployeeSchedule : IScreen
 
         string scheduleID = Guid.NewGuid().ToString();
 
-        Console.WriteLine($"{Color.Green}The data you just entered has been saved.{Color.Reset}");
+        Console.WriteLine($"{Color.Green}✅ The data you just entered has been saved.{Color.Reset}");
 
         SchedulesModel newSchedule = new SchedulesModel(scheduleID, selectedEmployee, date, totalHours.ToString(), startTimeInput, endTimeInput, selectedChoicePerf, true);
 
@@ -564,14 +564,6 @@ public class EmployeeSchedule : IScreen
         List<PerformancesModel> allPerf = logic.GetPerformances();
 
         IEnumerable<PerformancesModel> scheduledPerf = allPerf.Where(el => el.startDate <= endDatetime && el.endDate >= startDatetime && el.active);
-
-        // Output or process the scheduled performances for debugging
-        foreach (var perf in allPerf)
-        {
-            Console.WriteLine($"Performance: {perf.name}, Start: {perf.startDate}, End: {perf.endDate}, Active: {perf.active}");
-            Console.WriteLine(perf.startDate <= endDatetime);
-            Console.WriteLine(perf.endDate >= startDatetime);
-        }
 
         int totalPerformances = scheduledPerf.Count();
         if (totalPerformances > 0)

@@ -7,7 +7,7 @@ public class AccountsLogic
 
     static public AccountsModel? CurrentAccount { get; private set; }
 
-    public AccountsLogic(bool test = false)
+    public AccountsLogic()
     {
         
         _accounts = DataAccess<AccountsModel>.LoadAll();

@@ -24,7 +24,7 @@ class Menu : IScreen
         }
     }
 
-    private static void ShowDefaultMenu()
+    public static void ShowDefaultMenu()
     {
         MenuOption selectedOption = MenuOption.Login;
 
@@ -141,7 +141,7 @@ class Menu : IScreen
                 ExportData.Start();
                 break;
             case ContentManagerOption.Exit:
-                Console.WriteLine("Bye! Come back soon.");
+                Console.WriteLine("👋 Bye! Come back soon.");
                 Thread.Sleep(2000);
                 try
                 {
@@ -155,7 +155,7 @@ class Menu : IScreen
                 {
                     Console.WriteLine($"Error deleting file: {ex.Message}");
                 }
-                Environment.Exit(0);
+                Menu.ShowDefaultMenu();
                 break;
             default:
                 break;
@@ -174,13 +174,13 @@ class Menu : IScreen
                 break;
             case UserOption.Reservations:
                 ticketer.loadMytickets(Utils.LoggedInUser.Id);
-                Console.WriteLine("Press Enter to go back.");
-                // Wait for the user to press enter
-                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                Console.WriteLine($"{Color.Cyan}\nPress ESC to go back to the Main Menu{Color.Reset}");
+                // Wait for the user to press esc
+                while (Console.ReadKey().Key != ConsoleKey.Escape) { }
                 ShowUserDefaultMenu();
                 break;
             case UserOption.Exit:
-                Console.WriteLine("Bye! Come back soon.");
+                Console.WriteLine("👋 Bye! Come back soon.");
                 Thread.Sleep(2000);
                 try
                 {
@@ -194,7 +194,7 @@ class Menu : IScreen
                 {
                     Console.WriteLine($"Error deleting file: {ex.Message}");
                 }
-                Environment.Exit(0);
+                Menu.ShowDefaultMenu();
                 break;
             default:
                 break;
@@ -212,7 +212,7 @@ class Menu : IScreen
                 UserRegister.Start();
                 break;
             case MenuOption.Exit:
-                Console.WriteLine("Bye! Come back soon.");
+                Console.WriteLine("👋 Bye! Come back soon.");
                 Thread.Sleep(2000);
                 try
                 {

@@ -7,9 +7,8 @@ public class PerformanceLogic
 {
 
     private List<PerformancesModel> _performances = new List<PerformancesModel>();
-    public string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"DataSources/performances.json"));
 
-    public PerformanceLogic(bool test = false)
+    public PerformanceLogic()
     {
         _performances = DataAccess<PerformancesModel>.LoadAll();
         
@@ -194,7 +193,7 @@ public class PerformanceLogic
         Console.WriteLine("{0,-20}{1,-10}", "Material", "Quantity");
         Console.WriteLine(new string('-', 30));
         Console.WriteLine("{0,-20}{1,-10}", "Stoelen", "10");
-        Console.WriteLine("{0,-20}{1,-10}\n", "Achrafen", "100");
+        Console.WriteLine("{0,-20}{1,-10}\n", "Kleding", "10");
 
         Console.WriteLine($"{Color.FontReset}{Color.Yellow}Add materials for the performance (type '{Color.Italic}done{Color.FontReset}' when finished):{Color.Reset}");
         while (true)

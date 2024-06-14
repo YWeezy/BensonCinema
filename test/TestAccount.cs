@@ -4,7 +4,7 @@ namespace test;
 using System.Text.Json;
 
 [TestClass]
-public class UnitTest1
+public class TestAccount
 {
     
     

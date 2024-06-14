@@ -1,106 +1,26 @@
 [
   {
-    "Id": "44fb050b-259d-4cbf-9750-5e5173a466ea",
-    "EmailAddress": "yuyu@gmail.com",
-    "FullName": "Achraf",
-    "Password": "z6Xn942wKyMHFFliAAA\u002BQ6RogyhAeJ8JeMvzFQrn7CE=",
-    "Role": 0,
-    "Tickets": []
-  },
-  {
-    "Id": "b01df4c5-f4d9-4826-8eaf-9d7760195613",
-    "EmailAddress": "aa@bb.com",
-    "FullName": "aa",
-    "Password": "qFf2rAtFy13i2HZ6riRmhw==",
-    "Role": 0,
-    "Tickets": []
-  },
-  {
-    "Id": "d7135996-e980-4ab3-bda6-6ee25872276f",
-    "EmailAddress": "c#@c#.com",
-    "FullName": "c#",
-    "Password": "QQ4WimIO0E2ojnB0uy\u002BpnQ==",
-    "Role": 2,
-    "Tickets": []
-  },
-  {
-    "Id": "28599f21-b3f6-43a4-845f-a1a29e8128b2",
-    "EmailAddress": "wes@gmail.com",
+    "Id": "dd2880f8-c187-48eb-b74a-9a20a8099747",
+    "EmailAddress": "wesley101@gmail.com",
     "FullName": "Wesley",
-    "Password": "owU79EsKsFXEk5JKrBEn\u002BQ==",
-    "Role": 2,
-    "Tickets": []
-  },
-  {
-    "Id": "4c90dd30-2252-4150-a100-9dbaf0b6ca59",
-    "EmailAddress": "user@.com",
-    "FullName": "user",
-    "Password": "juDG9k5/alZQ95ZFyPteDw==",
+    "Password": "7kUoOSY7qHQwgP1Gd5DZ6w==",
     "Role": 0,
     "Tickets": []
   },
   {
-    "Id": "0beae4a3-067b-4776-afdf-86e4a8e8c3fb",
-    "EmailAddress": "jurn@deruijter.nl",
-    "FullName": "Jurn de Ruijter",
-    "Password": "hnGCl9b6\u002BBGosyh1le\u002BExg==",
+    "Id": "d7ff9929-b854-42d0-ad2e-3d016979063b",
+    "EmailAddress": "kwintenemp@hr.nl",
+    "FullName": "Kwinten",
+    "Password": "7kUoOSY7qHQwgP1Gd5DZ6w==",
     "Role": 1,
     "Tickets": []
   },
   {
-    "Id": "227fbbde-6dcf-405e-bfbb-066cc320b62e",
-    "EmailAddress": "casper@smits.nl",
-    "FullName": "Casper Smits",
-    "Password": "hnGCl9b6\u002BBGosyh1le\u002BExg==",
-    "Role": 1,
-    "Tickets": []
-  },
-  {
-    "Id": "50dda639-2acd-4135-84b3-6dd305f02aff",
-    "EmailAddress": "pan@nenkoek.nl",
-    "FullName": "Pan Nenkoek",
-    "Password": "hnGCl9b6\u002BBGosyh1le\u002BExg==",
-    "Role": 1,
-    "Tickets": []
-  },
-  {
-    "Id": "8d1d3a74-330a-4253-9d9f-96da82592ae6",
-    "EmailAddress": "admin@benson.com",
-    "FullName": "Benson",
-    "Password": "hnGCl9b6\u002BBGosyh1le\u002BExg==",
+    "Id": "76684d58-de65-47f4-b2ec-4014308019a4",
+    "EmailAddress": "achrafman@hr.nl",
+    "FullName": "Achraf",
+    "Password": "7kUoOSY7qHQwgP1Gd5DZ6w==",
     "Role": 2,
-    "Tickets": []
-  },
-  {
-    "Id": "cf5817a9-aa4a-4831-a54f-7bc28eff7d2d",
-    "EmailAddress": "content@.com",
-    "FullName": "content",
-    "Password": "cphOtXxEbJcPnMaErlM/iw==",
-    "Role": 2,
-    "Tickets": []
-  },
-  {
-    "Id": "30fb2b58-90ee-42ec-aac9-72d4e1ab2231",
-    "EmailAddress": "wes@mail.com",
-    "FullName": "wesley",
-    "Password": "owU79EsKsFXEk5JKrBEn\u002BQ==",
-    "Role": 2,
-    "Tickets": []
-  },
-  {
-    "Id": "121853ef-abe5-47e0-9c90-2f88efc6ec4f",
-    "EmailAddress": "mm@mm.com",
-    "FullName": "Ach",
-    "Password": "hnGCl9b6\u002BBGosyh1le\u002BExg==",
-    "Role": 2,
-    "Tickets": []
-  },
-  {
-    "Id": "7cb2e659-38a7-4d3c-a690-461eaefb6499",
-    "EmailAddress": "wesleyemp@gmail.com",
-    "FullName": "wesley",
-    "Password": "owU79EsKsFXEk5JKrBEn\u002BQ==",
-    "Role": 1,
     "Tickets": []
   }
 ]

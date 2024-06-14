@@ -134,5 +134,7 @@ static class ViewPerformances
 
             index++;
         }
+
+        Console.WriteLine($"{Color.Cyan}\nPress ESC to go back to the Main Menu{Color.Reset}");
     }
 }

@@ -11,9 +11,6 @@ public static class DataAccess<T>
     static string filePath = UnitTestDetector.IsInUnitTest ? Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @$"../../../../test/TestDataSources/{fileName}.json")) : Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @$"DataSources/{fileName}.json"));
     public static List<T> LoadAll()
     {
-
-
-        System.Console.WriteLine(filePath);
         try
         {
             string json = File.ReadAllText(filePath);

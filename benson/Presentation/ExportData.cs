@@ -108,7 +108,7 @@ static class ExportData
 
                     if (DateTime.TryParseExact(startDate, "d-M-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out startDateDT))
                     {
-                        Console.WriteLine($"{Color.Green}You entered: {startDateDT}{Color.Reset}");
+                        Console.WriteLine($"{Color.Green}✅ You entered: {startDateDT}{Color.Reset}");
                         break;
                     }
                     else
@@ -125,7 +125,7 @@ static class ExportData
 
                     if (DateTime.TryParseExact(endDate, "d-M-yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out endDateDT))
                     {
-                        Console.WriteLine($"{Color.Green}You entered: {endDateDT}{Color.Reset}");
+                        Console.WriteLine($"{Color.Green}✅ You entered: {endDateDT}{Color.Reset}");
                         break;
                     }
                     else
@@ -178,7 +178,7 @@ static class ExportData
             }
         }
 
-        Console.WriteLine($"{Color.Green}Accounts exported to {csvFilePath}{Color.Reset}");
+        Console.WriteLine($"{Color.Green}✅ Accounts exported to {csvFilePath}{Color.Reset}");
 
         End();
     }
@@ -206,7 +206,7 @@ static class ExportData
             }
         }
 
-        Console.WriteLine($"{Color.Green}Halls exported to {csvFilePath}{Color.Reset}");
+        Console.WriteLine($"{Color.Green}✅ Halls exported to {csvFilePath}{Color.Reset}");
 
         End();
     }
@@ -234,7 +234,7 @@ static class ExportData
             }
         }
 
-        Console.WriteLine($"{Color.Green}Performances exported to {csvFilePath}{Color.Reset}");
+        Console.WriteLine($"{Color.Green}✅ Performances exported to {csvFilePath}{Color.Reset}");
 
         End();
     }

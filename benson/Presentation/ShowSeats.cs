@@ -22,7 +22,7 @@ public class ShowSeats{
 
     public void PrintSeats(int rowSelected = -1, int seatSelected = -1){ 
         Console.Clear();
-        Console.WriteLine($"{Color.Yellow}Please select a seat:\n");
+        Console.WriteLine($"{Color.Yellow}Please select a seat. You can select more seats afterwards if you want to.\n");
         Console.WriteLine($"{Color.Green} Use arrow keys to move. Press enter to select.");
         Console.WriteLine($"_ = Empty\nX = Occupied\nO = Selected{Color.Reset}");
         int rows = Seats.Length;
@@ -180,7 +180,7 @@ public class ShowSeats{
             if (Seats[rowselect][seatselect] == 2 || Seats[rowselect][seatselect] == 1)
             {
                 Console.Clear();
-                Console.WriteLine($"{Color.Red}Seat is already selected or unavailable. Try again.{Color.Reset}");
+                Console.WriteLine($"{Color.Red}❌ Seat is already selected or unavailable. Try again.{Color.Reset}");
                 Console.ReadLine();
                 
             }else{
@@ -192,8 +192,8 @@ public class ShowSeats{
                     int id = 1;
                     foreach (var ticket in TicketTypes)
                     {
-                        string formattedPrice = (ticket.Price / 100.0).ToString("F2");
-                        Console.WriteLine($"{Color.Cyan}{id}: €{formattedPrice} - {ticket.Name}{Color.Reset}");
+                        string formattedPrice = ticket.Price.ToString("F2");
+                        Console.WriteLine($"{Color.Cyan}{id}: €{Convert.ToDouble(formattedPrice) / 100} - {ticket.Name}{Color.Reset}");
                         id++;
                     }
 
@@ -203,15 +203,15 @@ public class ShowSeats{
                     while (!isValidInput)
                     {
                         string input = Console.ReadLine();
-                        
-                        try
+
+                        if (int.TryParse(input, out int parsedInput))
                         {
-                            ticketId = int.Parse(input) - 1;
+                            ticketId = parsedInput - 1;
                             isValidInput = true;
                         }
-                        catch (FormatException)
+                        else
                         {
-                            Console.WriteLine($"{Color.Red}Invalid input. Please enter a valid ticket ID.{Color.Reset}");
+                            Console.WriteLine($"{Color.Red}❌ Invalid input. Please enter a valid ticket ID.{Color.Reset}");
                         }
                     }
 
@@ -221,9 +221,9 @@ public class ShowSeats{
                         SelectedTickets.Add(selectedTicket);
                         SelectedSeats.Add((rowselect, seatselect));
                         Seats[rowselect][seatselect] = 2;
-                        Console.WriteLine($"{Color.Green}The seat & ticket type is selected.{Color.Reset}");
+                        Console.WriteLine($"{Color.Green}✅ The seat & ticket type is selected.{Color.Reset}");
                     } else {
-                        Console.WriteLine($"{Color.Red}Invalid ticket selection. Please try again.{Color.Reset}");
+                        Console.WriteLine($"{Color.Red}❌ Invalid ticket selection. Please try again.{Color.Reset}");
                     }
                     Console.WriteLine($"{Color.Yellow}Do you want to add another seat? (y/n){Color.Reset}");
                     if (Console.ReadLine().ToLower() != "y")
@@ -246,9 +246,9 @@ public class ShowSeats{
                             totalPrice += ticket.Price;
                         }
 
-                        string formattedTotalPrice = (totalPrice / 100.0).ToString("F2");
+                        string formattedTotalPrice = totalPrice.ToString("F2");
                         
-                        Console.WriteLine($"\n{Color.Yellow}Total price: {Color.Cyan}€{formattedTotalPrice}");
+                        Console.WriteLine($"\n{Color.Yellow}Total price: {Color.Cyan}€{Convert.ToDouble(formattedTotalPrice) / 100}");
 
                         Console.WriteLine($"\n{Color.Yellow}Press Enter to make the payment.{Color.Reset}");
                         Console.ReadLine();
@@ -286,7 +286,7 @@ public class ShowSeats{
                         Thread.Sleep(333);
 
                         Console.Clear();
-                        Console.WriteLine($"{Color.Green}Payment succesful!{Color.Reset}\n\n{Color.Yellow}Press Enter to continue{Color.Reset}");
+                        Console.WriteLine($"{Color.Green}✅ Payment succesful!{Color.Reset}\n\n{Color.Yellow}Press Enter to continue{Color.Reset}");
                         Console.ReadLine();
 
                         done = true;

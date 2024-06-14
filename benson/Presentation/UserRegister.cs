@@ -3,8 +3,8 @@ using System;
 static class UserRegister
 {
     static private AccountsLogic accountsLogic = new AccountsLogic();
-    static private string secretEmployeePassword = "123";
-    static private string secretContentManagerPassword = "123";
+    static private string secretEmployeePassword = "123Employee#";
+    static private string secretContentManagerPassword = "123Manager#";
     static private int milisecondTimeOut = 2000;
 
 
@@ -80,7 +80,7 @@ static class UserRegister
         email = Console.ReadLine().Trim().ToLower();
         if (!IsValidEmail(email))
         {
-            Console.WriteLine($"\n{Color.Red}Invalid email format. Registration failed.{Color.Reset}");
+            Console.WriteLine($"\n{Color.Red}❌ Invalid email format. Registration failed.{Color.Reset}");
             Thread.Sleep(milisecondTimeOut);
             Start();
         }
@@ -90,7 +90,7 @@ static class UserRegister
         name = Console.ReadLine().Trim();
         if (!IsValidName(name))
         {
-            Console.WriteLine($"\n{Color.Red}Invalid name format. Registration failed.{Color.Reset}");
+            Console.WriteLine($"\n{Color.Red}❌ Invalid name format. Registration failed.{Color.Reset}");
             Thread.Sleep(milisecondTimeOut);
 
             Start();
@@ -103,7 +103,7 @@ static class UserRegister
 
         if (password == null)
         {
-            Console.WriteLine($"\n{Color.Red}Error encrypting password. Registration failed.{Color.Reset}");
+            Console.WriteLine($"\n{Color.Red}❌ Error encrypting password. Registration failed.{Color.Reset}");
             Thread.Sleep(milisecondTimeOut);
 
             Start();
@@ -117,11 +117,11 @@ static class UserRegister
 
             // Set logged-in user
             Utils.LoggedInUser = user;
-            Console.WriteLine($"{Color.Green}Registration successful!{Color.Reset}");
+            Console.WriteLine($"{Color.Green}✅ Registration successful!{Color.Reset}");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"\n{Color.Red}Error occurred: {ex.Message}");
+            Console.WriteLine($"\n{Color.Red}❌ Error occurred: {ex.Message}");
             Console.WriteLine($"Registration failed.{Color.Reset}");
         }
         finally

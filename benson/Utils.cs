@@ -144,7 +144,8 @@ public static class DateSelector
         while (true)
         {
             Console.Clear();
-            string message = isStartDate ? $"{Color.Yellow}Select a Start date? (< - month > + month ^ + day ):{Color.Reset}" : $"{Color.Yellow}Select a End date? (< - month > + month ^ + day ):{Color.Reset}";
+            string instructions = $"\n\n{Color.Green} Use arrow keys to modify the value. Press enter to confirm.\n^ = Add 1 day\nv = Remove 1 day\n< = Remove 1 month\n> = Add 1 month\n";
+            string message = isStartDate ? $"{Color.Yellow}Select a Start date:{instructions}{Color.Reset}" : $"{Color.Yellow}Select a End date:{instructions}{Color.Reset}";
             Console.WriteLine(message);
             Console.WriteLine(CurrentDate.ToString("dd-MM-yyyy"));
             ConsoleKey key = Console.ReadKey(true).Key;
@@ -178,7 +179,8 @@ public static class DateSelector
         while (true)
         {
             Console.Clear();
-            string message = isStartDate ? $"{Color.Yellow}Enter Start Time (< - 15 minutes > + 15 minutes ^ + hour ):{Color.Reset}" : $"{Color.Yellow}Enter End Time? (< - 15 minutes > + 15 minutes ^ + hour ):{Color.Reset}";
+            string instructions = $"\n\n{Color.Green} Use arrow keys to modify the value. Press enter to confirm.\n^ = Add 1 hour\nv = Remove 1 hour\n< = Remove 15 minutes\n> = Add 15 minutes\n";
+            string message = isStartDate ? $"{Color.Yellow}Enter Start Time:{instructions}{Color.Reset}" : $"{Color.Yellow}Enter End Time:{instructions}{Color.Reset}";
             Console.WriteLine(message);
             Console.WriteLine(CurrentTime.ToString("HH:mm"));
             ConsoleKey key = Console.ReadKey(true).Key;
