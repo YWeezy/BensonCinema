@@ -1,3 +1,26 @@
 [
-  
+  {
+    "PerformanceId": 1,
+    "Title": "Emo\u0027s Adventure",
+    "Location": "DollHouse A",
+    "Date": "6/15/2024",
+    "Time": "2:00PM-2:00PM",
+    "Seat": "2",
+    "Row": "B",
+    "Type": "regular",
+    "Price": "2.00",
+    "RelationId": "dd2880f8-c187-48eb-b74a-9a20a8099747"
+  },
+  {
+    "PerformanceId": 1,
+    "Title": "Emo\u0027s Adventure",
+    "Location": "DollHouse A",
+    "Date": "6/15/2024",
+    "Time": "2:00PM-2:00PM",
+    "Seat": "3",
+    "Row": "B",
+    "Type": "regular",
+    "Price": "2.00",
+    "RelationId": "dd2880f8-c187-48eb-b74a-9a20a8099747"
+  }
 ]

@@ -14,5 +14,13 @@
     "Password": "7kUoOSY7qHQwgP1Gd5DZ6w==",
     "Role": 1,
     "Tickets": []
+  },
+  {
+    "Id": "76684d58-de65-47f4-b2ec-4014308019a4",
+    "EmailAddress": "achrafman@hr.nl",
+    "FullName": "Achraf",
+    "Password": "7kUoOSY7qHQwgP1Gd5DZ6w==",
+    "Role": 2,
+    "Tickets": []
   }
 ]
