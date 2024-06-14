@@ -35,17 +35,16 @@ public class TicketModel
 
     public TicketModel() { }
 
-    public TicketModel(string seat, string row, string type, string title, string location, string date, string time, int id, string price)
+    public TicketModel(string seat, string row, string type, string title, string location, string date, string time, int performanceId, string price)
     {
-        Seat = seat;
-        Row = row;
-        Type = type;
-        Title = title;
-        Location = location;
-        Date = date;
-        Time = time;
-        PerformanceId = id;
-        Price = price;
-        RelationId = Utils.LoggedInUser.Id;
+        Seat = seat ?? throw new ArgumentNullException(nameof(seat));
+        Row = row ?? throw new ArgumentNullException(nameof(row));
+        Type = type ?? throw new ArgumentNullException(nameof(type));
+        Title = title ?? throw new ArgumentNullException(nameof(title));
+        Location = location ?? throw new ArgumentNullException(nameof(location));
+        Date = date ?? throw new ArgumentNullException(nameof(date));
+        Time = time ?? throw new ArgumentNullException(nameof(time));
+        PerformanceId = performanceId;
+        Price = price ?? throw new ArgumentNullException(nameof(price));
     }
 }
