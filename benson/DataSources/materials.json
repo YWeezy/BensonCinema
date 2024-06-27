@@ -1,0 +1,20 @@
+[
+    {
+      "material": "Wood",
+      "quantity": 50,
+      "type": "Decor",
+      "occupation": [
+        {
+            "quantity": 30,
+            "start": "2024-06-15T14:00:00",
+            "end": "2024-06-15T16:00:00",
+            "hallid": 3
+        },
+        {
+            "quantity": 10,
+            "date": "2024-06-15",
+            "hallid": 2
+        }
+      ]
+    }
+]

@@ -137,6 +137,11 @@ class Menu : IScreen
             case ContentManagerOption.Schedule:
                 EmployeeSchedule.Start();
                 break;
+            case ContentManagerOption.Materials:
+                
+                ManageMaterials MM = new();
+                MM.Start();
+                break;
             case ContentManagerOption.ExportData:
                 ExportData.Start();
                 break;
@@ -295,6 +300,7 @@ class Menu : IScreen
         Performances = 1,
         Halls,
         Schedule,
+        Materials,
         ExportData,
         Exit
     }
