@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-
 public class ManageMaterials
 {
     private MaterialsLogic logic = new(); 
@@ -72,6 +71,11 @@ public class ManageMaterials
                     Menu.Start();
                     break;
 
+                case ConsoleKey.V:
+                    DisplayOccupation(materials[selectedMaterialIndex]);
+                    break;
+
+
                 default:
                     break;
             }
@@ -142,7 +146,6 @@ public class ManageMaterials
 
         foreach (var material in materials)
         {
-            System.Console.WriteLine(material.type);
             Console.WriteLine("{0,-20}{1,-10}{2,-20}", material.material, material.quantity.ToString(), material.type);
         }
 
@@ -153,7 +156,7 @@ public class ManageMaterials
     {
         Console.Clear();
         Console.WriteLine($"{Color.Yellow}Existing Materials:{Color.Reset}\n");
-        Console.WriteLine($"{Color.Italic}{Color.Blue}Controls: {Color.Red}ESC{Color.Blue} to stop editing Materials, {Color.Red}Backspace{Color.Blue} to delete the Material and {Color.Red}Enter{Color.Blue} to add more Materials{Color.Reset}{Color.FontReset}");
+        Console.WriteLine($"{Color.Italic}{Color.Blue}Controls: {Color.Red}ESC{Color.Blue} to stop editing Materials, {Color.Red}V{Color.Blue} to view its schedule, {Color.Red}Backspace{Color.Blue} to delete the Material and {Color.Red}Enter{Color.Blue} to add more Materials{Color.Reset}{Color.FontReset}");
         Console.WriteLine("{0,-20}{1,-20}{2,-20}", "Material", "Quantity", "Type");
         Console.WriteLine(new string('-', 60));
 
@@ -177,4 +180,34 @@ public class ManageMaterials
             Console.WriteLine($"{Color.Red}No materials available.{Color.Reset}");
         }
     }
+
+    void DisplayOccupation( MaterialsModel material){
+        Console.Clear();
+        if (material.occupation.Count == 0 || material.occupation == null){
+            Console.WriteLine($"{Color.Red}This material has no upcoming schedule{Color.Reset}");
+            Console.WriteLine($"{Color.Yellow}Press any key to return{Color.Reset}\n");
+            Console.ReadKey(true);
+            Start();
+        }
+        Console.WriteLine($"{Color.Yellow}Schedule for '{material.material}':{Color.Reset}\n");
+        Console.WriteLine("{0,-30}{1,-30}{2,-20}", "Quantity", "Date", "Hall");
+        Console.WriteLine(new string('-', 80));
+        
+
+        foreach (var schedule in material.occupation)
+        {
+            DateTime start = DateTime.Parse(schedule["start"].ToString());
+            DateTime end = DateTime.Parse(schedule["end"].ToString());
+            Console.WriteLine("{0,-30}{1,-30}{2,-20}", schedule["quantity"].ToString(), $"{start.ToString("MM-dd-yyyy HH:mm")} - {end.ToString("HH:mm")}", schedule["hallName"]);
+        }
+        Console.WriteLine($"{Color.Yellow}Press any key to return{Color.Reset}\n");
+        Console.ReadKey(true);
+        Start();
+
+        
+
+
+
+
+    } 
 }

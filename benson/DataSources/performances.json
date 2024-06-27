@@ -5,7 +5,7 @@
     "description": "Dit is een beschrijving van Emo\u0027s Adventure",
     "startDate": "2024-06-15T14:00:00",
     "endDate": "2024-06-15T16:00:00",
-    "hallId": 1,
+    "hallName": "DollHouse B",
     "employees": [
       "Kwinten"
     ],

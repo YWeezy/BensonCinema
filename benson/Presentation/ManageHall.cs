@@ -71,10 +71,14 @@ class ManageHall: IScreen
             Console.WriteLine($"{Color.Yellow}Hall name:{Color.Reset}");
             hallName = editing ? ConsoleInput.EditLine(selectedHall.hallName) : Console.ReadLine();
 
-
+            
             if (string.IsNullOrEmpty(hallName))
             {
                 Console.WriteLine($"{Color.Red}Invalid input. Please provide a Hall name.{Color.Reset}");
+            }
+            if (logic.GetList().Any( Hall => Hall.hallName == hallName)){
+                Console.WriteLine($"{Color.Red}Invalid input. Hall name should be unique.{Color.Reset}");
+                hallName = null;
             }
         }
 
