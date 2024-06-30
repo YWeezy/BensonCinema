@@ -22,5 +22,13 @@
     "Password": "7kUoOSY7qHQwgP1Gd5DZ6w==",
     "Role": 2,
     "Tickets": []
+  },
+  {
+    "Id": "e2478ef2-9019-4477-9429-3d8daafa833e",
+    "EmailAddress": "admin@admin.com",
+    "FullName": "admin 1",
+    "Password": "nhi44MXm99ZQBm2wbmMnCg==",
+    "Role": 2,
+    "Tickets": []
   }
 ]
