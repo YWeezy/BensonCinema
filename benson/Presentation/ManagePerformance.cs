@@ -461,7 +461,7 @@ public class ManagePerformance : IScreen
         }
     }
 
-    static private void DisplayPerformances(PerformanceLogic logic, int selectedPerformanceIndex)
+    static public void DisplayPerformances(PerformanceLogic logic, int selectedPerformanceIndex)
     {
         Console.Clear();
         HallLogic hallLogic = new HallLogic();

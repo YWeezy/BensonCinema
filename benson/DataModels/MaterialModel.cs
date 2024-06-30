@@ -16,6 +16,9 @@ public class MaterialsModel
     [JsonPropertyName("occupation")]
     public List<Dictionary<string, object>> occupation { get; set; }
 
+    [JsonPropertyName("currentHall")]
+    public string currentHall { get; set; } = string.Empty;
+
     [JsonConstructor]
 
     public MaterialsModel(string Material, int Quantity, string Type, List<Dictionary<string, object>> Occupation = null)
@@ -23,8 +26,7 @@ public class MaterialsModel
         material = Material;
         quantity = Quantity;
         type = Type;
-        occupation = Occupation;
+        occupation = new List<Dictionary<string, object>>();
+    
     }
-
-
 }

@@ -1,4 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using System.Numerics;
+
+
 public class ManageMaterials
 {
     private MaterialsLogic logic = new(); 
@@ -75,12 +78,17 @@ public class ManageMaterials
                     DisplayOccupation(materials[selectedMaterialIndex]);
                     break;
 
+                case ConsoleKey.P:
+                    PlanMaterials(materials[selectedMaterialIndex]);
+                    DisplayMaterials(materials, selectedMaterialIndex);
+                    break;
 
                 default:
                     break;
             }
         }
     }
+
 
     public void AddMaterials()
     {
@@ -136,6 +144,8 @@ public class ManageMaterials
             }
         }
     }
+
+
     private void DisplayMaterials(List<MaterialsModel> materials)
     {
         Console.Clear();
@@ -152,11 +162,12 @@ public class ManageMaterials
         Console.WriteLine();
     }
 
+
     void DisplayMaterials(List<MaterialsModel> materials, int selectedIndex = -1)
     {
         Console.Clear();
         Console.WriteLine($"{Color.Yellow}Existing Materials:{Color.Reset}\n");
-        Console.WriteLine($"{Color.Italic}{Color.Blue}Controls: {Color.Red}ESC{Color.Blue} to stop editing Materials, {Color.Red}V{Color.Blue} to view its schedule, {Color.Red}Backspace{Color.Blue} to delete the Material and {Color.Red}Enter{Color.Blue} to add more Materials{Color.Reset}{Color.FontReset}");
+        Console.WriteLine($"{Color.Italic}{Color.Blue}Controls: {Color.Red}ESC{Color.Blue} to stop editing Materials, {Color.Red}V{Color.Blue} to view its schedule, {Color.Red}P{Color.Blue} to plan a schedule for the material, {Color.Red}Backspace{Color.Blue} to delete the Material and {Color.Red}Enter{Color.Blue} to add more Materials{Color.Reset}{Color.FontReset}");
         Console.WriteLine("{0,-20}{1,-20}{2,-20}", "Material", "Quantity", "Type");
         Console.WriteLine(new string('-', 60));
 
@@ -181,6 +192,7 @@ public class ManageMaterials
         }
     }
 
+
     void DisplayOccupation( MaterialsModel material){
         Console.Clear();
         if (material.occupation.Count == 0 || material.occupation == null){
@@ -203,11 +215,197 @@ public class ManageMaterials
         Console.WriteLine($"{Color.Yellow}Press any key to return{Color.Reset}\n");
         Console.ReadKey(true);
         Start();
-
-        
-
-
-
-
     } 
+
+
+    public bool IsMaterialScheduledForAnotherHall(MaterialsModel material, DateTime performanceStartTime, string targetHall)
+    {
+        if (!string.IsNullOrEmpty(material.currentHall) && material.currentHall != targetHall)
+        {
+            foreach (var schedule in material.occupation)
+            {
+                if (schedule["start"].ToString() == performanceStartTime.ToString())
+                {
+                    Console.WriteLine($"{Color.Red}Material is already scheduled for another hall at this time.{Color.Reset}");
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    public void PlanMaterials(MaterialsModel material)
+    {
+        Console.Clear();
+        Console.WriteLine($"{Color.Yellow}Plan Materials{Color.Reset}\n");
+
+        if (logic.GetList().Count == 0)
+        {
+            Console.WriteLine($"{Color.Red}No materials available to schedule.{Color.Reset}");
+            return;
+        }
+
+        Console.WriteLine($"Selected material: {material.material}");
+
+        int quantity = 0;
+        bool validQuantity = false;
+
+        while (!validQuantity)
+        {
+            Console.WriteLine($"{Color.Yellow}Enter the quantity needed for the performance:{Color.Reset}");
+
+            try
+            {
+                quantity = Int32.Parse(Console.ReadLine());
+
+                if (quantity <= 0)
+                {
+                    Console.WriteLine($"{Color.Red}Quantity must be a positive integer.{Color.Reset}");
+                }
+                else
+                {
+                    validQuantity = true;
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine($"{Color.Red}Invalid input. Please enter a valid integer.{Color.Reset}");
+            }
+            catch (OverflowException)
+            {
+                Console.WriteLine($"{Color.Red}Input value is too large or too small for an Int32.{Color.Reset}");
+            }
+        }
+
+
+        string type = SelectMaterialType();
+
+        PerformanceLogic performanceLogic = new PerformanceLogic();
+        int selectedPerformanceIndex = 0;
+        List<PerformancesModel> performances = performanceLogic.GetPerformances();
+        ManagePerformance.DisplayPerformances(performanceLogic, selectedPerformanceIndex);
+
+        DateTime performanceDateTime = DateTime.MinValue;
+        string hallName = ""; 
+
+        while (true)
+        {
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+            switch (keyInfo.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    if (selectedPerformanceIndex > 0)
+                    {
+                        selectedPerformanceIndex--;
+                    }
+                    else if (performances.Count > 0)
+                    {
+                        selectedPerformanceIndex = performances.Count - 1; 
+                    }
+                    ManagePerformance.DisplayPerformances(performanceLogic, selectedPerformanceIndex);
+                    break;
+
+                case ConsoleKey.DownArrow:
+                    if (selectedPerformanceIndex < performances.Count - 1)
+                    {
+                        selectedPerformanceIndex++;
+                    }
+                    else if (performances.Count > 0)
+                    {
+                        selectedPerformanceIndex = 0;
+                    }
+                    ManagePerformance.DisplayPerformances(performanceLogic, selectedPerformanceIndex);
+                    break;
+
+                case ConsoleKey.Enter:
+                    PerformancesModel selectedPerformance = performances[selectedPerformanceIndex];
+                    performanceDateTime = selectedPerformance.startDate; // Set performanceDateTime
+                    hallName = new HallLogic().GetHallNameById(selectedPerformance.hallId); // Get hall name based on hallId
+                    break;
+
+                case ConsoleKey.Escape:
+                    return; 
+            }
+
+
+            if (performanceDateTime != DateTime.MinValue)
+                break;
+        }
+
+        if (IsMaterialScheduledForAnotherHall(material, performanceDateTime, hallName))
+        {
+            Console.WriteLine($"{Color.Red}Material is already scheduled for another hall at this time.{Color.Reset}");
+            Console.WriteLine($"{Color.Yellow}Press any key to return to the main menu.{Color.Reset}\n");
+            Console.ReadKey(true);
+            DisplayMaterials(logic.GetList(), logic.GetList().IndexOf(material));
+            return;
+        }
+
+        material.occupation.Add(new Dictionary<string, object>
+        {
+            { "quantity", quantity },
+            { "start", performanceDateTime },
+            { "end", performanceDateTime.AddHours(2) },
+            { "hallName", hallName }
+        });
+
+        int selectedMaterialIndex = logic.GetList().FindIndex(m => m.material == material.material);
+
+        logic.updateMaterial(selectedMaterialIndex, material.material, quantity, hallName, type, material.occupation);
+
+        Console.WriteLine($"{Color.Green}Material scheduled successfully!{Color.Reset}");
+        Console.WriteLine($"{Color.Yellow}Press any key to return to the main menu.{Color.Reset}\n");
+        Console.ReadKey(true);
+        DisplayMaterials(logic.GetList(), selectedMaterialIndex);
+    }
+
+
+    private string SelectMaterialType()
+    {
+        string[] materialTypes = { "Puppeteers", "Requisites", "Decor" };
+        int selectedIndex = 0;
+
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine($"{Color.Yellow}Select material type:{Color.Reset}\n");
+
+            for (int i = 0; i < materialTypes.Length; i++)
+            {
+                if (i == selectedIndex)
+                {
+                    Console.Write($"{Color.Green}>> ");
+                }
+                else
+                {
+                    Console.Write($"{Color.Reset}   ");
+                }
+                Console.WriteLine(materialTypes[i]);
+            }
+
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+
+            switch (keyInfo.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    selectedIndex = (selectedIndex - 1 + materialTypes.Length) % materialTypes.Length;
+                    break;
+
+                case ConsoleKey.DownArrow:
+                    selectedIndex = (selectedIndex + 1) % materialTypes.Length;
+                    break;
+
+                case ConsoleKey.Enter:
+                    string selectedType = materialTypes[selectedIndex];
+                    Console.WriteLine($"\nSelected type: {selectedType}\n");
+                    return selectedType;
+
+                default:
+                    Console.WriteLine($"{Color.Red}Invalid input. Please use arrow keys to select and Enter to confirm.{Color.Reset}");
+                    break;
+            }
+        }
+    }
 }

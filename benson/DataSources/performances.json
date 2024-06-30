@@ -3,9 +3,9 @@
     "id": 1,
     "name": "Emo\u0027s Adventure",
     "description": "Dit is een beschrijving van Emo\u0027s Adventure",
-    "startDate": "2024-06-15T14:00:00",
-    "endDate": "2024-06-15T16:00:00",
-    "hallName": "DollHouse B",
+    "startDate": "2024-07-30T17:00:00",
+    "endDate": "2024-08-30T19:00:00",
+    "hallId": 3,
     "employees": [
       "Kwinten"
     ],
@@ -132,12 +132,113 @@
         ]
       }
     ],
-    "listmaterials": [
+    "listmaterials": null,
+    "active": true
+  },
+  {
+    "id": 2,
+    "name": "SKibidi Toilet",
+    "description": "SKibidi SKIB SKIB",
+    "startDate": "2024-07-30T17:00:00",
+    "endDate": "2024-08-30T18:00:00",
+    "hallId": 2,
+    "employees": [],
+    "ticketsAvailable": [
       {
-        "material": "stoelen",
-        "quantity": 80
+        "seats": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            9,
+            9
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            9,
+            9,
+            9,
+            9
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9
+          ]
+        ]
+      },
+      {
+        "ticketTypes": [
+          {
+            "amount": 50,
+            "name": "Regular",
+            "price": 50
+          }
+        ]
       }
     ],
+    "listmaterials": [],
     "active": true
   }
 ]

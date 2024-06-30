@@ -19,8 +19,6 @@ public class MaterialsLogic
 
 
 
-
-
     public List<MaterialsModel> GetList()
     {
         return _materials;
@@ -44,8 +42,31 @@ public class MaterialsLogic
         DataAccess<MaterialsModel>.WriteAll(_materials);
     }
 
+
     public void delete(int index){
         _materials.RemoveAt(index);
         DataAccess<MaterialsModel>.WriteAll(_materials);
+    }
+
+
+    public void updateMaterial(int materialId, string newMaterial, int newQuantity, string newHall, string newType, List<Dictionary<string, object>> newOccupation = null)
+    {
+        var materialToUpdate = _materials.Find( m => m.material == newMaterial);
+        if (materialToUpdate == null)
+        {
+            throw new Exception("Material not found");
+        }
+
+        materialToUpdate.quantity = newQuantity;
+        materialToUpdate.currentHall = newHall;
+        materialToUpdate.type = newType;
+
+        if (newOccupation != null)
+        {
+            materialToUpdate.occupation = newOccupation;
+        }
+
+        DataAccess<MaterialsModel>.WriteAll(_materials);
+    
     }
 }
