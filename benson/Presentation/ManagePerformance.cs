@@ -465,7 +465,7 @@ public class ManagePerformance : IScreen
     {
         Console.Clear();
         HallLogic hallLogic = new HallLogic();
-        Console.WriteLine($"{Color.Yellow}Please select a Performance to edit:{Color.Reset}\n");
+        Console.WriteLine($"{Color.Yellow}Please select a Performance:{Color.Reset}\n");
 
         Console.WriteLine("      {0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
         Console.WriteLine("      ------------------------------------------------------------------------------------------------------------");
