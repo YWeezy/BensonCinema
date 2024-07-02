@@ -14,6 +14,8 @@ public class PerformanceLogic
         
     }
 
+    
+
     public List<PerformancesModel> GetPerformances(string from = "01-01-0001", string to = "31-12-9999")
     {
         DateTime fromDate;
@@ -170,6 +172,19 @@ public class PerformanceLogic
         return;
     }
 
+    public int GetNewIdRev(PerformancesModel perf)
+    {
+        int currentId = 0;
+        System.Console.WriteLine(perf.reviews);
+        if (perf.reviews.Count == 0)    
+        {
+            return 1;
+        }
+        int highestidperf = perf.reviews.Max(e => e.id);
+        return highestidperf + 1;
+       
+    }
+
     public bool DeletePerformance(int id)
     {
         PerformancesModel perfToRemove = _performances.Find(p => p.id == id);
@@ -180,6 +195,11 @@ public class PerformanceLogic
             return true;
         }
         return false;
+    }
+
+    public List<ReviewsModel> GetReviews(int id){
+        PerformancesModel perf = GetPerfById(id);
+        return perf.reviews;
     }
 
     

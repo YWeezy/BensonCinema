@@ -178,10 +178,8 @@ class Menu : IScreen
                 ShowUserDefaultMenu();
                 break;
             case UserOption.Reservations:
-                ticketer.loadMytickets(Utils.LoggedInUser.Id);
-                Console.WriteLine($"{Color.Cyan}\nPress ESC to go back to the Main Menu{Color.Reset}");
-                // Wait for the user to press esc
-                while (Console.ReadKey().Key != ConsoleKey.Escape) { }
+                PerformanceLogic logic = new PerformanceLogic();
+                ViewPerformances.ViewReservations(Utils.LoggedInUser.Id, logic);
                 ShowUserDefaultMenu();
                 break;
             case UserOption.Exit:

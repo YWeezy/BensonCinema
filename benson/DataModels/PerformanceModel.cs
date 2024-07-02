@@ -23,6 +23,9 @@ public class PerformancesModel
     [JsonPropertyName("hallId")]
     public int hallId { get; set; }
 
+    [JsonPropertyName("reviews")]
+    public List<ReviewsModel> reviews { get; set;}
+
     [JsonPropertyName("employees")]
     public List<string> employees { get; set; }
 
@@ -35,7 +38,7 @@ public class PerformancesModel
     [JsonPropertyName("active")]
     public bool active { get; set; }
 
-    public PerformancesModel(int id, string name, string description, DateTime startDate, DateTime endDate, int hallId, List<Dictionary<string, object>> listmaterials, List<Dictionary<string, object>> ticketsAvailable, bool active)
+    public PerformancesModel(int id, string name, string description, DateTime startDate, DateTime endDate, int hallId, List<Dictionary<string, object>> listmaterials, List<Dictionary<string, object>> ticketsAvailable, bool active, List<ReviewsModel> Reviews = null)
     {
         this.id = id;
         this.name = name;
@@ -43,6 +46,7 @@ public class PerformancesModel
         this.startDate = startDate;
         this.endDate = endDate;
         this.hallId = hallId;
+        this.reviews = Reviews;
         this.listmaterials = listmaterials ?? new List<Dictionary<string, object>>();
         this.active = active;
         this.employees = new List<string>();

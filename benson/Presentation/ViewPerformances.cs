@@ -5,6 +5,7 @@ using System.Text.Json;
 static class ViewPerformances
 {
 
+    
     static public void Start() {
         PerformanceLogic logic = new PerformanceLogic();
         Edit(logic);
@@ -42,10 +43,50 @@ static class ViewPerformances
             }
         }
     }
-    static private void DisplayPerformanceMenu(string[] options)
+    static public void ViewReservations(string id, PerformanceLogic logic)
     {
-            Console.WriteLine("");
-            
+        Console.Clear();
+        TicketLogic tLogic = new TicketLogic();
+        List<TicketModel> myTickets = tLogic.loadMyticketsList(id);
+        int selectedReservationIndex = 0;
+        int totalReservations = myTickets.Count();
+
+        while (true)
+        {
+            tLogic.loadMytickets(myTickets, selectedReservationIndex);
+
+            var key = Console.ReadKey(true).Key;
+
+            switch (key)
+            {
+                case ConsoleKey.UpArrow:
+                    selectedReservationIndex = selectedReservationIndex == 0 ? totalReservations - 1 : selectedReservationIndex - 1;
+                    break;
+                case ConsoleKey.DownArrow:
+                    selectedReservationIndex = selectedReservationIndex == totalReservations - 1 ? 0 : selectedReservationIndex + 1;
+                    break;
+                case ConsoleKey.R:
+                    string[] Time = myTickets[selectedReservationIndex].Time.Split("-");
+                    string dtimestr = $"{myTickets[selectedReservationIndex].Date} {Time[1]}";
+                    DateTime dtime = DateTime.Parse(dtimestr); 
+                    System.Console.WriteLine(dtime);
+                    if (DateTime.Now > dtime)
+                    {
+                        ViewReviews view = new ViewReviews(myTickets[selectedReservationIndex].PerformanceId);
+                        view.Start();
+                    }else{
+                        Console.WriteLine($"{Color.Red}Cant View access reviews before the end of the performance!{Color.Reset}");
+                    }
+                    
+
+
+                    continue;
+                case ConsoleKey.Escape:
+                    return;
+                default:
+                    break;
+            }
+        }
     }
 
     static private void PerformAction(string option, int performanceId = 0)

@@ -6,6 +6,23 @@
     "startDate": "2024-07-30T17:00:00",
     "endDate": "2024-08-30T19:00:00",
     "hallId": 3,
+    "reviews": [
+      {
+        "id": 1,
+        "rating": 8,
+        "description": "Goeie Show!"
+      },
+      {
+        "id": 2,
+        "rating": 7,
+        "description": "Avontuurlijk!"
+      },
+      {
+        "id": 3,
+        "rating": 5,
+        "description": "Leuke show maar stoelen waren niet comfortabel."
+      }
+    ],
     "employees": [
       "Kwinten"
     ],
@@ -132,7 +149,7 @@
         ]
       }
     ],
-    "listmaterials": null,
+    "listmaterials": [],
     "active": true
   },
   {
@@ -142,12 +159,34 @@
     "startDate": "2024-07-30T17:00:00",
     "endDate": "2024-08-30T18:00:00",
     "hallId": 2,
+    "reviews": [
+      {
+        "id": 1,
+        "rating": 7,
+        "description": "Very Good!!"
+      },
+      {
+        "id": 2,
+        "rating": 5,
+        "description": "its not that good!!"
+      },
+      {
+        "id": 3,
+        "rating": 7,
+        "description": "dsfdea"
+      },
+      {
+        "id": 4,
+        "rating": 8,
+        "description": "IDK"
+      }
+    ],
     "employees": [],
     "ticketsAvailable": [
       {
         "seats": [
           [
-            0,
+            1,
             0,
             0,
             0,
