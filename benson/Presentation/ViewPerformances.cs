@@ -69,13 +69,14 @@ static class ViewPerformances
                     string[] Time = myTickets[selectedReservationIndex].Time.Split("-");
                     string dtimestr = $"{myTickets[selectedReservationIndex].Date} {Time[1]}";
                     DateTime dtime = DateTime.Parse(dtimestr); 
-                    System.Console.WriteLine(dtime);
+                    
                     if (DateTime.Now > dtime)
                     {
                         ViewReviews view = new ViewReviews(myTickets[selectedReservationIndex].PerformanceId);
                         view.Start();
                     }else{
                         Console.WriteLine($"{Color.Red}Cant View access reviews before the end of the performance!{Color.Reset}");
+                        Thread.Sleep(3000);
                     }
                     
 

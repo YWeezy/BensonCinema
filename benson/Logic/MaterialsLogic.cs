@@ -28,8 +28,8 @@ public class MaterialsLogic
 
     public void insertMaterial(MaterialsModel material)
     {
-       
-        int index = _materials.FindIndex(_material => _material.material == material.material);
+        
+        int index = _materials.FindIndex(_material => _material.material == material.material && _material.type == material.type);
         if (index != -1){
             _materials[index].quantity = _materials[index].quantity + material.quantity;
         }
