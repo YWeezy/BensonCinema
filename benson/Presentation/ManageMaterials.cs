@@ -336,7 +336,7 @@ public class ManageMaterials
 
         if (IsMaterialScheduledForAnotherHall(material, performanceDateTime, hallName))
         {
-            Console.WriteLine($"{Color.Red}Material is already scheduled for another hall at this time.{Color.Reset}");
+            Console.WriteLine($"{Color.Red}Material is already scheduled for another hall at this date.{Color.Reset}");
             Console.WriteLine($"{Color.Yellow}Press any key to return to the main menu.{Color.Reset}\n");
             Console.ReadKey(true);
             DisplayMaterials(logic.GetList(), logic.GetList().IndexOf(material));
