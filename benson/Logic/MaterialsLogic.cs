@@ -59,7 +59,6 @@ public class MaterialsLogic
 
         materialToUpdate.quantity = newQuantity;
         materialToUpdate.currentHall = newHall;
-        materialToUpdate.type = newType;
 
         if (newOccupation != null)
         {
