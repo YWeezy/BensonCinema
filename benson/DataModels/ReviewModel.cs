@@ -13,13 +13,17 @@ public class ReviewsModel
     [JsonPropertyName("description")]
     public string description { get; set; }
 
+    [JsonPropertyName("reply")]
+    public string reply { get; set; }
+
     [JsonConstructor]
 
-    public ReviewsModel(int id, int rating, string description)
+    public ReviewsModel(int id, int rating, string description, string reply)
     {
         this.id = id;
         this.rating = rating;
         this.description = description;
+        this.reply = reply;
     
     }
 }

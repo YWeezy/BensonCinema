@@ -8,19 +8,16 @@
     "hallId": 3,
     "reviews": [
       {
-        "id": 1,
-        "rating": 8,
-        "description": "Goeie Show!"
-      },
-      {
         "id": 2,
         "rating": 7,
-        "description": "Avontuurlijk!"
+        "description": "Avontuurlijk!",
+        "reply": "Thank you for watching the show we are pleased to know you enjoyed the show."
       },
       {
         "id": 3,
         "rating": 5,
-        "description": "Leuke show maar stoelen waren niet comfortabel."
+        "description": "Leuke show maar stoelen waren niet comfortabel.",
+        "reply": null
       }
     ],
     "employees": [
@@ -31,7 +28,7 @@
         "seats": [
           [
             0,
-            0,
+            1,
             0,
             0,
             0,
@@ -161,24 +158,22 @@
     "hallId": 2,
     "reviews": [
       {
-        "id": 1,
-        "rating": 7,
-        "description": "Very Good!!"
-      },
-      {
         "id": 2,
         "rating": 5,
-        "description": "its not that good!!"
+        "description": "its not that good!!",
+        "reply": null
       },
       {
         "id": 3,
         "rating": 7,
-        "description": "dsfdea"
+        "description": "Wesley was here",
+        "reply": "Pratik Was Here!"
       },
       {
         "id": 4,
         "rating": 8,
-        "description": "IDK"
+        "description": "IDK",
+        "reply": null
       }
     ],
     "employees": [],

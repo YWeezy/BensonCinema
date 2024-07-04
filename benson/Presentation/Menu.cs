@@ -131,6 +131,9 @@ class Menu : IScreen
             case ContentManagerOption.Performances:
                 ManagePerformance.Start();
                 break;
+            case ContentManagerOption.Reviews:
+                ManageReviews.Start();
+                break;    
             case ContentManagerOption.Halls:
                 ManageHall.Start();
                 break;
@@ -296,6 +299,7 @@ class Menu : IScreen
     enum ContentManagerOption
     {
         Performances = 1,
+        Reviews,
         Halls,
         Schedule,
         Materials,
