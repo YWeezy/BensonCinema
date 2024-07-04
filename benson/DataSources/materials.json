@@ -2,16 +2,16 @@
   {
     "material": "Wood",
     "quantity": 20,
-    "type": "Decor",
+    "type": null,
     "occupation": [
       {
         "quantity": 20,
         "start": "2024-07-30T17:00:00",
         "end": "2024-07-30T19:00:00",
-        "hallName": "DollHouse C"
+        "hallName": "DollHouse B"
       }
     ],
-    "currentHall": "DollHouse C"
+    "currentHall": "DollHouse B"
   },
   {
     "material": "Steel",

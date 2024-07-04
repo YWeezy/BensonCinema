@@ -179,7 +179,7 @@ public class ManageMaterials
             }
             else
             {
-                Console.Write("");
+                Console.Write("   ");
             }
 
             Console.WriteLine("{0,-20}{1,-20}{2,-20}", materials[i].material, materials[i].quantity.ToString(), materials[i].type);
@@ -279,7 +279,7 @@ public class ManageMaterials
         }
 
 
-        string type = SelectMaterialType();
+        string type = null;
 
         PerformanceLogic performanceLogic = new PerformanceLogic();
         int selectedPerformanceIndex = 0;
