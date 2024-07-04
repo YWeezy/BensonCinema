@@ -18,7 +18,7 @@ public class ManageReviews
         manager.DisplayPerformancesMenu();
     }
 
-    private void DisplayPerformancesMenu()
+    private object DisplayPerformancesMenu()
     {
         Console.Clear();
         List<PerformancesModel> performances = perfLogic.GetPerformances();
@@ -28,6 +28,8 @@ public class ManageReviews
         {
             Console.Clear();
             Console.WriteLine($"{Color.Yellow}Select a Performance to Manage Reviews:{Color.Reset}");
+            Console.WriteLine($"{Color.Italic}{Color.Red}Press ESC to return to Performance Selection.{Color.Reset}");
+            Console.WriteLine();
             for (int i = 0; i < performances.Count; i++)
             {
                 if (i == selectedOption)
@@ -57,7 +59,8 @@ public class ManageReviews
                     ManageSelectedPerformance();
                     break;
                 case ConsoleKey.Escape:
-                    return; // Allow user to exit by pressing Escape
+                    Menu.Start(); // Allow user to exit by pressing Escape
+                    break;
                 default:
                     break;
             }
@@ -159,6 +162,7 @@ public class ManageReviews
     {
         Console.Clear();
         Console.WriteLine($"{Color.Yellow}Select a review to delete for: {Color.Reset} {Color.Blue} {selectedPerformance.name}:{Color.Reset}");
+        Console.WriteLine($"{Color.Italic}{Color.Red}Press ESC to return.{Color.Reset}");
         Console.WriteLine();
 
         List<ReviewsModel> reviews = selectedPerformance.reviews;
@@ -174,15 +178,18 @@ public class ManageReviews
             {
                 Console.Clear();
                 Console.WriteLine($"{Color.Cyan}Select a review to delete:{Color.Reset}");
+                Console.WriteLine($"{Color.Italic}{Color.Red}Press ESC to return.{Color.Reset}");
+                Console.WriteLine();
+
                 for (int i = 0; i < reviews.Count; i++)
                 {
                     if (i == selectedOption)
                     {
-                        Console.WriteLine($"{Color.Green}>> {Color.Reset}, {Color.Yellow}Rating: {reviews[i].rating}{Color.Reset}, {Color.Blue}Description: {reviews[i].description}{Color.Reset}");
+                        Console.WriteLine($"{Color.Green}>>  {Color.Reset}{Color.Yellow}Rating: {reviews[i].rating}{Color.Reset}, {Color.Blue}Description: {reviews[i].description}{Color.Reset}");
                     }
                     else
                     {
-                        Console.WriteLine($"   , Rating: {reviews[i].rating}, Description: {reviews[i].description}");
+                        Console.WriteLine($"    Rating: {reviews[i].rating}, Description: {reviews[i].description}");
                     }
                 }
 
@@ -210,6 +217,8 @@ public class ManageReviews
                             Console.WriteLine($"{Color.Red}Review not deleted.{Color.Reset}");
                         }
                         return;
+                    case ConsoleKey.Escape:
+                        return;
                     default:
                         break;
                 }
@@ -224,8 +233,8 @@ public class ManageReviews
     {
         Console.Clear();
         Console.WriteLine($"{Color.Yellow}Select a review to reply to for:{Color.Reset} {Color.Blue} {selectedPerformance.name}:{Color.Reset}");
+        Console.WriteLine($"{Color.Italic}{Color.Red}Press ESC to return.{Color.Reset}");
         Console.WriteLine();
-
         List<ReviewsModel> reviews = selectedPerformance.reviews;
 
         if (reviews.Count == 0)
@@ -239,15 +248,17 @@ public class ManageReviews
             {
                 Console.Clear();
                 Console.WriteLine($"{Color.Cyan}Select a review to reply to:{Color.Reset}");
+                Console.WriteLine($"{Color.Italic}{Color.Red}Press ESC to return.{Color.Reset}");
+                Console.WriteLine();
                 for (int i = 0; i < reviews.Count; i++)
                 {
                     if (i == selectedOption)
                     {
-                        Console.WriteLine($"{Color.Green}>> {Color.Reset}, {Color.Yellow}Rating: {reviews[i].rating}{Color.Reset}, {Color.Blue}Description: {reviews[i].description}{Color.Reset}");
+                        Console.WriteLine($"{Color.Green}>>  {Color.Reset}{Color.Yellow}Rating: {reviews[i].rating}{Color.Reset}, {Color.Blue}Description: {reviews[i].description}{Color.Reset}");
                     }
                     else
                     {
-                        Console.WriteLine($"   , Rating: {reviews[i].rating}, Description: {reviews[i].description}");
+                        Console.WriteLine($"    Rating: {reviews[i].rating}, Description: {reviews[i].description}");
                     }
                 }
 
@@ -268,6 +279,8 @@ public class ManageReviews
                         perfLogic.UpdateList(selectedPerformance);
                         Console.WriteLine($"{Color.Green}Reply added.{Color.Reset}");
                         return;
+                    case ConsoleKey.Escape:
+                        return;    
                     default:
                         break;
                 }

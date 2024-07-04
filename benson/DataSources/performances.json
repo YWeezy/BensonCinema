@@ -167,13 +167,7 @@
         "id": 3,
         "rating": 7,
         "description": "Wesley was here",
-        "reply": "Pratik Was Here!"
-      },
-      {
-        "id": 4,
-        "rating": 8,
-        "description": "IDK",
-        "reply": null
+        "reply": "l"
       }
     ],
     "employees": [],
