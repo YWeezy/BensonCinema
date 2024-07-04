@@ -1,6 +1,6 @@
 [
   {
-    "material": "Wood",
+    "material": "Steel",
     "quantity": 20,
     "type": "Decor",
     "occupation": [
@@ -8,17 +8,10 @@
         "quantity": 20,
         "start": "2024-07-30T17:00:00",
         "end": "2024-07-30T19:00:00",
-        "hallName": "DollHouse C"
+        "hallName": "DollHouse B"
       }
     ],
-    "currentHall": "DollHouse C"
-  },
-  {
-    "material": "Steel",
-    "quantity": 10,
-    "type": "Decor",
-    "occupation": [],
-    "currentHall": "Hall D"
+    "currentHall": "DollHouse B"
   },
   {
     "material": "clock",
@@ -29,6 +22,13 @@
   },
   {
     "material": "string",
+    "quantity": 20,
+    "type": "Decor",
+    "occupation": [],
+    "currentHall": ""
+  },
+  {
+    "material": "Wood",
     "quantity": 20,
     "type": "Decor",
     "occupation": [],
