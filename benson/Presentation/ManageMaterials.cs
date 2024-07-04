@@ -96,31 +96,25 @@ public class ManageMaterials
 
         //Dialog.
         Console.Clear();
-        Console.WriteLine($"{Color.Yellow}Materials List {Color.Red}Example{Color.Reset}{Color.Italic}:\n");
-        Console.WriteLine("{0,-20}{1,-10}{2,-10}", "Material", "Quantity", "Type");
-        Console.WriteLine(new string('-', 40));
 
-        Console.WriteLine($"{Color.FontReset}{Color.Yellow}Add materials (type '{Color.Italic}done{Color.FontReset}' when finished):{Color.Reset}");
+        Console.WriteLine($"{Color.FontReset}{Color.Yellow}Add materials{Color.Reset}");
         while (true)
         {
-            Console.WriteLine("Material: ");
+            Console.WriteLine($"{Color.Yellow}Material: {Color.Reset}");
             //User input for material.
             string material = Console.ReadLine();
 
-            if (material.ToLower() == "done")
-            {
-                return ;
-            }
+            
 
             if (!string.IsNullOrEmpty(material))
             {
-                Console.Write("Quantity: ");
+                Console.WriteLine($"{Color.Yellow}Quantity: {Color.Reset}");
                 int quantity;
                 while (!int.TryParse(Console.ReadLine(), out quantity) || quantity <= 0)
                 //Check to have no negative quantities. 
                 {
                     Console.WriteLine($"{Color.Red}Please enter a valid positive integer for quantity.{Color.Reset}");
-                    Console.Write("Quantity: ");
+                    Console.WriteLine($"{Color.Yellow}Quantity: {Color.Reset}");
                 }
                 string type;
                 while (true)

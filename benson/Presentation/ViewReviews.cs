@@ -19,14 +19,14 @@ class ViewReviews
             Console.Clear();
             Console.WriteLine($"{Color.Yellow}Reviews of {performance.name}{Color.Reset}");
             Console.WriteLine($"{Color.Italic}{Color.Blue}Controls: {Color.Red}ESC{Color.Blue} to go back to reservations, {Color.Red}A{Color.Blue} to add a review{Color.Reset}");
-            Console.WriteLine("{0,-10}{1,-80}", "Rating", "Description");
-            Console.WriteLine(new string('-', 90));
+            Console.WriteLine("{0,-10}{1,-80}{2,-40}", "Rating", "Description", "Reply");
+            Console.WriteLine(new string('-', 130));
             List<ReviewsModel> listR = perfLogic.GetReviews(performance.id);
             if (listR.Count > 0)
             {
                 foreach (var item in listR)
                 {
-                    Console.WriteLine("{0,-10}{1,-80}", item.rating, item.description);
+                    Console.WriteLine("{0,-10}{1,-80}{2,-40}", item.rating, item.description, $"{Color.Blue}{item.reply}{Color.Reset}");
                 }
             }
             var key = Console.ReadKey(true).Key;
@@ -60,7 +60,7 @@ class ViewReviews
                 description = Console.ReadLine();
                 if (description.Length > 80)
                 {
-                    Console.WriteLine("Max characters exceeded");
+                    Console.WriteLine($"{Color.Red}Max characters exceeded{Color.Reset}");
                 }
             } while (description.Length > 80);
 
