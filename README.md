@@ -5,11 +5,8 @@ Welcome to **Dollhouse\benson's Cinema**, a unique doll theater experience where
 
 ## Table of Contents
 - [Features](#features)
-- [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
 - [Acknowledgments](#acknowledgments)
 
 ## Features
