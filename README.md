@@ -6,7 +6,7 @@ Welcome to **Dollhouse\benson's Cinema**, a unique doll theater experience where
 ## Table of Contents
 - [Features](#features)
 - [Usage](#usage)
-- [Contributing](#contributing)
+- [Contributing](#contributing :+1:)
 - [Acknowledgments](#acknowledgments)
 
 ## Features
