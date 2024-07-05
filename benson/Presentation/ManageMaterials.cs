@@ -233,29 +233,33 @@ public class ManageMaterials
     {
         Console.Clear();
         Console.WriteLine($"{Color.Yellow}Plan Materials{Color.Reset}\n");
-
+    
         if (logic.GetList().Count == 0)
         {
             Console.WriteLine($"{Color.Red}No materials available to schedule.{Color.Reset}");
             return;
         }
-
+    
         Console.WriteLine($"Selected material: {material.material}");
-
+    
         int quantity = 0;
         bool validQuantity = false;
-
+    
         while (!validQuantity)
         {
             Console.WriteLine($"{Color.Yellow}Enter the quantity needed for the performance:{Color.Reset}");
-
+    
             try
             {
                 quantity = Int32.Parse(Console.ReadLine());
-
+    
                 if (quantity <= 0)
                 {
                     Console.WriteLine($"{Color.Red}Quantity must be a positive integer.{Color.Reset}");
+                }
+                else if (quantity > material.quantity)
+                {
+                    Console.WriteLine($"{Color.Red}Requested quantity exceeds available quantity ({material.quantity}).{Color.Reset}");
                 }
                 else
                 {
@@ -271,22 +275,21 @@ public class ManageMaterials
                 Console.WriteLine($"{Color.Red}Input value is too large or too small for an Int32.{Color.Reset}");
             }
         }
-
-
+    
         string type = null;
-
+    
         PerformanceLogic performanceLogic = new PerformanceLogic();
         int selectedPerformanceIndex = 0;
         List<PerformancesModel> performances = performanceLogic.GetPerformances();
         ManagePerformance.DisplayPerformances(performanceLogic, selectedPerformanceIndex);
-
+    
         DateTime performanceDateTime = DateTime.MinValue;
-        string hallName = ""; 
-
+        string hallName = "";
+    
         while (true)
         {
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-
+    
             switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
@@ -296,11 +299,11 @@ public class ManageMaterials
                     }
                     else if (performances.Count > 0)
                     {
-                        selectedPerformanceIndex = performances.Count - 1; 
+                        selectedPerformanceIndex = performances.Count - 1;
                     }
                     ManagePerformance.DisplayPerformances(performanceLogic, selectedPerformanceIndex);
                     break;
-
+    
                 case ConsoleKey.DownArrow:
                     if (selectedPerformanceIndex < performances.Count - 1)
                     {
@@ -312,22 +315,21 @@ public class ManageMaterials
                     }
                     ManagePerformance.DisplayPerformances(performanceLogic, selectedPerformanceIndex);
                     break;
-
+    
                 case ConsoleKey.Enter:
                     PerformancesModel selectedPerformance = performances[selectedPerformanceIndex];
                     performanceDateTime = selectedPerformance.startDate; // Set performanceDateTime
                     hallName = new HallLogic().GetHallNameById(selectedPerformance.hallId); // Get hall name based on hallId
                     break;
-
+    
                 case ConsoleKey.Escape:
-                    return; 
+                    return;
             }
-
-
+    
             if (performanceDateTime != DateTime.MinValue)
                 break;
         }
-
+    
         if (IsMaterialScheduledForAnotherHall(material, performanceDateTime, hallName))
         {
             Console.WriteLine($"{Color.Red}Material is already scheduled for another hall at this date.{Color.Reset}");
@@ -336,7 +338,7 @@ public class ManageMaterials
             DisplayMaterials(logic.GetList(), logic.GetList().IndexOf(material));
             return;
         }
-
+    
         material.occupation.Add(new Dictionary<string, object>
         {
             { "quantity", quantity },
@@ -344,16 +346,20 @@ public class ManageMaterials
             { "end", performanceDateTime.AddHours(2) },
             { "hallName", hallName }
         });
-
+    
+        material.quantity -= quantity; // Update available quantity
+    
         int selectedMaterialIndex = logic.GetList().FindIndex(m => m.material == material.material);
-
-        logic.updateMaterial(selectedMaterialIndex, material.material, quantity, hallName, type, material.occupation);
-
+    
+        logic.updateMaterial(selectedMaterialIndex, material.material, material.quantity, hallName, type, material.occupation);
+    
         Console.WriteLine($"{Color.Green}Material scheduled successfully!{Color.Reset}");
+        Console.WriteLine($"{Color.Yellow}Remaining quantity of {material.material}: {material.quantity}{Color.Reset}");
         Console.WriteLine($"{Color.Yellow}Press any key to return to the main menu.{Color.Reset}\n");
         Console.ReadKey(true);
         DisplayMaterials(logic.GetList(), selectedMaterialIndex);
     }
+
 
 
     private string SelectMaterialType()
