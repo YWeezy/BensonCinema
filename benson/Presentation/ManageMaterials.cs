@@ -161,7 +161,7 @@ public class ManageMaterials
     {
         Console.Clear();
         Console.WriteLine($"{Color.Yellow}Existing Materials:{Color.Reset}\n");
-        Console.WriteLine($"{Color.Italic}{Color.Blue}Controls: {Color.Red}ESC{Color.Blue} to stop editing Materials, {Color.Red}V{Color.Blue} to view its schedule, {Color.Red}P{Color.Blue} to plan a schedule for the material, {Color.Red}Backspace{Color.Blue} to delete the Material and {Color.Red}Enter{Color.Blue} to add more Materials{Color.Reset}{Color.FontReset}");
+        Console.WriteLine($"{Color.Italic}{Color.Blue}Controls: {Color.Red}ESC{Color.Blue} to stop editing Materials, {Color.Red}V{Color.Blue} to view its Schedule, {Color.Red}P{Color.Blue} to plan a schedule for the Material, {Color.Red}Backspace{Color.Blue} to delete the Material and {Color.Red}Enter{Color.Blue} to add more Materials{Color.Reset}{Color.FontReset}");
         Console.WriteLine("{0,-20}{1,-20}{2,-20}", "Material", "Quantity", "Type");
         Console.WriteLine(new string('-', 60));
 

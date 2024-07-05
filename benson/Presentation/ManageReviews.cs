@@ -60,7 +60,7 @@ public class ManageReviews
                     ManageSelectedPerformance();
                     break;
                 case ConsoleKey.Escape:
-                    Menu.Start(); // Allow user to exit by pressing Escape
+                    Menu.Start();
                     break;
                 default:
                     break;
@@ -77,8 +77,8 @@ public class ManageReviews
         }
 
         bool loop = true;
-        int selectedOption = 1; // Default selected option
-        int totalOptions = 3; // Total number of options
+        int selectedOption = 1;
+        int totalOptions = 3;
 
         while (loop)
         {
@@ -99,7 +99,7 @@ public class ManageReviews
                     PerformAction(selectedOption);
                     break;
                 case ConsoleKey.Escape:
-                    loop = false; // Exit the loop and return to performance selection
+                    loop = false;
                     break;
                 default:
                     break;
@@ -156,7 +156,7 @@ public class ManageReviews
         }
 
         Console.WriteLine($"{Color.Yellow}Press any key to return to the menu...{Color.Reset}");
-        Console.ReadKey(true); // Wait for key press to continue
+        Console.ReadKey(true);
     }
 
     private void DeleteReview()
@@ -227,7 +227,7 @@ public class ManageReviews
         }
 
         Console.WriteLine($"{Color.Yellow}Press any key to return to the menu...{Color.Reset}");
-        Console.ReadKey(true); // Wait for key press to continue
+        Console.ReadKey(true);
     }
 
     private void ReplyToReview()
@@ -293,7 +293,7 @@ public class ManageReviews
         }
 
         Console.WriteLine($"{Color.Yellow}Press any key to return to the menu...{Color.Reset}");
-        Console.ReadKey(true); // Wait for key press to continue
+        Console.ReadKey(true);
     }
     private double CalculateAverageRating(PerformancesModel performance)
     {
