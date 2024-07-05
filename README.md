@@ -6,7 +6,7 @@ Welcome to **Dollhouse\benson's Cinema**, a unique doll theater experience where
 ## Table of Contents
 - [Features](#features)
 - [Usage](#usage)
-- [Contributing](#contributing :+1:)
+- [Contributing](#contributing)
 - [Acknowledgments](#acknowledgments)
 
 ## Features
@@ -36,7 +36,7 @@ Manage Halls: Oversee the management of different halls within the theater.
 Add Materials: Upload and manage various materials related to performances.
 Export Data: Export performance and schedule data in CSV format for record-keeping and analysis.
 
-## Contributing :+1:
+## Contributing
 Contributions are what make the open source community such an amazing place to be, learn, inspire, and create. Any contributions you make are greatly appreciated.
 
 1. Fork the Project
