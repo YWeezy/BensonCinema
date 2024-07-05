@@ -32,15 +32,16 @@ public class ManageReviews
             Console.WriteLine();
             for (int i = 0; i < performances.Count; i++)
             {
+                var averageRating = CalculateAverageRating(performances[i]);
                 if (i == selectedOption)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"{Color.Green}>> {performances[i].name} {Color.Reset}");
+                    Console.WriteLine($"{Color.Green}>> {performances[i].name} - Average Rating: {averageRating:F1} {Color.Reset}");
                     Console.ResetColor();   
                 }
                 else
                 {
-                    Console.WriteLine($"   {performances[i].name}");
+                    Console.WriteLine($"   {performances[i].name} - Average Rating: {averageRating:F1}");
                 }
             }
 
@@ -246,9 +247,12 @@ public class ManageReviews
             int selectedOption = 0;
             while (true)
             {
+                
+                Console.WriteLine($"{Color.Italic}{Color.Red}Press ESC to return.{Color.Reset}");
+                Console.WriteLine($"{Color.Cyan}Select a review to reply to:{Color.Reset}");
+                Console.WriteLine();
                 Console.Clear();
                 Console.WriteLine($"{Color.Cyan}Select a review to reply to:{Color.Reset}");
-                Console.WriteLine($"{Color.Italic}{Color.Red}Press ESC to return.{Color.Reset}");
                 Console.WriteLine();
                 for (int i = 0; i < reviews.Count; i++)
                 {
@@ -273,6 +277,7 @@ public class ManageReviews
                         selectedOption = (selectedOption == reviews.Count - 1) ? 0 : selectedOption + 1;
                         break;
                     case ConsoleKey.Enter:
+
                         Console.WriteLine($"{Color.Cyan}\nEnter your reply:{Color.Reset}");
                         string reply = Console.ReadLine();
                         reviews[selectedOption].reply = reply;
@@ -289,5 +294,18 @@ public class ManageReviews
 
         Console.WriteLine($"{Color.Yellow}Press any key to return to the menu...{Color.Reset}");
         Console.ReadKey(true); // Wait for key press to continue
+    }
+    private double CalculateAverageRating(PerformancesModel performance)
+    {
+        if (performance.reviews.Count == 0)
+            return 0;
+
+        double sum = 0;
+        foreach (var review in performance.reviews)
+        {
+            sum += review.rating;
+        }
+
+        return sum / performance.reviews.Count;
     }
 }

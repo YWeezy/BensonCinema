@@ -44,6 +44,17 @@ public class TestMaterial
         }
     }
 
-   
+    [TestMethod]
+    public void TestUpdateMaterial()
+    {
+        MaterialsLogic logic = new MaterialsLogic();
+        MaterialsModel add = new("Wood", 20, "Decor");
+        logic.insertMaterial(add);
+        List<MaterialsModel> list = logic.GetList();
+        MaterialsModel result = new("Wood", 40, "Decor");
+        logic.updateMaterial(0, "Wood", 40, "Hall", "Decor");
+        MaterialsModel updated = list.FirstOrDefault(h => h.material == "Wood");
+        Assert.AreEqual(result.quantity, updated.quantity);
+    }
     
 }
