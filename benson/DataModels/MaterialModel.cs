@@ -26,7 +26,9 @@ public class MaterialsModel
         material = Material;
         quantity = Quantity;
         type = Type;
-        occupation = new List<Dictionary<string, object>>();
+        Occupation = Occupation ?? new List<Dictionary<string, object>>();
+
+        occupation = Occupation;
     
     }
 }

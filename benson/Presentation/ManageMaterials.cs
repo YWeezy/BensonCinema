@@ -74,8 +74,8 @@ public class ManageMaterials
                     Menu.Start();
                     break;
 
-                case ConsoleKey.V:
-                    DisplayOccupation(materials[selectedMaterialIndex]);
+                case ConsoleKey.V:MaterialsModel model = logic.GetMaterial(materials[selectedMaterialIndex].material, materials[selectedMaterialIndex].type);
+                    DisplayOccupation(model);
                     break;
 
                 case ConsoleKey.P:
@@ -347,7 +347,7 @@ public class ManageMaterials
 
         int selectedMaterialIndex = logic.GetList().FindIndex(m => m.material == material.material);
 
-        logic.updateMaterial(selectedMaterialIndex, material.material, quantity, hallName, type, material.occupation);
+        logic.updateMaterial(selectedMaterialIndex, material.material, material.quantity, hallName, type, material.occupation);
 
         Console.WriteLine($"{Color.Green}Material scheduled successfully!{Color.Reset}");
         Console.WriteLine($"{Color.Yellow}Press any key to return to the main menu.{Color.Reset}\n");
