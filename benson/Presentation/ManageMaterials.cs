@@ -74,8 +74,8 @@ public class ManageMaterials
                     Menu.Start();
                     break;
 
-                case ConsoleKey.V:
-                    DisplayOccupation(materials[selectedMaterialIndex]);
+                case ConsoleKey.V:MaterialsModel model = logic.GetMaterial(materials[selectedMaterialIndex].material, materials[selectedMaterialIndex].type);
+                    DisplayOccupation(model);
                     break;
 
                 case ConsoleKey.P:

@@ -24,6 +24,15 @@ public class MaterialsLogic
         return _materials;
     }
 
+    public MaterialsModel GetMaterial(string name, string type){
+        MaterialsModel model = _materials.FirstOrDefault(_material => _material.material == name && _material.type == type);
+        if (model == null){
+            return null;
+        }else{
+            return model;
+        }
+    }
+
     
 
     public void insertMaterial(MaterialsModel material)
