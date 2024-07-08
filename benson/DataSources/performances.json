@@ -3,9 +3,23 @@
     "id": 1,
     "name": "Emo\u0027s Adventure",
     "description": "Dit is een beschrijving van Emo\u0027s Adventure",
-    "startDate": "2024-06-15T14:00:00",
-    "endDate": "2024-06-15T16:00:00",
-    "hallId": 1,
+    "startDate": "2024-07-30T17:00:00",
+    "endDate": "2024-08-30T19:00:00",
+    "hallId": 3,
+    "reviews": [
+      {
+        "id": 2,
+        "rating": 7,
+        "description": "Avontuurlijk!",
+        "reply": "Thank you for watching the show we are pleased to know you enjoyed the show."
+      },
+      {
+        "id": 3,
+        "rating": 5,
+        "description": "Leuke show maar stoelen waren niet comfortabel.",
+        "reply": "Bedankt voor het achterlaten van een review. Het spijt ons dat de stoelen u niet zijn bevallen. "
+      }
+    ],
     "employees": [
       "Kwinten"
     ],
@@ -14,7 +28,7 @@
         "seats": [
           [
             0,
-            0,
+            1,
             0,
             0,
             0,
@@ -132,12 +146,367 @@
         ]
       }
     ],
-    "listmaterials": [
+    "listmaterials": [],
+    "active": true
+  },
+  {
+    "id": 2,
+    "name": "SKibidi Toilet",
+    "description": "SKibidi SKIB SKIB",
+    "startDate": "2024-07-30T17:00:00",
+    "endDate": "2024-08-30T18:00:00",
+    "hallId": 2,
+    "reviews": [
       {
-        "material": "stoelen",
-        "quantity": 80
+        "id": 2,
+        "rating": 5,
+        "description": "its not that good!!",
+        "reply": null
+      },
+      {
+        "id": 3,
+        "rating": 7,
+        "description": "Wesley was here",
+        "reply": "l"
       }
     ],
+    "employees": [],
+    "ticketsAvailable": [
+      {
+        "seats": [
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            9,
+            9
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            9,
+            9,
+            9,
+            9
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9
+          ]
+        ]
+      },
+      {
+        "ticketTypes": [
+          {
+            "amount": 50,
+            "name": "Regular",
+            "price": 50
+          }
+        ]
+      }
+    ],
+    "listmaterials": [],
+    "active": true
+  },
+  {
+    "id": 3,
+    "name": "SKibidi Toilet",
+    "description": "SKibidi SKIB SKIB",
+    "startDate": "2024-07-30T14:00:00",
+    "endDate": "2024-08-30T15:00:00",
+    "hallId": 2,
+    "reviews": [
+      {
+        "id": 2,
+        "rating": 5,
+        "description": "its not that good!!",
+        "reply": null
+      },
+      {
+        "id": 3,
+        "rating": 7,
+        "description": "Wesley was here",
+        "reply": "l"
+      }
+    ],
+    "employees": [],
+    "ticketsAvailable": [
+      {
+        "seats": [
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            9,
+            9
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            9,
+            9,
+            9,
+            9
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9
+          ]
+        ]
+      },
+      {
+        "ticketTypes": [
+          {
+            "amount": 50,
+            "name": "Regular",
+            "price": 50
+          }
+        ]
+      }
+    ],
+    "listmaterials": [],
+    "active": true
+  },
+  {
+    "id": 4,
+    "name": "SKibidi Toilet",
+    "description": "SKibidi SKIB SKIB",
+    "startDate": "2024-07-30T14:00:00",
+    "endDate": "2024-08-30T15:00:00",
+    "hallId": 2,
+    "reviews": [
+      {
+        "id": 2,
+        "rating": 5,
+        "description": "its not that good!!",
+        "reply": null
+      },
+      {
+        "id": 3,
+        "rating": 7,
+        "description": "Wesley was here",
+        "reply": "l"
+      }
+    ],
+    "employees": [],
+    "ticketsAvailable": [
+      {
+        "seats": [
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            9,
+            9
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            9,
+            9,
+            9,
+            9
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9
+          ]
+        ]
+      },
+      {
+        "ticketTypes": [
+          {
+            "amount": 50,
+            "name": "Regular",
+            "price": 50
+          }
+        ]
+      }
+    ],
+    "listmaterials": [],
     "active": true
   }
 ]
