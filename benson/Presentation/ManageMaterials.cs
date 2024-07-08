@@ -321,9 +321,20 @@ public class ManageMaterials
     
                     bool alreadyScheduled = false;
                     bool maxQuantityReached = false;
+                    List<int> allQ = new();
                     foreach (var occupation in material.occupation)
                     {
-                        DateTime start = (DateTime)occupation["start"];
+                        DateTime start = DateTime.Parse(occupation["start"].ToString());
+                        
+                        
+                        System.Console.WriteLine(selectedPerformance.name);
+                        System.Console.WriteLine(selectedPerformance.endDate);
+                        if (selectedPerformance.startDate > DateTime.Parse(occupation["start"].ToString()) && selectedPerformance.startDate < DateTime.Parse(occupation["end"].ToString()) || selectedPerformance.endDate > DateTime.Parse(occupation["start"].ToString()) && selectedPerformance.endDate < DateTime.Parse(occupation["end"].ToString())){
+                            allQ.Add(Convert.ToInt32(occupation["quantity"]));
+                        }
+                            
+                        
+                        int sum = allQ.Sum();
                         if (start.Date == performanceDateTime.Date && occupation["hallName"].ToString() == hallName)
                         {
                             int currentQuantity = (int)occupation["quantity"];
@@ -347,8 +358,8 @@ public class ManageMaterials
                     if (!alreadyScheduled && !maxQuantityReached)
                     {
                         bool sameDayEntryExists = material.occupation.Any(occupation =>
-                            ((DateTime)occupation["start"]).Date == performanceDateTime.Date);
-    
+                            DateTime.Parse(occupation["start"].ToString()).Date == performanceDateTime.Date);
+                        
                         if (sameDayEntryExists)
                         {
                             Console.WriteLine($"{Color.Red}A material is already scheduled for this day. You cannot add a new entry.{Color.Reset}");
