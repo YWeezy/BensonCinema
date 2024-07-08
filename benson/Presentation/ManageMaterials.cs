@@ -9,8 +9,8 @@ public class ManageMaterials
     {
         
         List<MaterialsModel> materials = logic.GetList();
-        //Separate AddMaterial function to handel a list with materials.
-        int selectedMaterialIndex = materials.Count > 0 ? 0 : 0; // Start with the first material selected, or -1 if the list is empty.
+        
+        int selectedMaterialIndex = materials.Count > 0 ? 0 : 0; 
 
         DisplayMaterials(materials, selectedMaterialIndex);
 
@@ -18,7 +18,7 @@ public class ManageMaterials
         {
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
-            //Case functions for the Controls.
+            
             switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
@@ -28,7 +28,7 @@ public class ManageMaterials
                     }
                     else if (materials.Count > 0)
                     {
-                        selectedMaterialIndex = materials.Count - 1; // Wrap to the last item.
+                        selectedMaterialIndex = materials.Count - 1; 
                     }
                     DisplayMaterials(materials, selectedMaterialIndex);
                     break;
@@ -40,7 +40,7 @@ public class ManageMaterials
                     }
                     else if (materials.Count > 0)
                     {
-                        selectedMaterialIndex = 0; // Wrap to the first item.
+                        selectedMaterialIndex = 0; 
                     }
                     DisplayMaterials(materials, selectedMaterialIndex);
                     break;
@@ -65,7 +65,7 @@ public class ManageMaterials
                     break;
 
                 case ConsoleKey.Enter:
-                    // Add new material.
+                    
                     AddMaterials();
                     DisplayMaterials(materials, 0);
                     break;
@@ -92,9 +92,9 @@ public class ManageMaterials
 
     public void AddMaterials()
     {
-        // List of dictionaries to store materials.
+        
 
-        //Dialog.
+        
         Console.Clear();
 
         Console.WriteLine($"{Color.FontReset}{Color.Yellow}Add materials{Color.Reset}");
@@ -111,7 +111,7 @@ public class ManageMaterials
                 Console.WriteLine($"{Color.Yellow}Quantity: {Color.Reset}");
                 int quantity;
                 while (!int.TryParse(Console.ReadLine(), out quantity) || quantity <= 0)
-                //Check to have no negative quantities. 
+               
                 {
                     Console.WriteLine($"{Color.Red}Please enter a valid positive integer for quantity.{Color.Reset}");
                     Console.WriteLine($"{Color.Yellow}Quantity: {Color.Reset}");
@@ -124,7 +124,7 @@ public class ManageMaterials
 
                     if (type.ToLower() == "puppeteers" || type.ToLower() == "requisites" || type.ToLower() == "decor")
                     {
-                        type = char.ToUpper(type[0]) + type.Substring(1); // first letter uppercase
+                        type = char.ToUpper(type[0]) + type.Substring(1);
                         break;
                     }
                     else
