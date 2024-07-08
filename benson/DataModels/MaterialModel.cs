@@ -26,9 +26,14 @@ public class MaterialsModel
         material = Material;
         quantity = Quantity;
         type = Type;
-        Occupation = Occupation ?? new List<Dictionary<string, object>>();
+        if (Occupation != null)
+        {
+            occupation = Occupation;
+        }else{
+            occupation = new List<Dictionary<string, object>>();
+        }
 
-        occupation = Occupation;
+        
     
     }
 }

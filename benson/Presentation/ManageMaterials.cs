@@ -10,7 +10,7 @@ public class ManageMaterials
         
         List<MaterialsModel> materials = logic.GetList();
         //Separate AddMaterial function to handel a list with materials.
-        int selectedMaterialIndex = materials.Count > 0 ? 0 : -1; // Start with the first material selected, or -1 if the list is empty.
+        int selectedMaterialIndex = materials.Count > 0 ? 0 : 0; // Start with the first material selected, or -1 if the list is empty.
 
         DisplayMaterials(materials, selectedMaterialIndex);
 
@@ -321,28 +321,18 @@ public class ManageMaterials
     
                     bool alreadyScheduled = false;
                     bool maxQuantityReached = false;
-                    List<int> allQ = new();
                     foreach (var occupation in material.occupation)
                     {
                         DateTime start = DateTime.Parse(occupation["start"].ToString());
                         
-                        
-                        System.Console.WriteLine(selectedPerformance.name);
-                        System.Console.WriteLine(selectedPerformance.endDate);
-                        if (selectedPerformance.startDate > DateTime.Parse(occupation["start"].ToString()) && selectedPerformance.startDate < DateTime.Parse(occupation["end"].ToString()) || selectedPerformance.endDate > DateTime.Parse(occupation["start"].ToString()) && selectedPerformance.endDate < DateTime.Parse(occupation["end"].ToString())){
-                            allQ.Add(Convert.ToInt32(occupation["quantity"]));
-                        }
-                            
-                        
-                        int sum = allQ.Sum();
                         if (start.Date == performanceDateTime.Date && occupation["hallName"].ToString() == hallName)
                         {
-                            int currentQuantity = (int)occupation["quantity"];
+                            int currentQuantity = Int32.Parse(occupation["quantity"].ToString());
                             int newQuantity = currentQuantity + quantity;
     
                             if (newQuantity > material.quantity)
                             {
-                                Console.WriteLine($"{Color.Red}Adding {quantity} would exceed available quantity ({material.quantity}).{Color.Reset}");
+                                Console.WriteLine($"{Color.Red}Adding {quantity} would exceed available quantity.{Color.Reset}");
                                 maxQuantityReached = true;
                             }
                             else
