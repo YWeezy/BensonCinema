@@ -1,44 +1,16 @@
 [
   {
-    "material": "clock",
-    "quantity": 1,
-    "type": "Decor",
-    "occupation": [],
-    "currentHall": ""
-  },
-  {
     "material": "string",
-    "quantity": 20,
-    "type": "Decor",
+    "quantity": 10,
+    "type": "Requisites",
     "occupation": [],
     "currentHall": ""
   },
   {
-    "material": "Wood",
-    "quantity": 20,
-    "type": "Decor",
-    "occupation": [
-      {
-        "quantity": 10,
-        "start": "2024-07-30T17:00:00",
-        "end": "2024-07-30T19:00:00",
-        "hallName": "DollHouse C"
-      }
-    ],
-    "currentHall": "DollHouse B"
-  },
-  {
-    "material": "Appel",
-    "quantity": 30,
-    "type": "Decor",
-    "occupation": [
-      {
-        "quantity": 10,
-        "start": "2024-07-30T17:00:00",
-        "end": "2024-07-30T19:00:00",
-        "hallName": "DollHouse B"
-      }
-    ],
-    "currentHall": "DollHouse B"
+    "material": "dolls",
+    "quantity": 5,
+    "type": "Puppeteers",
+    "occupation": [],
+    "currentHall": ""
   }
 ]

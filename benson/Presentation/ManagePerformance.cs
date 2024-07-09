@@ -466,21 +466,32 @@ public class ManagePerformance : IScreen
         Console.Clear();
         HallLogic hallLogic = new HallLogic();
         Console.WriteLine($"{Color.Yellow}Please select a Performance:{Color.Reset}\n");
-
+    
         Console.WriteLine("      {0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -5}", "ID", "Name", "Start", "End", "Hall", "Active");
         Console.WriteLine("      ------------------------------------------------------------------------------------------------------------");
-
+    
         int index = 0;
         foreach (PerformancesModel performance in logic.GetPerformances())
         {
             Console.Write(index == selectedPerformanceIndex ? $"{Color.Green} >>" : $"{Color.Reset}   ");
             string actstr = performance.active ? "✅ Active" : "Inactive";
-
-            Console.WriteLine("   {0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -5}", performance.id, performance.name, performance.startDate, performance.endDate, hallLogic.GetHallNameById(performance.hallId), actstr);
-
+    
+            // Format the start and end dates to exclude seconds
+            string formattedStartDate = performance.startDate.ToString("yyyy-MM-dd HH:mm");
+            string formattedEndDate = performance.endDate.ToString("yyyy-MM-dd HH:mm");
+    
+            Console.WriteLine("   {0,-6}{1,-22}{2,-26}{3, -26}{4, -20}{5, -5}", 
+                performance.id, 
+                performance.name, 
+                formattedStartDate, 
+                formattedEndDate, 
+                hallLogic.GetHallNameById(performance.hallId), 
+                actstr);
+    
             index++;
         }
     }
+
 
     static private void PerformAction(int option, PerformanceLogic logic)
     {
