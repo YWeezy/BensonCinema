@@ -1,17 +1,5 @@
 [
   {
-    "PerformanceId": 2,
-    "Title": "SKibidi Toilet",
-    "Location": "DollHouse B",
-    "Date": "4/30/2024",
-    "Time": "5:00PM-5:00PM",
-    "Seat": "1",
-    "Row": "A",
-    "Type": "regular",
-    "Price": "50.00",
-    "RelationId": "dd2880f8-c187-48eb-b74a-9a20a8099747"
-  },
-  {
     "PerformanceId": 1,
     "Title": "Emo\u0027s Adventure",
     "Location": "DollHouse C",

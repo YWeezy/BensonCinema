@@ -101,7 +101,7 @@ public class ManageMaterials
         while (true)
         {
             Console.WriteLine($"{Color.Yellow}Material: {Color.Reset}");
-            //User input for material.
+            
             string material = Console.ReadLine();
 
             
@@ -204,7 +204,7 @@ public class ManageMaterials
         {
             DateTime start = DateTime.Parse(schedule["start"].ToString());
             DateTime end = DateTime.Parse(schedule["end"].ToString());
-            Console.WriteLine("{0,-30}{1,-30}{2,-20}", schedule["quantity"].ToString(), $"{start.ToString("MM-dd-yyyy HH:mm")} - {end.ToString("HH:mm")}", schedule["hallName"]);
+            Console.WriteLine("{0,-30}{1,-30}{2,-20}", schedule["quantity"].ToString(), $"{start.ToString("MM-dd-yyyy")} - {end.ToString("MM-dd-yyyy")}", schedule["hallName"]);
         }
         Console.WriteLine($"{Color.Yellow}Press any key to return{Color.Reset}\n");
         Console.ReadKey(true);
@@ -259,7 +259,7 @@ public class ManageMaterials
                 }
                 else if (quantity > material.quantity)
                 {
-                    Console.WriteLine($"{Color.Red}Requested quantity exceeds available quantity ({material.quantity}).{Color.Reset}");
+                    Console.WriteLine($"{Color.Red}Requested quantity exceeds available quantity.{Color.Reset}");
                 }
                 else
                 {
@@ -358,15 +358,15 @@ public class ManageMaterials
                         {
                             if (quantity > material.quantity)
                             {
-                                Console.WriteLine($"{Color.Red}Requested quantity exceeds available quantity ({material.quantity}).{Color.Reset}");
+                                Console.WriteLine($"{Color.Red}Requested quantity exceeds available quantity.{Color.Reset}");
                             }
                             else
                             {
                                 material.occupation.Add(new Dictionary<string, object>
                                 {
                                     { "quantity", quantity },
-                                    { "start", performanceDateTime },
-                                    { "end", performanceDateTime.AddHours(2) },
+                                    { "start", performanceDateTime.ToString("yyyy-MM-dd HH:mm") },
+                                    { "end", performanceDateTime.AddDays(1).ToString("yyyy-MM-dd HH:mm") },
                                     { "hallName", hallName }
                                 });
                                 Console.WriteLine($"{Color.Green}Material scheduled successfully!{Color.Reset}");
