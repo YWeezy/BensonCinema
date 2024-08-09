@@ -7,6 +7,8 @@ public class Program
         Menu.Start();
         Console.WriteLine("hello");
         Console.WriteLine("Bye");
+        Console.WriteLine("Boe");
+
 
         // ViewReviews rev = new ViewReviews(1);
         // rev.AddReview();
